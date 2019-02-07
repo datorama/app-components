@@ -10,7 +10,7 @@ const snippet = `
 // inside a component
 import { Card } from 'app-components';
 
-const MyComp = () => (<Card>...</Card>);
+const MyComp = () => (<Card clickable>>...</Card>);
 `;
 
 const CardDoc = () => {
@@ -21,7 +21,7 @@ const CardDoc = () => {
 		<Base title={title} description={description} name="Card">
 			<Highlight language="javascript">{snippet}</Highlight>
 			
-			<Card>
+			<Card clickable>
 				<Inner>sample card content</Inner>
 			</Card>
 		</Base>

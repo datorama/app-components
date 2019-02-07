@@ -13,10 +13,10 @@ import Datepicker from './docs/Datepicker.doc';
 import ClickOut from './docs/ClickOut.doc';
 import Typography from './docs/Typography.doc';
 import Button from './docs/Button.doc';
-import Animations from './docs/Animations';
+import Animations from './docs/Animations.doc';
 import Card from './docs/Card.doc';
 
-const Navigation = ({list, history}) => (
+const Navigation = ({list, history, location}) => (
 	<Fragment>
 		<Header>
 			<Title onClick={() => history.push('/')}>
@@ -30,7 +30,9 @@ const Navigation = ({list, history}) => (
 						key={key}
 						type={type}
 						onClick={() => history.push(`/${path}`)}
+						selected={`/${path}` === location.pathname}
 					>
+						<MenuLine visible={`/${path}` === location.pathname}/>
 						{label}
 					</MenuItem>
 				))
@@ -50,6 +52,7 @@ class App extends Component {
 	
 	render() {
 		const {light} = this.state;
+		const theme = light ? lightTheme : darkTheme;
 		
 		const list = [
 			{key: 'colors', label: 'colors', path: 'colors'},
@@ -82,8 +85,6 @@ class App extends Component {
 			{key: 'click-out', label: 'click out', path: 'click-out'},
 			{key: 'popup', label: 'popup'}
 		];
-		
-		const theme = light ? lightTheme : darkTheme;
 		
 		return (
 			<Router>
@@ -182,8 +183,9 @@ const Menu = styled.div`
 const MenuItem = styled.div`
   width: 100%;
   font-size: 14px;
+  position: relative;
   font-weight: 400;
-  color: ${lightTheme.p300};
+  color: ${({theme}) => theme.p300};
   margin: 5px 0;
   text-transform: capitalize;
   cursor: pointer;
@@ -191,15 +193,34 @@ const MenuItem = styled.div`
   
   ${({type}) => type === 'title' && css`
 		font-weight: 700;
-		color: ${lightTheme.p600};
+		color: ${({theme}) => theme.p600};
 		margin: 20px 0 5px 0;
 		cursor: default;
 		pointer-events: none;
 	`}
   
   &:hover {
-    color: ${lightTheme.a400};
+    color: ${({theme}) => theme.a400};
   }
+  
+  ${({selected}) => selected && css`
+		color: ${({theme}) => theme.a400};
+	`};
+`;
+
+const MenuLine = styled.div`
+	position: absolute;
+	top: -8px;
+	left: -40px;
+	width: 3px;
+	height: 30px;
+	background: ${({theme}) => theme.a400};
+	transition: all 300ms;
+	opacity: 0;
+	
+	${({visible}) => visible && css`
+		opacity: 1;
+	`}
 `;
 
 const ThemeButton = styled.div`

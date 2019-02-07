@@ -81,7 +81,7 @@ const Row = styled.div`
 const Card = styled.div`
 	width: 400px;
 	height: 200px;
-	background: #fff;
+	background: ${({theme}) => theme.p0};
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 	display: flex;
@@ -89,6 +89,7 @@ const Card = styled.div`
 	align-items: center;
 	justify-content: center;
 	opacity: 0;
+	border: 1px solid ${({theme}) => theme.p100};
 	
 	${({type, theme, animate}) => animate && theme.animation[type]};
 `;

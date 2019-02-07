@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {lightTheme} from '../components/index';
+import {hexToRgba} from '../components/utils';
 
 // components
 import Base from './Base';
@@ -54,10 +54,10 @@ const Col = styled.div`
 const Box = styled.div`
   width: 100%;
   height: 40px;
-  background: ${lightTheme.p50};
+  background: ${({theme}) => hexToRgba(theme.p50, 80)};
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  color: ${lightTheme.p400};
+  color: ${({theme}) => theme.p400};
 `;
