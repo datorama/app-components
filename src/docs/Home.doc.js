@@ -1,22 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import {lightTheme} from '../components/index';
-import Animate from '../components/base/Animate';
 
 // assets
 import rightHero from './assets/right.svg';
 
 const Home = () => {
 	return (
-		<Animate>
-			<Container>
-				<Hero>
-					<HeroTitle>Datorama Apps</HeroTitle>
-					<HeroSubtitle>design system</HeroSubtitle>
-					<HeroImg src={rightHero}/>
-				</Hero>
-			</Container>
-		</Animate>
+		<Container>
+			<Hero>
+				<HeroTitle>Datorama Apps</HeroTitle>
+				<HeroSubtitle>design system</HeroSubtitle>
+				<HeroImg src={rightHero}/>
+			</Hero>
+		</Container>
 	);
 };
 
@@ -26,6 +23,7 @@ const Container = styled.div`
 	width: 100%;
 	box-sizing: border-box;
 	flex-direction: column;
+	${({theme}) => theme.animate.fade};
 `;
 
 const Hero = styled.div`

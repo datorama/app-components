@@ -3,21 +3,18 @@ import styled from 'styled-components';
 
 // components
 import PropTable from './PropTable';
-import Animate from '../components/base/Animate';
 
 const Base = ({children, title, description, name}) => {
 	return (
-		<Animate direction="bottom">
-			<Container>
-				<PageTitle>{title}</PageTitle>
-				<Description>{description}</Description>
-				{children}
-				
-				<Row>
-					{name && <PropTable compKey={name}/>}
-				</Row>
-			</Container>
-		</Animate>
+		<Container>
+			<PageTitle>{title}</PageTitle>
+			<Description>{description}</Description>
+			{children}
+			
+			<Row>
+				{name && <PropTable compKey={name}/>}
+			</Row>
+		</Container>
 	);
 };
 
@@ -25,6 +22,7 @@ export default Base;
 
 const Container = styled.div`
   width: 100%;
+  ${({theme}) => theme.animate.fade};
 `;
 
 const PageTitle = styled.div`

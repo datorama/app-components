@@ -1,14 +1,19 @@
 import * as libColors from './colors';
 import * as typography from './typography';
+import * as animate from './animations';
 
-// theme
+// light theme
 export const lightTheme = {
 	...libColors.lightTheme,
-	text: typography
+	text: typography,
+	animate
 };
+
+// dark theme
 export const darkTheme = {
 	...libColors.darkTheme,
-	text: typography
+	text: typography,
+	animate
 };
 
 export const lightPrimary = libColors.lightPrimary;
