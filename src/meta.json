@@ -1,33 +1,8 @@
 [
   {
     "description": "",
-    "displayName": "ClickOut",
-    "methods": [
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "displayName": "Button",
+    "methods": [],
     "props": {
       "onClick": {
         "type": {
@@ -36,22 +11,37 @@
         "required": true,
         "description": ""
       },
-      "children": {
+      "small": {
         "type": {
-          "name": "node"
+          "name": "bool"
         },
-        "required": true,
-        "description": ""
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
       },
-      "className": {
+      "secondary": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "label": {
         "type": {
           "name": "string"
         },
-        "required": false,
+        "required": true,
         "description": ""
       }
     },
-    "filename": "/components/base/ClickOut.js"
+    "filename": "/components/base/Button.js"
   },
   {
     "description": "",
@@ -126,14 +116,33 @@
   },
   {
     "description": "",
-    "displayName": "Animate",
-    "methods": [],
-    "filename": "/components/base/Animate.js"
-  },
-  {
-    "description": "",
-    "displayName": "Button",
-    "methods": [],
+    "displayName": "ClickOut",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "onClick": {
         "type": {
@@ -142,18 +151,21 @@
         "required": true,
         "description": ""
       },
-      "label": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": true,
+        "description": ""
+      },
+      "className": {
         "type": {
           "name": "string"
         },
         "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "'untitled'",
-          "computed": false
-        }
+        "description": ""
       }
     },
-    "filename": "/components/base/Button.js"
+    "filename": "/components/base/ClickOut.js"
   }
 ]

@@ -45,6 +45,7 @@ class App extends Component {
 			{key: 'colors', label: 'colors', path: 'colors'},
 			{key: 'typography', label: 'typography', path: 'typography'},
 			{key: 'layout', label: 'layout', path: 'layout'},
+			{key: 'animations', label: 'animations'},
 			
 			{key: 'components', label: 'components', type: 'title'},
 			{key: 'button', label: 'button', path: 'button'},
@@ -69,8 +70,7 @@ class App extends Component {
 			
 			{key: 'utils', label: 'utils', type: 'title'},
 			{key: 'click-out', label: 'click out', path: 'click-out'},
-			{key: 'popup', label: 'popup'},
-			{key: 'animate', label: 'animate'}
+			{key: 'popup', label: 'popup'}
 		];
 		
 		return (

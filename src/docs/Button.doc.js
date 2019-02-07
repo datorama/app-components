@@ -23,10 +23,24 @@ const ButtonDoc = () => {
 	return (
 		<Base title={title} description={description} name="Button">
 			<Highlight language="javascript">{snippet}</Highlight>
-		
-			<Button label="Small Button" small onClick={() => null} />
+			<Preview>
+				<Button onClick={() => null}>Default</Button>
+				<Button small onClick={() => null}>Small</Button>
+				<Button secondry onClick={() => null}>Secondary</Button>
+				<Button secondary small onClick={() => null}>Small secondary</Button>
+				<Button round onClick={() => null}>+</Button>
+				<Button secondary small round onClick={() => null}>+</Button>
+			</Preview>
 		</Base>
 	);
 };
 
 export default ButtonDoc;
+
+const Preview = styled.div`
+	width: 100%;
+	margin: 10px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+`;

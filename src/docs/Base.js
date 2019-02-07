@@ -22,7 +22,7 @@ export default Base;
 
 const Container = styled.div`
   width: 100%;
-  ${({theme}) => theme.animate.fade};
+  ${({theme}) => theme.animation.fade};
 `;
 
 const PageTitle = styled.div`

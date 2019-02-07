@@ -7,7 +7,7 @@ import {find, keys, getOr} from 'lodash/fp';
 const PropTable = ({compKey}) => {
 	const data = find(({displayName}) => displayName === compKey, meta);
 	const {props} = data;
-	
+
 	return (
 		<Container>
 			<Row>

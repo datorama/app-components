@@ -1,19 +1,19 @@
 import * as libColors from './colors';
 import * as typography from './typography';
-import * as animate from './animations';
+import * as animation from './animations';
 
 // light theme
 export const lightTheme = {
 	...libColors.lightTheme,
 	text: typography,
-	animate
+	animation
 };
 
 // dark theme
 export const darkTheme = {
 	...libColors.darkTheme,
 	text: typography,
-	animate
+	animation
 };
 
 export const lightPrimary = libColors.lightPrimary;

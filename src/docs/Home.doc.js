@@ -4,6 +4,7 @@ import {lightTheme} from '../components/index';
 
 // assets
 import rightHero from './assets/right.svg';
+import leftHero from './assets/left.svg';
 
 const Home = () => {
 	return (
@@ -11,7 +12,8 @@ const Home = () => {
 			<Hero>
 				<HeroTitle>Datorama Apps</HeroTitle>
 				<HeroSubtitle>design system</HeroSubtitle>
-				<HeroImg src={rightHero}/>
+				<LeftImg src={leftHero}/>
+				<RightImg src={rightHero}/>
 			</Hero>
 		</Container>
 	);
@@ -23,7 +25,7 @@ const Container = styled.div`
 	width: 100%;
 	box-sizing: border-box;
 	flex-direction: column;
-	${({theme}) => theme.animate.fade};
+	${({theme}) => theme.animation.fade};
 `;
 
 const Hero = styled.div`
@@ -51,10 +53,18 @@ const HeroSubtitle = styled.div`
 
 const HeroImg = styled.div`
 	position: absolute;
-	top: 40px;
-	right: 40px;
 	width: 450px;
 	height: 420px;
 	background: url(${({src}) => src}) no-repeat;
 	background-size: contain;
+`;
+
+const RightImg = styled(HeroImg)`
+	top: 40px;
+	right: 40px;
+`;
+
+const LeftImg = styled(HeroImg)`
+	bottom: 0;
+	left: 40px;
 `;
