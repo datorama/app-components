@@ -2,7 +2,7 @@ import React, {Component, Fragment} from 'react';
 import styled, {css, ThemeProvider} from 'styled-components';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {withRouter} from 'react-router';
-import {lightTheme} from './components';
+import {lightTheme, darkTheme} from './components';
 
 // docs
 import Home from './docs/Home.doc';
@@ -42,7 +42,15 @@ const Navigation = ({list, history}) => (
 const ConnectedNavigation = withRouter(Navigation);
 
 class App extends Component {
+	state = {
+		light: true
+	};
+	
+	toggleTheme = () => this.setState(prevState => ({light: !prevState.light}));
+	
 	render() {
+		const {light} = this.state;
+		
 		const list = [
 			{key: 'colors', label: 'colors', path: 'colors'},
 			{key: 'typography', label: 'typography', path: 'typography'},
@@ -75,15 +83,19 @@ class App extends Component {
 			{key: 'popup', label: 'popup'}
 		];
 		
+		const theme = light ? lightTheme : darkTheme;
+		
 		return (
 			<Router>
-				<ThemeProvider theme={lightTheme}>
+				<ThemeProvider theme={theme}>
 					<Container>
-						<Sidebar>
+						<Sidebar light={light}>
 							<ConnectedNavigation list={list}/>
 						</Sidebar>
 						
-						<Content>
+						<ThemeButton onClick={this.toggleTheme}><DropIcon/></ThemeButton>
+						
+						<Content light={light}>
 							<Route exact path="/" component={Home}/>
 							<Route exact path="/colors" component={Colors}/>
 							<Route exact path="/typography" component={Typography}/>
@@ -123,6 +135,12 @@ const Sidebar = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  transition: all 300ms;
+  
+  ${({light}) => !light && css`
+		background: #272727;
+		border-color: #404040;
+	`};
 `;
 
 const Content = styled.div`
@@ -130,6 +148,12 @@ const Content = styled.div`
   min-height: 100vh;
   box-sizing: border-box;
   padding: 40px 40px 40px 340px;
+  transition: all 300ms;
+  background: #fff;
+  
+  ${({light}) => !light && css`
+		background: #272727;
+	`};
 `;
 
 const Header = styled.div`
@@ -144,7 +168,7 @@ const Title = styled.div`
   font-size: 18px;
   font-weight: 500;
   margin-bottom: 5px;
-  color: #444;
+  color: ${({theme}) => theme.p400};
   cursor: pointer;
 `;
 
@@ -175,4 +199,32 @@ const MenuItem = styled.div`
   &:hover {
     color: ${lightTheme.a400};
   }
+`;
+
+const ThemeButton = styled.div`
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	z-index: 1;
+	width:40px;
+	height: 40px;
+	border-radius: 50%;
+	background: #777777;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: sll 300ms;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0);
+
+	&:hover {
+		box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+	}
+`;
+
+const DropIcon = styled.div`
+	width: 30px;
+	height: 30px;
+	background: url(${require('./docs/assets/drop.svg')}) no-repeat;
+	background-size: contain;
 `;
