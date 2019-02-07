@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Highlight from 'react-highlight-js';
 
 // components
-import {lightTheme} from '../components';
 import Base from './Base';
 import ClickOut from '../components/base/ClickOut';
 
@@ -52,7 +51,7 @@ const Container = styled.div`
 	justify-content: center;
 	width: 100%;
 	height: 400px;
-	background: ${lightTheme.p50};
+	background: ${({theme}) => theme.p50};
 `;
 
 const Card = styled.div`

@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import styled, {css} from 'styled-components';
 import {hexToRgba} from '../utils';
 
-const Button = ({children, small, onClick, secondary, round}) => (
+const Button = props => (
 	<Container
-		onClick={onClick}
-		small={small}
-		secondary={secondary}
-		round={round}
+		onClick={props.onClick}
+		small={props.small}
+		secondary={props.secondary}
+		round={props.round}
+		disabled={props.disabled}
+		className={props.className}
 	>
-		{children}
+		{props.children}
 	</Container>
 );
 
@@ -19,13 +21,16 @@ Button.propTypes = {
 	children: PropTypes.node.isRequired,
 	small: PropTypes.bool,
 	secondary: PropTypes.bool,
-	round: PropTypes.bool
+	round: PropTypes.bool,
+	disabled: PropTypes.bool,
+	className: PropTypes.string
 };
 
 Button.defaultProps = {
 	small: false,
 	secondary: false,
-	round: false
+	round: false,
+	disabled: false
 };
 
 export default Button;
@@ -75,4 +80,9 @@ const Container = styled.div`
 			background: ${hexToRgba(theme.p300, 35)};
 		`};
   }
+  
+  ${({disabled}) => disabled && css`
+		pointer-events: none;
+		opacity: 0.7;
+	`};
 `;

@@ -25,6 +25,7 @@ const ButtonDoc = () => {
 			<Highlight language="javascript">{snippet}</Highlight>
 			<Preview>
 				<Button onClick={() => null}>Default</Button>
+				<Button disabled onClick={() => null}>Disabled</Button>
 				<Button small onClick={() => null}>Small</Button>
 				<Button secondry onClick={() => null}>Secondary</Button>
 				<Button secondary small onClick={() => null}>Small secondary</Button>

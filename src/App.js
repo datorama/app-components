@@ -13,6 +13,7 @@ import Datepicker from './docs/Datepicker.doc';
 import ClickOut from './docs/ClickOut.doc';
 import Typography from './docs/Typography.doc';
 import Button from './docs/Button.doc';
+import Animations from './docs/Animations';
 
 const Navigation = ({list, history}) => (
 	<Fragment>
@@ -45,7 +46,7 @@ class App extends Component {
 			{key: 'colors', label: 'colors', path: 'colors'},
 			{key: 'typography', label: 'typography', path: 'typography'},
 			{key: 'layout', label: 'layout', path: 'layout'},
-			{key: 'animations', label: 'animations'},
+			{key: 'animations', label: 'animations', path: 'animations'},
 			
 			{key: 'components', label: 'components', type: 'title'},
 			{key: 'button', label: 'button', path: 'button'},
@@ -86,6 +87,7 @@ class App extends Component {
 							<Route exact path="/colors" component={Colors}/>
 							<Route exact path="/typography" component={Typography}/>
 							<Route exact path="/layout" component={Layout}/>
+							<Route exact path="/animations" component={Animations}/>
 							
 							<Route exact path="/button" component={Button}/>
 							<Route exact path="/datepicker" component={Datepicker}/>
