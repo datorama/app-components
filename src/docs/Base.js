@@ -1,0 +1,52 @@
+import React from 'react';
+import styled from 'styled-components';
+
+// components
+import PropTable from './PropTable';
+import Animate from '../components/base/Animate';
+
+const Base = ({children, title, description, name}) => {
+	return (
+		<Animate direction="bottom">
+			<Container>
+				<PageTitle>{title}</PageTitle>
+				<Description>{description}</Description>
+				{children}
+				
+				<Row>
+					{name && <PropTable compKey={name}/>}
+				</Row>
+			</Container>
+		</Animate>
+	);
+};
+
+export default Base;
+
+const Container = styled.div`
+  width: 100%;
+`;
+
+const PageTitle = styled.div`
+  font-size: 30px;
+  color: #444;
+  font-weight: 300;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+`;
+
+const Description = styled.div`
+  font-size: 14px;
+  font-weight: 300;
+  color: #444;
+  line-height: 24px;
+  margin-bottom: 60px;
+  max-width: 50%;
+`;
+
+const Row = styled.div`
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	margin: 40px 0;
+`;
