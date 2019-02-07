@@ -73,7 +73,7 @@ export default SelectMultiHeader;
 const Divider = styled.div`
   width: 100%;
   height: 1px;
-  background: #edeff2;
+  background: ${({theme}) => theme.p200};
 `;
 
 const Checkbox = styled.div`
@@ -82,7 +82,7 @@ const Checkbox = styled.div`
   height: 16px;
   min-width: 16px;
   min-height: 16px;
-  border: 1px solid #c1c3c9;
+  border: 1px solid ${({theme}) => theme.p200};
   border-radius: 2px;
   margin-right: 10px;
   position: relative;
@@ -99,6 +99,5 @@ const Checkbox = styled.div`
 `;
 
 const Italic = styled.span`
-  color: #9ea0a5;
-  font-style: italic;
+  ${({theme}) => theme.text.smItalic};
 `;

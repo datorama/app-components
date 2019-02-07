@@ -48,10 +48,10 @@ const Colors = () => {
 			
 			<SectionTitle>dark theme</SectionTitle>
 			<Row>
-				{keys(darkPrimary).map(key => <Color key={`dark-${key}`} color={darkPrimary[key]} label={key}/>)}
+				{keys(darkPrimary).reverse().map(key => <Color key={`dark-${key}`} color={darkPrimary[key]} label={key}/>)}
 			</Row>
 			<Row>
-				{keys(darkAccent).map(key => <Color key={`dark-${key}`} color={darkAccent[key]} label={key}/>)}
+				{keys(darkAccent).reverse().map(key => <Color key={`dark-${key}`} color={darkAccent[key]} label={key}/>)}
 			</Row>
 		</Base>
 	);

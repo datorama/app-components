@@ -100,8 +100,8 @@ const Container = styled.div`
   height: 34px;
   box-sizing: border-box;
   padding: 0 10px;
-  border: 1px solid ${({error, theme}) => (error ? theme.red400 : '#dadada')};
-  background: #fff;
+  border: 1px solid ${({error, theme}) => (error ? theme.red400 : theme.p200)};
+  background: ${({theme}) => theme.p0};
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -126,7 +126,7 @@ const Arrow = styled.div`
   height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
-  border-top: 4px solid #706e6b;
+  border-top: 4px solid ${({theme}) => theme.p300};
   position: absolute;
   right: 10px;
   top: calc(50% - 2px);

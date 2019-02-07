@@ -15,6 +15,7 @@ import Typography from './docs/Typography.doc';
 import Button from './docs/Button.doc';
 import Animations from './docs/Animations.doc';
 import Card from './docs/Card.doc';
+import Select from './docs/Select.doc';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -75,7 +76,7 @@ class App extends Component {
 			{key: 'collapse', label: 'collapse'},
 			{key: 'table', label: 'table'},
 			{key: 'list', label: 'list'},
-			{key: 'select', label: 'select'},
+			{key: 'select', label: 'select', path: 'select'},
 			{key: 'date-picker', label: 'date picker', path: 'datepicker'},
 			{key: 'carousel', label: 'carousel'},
 			{key: 'pagination', label: 'pagination'},
@@ -107,6 +108,7 @@ class App extends Component {
 							<Route exact path="/button" component={Button}/>
 							<Route exact path="/datepicker" component={Datepicker}/>
 							<Route exact path="/card" component={Card}/>
+							<Route exact path="/select" component={Select}/>
 							
 							<Route exact path="/click-out" component={ClickOut}/>
 						</Content>

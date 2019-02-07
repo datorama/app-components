@@ -35,18 +35,20 @@ const Input = styled.input`
   margin: 10px 10px 0 10px;
   height: 30px;
   border-radius: 2px;
-  border: 1px solid #ccced3;
+  border: 1px solid ${({theme}) => theme.p200};
   box-sizing: border-box;
   padding: 0 30px 0 10px;
   font-size: 13px;
   font-weight: 300;
+  background: ${({theme}) => theme.p0};
+  color: ${({theme}) => theme.p500};
 
   &:focus {
     outline: none;
   }
 
   &::placeholder {
-    color: #9ea0a5;
+    color: ${({theme}) => theme.p500};
   }
 `;
 
