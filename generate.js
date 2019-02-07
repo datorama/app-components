@@ -90,7 +90,8 @@ function filewalker(dir, done) {
           if (
             file.endsWith(".js") &&
             !file.endsWith(".story.js") &&
-            !file.endsWith(".test.js")
+            !file.endsWith(".test.js") &&
+            !file.endsWith(".types.js")
           ) {
             await new Promise(resolve => {
               loadComponent(file, resolve);

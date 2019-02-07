@@ -14,6 +14,7 @@ import ClickOut from './docs/ClickOut.doc';
 import Typography from './docs/Typography.doc';
 import Button from './docs/Button.doc';
 import Animations from './docs/Animations';
+import Card from './docs/Card.doc';
 
 const Navigation = ({list, history}) => (
 	<Fragment>
@@ -50,7 +51,7 @@ class App extends Component {
 			
 			{key: 'components', label: 'components', type: 'title'},
 			{key: 'button', label: 'button', path: 'button'},
-			{key: 'card', label: 'card'},
+			{key: 'card', label: 'card', path: 'card'},
 			{key: 'dialog', label: 'dialog'},
 			{key: 'switch', label: 'switch'},
 			{key: 'progress', label: 'progress'},
@@ -91,6 +92,8 @@ class App extends Component {
 							
 							<Route exact path="/button" component={Button}/>
 							<Route exact path="/datepicker" component={Datepicker}/>
+							<Route exact path="/card" component={Card}/>
+							
 							<Route exact path="/click-out" component={ClickOut}/>
 						</Content>
 					</Container>
