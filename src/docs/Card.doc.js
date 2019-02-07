@@ -36,6 +36,6 @@ const Inner = styled.div`
   justify-content: center;
   width: 100%;
   height: 200px;
-  background: #fafafa;
+  background: ${({theme}) => theme.p100};
   ${({theme}) => theme.text.p};
 `;

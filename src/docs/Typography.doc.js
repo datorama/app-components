@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import {lightTheme} from '../components/index';
 import Highlight from 'react-highlight-js';
 
 // components
@@ -71,8 +70,8 @@ const Row = styled.div`
 	align-items: center;
 	box-sizing: border-box;
 	padding: 0 20px;
-	border-bottom: 1px solid ${lightTheme.p100};
-	color: ${lightTheme.p400};
+	border-bottom: 1px solid ${({theme}) => theme.p100};
+	color: ${({theme}) => theme.p400};
 `;
 
 const Col = styled.div`

@@ -45,7 +45,7 @@ const Container = styled.div`
   cursor: pointer;
   border-radius: 3px;
   ${({theme}) => theme.text.pLink};
-  color: ${({theme}) => theme.p0};
+  color: #fff;
   transition: all 300ms;
   
   ${({small, theme}) => small && css`

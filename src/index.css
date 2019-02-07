@@ -1,12 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
-@import url('../node_modules/highlight.js/styles/github-gist.css');
-
-.hljs {
-  background: rgba(247, 248, 250, 0.43) !important;
-  border-radius: 4px;
-  box-sizing: border-box;
-  padding: 20px !important;
-}
 
 body {
   margin: 0;

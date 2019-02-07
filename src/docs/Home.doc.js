@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import {lightTheme} from '../components/index';
 
 // assets
 import rightHero from './assets/right.svg';
@@ -32,7 +31,7 @@ const Hero = styled.div`
 	position: relative;
 	width: 100%;
 	height: 500px;
-	background: ${lightTheme.a400};
+	background: ${({ theme }) => theme.a600};
 	display: flex;
 	align-items: center;
 	justify-content: center;

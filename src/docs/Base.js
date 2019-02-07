@@ -27,7 +27,7 @@ const Container = styled.div`
 
 const PageTitle = styled.div`
   font-size: 30px;
-  color: #444;
+  color: ${({theme}) => theme.p600};
   font-weight: 300;
   text-transform: capitalize;
   margin-bottom: 20px;
@@ -36,7 +36,7 @@ const PageTitle = styled.div`
 const Description = styled.div`
   font-size: 14px;
   font-weight: 300;
-  color: #444;
+  color: ${({theme}) => theme.p600};
   line-height: 24px;
   margin-bottom: 60px;
   max-width: 50%;

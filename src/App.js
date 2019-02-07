@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import styled, {css, ThemeProvider} from 'styled-components';
+import styled, {css, ThemeProvider, createGlobalStyle} from 'styled-components';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import {lightTheme, darkTheme} from './components';
@@ -89,6 +89,7 @@ class App extends Component {
 			<Router>
 				<ThemeProvider theme={theme}>
 					<Container>
+						<GlobalStyle light={light}/>
 						<Sidebar light={light}>
 							<ConnectedNavigation list={list}/>
 						</Sidebar>
@@ -190,7 +191,7 @@ const MenuItem = styled.div`
   
   ${({type}) => type === 'title' && css`
 		font-weight: 700;
-		color: ${lightTheme.p400};
+		color: ${lightTheme.p600};
 		margin: 20px 0 5px 0;
 		cursor: default;
 		pointer-events: none;
@@ -227,4 +228,18 @@ const DropIcon = styled.div`
 	height: 30px;
 	background: url(${require('./docs/assets/drop.svg')}) no-repeat;
 	background-size: contain;
+`;
+
+const GlobalStyle = createGlobalStyle`
+	.hljs {
+		background: ${({theme}) => theme.p50} !important;
+		border-radius: 4px;
+		box-sizing: border-box;
+		padding: 20px !important;
+	}
+	@import url(${require('../node_modules/highlight.js/styles/atom-one-light.css')});
+	
+	${({light}) => !light && css`
+		@import url(${require('../node_modules/highlight.js/styles/atom-one-dark.css')});
+	`};
 `;

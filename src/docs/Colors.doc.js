@@ -61,7 +61,7 @@ export default Colors;
 
 const SectionTitle = styled.div`
   font-size: 18px;
-  color: #444;
+  color: ${({theme}) => theme.p600};
   font-weight: 300;
   text-transform: capitalize;
   margin: 40px 0 20px 0;
@@ -92,7 +92,7 @@ const ColorCardInfo = styled.div`
   left: 0;
   width: 100%;
   height: 50px;
-  background: #fff;
+  background: ${({theme}) => theme.p0};
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -104,5 +104,5 @@ const Info = styled.div`
   font-size: 12px;
   margin: 2px 0;
   text-transform: uppercase;
-  color: #444;
+  color: ${({theme}) => theme.p600};
 `;

@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import {lightTheme} from '../components';
 import meta from '../meta';
 import {find, keys, getOr} from 'lodash/fp';
 
 const PropTable = ({compKey}) => {
 	const data = find(({displayName}) => displayName === compKey, meta);
 	const {props} = data;
-
+	
 	return (
 		<Container>
 			<Row>
@@ -45,8 +44,8 @@ const Row = styled.div`
 	align-items: center;
 	box-sizing: border-box;
 	padding: 0 20px;
-	border-bottom: 1px solid ${lightTheme.p100};
-	color: ${lightTheme.p400};
+	border-bottom: 1px solid ${({theme}) => theme.p100};
+	color: ${({theme}) => theme.p400};
 	font-size: 12px;
 	font-weight: 600;
 `;
@@ -55,5 +54,5 @@ const Col = styled.div`
 	flex: 1;
 	display: flex;
 	align-items: center;
-	font-weight: ${({ bold }) => bold ? '700' : '500'};
+	font-weight: ${({bold}) => bold ? '700' : '500'};
 `;
