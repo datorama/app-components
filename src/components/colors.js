@@ -1,6 +1,6 @@
 // light theme
 export const lightPrimary = {
-	p0: '#ﬀﬀﬀ',
+	p0: '#ffffff',
 	p50: '#F7F8FA',
 	p100: '#F1F2F5',
 	p200: '#CCCED3',
@@ -25,7 +25,7 @@ export const lightAccent = {
 
 // dark theme
 export const darkPrimary = {
-	p700: '#ﬀﬀﬀ',
+	p700: '#ffffff',
 	p600: '#F7F8FA',
 	p500: '#F1F2F5',
 	p400: '#CCCED3',

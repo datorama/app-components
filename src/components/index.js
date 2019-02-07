@@ -1,8 +1,16 @@
 import * as libColors from './colors';
+import * as typography from './typography';
 
-// colors
-export const lightTheme = libColors.lightTheme;
-export const darkTheme = libColors.darkTheme;
+// theme
+export const lightTheme = {
+	...libColors.lightTheme,
+	text: typography
+};
+export const darkTheme = {
+	...libColors.darkTheme,
+	text: typography
+};
+
 export const lightPrimary = libColors.lightPrimary;
 export const lightAccent = libColors.lightAccent;
 export const darkPrimary = libColors.darkPrimary;
