@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {keys} from 'lodash/fp';
+import Highlight from 'react-highlight-js';
 
 // components
 import {
@@ -10,6 +11,15 @@ import {
 	darkAccent
 } from '../components/colors';
 import Base from './Base';
+
+const snippet = `
+// inside a component
+import { lightTheme } from 'app-components';
+// lightTheme.a500 for example.
+
+// using styled-components
+({ theme }) => theme.p300
+`;
 
 const Color = ({label, color}) => (
 	<ColorCard color={color}>
@@ -26,6 +36,8 @@ const Colors = () => {
 			title="colors"
 			description="Convey meaning through color. The App-components color system can be used to create a color theme that reflects your brand or style."
 		>
+			<Highlight language="javascript">{snippet}</Highlight>
+			
 			<SectionTitle>light theme</SectionTitle>
 			<Row>
 				{keys(lightPrimary).map(key => <Color key={`light-${key}`} color={lightPrimary[key]} label={key}/>)}
