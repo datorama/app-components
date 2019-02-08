@@ -74,16 +74,20 @@ const MyComp = () => (
 
 const breakpoint = `
 /*
-  the default break points are -
-  xsmall : [max 576]
-  small  : [max 768px]
-  medium : [max 992]
-  large  : [max 1200]
-  xlarge : [min 1200]
+  the default break points are
+  xs: max 576px
+  sm: max 768px
+  md: max 992px
+  lg: max 1200px
+  xl: min 1200px
 */
 const MyComp = () => (
-  <Container medium={800}>
-    ...
+  <Container>
+    <Row>
+    	<Col size={4} sm={12}/>...</Col>
+    	<Col size={4} sm={12}/>...</Col>
+    	<Col size={4} sm={12}/>...</Col>
+    </Row>
   </Container>
 );
 `;
@@ -209,6 +213,14 @@ const Layout = () => {
 			
 			<Subheadline>break points</Subheadline>
 			<Highlight language="javascript">{breakpoint}</Highlight>
+			<StyledContainer>
+				<Row>
+					<Col size={3} lg={6} md={12}><Box/></Col>
+					<Col size={3} lg={6} md={12}><Box/></Col>
+					<Col size={3} lg={6} md={12}><Box/></Col>
+					<Col size={3} lg={6} md={12}><Box/></Col>
+				</Row>
+			</StyledContainer>
 		</Base>
 	);
 };
@@ -223,7 +235,7 @@ const StyledContainer = styled(Container)`
 const Box = styled.div`
 	width: 100%;
 	min-height: 40px;
-  background: ${({theme, dark}) => hexToRgba(dark ? theme.p100 : theme.p50, 80)};
+  background: ${({theme, dark}) => hexToRgba(dark ? theme.p200 : theme.p100, 80)};
   display: flex;
   align-items: center;
   justify-content: center;

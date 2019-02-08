@@ -73,7 +73,6 @@ const Playground = styled.div`
 const Row = styled.div`
 	width: 100%;
 	display: flex;
-	justify-content: center;
 	align-items: center;
 	margin-bottom: 10px;
 `;
