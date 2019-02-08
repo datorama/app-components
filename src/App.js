@@ -96,7 +96,12 @@ class App extends Component {
 							<ConnectedNavigation list={list}/>
 						</Sidebar>
 						
-						<ThemeButton onClick={this.toggleTheme}><DropIcon/></ThemeButton>
+						<ThemeButton
+							selected={!light}
+							onClick={this.toggleTheme}
+						>
+							<DropIcon/>
+						</ThemeButton>
 						
 						<Content light={light}>
 							<Route exact path="/" component={Home}/>
@@ -238,8 +243,13 @@ const ThemeButton = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transition: sll 300ms;
+	transition: sll 500ms;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0);
+	opacity: 0.3;
+	
+	${({selected}) => selected && css`
+		opacity: 1;
+	`};
 
 	&:hover {
 		box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);

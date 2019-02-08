@@ -11,7 +11,7 @@ const PropTable = ({compKey}) => {
 		<Container>
 			<Row>
 				<Col bold>Property</Col>
-				<Col bold>Default</Col>
+				<Col bold>Default value</Col>
 				<Col bold>Type</Col>
 				<Col bold>Required</Col>
 			</Row>
@@ -20,7 +20,7 @@ const PropTable = ({compKey}) => {
 					<Row key={key}>
 						<Col>{key}</Col>
 						<Col>{getOr('-', 'defaultValue.value', props[key])}</Col>
-						<Col>{props[key].type.name}</Col>
+						<Col><Tag>{props[key].type.name}</Tag></Col>
 						<Col>{props[key].required.toString()}</Col>
 					</Row>
 				))
@@ -55,4 +55,10 @@ const Col = styled.div`
 	display: flex;
 	align-items: center;
 	font-weight: ${({bold}) => bold ? '700' : '500'};
+`;
+
+const Tag = styled.div`
+	background: ${({theme}) => theme.p50};
+	padding: 2px 6px;
+	border-radius: 4px;
 `;

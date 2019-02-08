@@ -90,7 +90,7 @@ const Checkbox = styled.div`
   position: relative;
   transition: all 300ms;
   overflow: hidden;
-  background: ${({background}) => background || 'transparent'};
+  background: transparent;
 
   ${({selected}) =>
 	selected &&

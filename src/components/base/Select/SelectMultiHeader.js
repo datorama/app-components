@@ -42,7 +42,7 @@ const SelectMultiHeader = props => {
 			<Option className="option" onClick={selectAll} margin="5px 0 0 0">
 				<Checkbox
 					selected={allSelected}
-					background={partialSelected ? '#c1c3c9' : 'transparent'}
+					touched={partialSelected}
 				>
 					<Icon
 						selected={allSelected || partialSelected}
@@ -88,7 +88,7 @@ const Checkbox = styled.div`
   position: relative;
   transition: all 300ms;
   overflow: hidden;
-  background: ${({background}) => background || 'transparent'};
+  background: ${({touched, theme}) => touched ? theme.p200 : 'transparent'};
 
   ${({selected}) =>
 	selected &&
