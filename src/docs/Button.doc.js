@@ -5,12 +5,73 @@ import Highlight from 'react-highlight-js';
 // components
 import Base from './Base';
 import Button from '../components/base/Button';
+import {Row, Col} from '../components/index';
 
-const snippet = `
+const defaultButton = `
 import { Button } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button onClick={onClick}>
+    Click Me
+  </Button>
+);
+`;
+
+const disabled = `
+import { Button } from 'app-components';
+
+const MyComponent = ({ onClick }) => (
+  <Button disabled onClick={onClick}>
+    Click Me
+  </Button>
+);
+`;
+
+const small = `
+import { Button } from 'app-components';
+
+const MyComponent = ({ onClick }) => (
+  <Button small onClick={onClick}>
+    Click Me
+  </Button>
+);
+`;
+
+const secondary = `
+import { Button } from 'app-components';
+
+const MyComponent = ({ onClick }) => (
+  <Button secondary onClick={onClick}>
+    Click Me
+  </Button>
+);
+`;
+
+const smallSecondary = `
+import { Button } from 'app-components';
+
+const MyComponent = ({ onClick }) => (
+  <Button small secondary onClick={onClick}>
+    Click Me
+  </Button>
+);
+`;
+
+const round = `
+import { Button } from 'app-components';
+
+const MyComponent = ({ onClick }) => (
+  <Button round onClick={onClick}>
+    Click Me
+  </Button>
+);
+`;
+
+const secondarySmallRound = `
+import { Button } from 'app-components';
+
+const MyComponent = ({ onClick }) => (
+  <Button secondary small round onClick={onClick}>
     Click Me
   </Button>
 );
@@ -22,26 +83,94 @@ const ButtonDoc = () => {
 	
 	return (
 		<Base title={title} description={description} name="Button">
-			<Highlight language="javascript">{snippet}</Highlight>
-			<Preview>
-				<Button onClick={() => null}>Default</Button>
-				<Button disabled onClick={() => null}>Disabled</Button>
-				<Button small onClick={() => null}>Small</Button>
-				<Button secondry onClick={() => null}>Secondary</Button>
-				<Button secondary small onClick={() => null}>Small secondary</Button>
-				<Button round onClick={() => null}>+</Button>
-				<Button secondary small round onClick={() => null}>+</Button>
-			</Preview>
+			<Row>
+				<Col>
+					<Highlight language="javascript">{defaultButton}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<Button onClick={() => null}>Default</Button>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<Highlight language="javascript">{disabled}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<Button disabled onClick={() => null}>Disabled</Button>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<Highlight language="javascript">{small}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<Button small onClick={() => null}>Small</Button>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<Highlight language="javascript">{secondary}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<Button secondry onClick={() => null}>Secondary</Button>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<Highlight language="javascript">{smallSecondary}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<Button secondary small onClick={() => null}>Small secondary</Button>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<Highlight language="javascript">{round}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<Button round onClick={() => null}>+</Button>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<Highlight language="javascript">{secondarySmallRound}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<Button secondary small round onClick={() => null}>+</Button>
+					</Box>
+				</Col>
+			</Row>
 		</Base>
 	);
 };
 
 export default ButtonDoc;
 
-const Preview = styled.div`
+const Box = styled.div`
 	width: 100%;
-	margin: 10px 0;
 	display: flex;
 	align-items: center;
-	justify-content: space-evenly;
+	min-height: 160px;
+	border-radius: 4px;
+	justify-content: center;
+	background: ${({theme}) => theme.p50};
 `;

@@ -270,12 +270,18 @@ const DropIcon = styled.div`
 `;
 
 const GlobalStyle = createGlobalStyle`
+	pre {
+		margin: 0 !important;
+		width: 100%;
+	}
+
 	.hljs {
 		background: ${({theme}) => theme.p50} !important;
 		border-radius: 4px;
 		box-sizing: border-box;
 		padding: 20px !important;
 	}
+
 	@import url(${require('../node_modules/highlight.js/styles/atom-one-light.css')});
 	
 	${({light}) => !light && css`

@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 
 const Card = props => {
 	return (
-		<Container className={props.className} clickable={props.clickable}>
+		<Container
+			className={props.className}
+			clickable={props.clickable}
+			onClick={props.clickable && props.onClick}
+		>
 			{props.children}
 		</Container>
 	);
@@ -12,7 +16,9 @@ const Card = props => {
 
 Card.propTypes = {
 	children: PropTypes.node,
-	clickable: PropTypes.bool
+	clickable: PropTypes.bool,
+	className: PropTypes.string,
+	onClick: PropTypes.func
 };
 
 export default Card;
