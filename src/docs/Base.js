@@ -26,9 +26,7 @@ const Container = styled.div`
 `;
 
 const PageTitle = styled.div`
-  font-size: 30px;
-  color: ${({theme}) => theme.p600};
-  font-weight: 300;
+  ${({theme}) => theme.text.headline};
   text-transform: capitalize;
   margin-bottom: 20px;
 `;

@@ -32,6 +32,7 @@ const Navigation = ({list, history, location}) => (
 						type={type}
 						onClick={() => history.push(`/${path}`)}
 						selected={`/${path}` === location.pathname}
+						disabled={!path}
 					>
 						<MenuLine visible={`/${path}` === location.pathname}/>
 						{label}
@@ -212,6 +213,11 @@ const MenuItem = styled.div`
   
   ${({selected}) => selected && css`
 		color: ${({theme}) => theme.a400};
+	`};
+  
+  ${({disabled}) => disabled && css`
+		pointer-events: none;
+		opacity: 0.5;
 	`};
 `;
 

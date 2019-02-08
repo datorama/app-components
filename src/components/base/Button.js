@@ -81,8 +81,9 @@ const Container = styled.div`
 		`};
   }
   
-  ${({disabled}) => disabled && css`
+  ${({disabled, theme}) => disabled && css`
 		pointer-events: none;
-		opacity: 0.7;
+		background: ${hexToRgba(theme.p300, 10)};
+		color: ${hexToRgba(theme.p300, 50)};
 	`};
 `;

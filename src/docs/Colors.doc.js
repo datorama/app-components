@@ -22,7 +22,9 @@ import { lightTheme } from 'app-components';
 `;
 
 const Color = ({label, color}) => (
-	<ColorCard color={color}>
+	<ColorCard>
+		<ColorPreview color={color}/>
+		
 		<ColorCardInfo>
 			<Info>{label}</Info>
 			<Info>{color}</Info>
@@ -78,12 +80,25 @@ const ColorCard = styled.div`
   width: calc((100vw - 300px) / 9);
   margin-right: 10px;
   height: 140px;
-  background: ${({color}) => color};
   position: relative;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  transition: all 300ms;
+  
+  &:hover {
+  	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
   
   &:last-child { margin-right: 0; }
+`;
+
+const ColorPreview = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 90px;
+	background: ${({color}) => color};
 `;
 
 const ColorCardInfo = styled.div`

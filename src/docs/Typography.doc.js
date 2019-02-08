@@ -53,7 +53,7 @@ const Typography = () => {
 						<Col><Demo name={style.id}>Sample</Demo></Col>
 						<Col>{style.usage}</Col>
 						<Col><Color color={style.color}/>[{style.color}] {style.spec}</Col>
-						<Col>{style.key}</Col>
+						<Col><Tag>{style.key}</Tag></Col>
 					</Row>
 				))
 			}
@@ -94,4 +94,10 @@ const Color = styled.div`
 
 const Demo = styled.div`
 	${({theme, name}) => theme.text[name]};
+`;
+
+const Tag = styled.div`
+	background: ${({theme}) => theme.p50};
+	padding: 4px 6px;
+	border-radius: 4px;
 `;
