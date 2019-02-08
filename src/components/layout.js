@@ -1,13 +1,13 @@
 import styled, {css} from 'styled-components';
 
-const gutter = 5;
+const gutter = 10; // half the size
 
 export const Container = styled.div`
 	display: flex;
 	width: 100%;
 	flex-direction: column;
 	box-sizing: border-box;
-	padding: ${({padding}) => padding ? `${padding - gutter}px` : `${20 - gutter}px`};
+	padding: ${({padding}) => padding ? `${padding - gutter}px` : `${30 - gutter}px`};
 `;
 
 export const Row = styled.div`

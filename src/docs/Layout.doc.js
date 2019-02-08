@@ -228,14 +228,14 @@ const Layout = () => {
 export default Layout;
 
 const StyledContainer = styled(Container)`
-	background: ${({theme}) => theme.p0};
+	background: ${({theme}) => theme.p50};
 	margin: 20px 0;
 `;
 
 const Box = styled.div`
 	width: 100%;
 	min-height: 40px;
-  background: ${({theme, dark}) => hexToRgba(dark ? theme.p200 : theme.p100, 80)};
+  background: ${({theme, dark}) => hexToRgba(dark ? theme.p300 : theme.p200, 80)};
   display: flex;
   align-items: center;
   justify-content: center;
