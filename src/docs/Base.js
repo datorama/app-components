@@ -3,27 +3,30 @@ import styled from 'styled-components';
 
 // components
 import PropTable from './PropTable';
+import {Container, Row, Col} from '../components/index';
 
 const Base = ({children, title, description, name}) => {
 	return (
 		<Container>
-			<PageTitle>{title}</PageTitle>
-			<Description>{description}</Description>
+			<Row>
+				<Col>
+					<PageTitle>{title}</PageTitle>
+					<Description>{description}</Description>
+				</Col>
+			</Row>
+			
 			{children}
 			
 			<Row>
-				{name && <PropTable compKey={name}/>}
+				<Col>
+					{name && <PropTable compKey={name}/>}
+				</Col>
 			</Row>
 		</Container>
 	);
 };
 
 export default Base;
-
-const Container = styled.div`
-  width: 100%;
-  ${({theme}) => theme.animation.fade};
-`;
 
 const PageTitle = styled.div`
   ${({theme}) => theme.text.headline};
@@ -38,11 +41,4 @@ const Description = styled.div`
   line-height: 24px;
   margin-bottom: 60px;
   max-width: 50%;
-`;
-
-const Row = styled.div`
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	margin: 40px 0;
 `;

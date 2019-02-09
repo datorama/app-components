@@ -5,6 +5,7 @@ import Highlight from 'react-highlight-js';
 // components
 import Base from './Base';
 import ClickOut from '../components/base/ClickOut';
+import {Row, Col} from '../components/index';
 
 const snippet = `
 import { ClickOut } from 'app-components';
@@ -30,16 +31,24 @@ export default class ClickOutDoc extends React.Component {
 		
 		return (
 			<Base title={title} description={description} name="ClickOut">
-				<Highlight language="javascript">{snippet}</Highlight>
+				<Row>
+					<Col>
+						<Highlight language="javascript">{snippet}</Highlight>
+					</Col>
+				</Row>
 				
-				<Container>
-					<ClickOut onClick={this.handleClick}>
-						<Card>
-							<SmallTitle>Clicked {counter} times</SmallTitle>
-							<div>(click outside the element)</div>
-						</Card>
-					</ClickOut>
-				</Container>
+				<Row>
+					<Col>
+						<Container>
+							<ClickOut onClick={this.handleClick}>
+								<Card>
+									<SmallTitle>Clicked {counter} times</SmallTitle>
+									<div>(click outside the element)</div>
+								</Card>
+							</ClickOut>
+						</Container>
+					</Col>
+				</Row>
 			</Base>
 		);
 	}

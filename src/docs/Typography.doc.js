@@ -4,6 +4,7 @@ import Highlight from 'react-highlight-js';
 
 // components
 import Base from './Base';
+import {Row, Col} from '../components/index';
 
 const snippet = `
 // using styled-components apply the styles from theme.
@@ -38,32 +39,40 @@ const Typography = () => {
 	
 	return (
 		<Base title={title} description={description}>
-			<Highlight language="javascript">{snippet}</Highlight>
-			
 			<Row>
-				<Col>Sample</Col>
-				<Col>Usage</Col>
-				<Col>Spec</Col>
-				<Col>Key</Col>
+				<Col>
+					<Highlight language="javascript">{snippet}</Highlight>
+				</Col>
 			</Row>
 			
-			{
-				styles.map(style => (
-					<Row key={style.id}>
-						<Col><Demo name={style.id}>Sample</Demo></Col>
-						<Col>{style.usage}</Col>
-						<Col><Color color={style.color}/>[{style.color}] {style.spec}</Col>
-						<Col><Tag>{style.key}</Tag></Col>
-					</Row>
-				))
-			}
+			<Row>
+				<Col>
+					<TableRow>
+						<TableCol>Sample</TableCol>
+						<TableCol>Usage</TableCol>
+						<TableCol>Spec</TableCol>
+						<TableCol>Key</TableCol>
+					</TableRow>
+					
+					{
+						styles.map(style => (
+							<TableRow key={style.id}>
+								<TableCol><Demo name={style.id}>Sample</Demo></TableCol>
+								<TableCol>{style.usage}</TableCol>
+								<TableCol><Color color={style.color}/>[{style.color}] {style.spec}</TableCol>
+								<TableCol><Tag>{style.key}</Tag></TableCol>
+							</TableRow>
+						))
+					}
+				</Col>
+			</Row>
 		</Base>
 	);
 };
 
 export default Typography;
 
-const Row = styled.div`
+const TableRow = styled.div`
 	width: 100%;
 	min-height: 60px;
 	display: flex;
@@ -74,7 +83,7 @@ const Row = styled.div`
 	color: ${({theme}) => theme.p400};
 `;
 
-const Col = styled.div`
+const TableCol = styled.div`
 	flex: 1;
 	display: flex;
 	align-items: center;

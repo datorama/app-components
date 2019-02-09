@@ -10,6 +10,7 @@ import {
 	darkPrimary,
 	darkAccent
 } from '../components/colors';
+import {Row, Col} from '../components/index';
 import Base from './Base';
 
 const snippet = `
@@ -38,22 +39,46 @@ const Colors = () => {
 			title="colors"
 			description="Convey meaning through color. The App-components color system can be used to create a color theme that reflects your brand or style."
 		>
-			<Highlight language="javascript">{snippet}</Highlight>
-			
-			<SectionTitle>light theme</SectionTitle>
 			<Row>
-				{keys(lightPrimary).map(key => <Color key={`light-${key}`} color={lightPrimary[key]} label={key}/>)}
-			</Row>
-			<Row>
-				{keys(lightAccent).map(key => <Color key={`light-${key}`} color={lightAccent[key]} label={key}/>)}
+				<Col>
+					<Highlight language="javascript">{snippet}</Highlight>
+				</Col>
 			</Row>
 			
-			<SectionTitle>dark theme</SectionTitle>
 			<Row>
-				{keys(darkPrimary).reverse().map(key => <Color key={`dark-${key}`} color={darkPrimary[key]} label={key}/>)}
+				<Col>
+					<SectionTitle>light theme</SectionTitle>
+				</Col>
 			</Row>
+			
 			<Row>
-				{keys(darkAccent).reverse().map(key => <Color key={`dark-${key}`} color={darkAccent[key]} label={key}/>)}
+				<Col direction="row" justify="space-between">
+					{keys(lightPrimary).map(key => <Color key={`light-${key}`} color={lightPrimary[key]} label={key}/>)}
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col direction="row" justify="space-between">
+					{keys(lightAccent).map(key => <Color key={`light-${key}`} color={lightAccent[key]} label={key}/>)}
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<SectionTitle>dark theme</SectionTitle>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col direction="row" justify="space-between">
+					{keys(darkPrimary).reverse().map(key => <Color key={`dark-${key}`} color={darkPrimary[key]} label={key}/>)}
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col direction="row" justify="space-between">
+					{keys(darkAccent).reverse().map(key => <Color key={`dark-${key}`} color={darkAccent[key]} label={key}/>)}
+				</Col>
 			</Row>
 		</Base>
 	);
@@ -69,15 +94,9 @@ const SectionTitle = styled.div`
   margin: 40px 0 20px 0;
 `;
 
-const Row = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 40px;
-`;
-
 const ColorCard = styled.div`
-  width: calc((100vw - 300px) / 9);
+  width: calc(100% / 9);
+  max-width: 120px;
   margin-right: 10px;
   height: 140px;
   position: relative;

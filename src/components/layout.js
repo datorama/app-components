@@ -22,14 +22,21 @@ export const Row = styled.div`
 export const Col = styled.div`
 	display: flex;
 	flex-direction: ${({direction}) => direction || 'column'};
-	align-items: ${({align}) => align || 'center'};
-	justify-content: ${({justify}) => justify || 'flex-start'};
+	align-items: ${({align}) => align || 'flex-start'};
+	justify-content: ${({justify}) => justify || 'center'};
 	flex: ${({size}) => size || 1};
 	max-width: ${({size}) => `calc(100% / 12 * ${size})` || '100%'};
-	padding: ${gutter}px;
-	margin-left: ${({offset}) => `calc(100% / 12 * ${offset})` || '2px'};
+	padding: ${({padding}) => padding || gutter}px;
 	min-height: 40px;
 	box-sizing: border-box;
+	
+	${({offset}) => offset && css`
+		margin-left: ${({offset}) => `calc(100% / 12 * ${offset})`};
+	`};
+	
+	${({noPadding}) => noPadding && css`
+		padding: 0;
+	`};
 	
 	@media only screen and (min-width: 1200px) {
 		${({xl}) => xl && css`

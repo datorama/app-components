@@ -98,129 +98,193 @@ const Layout = () => {
 	
 	return (
 		<Base title={title} description={description}>
-			<Subheadline>auto width</Subheadline>
-			<Highlight language="javascript">{auto}</Highlight>
-			<StyledContainer>
-				<Row>
-					<Col><Box/></Col>
-					<Col><Box/></Col>
-				</Row>
-				
-				<Row>
-					<Col><Box/></Col>
-					<Col><Box/></Col>
-					<Col><Box/></Col>
-				</Row>
-			</StyledContainer>
+			<Row>
+				<Col>
+					<Subheadline>auto width</Subheadline>
+					<Highlight language="javascript">{auto}</Highlight>
+				</Col>
+			</Row>
 			
-			<Subheadline>column sizes</Subheadline>
-			<Highlight language="javascript">{withSize}</Highlight>
-			<StyledContainer>
-				<Row>
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={10}><Box>10</Box></Col>
-				</Row>
-				
-				<Row>
-					<Col size={4}><Box>4</Box></Col>
-					<Col size={8}><Box>8</Box></Col>
-				</Row>
-				
-				<Row>
-					<Col size={6}><Box>6</Box></Col>
-					<Col size={6}><Box>6</Box></Col>
-				</Row>
-				
-				<Row>
-					<Col size={8}><Box>8</Box></Col>
-					<Col size={4}><Box>4</Box></Col>
-				</Row>
-				
-				<Row>
-					<Col size={10}><Box>10</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-				</Row>
-			</StyledContainer>
+			<Row>
+				<Col>
+					<StyledContainer>
+						<Row>
+							<Col><Box/></Col>
+							<Col><Box/></Col>
+						</Row>
+						
+						<Row>
+							<Col><Box/></Col>
+							<Col><Box/></Col>
+							<Col><Box/></Col>
+						</Row>
+					</StyledContainer>
+				</Col>
+			</Row>
 			
-			<Subheadline>offset</Subheadline>
-			<Highlight language="javascript">{withOffset}</Highlight>
-			<StyledContainer>
-				<Row>
-					<Col size={4} offset={2}><Box>size 4 offset 2</Box></Col>
-					<Col size={4}><Box>4</Box></Col>
-				</Row>
-				<Row>
-					<Col size={4} offset={4}><Box>size 4 offset 4</Box></Col>
-					<Col size={4}><Box>4</Box></Col>
-				</Row>
-				<Row>
-					<Col size={2} offset={6}><Box>size 2 offset 6</Box></Col>
-					<Col size={4}><Box>4</Box></Col>
-				</Row>
-			</StyledContainer>
+			{/* - - - - - - */}
 			
-			<Subheadline>distribution</Subheadline>
-			<Highlight language="javascript">{dist}</Highlight>
-			<StyledContainer>
-				<Row>
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-				</Row>
-				<Row justify="center">
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-				</Row>
-				<Row justify="flex-end">
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-				</Row>
-				<Row justify="space-evenly">
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-					<Col size={2}><Box>2</Box></Col>
-				</Row>
-			</StyledContainer>
+			<Row>
+				<Col>
+					<Subheadline>column sizes</Subheadline>
+					<Highlight language="javascript">{withSize}</Highlight>
+				</Col>
+			</Row>
 			
-			<Subheadline>nested grids</Subheadline>
-			<Highlight language="javascript">{nested}</Highlight>
-			<StyledContainer>
-				<Row>
-					<Col>
-						<Label>level 1</Label>
-						<Box>
-							<Row>
-								<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
-								<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
-								<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
-							</Row>
-						</Box>
-					</Col>
-					<Col>
-						<Label>level 1</Label>
-						<Box>
-							<Row>
-								<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
-								<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
-								<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
-							</Row>
-						</Box>
-					</Col>
-				</Row>
-			</StyledContainer>
+			<Row>
+				<Col>
+					<StyledContainer>
+						<Row>
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={10}><Box>10</Box></Col>
+						</Row>
+						
+						<Row>
+							<Col size={4}><Box>4</Box></Col>
+							<Col size={8}><Box>8</Box></Col>
+						</Row>
+						
+						<Row>
+							<Col size={6}><Box>6</Box></Col>
+							<Col size={6}><Box>6</Box></Col>
+						</Row>
+						
+						<Row>
+							<Col size={8}><Box>8</Box></Col>
+							<Col size={4}><Box>4</Box></Col>
+						</Row>
+						
+						<Row>
+							<Col size={10}><Box>10</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+						</Row>
+					</StyledContainer>
+				</Col>
+			</Row>
 			
-			<Subheadline>break points</Subheadline>
-			<Highlight language="javascript">{breakpoint}</Highlight>
-			<StyledContainer>
-				<Row>
-					<Col size={3} lg={6} md={12}><Box/></Col>
-					<Col size={3} lg={6} md={12}><Box/></Col>
-					<Col size={3} lg={6} md={12}><Box/></Col>
-					<Col size={3} lg={6} md={12}><Box/></Col>
-				</Row>
-			</StyledContainer>
+			{/* - - - - - - */}
+			
+			<Row>
+				<Col>
+					<Subheadline>offset</Subheadline>
+					<Highlight language="javascript">{withOffset}</Highlight>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<StyledContainer>
+						<Row>
+							<Col size={4} offset={2}><Box>size 4 offset 2</Box></Col>
+							<Col size={4}><Box>4</Box></Col>
+						</Row>
+						<Row>
+							<Col size={4} offset={4}><Box>size 4 offset 4</Box></Col>
+							<Col size={4}><Box>4</Box></Col>
+						</Row>
+						<Row>
+							<Col size={2} offset={6}><Box>size 2 offset 6</Box></Col>
+							<Col size={4}><Box>4</Box></Col>
+						</Row>
+					</StyledContainer>
+				</Col>
+			</Row>
+			
+			{/* - - - - - - */}
+			
+			<Row>
+				<Col>
+					<Subheadline>distribution</Subheadline>
+					<Highlight language="javascript">{dist}</Highlight>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<StyledContainer>
+						<Row>
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+						</Row>
+						<Row justify="center">
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+						</Row>
+						<Row justify="flex-end">
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+						</Row>
+						<Row justify="space-evenly">
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+							<Col size={2}><Box>2</Box></Col>
+						</Row>
+					</StyledContainer>
+				</Col>
+			</Row>
+			
+			{/* - - - - - - */}
+			
+			<Row>
+				<Col>
+					<Subheadline>nested grids</Subheadline>
+					<Highlight language="javascript">{nested}</Highlight>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<StyledContainer>
+						<Row>
+							<Col>
+								<Label>level 1</Label>
+								<Box>
+									<Row>
+										<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
+										<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
+										<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
+									</Row>
+								</Box>
+							</Col>
+							<Col>
+								<Label>level 1</Label>
+								<Box>
+									<Row>
+										<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
+										<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
+										<Col size={4}><Label>level 2</Label><Box dark>4</Box></Col>
+									</Row>
+								</Box>
+							</Col>
+						</Row>
+					</StyledContainer>
+				</Col>
+			</Row>
+			
+			{/* - - - - - - */}
+			
+			<Row>
+				<Col>
+					<Subheadline>break points</Subheadline>
+					<Highlight language="javascript">{breakpoint}</Highlight>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<StyledContainer>
+						<Row>
+							<Col size={3} lg={6} md={12}><Box/></Col>
+							<Col size={3} lg={6} md={12}><Box/></Col>
+							<Col size={3} lg={6} md={12}><Box/></Col>
+							<Col size={3} lg={6} md={12}><Box/></Col>
+						</Row>
+					</StyledContainer>
+				</Col>
+			</Row>
 		</Base>
 	);
 };
@@ -251,4 +315,5 @@ const Subheadline = styled.div`
 	width: 100%;
 	${({theme}) => theme.text.subHeadline};
 	text-transform: capitalize;
+	margin-bottom: 20px;
 `;

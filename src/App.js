@@ -65,26 +65,29 @@ class App extends Component {
 			{key: 'components', label: 'components', type: 'title'},
 			{key: 'button', label: 'button', path: 'button'},
 			{key: 'card', label: 'card', path: 'card'},
-			{key: 'dialog', label: 'dialog'},
-			{key: 'switch', label: 'switch'},
-			{key: 'progress', label: 'progress'},
+			{key: 'dialog', label: '*dialog'},
+			{key: 'switch', label: '*switch'},
+			{key: 'progress', label: '*progress'},
+			{key: 'spinner', label: '*spinner'},
+			{key: 'text-input', label: '*text-input'},
+			{key: 'tag', label: '*tag'},
+			{key: 'select', label: '*select', path: 'select'},
+			{key: 'carousel', label: '*carousel'},
+			{key: 'pagination', label: '*pagination'},
+			
 			{key: 'snackbar', label: 'snackbar'},
 			{key: 'stepper', label: 'stepper'},
 			{key: 'tooltip', label: 'tooltip'},
 			{key: 'range-input', label: 'range input'},
-			{key: 'text-input', label: 'text-input'},
 			{key: 'tabs', label: 'tabs'},
 			{key: 'collapse', label: 'collapse'},
 			{key: 'table', label: 'table'},
 			{key: 'list', label: 'list'},
-			{key: 'select', label: 'select', path: 'select'},
 			{key: 'date-picker', label: 'date picker', path: 'datepicker'},
-			{key: 'carousel', label: 'carousel'},
-			{key: 'pagination', label: 'pagination'},
 			{key: 'widget', label: 'widget'},
 			
 			{key: 'utils', label: 'utils', type: 'title'},
-			{key: 'click-out', label: 'click out', path: 'click-out'},
+			{key: 'click-out', label: '*click out', path: 'click-out'},
 			{key: 'popup', label: 'popup'}
 		];
 		
@@ -145,7 +148,6 @@ const Sidebar = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  transition: all 300ms;
   
   ${({light}) => !light && css`
 		background: #272727;
@@ -154,11 +156,10 @@ const Sidebar = styled.div`
 `;
 
 const Content = styled.div`
-  width: 100vw;
+  width: calc(100vw - 300px);
   min-height: 100vh;
   box-sizing: border-box;
-  padding: 40px 40px 40px 340px;
-  transition: all 300ms;
+  margin-left: 300px;
   background: #fff;
   
   ${({light}) => !light && css`
@@ -197,7 +198,6 @@ const MenuItem = styled.div`
   margin: 5px 0;
   text-transform: capitalize;
   cursor: pointer;
-  transition: all 300ms;
   
   ${({type}) => type === 'title' && css`
 		font-weight: 700;
