@@ -16,6 +16,7 @@ import Button from './docs/Button.doc';
 import Animations from './docs/Animations.doc';
 import Card from './docs/Card.doc';
 import Select from './docs/Select.doc';
+import Modal from './docs/Modal.doc';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -65,7 +66,7 @@ class App extends Component {
 			{key: 'components', label: 'components', type: 'title'},
 			{key: 'button', label: 'button', path: 'button'},
 			{key: 'card', label: 'card', path: 'card'},
-			{key: 'dialog', label: '*dialog'},
+			{key: 'modal', label: 'modal', path: 'modal'},
 			{key: 'switch', label: '*switch'},
 			{key: 'progress', label: '*progress'},
 			{key: 'spinner', label: '*spinner'},
@@ -118,6 +119,7 @@ class App extends Component {
 							<Route exact path="/datepicker" component={Datepicker}/>
 							<Route exact path="/card" component={Card}/>
 							<Route exact path="/select" component={Select}/>
+							<Route exact path="/modal" component={Modal}/>
 							
 							<Route exact path="/click-out" component={ClickOut}/>
 						</Content>

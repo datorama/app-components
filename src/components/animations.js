@@ -15,6 +15,19 @@ export const fade = css`
   }
 `;
 
+export const fadeOut = css`
+	opacity: 1;
+  visibility: visible;
+  animation: 500ms ease-out 0s 1 fadeOut forwards;
+
+  @keyframes fadeOut {
+    100% {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+`;
+
 export const fadeDown = css`
 	opacity: 0;
   visibility: hidden;
@@ -26,6 +39,19 @@ export const fadeDown = css`
       opacity: 1;
       visibility: visible;
       transform: translate(0, 0);
+    }
+  }
+`;
+
+export const fadeUpExit = css`
+	opacity: 1;
+  animation: 500ms ease-out 0s 1 fadeUp forwards;
+
+  @keyframes fadeUp {
+    100% {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(0, -${delta});
     }
   }
 `;

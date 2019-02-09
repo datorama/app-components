@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import Highlight from 'react-highlight-js';
 
 // components
@@ -51,7 +51,7 @@ export default class AnimationsDoc extends React.Component {
 	
 	render() {
 		const title = 'animations';
-		const description = 'animations snippets';
+		const description = 'animations snippets. @todo: support exit animations.';
 		const {selected, animate} = this.state;
 		
 		return (
@@ -65,6 +65,8 @@ export default class AnimationsDoc extends React.Component {
 							<Header>
 								<Select
 									options={[
+										{value: 'fade', label: 'fade in [fade]'},
+										{value: 'fadeOut', label: 'fade out [fadeOut]'},
 										{value: 'fadeLeft', label: 'fade left [fadeLeft]'},
 										{value: 'fadeRight', label: 'fade right [fadeRight]'},
 										{value: 'fadeUp', label: 'fade up [fadeUp]'},
@@ -115,6 +117,10 @@ const Card = styled.div`
 	justify-content: center;
 	opacity: 0;
 	border: 1px solid ${({theme}) => theme.p100};
+	
+	${({type}) => type === 'fadeOut' && css`
+		opacity: 1;
+	`};
 	
 	${({type, theme, animate}) => animate && theme.animation[type]};
 `;
