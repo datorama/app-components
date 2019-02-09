@@ -51,7 +51,6 @@ const Container = styled.div`
   ${({small, theme}) => small && css`
 		height: 24px;
 		${theme.smLink};
-		color: ${theme.p0};
 	`};
   
   ${({secondary, theme}) => secondary && css`
