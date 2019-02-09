@@ -42,8 +42,8 @@ export default class ClickOutDoc extends React.Component {
 						<Container>
 							<ClickOut onClick={this.handleClick}>
 								<Card>
-									<SmallTitle>Clicked {counter} times</SmallTitle>
-									<div>(click outside the element)</div>
+									<Title>Clicked {counter} times</Title>
+									<Description>(click outside the element)</Description>
 								</Card>
 							</ClickOut>
 						</Container>
@@ -66,7 +66,7 @@ const Container = styled.div`
 const Card = styled.div`
 	width: 400px;
 	height: 200px;
-	background: #fff;
+	background: ${({theme}) => theme.p0}
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 	display: flex;
@@ -78,7 +78,10 @@ const Card = styled.div`
 	color: #444;
 `;
 
-const SmallTitle = styled.div`
-	font-size: 14px;
-	font-weight: 600;
+const Title = styled.div`
+	${({theme}) => theme.text.pBold};
+`;
+
+const Description = styled.div`
+	${({theme}) => theme.text.pNote};
 `;

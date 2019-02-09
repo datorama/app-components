@@ -101,7 +101,6 @@ const Container = styled.div`
   min-height: 20px;
   max-height: ${({maxHeight}) => maxHeight};
   background: ${({theme}) => theme.p0};
-  border: 1px solid ${({theme}) => theme.p200};
   border-radius: 4px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
   transition: all 300ms;

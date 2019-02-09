@@ -73,7 +73,7 @@ export default SelectMultiHeader;
 const Divider = styled.div`
   width: 100%;
   height: 1px;
-  background: ${({theme}) => theme.p200};
+  background: ${({theme}) => theme.p100};
 `;
 
 const Checkbox = styled.div`

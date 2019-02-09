@@ -71,7 +71,7 @@ class App extends Component {
 			{key: 'spinner', label: '*spinner'},
 			{key: 'text-input', label: '*text-input'},
 			{key: 'tag', label: '*tag'},
-			{key: 'select', label: '*select', path: 'select'},
+			{key: 'select', label: 'select', path: 'select'},
 			{key: 'carousel', label: '*carousel'},
 			{key: 'pagination', label: '*pagination'},
 			
@@ -87,7 +87,7 @@ class App extends Component {
 			{key: 'widget', label: 'widget'},
 			
 			{key: 'utils', label: 'utils', type: 'title'},
-			{key: 'click-out', label: '*click out', path: 'click-out'},
+			{key: 'click-out', label: 'click out', path: 'click-out'},
 			{key: 'popup', label: 'popup'}
 		];
 		
