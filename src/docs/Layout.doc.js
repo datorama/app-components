@@ -94,7 +94,7 @@ const MyComp = () => (
 
 const Layout = () => {
 	const title = 'layout';
-	const description = 'The App-components responsive layout grid adapts to screen size and orientation, ensuring consistency across layouts. The grid creates visual consistency between layouts while allowing flexibility across a wide variety of designs. App-components Design’s responsive UI is based on a 12-column grid layout.';
+	const description = 'App components Design layouts encourage consistency across platforms, environments, and screen sizes by using uniform elements and spacing.';
 	
 	return (
 		<Base title={title} description={description}>

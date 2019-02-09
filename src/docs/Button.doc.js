@@ -79,7 +79,7 @@ const MyComponent = ({ onClick }) => (
 
 const ButtonDoc = () => {
 	const title = 'button';
-	const description = 'Button component.';
+	const description = 'Buttons allow users to take actions, and make choices, with a single tap. They are typically placed throughout your UI, in places like Dialogs, Forms or Cards.';
 	
 	return (
 		<Base title={title} description={description} name="Button">

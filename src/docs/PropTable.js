@@ -43,7 +43,6 @@ const Row = styled.div`
 	display: flex;
 	align-items: center;
 	box-sizing: border-box;
-	padding: 0 20px;
 	border-bottom: 1px solid ${({theme}) => theme.p100};
 	color: ${({theme}) => theme.p400};
 	font-size: 12px;

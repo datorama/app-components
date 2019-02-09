@@ -18,7 +18,7 @@ const Base = ({children, title, description, name}) => {
 			{children}
 			
 			<Row>
-				<Col>
+				<Col size={6}>
 					{name && <PropTable compKey={name}/>}
 				</Col>
 			</Row>

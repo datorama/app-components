@@ -51,7 +51,7 @@ export default class AnimationsDoc extends React.Component {
 	
 	render() {
 		const title = 'animations';
-		const description = 'animations snippets. @todo: support exit animations.';
+		const description = 'Animations helps make a UI expressive and easy to use. @todo: support exit animations.';
 		const {selected, animate} = this.state;
 		
 		return (

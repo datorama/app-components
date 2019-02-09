@@ -13,7 +13,7 @@ const snippet = `
 
 const Typography = () => {
 	const title = 'typography';
-	const description = 'App-components text styles.';
+	const description = 'The App components Design type scale includes a range of contrasting styles that support the needs of your product and its content. The type scale is a combination of 13 styles that are supported by the type system. It contains reusable categories of text, each with an intended application and meaning.';
 	
 	const styles = [
 		{id: 'headline', usage: 'Headline', color: 'p600', spec: '34px, 300', key: 'theme.text.headline'},

@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import {find} from 'lodash/fp';
 
 // components
-import checkIcon from '../../assets/check.svg';
-import {Icon, Option, Label} from './Select';
+import Checkbox from '../Checkbox';
+import {Option, Label} from './Select';
 import {optionsType} from './Select.types';
 
 const OPTION_HEIGHT = 35;
@@ -37,11 +37,7 @@ const SelectOptions = props => {
 				selected={selected && !multi}
 				title={option.label}
 			>
-				{multi && (
-					<Checkbox selected={selected}>
-						<Icon selected={selected} src={checkIcon}/>
-					</Checkbox>
-				)}
+				{multi && (<StyledCheckbox checked={selected}/>)}
 				{optionLabelRenderer ? (
 					optionLabelRenderer(option)
 				) : (
@@ -78,26 +74,8 @@ const Container = styled.div`
   overflow: auto;
 `;
 
-const Checkbox = styled.div`
-  box-sizing: border-box;
-  width: 16px;
-  height: 16px;
-  min-width: 16px;
-  min-height: 16px;
-  border: 1px solid ${({theme}) => theme.p200};
-  border-radius: 2px;
-  margin-right: 10px;
-  position: relative;
-  transition: all 300ms;
-  overflow: hidden;
-  background: transparent;
-
-  ${({selected}) =>
-	selected &&
-	css`
-      border-color: ${({theme}) => theme.a400};
-      background: ${({theme}) => theme.a400};
-    `};
+const StyledCheckbox = styled(Checkbox)`
+	margin-right: 10px;
 `;
 
 const Inner = styled.div`

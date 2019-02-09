@@ -11,7 +11,7 @@ import {Row, Col} from '../components/index';
 const snippet = `
 import { Modal } from 'app-components';
 
-const MyComp = ({ modalOpen, toggleOpen ) => (
+const MyComp = ({ modalOpen, toggleOpen }) => (
   <div>
     ...
     <Modal

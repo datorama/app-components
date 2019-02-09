@@ -288,23 +288,3 @@ export const Label = styled.div`
   width: 100%;
   text-align: ${({textAlign}) => textAlign || 'left'};
 `;
-
-export const Icon = styled.div`
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  top: ${({top}) => top || 4}px;
-  left: 2px;
-  transition: all 300ms;
-  transform: translateY(-5px);
-  opacity: 0;
-
-  ${({selected}) =>
-	selected &&
-	css`
-      background: url(${({src}) => src}) no-repeat;
-      background-size: contain;
-      transform: translateY(0);
-      opacity: 1;
-    `};
-`;
