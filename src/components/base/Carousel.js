@@ -2,14 +2,15 @@ import React, {Component} from 'react';
 import styled, {css} from 'styled-components';
 import {each, range} from 'lodash/fp';
 import PropTypes from 'prop-types';
+import Spinner from './Spinner';
 
 class Carousel extends Component {
 	static propTypes = {
 		loading: PropTypes.bool,
-		disabled: PropTypes.bool,
 		total: PropTypes.number.isRequired,
 		slideRenderer: PropTypes.func.isRequired,
-		className: PropTypes.string
+		className: PropTypes.string,
+		minHeight: PropTypes.number
 	};
 	
 	state = {
@@ -20,7 +21,7 @@ class Carousel extends Component {
 	
 	render() {
 		const {current} = this.state;
-		const {total, slideRenderer, className} = this.props;
+		const {total, slideRenderer, className, loading, minHeight} = this.props;
 		const ids = range(0, total);
 		const slides = [];
 		const bullets = [];
@@ -32,7 +33,11 @@ class Carousel extends Component {
 					total={total}
 					active={current === id}>
 					<SlideInner>
-						{slideRenderer(id)}
+						{loading ? (
+							<SpinnerContainer minHeight={minHeight}>
+								<Spinner/>
+							</SpinnerContainer>
+						) : slideRenderer(id)}
 					</SlideInner>
 				</Slide>
 			);
@@ -63,7 +68,7 @@ const Container = styled.div`
 	width: 100%;
 	box-sizing: border-box;
 	
-	${({theme}) => theme.animation.zoomIn};
+	${({theme}) => theme.animation.fade};
 `;
 
 const Inner = styled.div`
@@ -82,11 +87,14 @@ const Slide = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 20px;
 `;
 
 const SlideInner = styled.div`
 	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100px;
 `;
 
 const Bullets = styled.div`
@@ -113,4 +121,12 @@ const Bullet = styled.div`
 	&:hover {
 		background: ${({theme}) => theme.p400};
 	}
+`;
+
+const SpinnerContainer = styled.div`
+	width: 100%;
+	min-height: ${({minHeight}) => minHeight}px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;

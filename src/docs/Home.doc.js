@@ -95,11 +95,13 @@ const Hero = styled.div`
 
 const SectionTitle = styled.div`
 	${({theme}) => theme.text.headline};
+	max-width: 400px;
 `;
 
 const SectionSubtitle = styled.div`
 	font-size: 14px;
 	color: ${({theme}) => theme.p400};
+	max-width: 400px;
 `;
 
 const HeroTitle = styled.div`
@@ -110,8 +112,9 @@ const HeroTitle = styled.div`
 
 const HeroSubtitle = styled.div`
 	font-size: 30px;
-	color: #fff;
+	color: ${({theme}) => theme.a200};
 	font-weight: 300;
+	text-transform: capitalize;
 `;
 
 const HeroImg = styled.div`
