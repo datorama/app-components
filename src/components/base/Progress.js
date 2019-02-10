@@ -14,7 +14,7 @@ const Progress = ({label, color, percentage, disabled, className}) => {
 	);
 };
 
-PropTypes.propTypes = {
+Progress.propTypes = {
 	label: PropTypes.string,
 	color: PropTypes.string,
 	percentage: PropTypes.number.isRequired,
@@ -40,15 +40,15 @@ const Inner = styled.div`
 	height: 4px;
 	width: 0;
 	background: ${({theme, color}) => color || theme.a500};
-	//transition: all 300ms;
-	
-  animation: 500ms ease-out 0s 1 stretchRight forwards;
-	
+	max-width: ${({percentage}) => `${percentage}%`}
+	transition: all 100ms;
+  animation: 1000ms ease-out 0s 1 stretchRight forwards;
+  
   @keyframes stretchRight {
-    100% {
-      width: ${({percentage}) => `${percentage}%`};
-    }
-  }
+		100% {
+			width: 100%;
+		}
+	}
 `;
 
 const Strip = styled.div`
@@ -64,6 +64,7 @@ const Strip = styled.div`
 const Label = styled.div`
 	${({theme}) => theme.text.sm};
 	margin-right: 10px;
+	width: 40px;
 	
 	${({disabled, theme}) => disabled && css`
 		color: ${hexToRgba(theme.p300, 35)};

@@ -11,16 +11,9 @@ import Progress from '../components/base/Progress';
 const snippet = `
 import { Checkbox } from 'app-components';
 
-const MyComp = ({ toggle }) => (
+const MyComp = () => (
   <div>
-    <Checkbox
-      checked
-      disabled
-      onClick={toggle}
-      label="label"
-      round
-      partial
-    />
+    <Progress percentage={50} label="50%"/>
   </div>
 );
 `;
@@ -39,12 +32,18 @@ const ProgressDoc = () => {
 				
 				<Col>
 					<Box>
-						<Progress label="20%" percentage={20}/>
-						<Progress label="40%" percentage={30}/>
-						<Progress label="60%" percentage={60}/>
-						<Progress label="80%" percentage={80}/>
-						<Progress label="100%" percentage={100}/>
+						<Progress label="20%" percentage={20} color="#d34848"/>
+						<Progress label="40%" percentage={30} color="#ff5733"/>
+						<Progress label="60%" percentage={60} color="#ffc300"/>
+						<Progress label="80%" percentage={80} color="#20716a"/>
+						<Progress label="100%" percentage={100} color="#23a393"/>
 					</Box>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<PropTable compKey="Progress"/>
 				</Col>
 			</Row>
 		</Base>
