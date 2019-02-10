@@ -10,12 +10,13 @@ import Carousel from '../components/base/Carousel';
 const snippet = `
 import { Modal } from 'app-components';
 
-const MyComp = () => (
+const MyComp = ({ renderer }) => (
   <div>
     ...
-    <Carousel>
-      ...
-    </Carousel>
+    <Carousel
+    	total={12}
+    	slideRenderer={renderer}
+    />
   </div>
 );
 `;
@@ -38,7 +39,7 @@ export default class CarouselDoc extends React.Component {
 				</Row>
 				
 				<Row>
-					<Col direction="row">
+					<Col>
 						<StyledCarousel
 							total={5}
 							slideRenderer={this.slideRenderer}
