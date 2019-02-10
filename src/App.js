@@ -18,6 +18,7 @@ import Card from './docs/Card.doc';
 import Select from './docs/Select.doc';
 import Modal from './docs/Modal.doc';
 import Toggles from './docs/Toggles.doc';
+import Progress from './docs/Progress.docs';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -69,7 +70,7 @@ class App extends Component {
 			{key: 'card', label: 'card', path: 'card'},
 			{key: 'modal', label: 'modal', path: 'modal'},
 			{key: 'toggles', label: 'toggles', path: 'toggles'},
-			{key: 'progress', label: '*progress'},
+			{key: 'progress', label: 'progress', path: 'progress'},
 			{key: 'spinner', label: '*spinner'},
 			{key: 'text-input', label: '*text-input'},
 			{key: 'tag', label: '*tag'},
@@ -122,6 +123,7 @@ class App extends Component {
 							<Route exact path="/select" component={Select}/>
 							<Route exact path="/modal" component={Modal}/>
 							<Route exact path="/toggles" component={Toggles}/>
+							<Route exact path="/progress" component={Progress}/>
 							
 							<Route exact path="/click-out" component={ClickOut}/>
 						</Content>
