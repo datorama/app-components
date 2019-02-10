@@ -21,9 +21,9 @@ const MyComp = () => (
 `;
 
 export default class CarouselDoc extends React.Component {
-	// state = {
-	// 	modalOpen: false
-	// };
+	slideRenderer = id => (
+		<Slide/>
+	);
 	
 	render() {
 		const title = 'carousel';
@@ -38,11 +38,32 @@ export default class CarouselDoc extends React.Component {
 				</Row>
 				
 				<Row>
-					<Col>
-						<Carousel/>
+					<Col direction="row">
+						<StyledCarousel
+							total={5}
+							slideRenderer={this.slideRenderer}
+						/>
 					</Col>
 				</Row>
 			</Base>
 		);
 	}
 }
+
+const Slide = styled.div`
+	background: url('https://source.unsplash.com/user/noah2199/800x360') no-repeat;
+	background-size: cover;
+	overflow: hidden;
+	width: 100%;
+	border-radius: 4px;
+	height: 360px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+	border: 1px solid ${({theme}) => theme.p200};
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+const StyledCarousel = styled(Carousel)`
+	width: 800px;
+`;
