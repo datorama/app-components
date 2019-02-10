@@ -7,6 +7,7 @@ import Base from './Base';
 import {Row, Col} from '../components/index';
 import PropTable from './PropTable';
 import Progress from '../components/base/Progress';
+import RadialProgress from '../components/base/RadialProgress';
 
 const snippet = `
 import { Checkbox } from 'app-components';
@@ -14,6 +15,16 @@ import { Checkbox } from 'app-components';
 const MyComp = () => (
   <div>
     <Progress percentage={50} label="50%"/>
+  </div>
+);
+`;
+
+const radialSnippet = `
+import { Checkbox } from 'app-components';
+
+const MyComp = () => (
+  <div>
+    <RadialProgress percentage={50} label="success"/>
   </div>
 );
 `;
@@ -44,6 +55,37 @@ const ProgressDoc = () => {
 			<Row>
 				<Col>
 					<PropTable compKey="Progress"/>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Highlight language="javascript">{radialSnippet}</Highlight>
+				</Col>
+				
+				<Col>
+					<Box>
+						<Row>
+							<Col>
+								<RadialProgress percentage={20} radius={26}/>
+							</Col>
+							<Col>
+								<RadialProgress percentage={40} radius={26}/>
+							</Col>
+							<Col>
+								<RadialProgress percentage={60} radius={26}/>
+							</Col>
+							<Col>
+								<RadialProgress percentage={80} radius={26}/>
+							</Col>
+						</Row>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<PropTable compKey="RadialProgress"/>
 				</Col>
 			</Row>
 		</Base>
