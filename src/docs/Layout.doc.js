@@ -84,9 +84,10 @@ const breakpoint = `
 const MyComp = () => (
   <Container>
     <Row>
-    	<Col size={4} sm={12}/>...</Col>
-    	<Col size={4} sm={12}/>...</Col>
-    	<Col size={4} sm={12}/>...</Col>
+    	<Col size={3} sm={12}/>...</Col>
+    	<Col size={3} sm={12}/>...</Col>
+    	<Col size={3} sm={12}/>...</Col>
+    	<Col size={3} sm={12}/>...</Col>
     </Row>
   </Container>
 );

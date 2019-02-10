@@ -19,6 +19,7 @@ import Select from './docs/Select.doc';
 import Modal from './docs/Modal.doc';
 import Toggles from './docs/Toggles.doc';
 import Progress from './docs/Progress.docs';
+import Carousel from './docs/Carousel.doc';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -75,7 +76,7 @@ class App extends Component {
 			{key: 'text-input', label: '*text-input'},
 			{key: 'tag', label: '*tag'},
 			{key: 'select', label: 'select', path: 'select'},
-			{key: 'carousel', label: '*carousel'},
+			{key: 'carousel', label: 'carousel', path: 'carousel'},
 			{key: 'pagination', label: '*pagination'},
 			
 			{key: 'snackbar', label: 'snackbar'},
@@ -124,6 +125,7 @@ class App extends Component {
 							<Route exact path="/modal" component={Modal}/>
 							<Route exact path="/toggles" component={Toggles}/>
 							<Route exact path="/progress" component={Progress}/>
+							<Route exact path="/carousel" component={Carousel}/>
 							
 							<Route exact path="/click-out" component={ClickOut}/>
 						</Content>

@@ -89,7 +89,7 @@ const Value = styled(Circle)`
 
 const Text = styled.text`
 	${({theme}) => theme.text.sm};
-	fill: ${({theme}) => theme.p0};
+	fill: ${({theme}) => theme.p600};
 	text-anchor: middle;
 	alignment-baseline: middle;
 `;
