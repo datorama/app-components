@@ -21,6 +21,7 @@ import Toggles from './docs/Toggles.doc';
 import Progress from './docs/Progress.docs';
 import Carousel from './docs/Carousel.doc';
 import Spinner from './docs/Spinner.doc';
+import Pagination from './docs/Pagination.doc';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -78,7 +79,7 @@ class App extends Component {
 			{key: 'tag', label: '*tag'},
 			{key: 'select', label: 'select', path: 'select'},
 			{key: 'carousel', label: 'carousel', path: 'carousel'},
-			{key: 'pagination', label: '*pagination'},
+			{key: 'pagination', label: 'pagination', path: 'pagination'},
 			
 			{key: 'snackbar', label: 'snackbar'},
 			{key: 'stepper', label: 'stepper'},
@@ -128,6 +129,7 @@ class App extends Component {
 							<Route exact path="/progress" component={Progress}/>
 							<Route exact path="/carousel" component={Carousel}/>
 							<Route exact path="/spinner" component={Spinner}/>
+							<Route exact path="/pagination" component={Pagination}/>
 							
 							<Route exact path="/click-out" component={ClickOut}/>
 						</Content>
