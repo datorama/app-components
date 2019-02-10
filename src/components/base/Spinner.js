@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 const Spinner = ({color, className}) => {
 	return (
 		<Svg
+			color={color}
 			className={className}
 			x="0px"
 			y="0px"
@@ -33,7 +34,7 @@ const Spinner = ({color, className}) => {
 	);
 };
 
-Spinner.proptypes = {
+Spinner.propTypes = {
 	color: PropTypes.string,
 	className: PropTypes.string
 };
@@ -42,6 +43,6 @@ export default Spinner;
 
 const Svg = styled.svg`
 	path {
-	fill: ${({theme}) => theme.a500};
+	fill: ${({theme, color}) => color || theme.a500};
 	}
 `;
