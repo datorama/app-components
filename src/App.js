@@ -81,7 +81,7 @@ class App extends Component {
 			{key: 'carousel', label: 'carousel', path: 'carousel'},
 			{key: 'pagination', label: 'pagination', path: 'pagination'},
 			
-			{key: 'snackbar', label: 'snackbar'},
+			{key: 'notifications', label: 'notifications'},
 			{key: 'stepper', label: 'stepper'},
 			{key: 'tooltip', label: 'tooltip'},
 			{key: 'range-input', label: 'range input'},
@@ -94,7 +94,8 @@ class App extends Component {
 			
 			{key: 'utils', label: 'utils', type: 'title'},
 			{key: 'click-out', label: 'click out', path: 'click-out'},
-			{key: 'popup', label: 'popup'}
+			{key: 'popup', label: 'popup'},
+			{key: 'draggable', label: 'draggable'}
 		];
 		
 		return (
@@ -152,14 +153,10 @@ const Container = styled.div`
 
 const Sidebar = styled.div`
   width: 300px;
-  height: 100vh;
   background: #fff;
   box-sizing: border-box;
   border-right: 1px solid #eeeeee;
   padding: 40px;
-  position: fixed;
-  top: 0;
-  left: 0;
   
   ${({light}) => !light && css`
 		background: #272727;
@@ -171,7 +168,6 @@ const Content = styled.div`
   width: calc(100vw - 300px);
   min-height: 100vh;
   box-sizing: border-box;
-  margin-left: 300px;
   background: #fff;
   
   ${({light}) => !light && css`

@@ -38,9 +38,8 @@ export default class PaginationDoc extends React.Component {
 					<Col>
 						<Box>
 							<Pagination
-								total={10}
-								selected={selected}
-								onChange={this.setSelected}
+								total={20}
+								//onChange={this.setSelected}
 							/>
 						</Box>
 					</Col>
