@@ -42,10 +42,11 @@ export default class Pagination extends React.Component {
 	
 	prev = () => {
 		const {current, selected} = this.state;
-		
-		if (selected - 1 <= 0) {
-			return;
-		}
+		const {total} = this.props;
+		const valid = selected - 1 <= 0;
+		// if (selected - 1 <= 0) {
+		// 	return;
+		// }
 		
 		let dotsVisible = false;
 		if (this.isInDotsRange(current)) {
@@ -54,11 +55,25 @@ export default class Pagination extends React.Component {
 			}
 		}
 		
-		if (dotsVisible) {
+		if (dotsVisible && valid) {
 			this.setState({selected: selected - 1});
 		}
 		
 		// todo: check if selected is visible or not
+		if (selected === 1) {
+		
+		}
+		
+		if (selected === total) {
+		
+		}
+		
+		// if not visible update current
+		
+		// if visible - default
+		
+		// if current in dots range
+		
 		if (!dotsVisible) {
 			this.setState({selected: selected - 1, current: current - 1});
 		}
@@ -88,6 +103,7 @@ export default class Pagination extends React.Component {
 		
 		// dots hidden - jump
 		if (!leftVisible && id === 'left') {
+			nextSelected = selected;
 			// jump in 3
 			if (current - 3 > 3) {
 				nextCurrent -= 3;
