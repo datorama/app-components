@@ -68,7 +68,7 @@ export default class Pagination extends React.Component {
 	
 	setSelected = id => () => {
 		const {total} = this.props;
-		const {current} = this.state;
+		const {current, selected} = this.state;
 		
 		let nextSelected = id;
 		let nextCurrent = current;
@@ -88,11 +88,24 @@ export default class Pagination extends React.Component {
 		
 		// dots hidden - jump
 		if (!leftVisible && id === 'left') {
-			console.log('jump left');
+			// jump in 3
+			if (current - 3 > 3) {
+				nextCurrent -= 3;
+			} else {
+				// set left limit
+				nextCurrent = 4;
+			}
 		}
 		
 		if (!rightVisible && id === 'right') {
-			console.log('jump right');
+			nextSelected = selected;
+			// jump in 3
+			if (current + 3 < total - 2) {
+				nextCurrent += 3;
+			} else {
+				// set right limit
+				nextCurrent = total - 3;
+			}
 		}
 		
 		let calcId = id;
