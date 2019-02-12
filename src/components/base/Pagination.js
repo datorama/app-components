@@ -2,32 +2,7 @@ import React from 'react';
 import styled, {css} from 'styled-components';
 import PropTypes from 'prop-types';
 
-// todo:
-/*
-* prevent update selected only current on jump 3
-what about 13?
-// check selected ... 19 or 2
-
-
-// line issue
-* basic state
-* generic variables
-* arrows
-* */
-
-
-// next or prev
-// 1. check if current is visible or not
-// 2. if visible - update selected and current
-// 3. not visible - update current
-
-// click on ...
-// 1. limits - set constant
-// 2. jump on 3's
-
-// set selected
-// 1. set selected and current
-// 2. set with limits
+// dynamic
 
 export default class Pagination extends React.Component {
 	static propTypes = {
@@ -42,35 +17,108 @@ export default class Pagination extends React.Component {
 	
 	next = () => {
 		const {total} = this.props;
-		const {current} = this.state;
+		const {current, selected} = this.state;
 		
-		this.setState({current: current + 1});
+		if (selected + 1 > total) {
+			return;
+		}
+		
+		let dotsVisible = false;
+		if (current <= 4 || current > total - 4) {
+			if (selected < 4 || selected > 16) {
+				dotsVisible = true;
+			}
+		}
+		
+		if (dotsVisible) {
+			this.setState({selected: selected + 1});
+		}
+		
+		// todo: check if selected is visible or not
+		if (!dotsVisible) {
+			this.setState({selected: selected + 1, current: current + 1});
+		}
 	};
 	
 	prev = () => {
-		const {total} = this.props;
-		const {current} = this.state;
+		const {current, selected} = this.state;
 		
-		this.setState({current: current - 1});
+		if (selected - 1 <= 0) {
+			return;
+		}
 		
+		let dotsVisible = false;
+		if (this.isInDotsRange(current)) {
+			if (selected < 5 || selected > 17) {
+				dotsVisible = true;
+			}
+		}
+		
+		if (dotsVisible) {
+			this.setState({selected: selected - 1});
+		}
+		
+		// todo: check if selected is visible or not
+		if (!dotsVisible) {
+			this.setState({selected: selected - 1, current: current - 1});
+		}
 	};
+	
+	isInDotsRange = id => id <= 4 || id > this.props.total - 4;
 	
 	setSelected = id => () => {
 		const {total} = this.props;
-		const {current, selected} = this.state;
+		const {current} = this.state;
 		
-		// visible = current <= 4 or current > total - 4
-		let dotsVisible = false;
-		if (current <= 4 || current > total - 4) {
-			dotsVisible = true;
+		let nextSelected = id;
+		let nextCurrent = current;
+		
+		const dotsVisible = this.isInDotsRange(current);
+		const leftVisible = current <= 4;
+		const rightVisible = current > total - 4;
+		
+		// dots visible
+		if (dotsVisible && id === 'left' && leftVisible) {
+			nextSelected = 2;
 		}
 		
-		console.log(dotsVisible);
+		if (dotsVisible && id === 'right' && rightVisible) {
+			nextSelected = total - 1;
+		}
 		
-		//const min = ;
-		//const max = ;
+		// dots hidden - jump
+		if (!leftVisible && id === 'left') {
+			console.log('jump left');
+		}
 		
-		this.setState({selected: id});
+		if (!rightVisible && id === 'right') {
+			console.log('jump right');
+		}
+		
+		let calcId = id;
+		if (id === 'left') {
+			calcId = 2;
+		}
+		if (id === 'right') {
+			calcId = total - 1;
+		}
+		
+		if (!this.isInDotsRange(calcId)) {
+			nextCurrent = calcId;
+		} else {
+			// update current to limits
+			if (calcId !== 2 && calcId !== total - 1) {
+				if (calcId <= 4) {
+					nextCurrent = 4;
+				}
+				
+				if (calcId > total - 4) {
+					nextCurrent = total - 3;
+				}
+			}
+		}
+		
+		this.setState({selected: nextSelected, current: nextCurrent});
 	};
 	
 	render() {
