@@ -2,7 +2,13 @@ import React, {Component, Fragment} from 'react';
 import styled, {css} from 'styled-components';
 import PropTypes from 'prop-types';
 
+// components
+import {ReactComponent as NotifIcon} from '../assets/notif.svg';
+
+
 class Notifications extends Component {
+	static propTypes = {};
+	
 	state = {
 		leaving: [],
 		list: [
@@ -44,15 +50,18 @@ class Notifications extends Component {
 					<Notification
 						key={`notif-${id}`}
 						top={index * 80}
-						onClick={this.clearNotification(id)}
 						leaving={leaving.includes(id)}
 					>
-						<Title>{title}</Title>
-						<Subtitle>{subtitle}</Subtitle>
+						<CloseIcon onClick={this.clearNotification(id)}/>
+						<StyledIcon/>
+						<Meta>
+							<Title>{title}</Title>
+							<Subtitle>{subtitle}</Subtitle>
+						</Meta>
 					</Notification>
 				))}
 				
-				<div onClick={this.addNotification}>add</div>
+				<div onClick={this.addNotification}>ADD NOTIFICATION</div>
 			</Fragment>
 		);
 	}
@@ -75,13 +84,70 @@ const Notification = styled.div`
 	z-index: 10;
 	${({theme, leaving}) => leaving ? theme.animation.fadeRightExit : theme.animation.fadeLeft};
 	display: flex;
+`;
+
+const Meta = styled.div`
 	flex-direction: column;
+	display: flex;
 `;
 
 const Title = styled.div`
 	${({theme}) => theme.text.pBold};
+	height: 22px;
+	display: flex;
+	align-items: center;
 `;
 
 const Subtitle = styled.div`
 	${({theme}) => theme.text.smNote};
+`;
+
+const StyledIcon = styled(NotifIcon)`
+	width: 26px;
+	height: 26px;
+	margin-right: 4px;
+	
+	path {
+		fill: ${({theme}) => theme.p300};
+	}
+`;
+
+const CloseIcon = styled.div`
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	cursor: pointer;
+	
+  width: 12px;
+  height: 12px;
+  overflow: hidden;
+  
+  &:hover {
+    &::before, &::after {
+      background: ${({theme}) => theme.p500};
+    }
+  }
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: ${({theme}) => theme.p300};
+  }
+  
+  &::before {
+  	transform: rotate(45deg);
+  }
+  
+  &::after {
+    transform: rotate(-45deg);
+  }
+  
+  &::before, &::after {
+		height: 1px;
+	}
 `;
