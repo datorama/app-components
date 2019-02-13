@@ -24,6 +24,7 @@ import Spinner from './docs/Spinner.doc';
 import Pagination from './docs/Pagination.doc';
 import TextInput from './docs/TextInput.doc';
 import Draggable from './docs/Draggable.doc';
+import Tag from './docs/Tags.doc';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -78,7 +79,7 @@ class App extends Component {
 			{key: 'progress', label: 'progress', path: 'progress'},
 			{key: 'spinner', label: 'spinner', path: 'spinner'},
 			{key: 'text-input', label: 'text-input', path: 'text-input'},
-			{key: 'tag', label: 'tag'},
+			{key: 'tag', label: 'tag', path: 'tag'},
 			{key: 'select', label: 'select', path: 'select'},
 			{key: 'carousel', label: 'carousel', path: 'carousel'},
 			{key: 'pagination', label: 'pagination', path: 'pagination'},
@@ -133,6 +134,7 @@ class App extends Component {
 							<Route exact path="/spinner" component={Spinner}/>
 							<Route exact path="/pagination" component={Pagination}/>
 							<Route exact path="/text-input" component={TextInput}/>
+							<Route exact path="/tag" component={Tag}/>
 							
 							<Route exact path="/click-out" component={ClickOut}/>
 							<Route exact path="/draggable" component={Draggable}/>

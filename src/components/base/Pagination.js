@@ -151,7 +151,7 @@ const Button = styled.div`
 	color: ${({theme}) => theme.p200};
 	
 	${({selected, theme}) => selected && css`
-		color: ${theme.p700};
+		color: ${theme.p600};
 	`};
 	
 	&:hover {
@@ -176,7 +176,7 @@ const Arrow = styled(ArrowDown)`
 	height: 14px;
 	transform: rotate(${({rotate}) => `${rotate}deg`});
 	* {
-		fill: ${({theme}) => theme.p600};
+		fill: ${({theme}) => theme.p400};
 	}
 `;
 
@@ -185,6 +185,6 @@ const DoubleArrow = styled(DoubleArrowDown)`
 	height: 14px;
 	transform: rotate(${({rotate}) => `${rotate}deg`});
 	* {
-		fill: ${({theme}) => theme.p600};
+		fill: ${({theme}) => theme.p400};
 	}
 `;
