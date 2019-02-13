@@ -23,6 +23,7 @@ import Carousel from './docs/Carousel.doc';
 import Spinner from './docs/Spinner.doc';
 import Pagination from './docs/Pagination.doc';
 import TextInput from './docs/TextInput.doc';
+import Draggable from './docs/Draggable.doc';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -95,7 +96,7 @@ class App extends Component {
 			{key: 'utils', label: 'utils', type: 'title'},
 			{key: 'click-out', label: 'click out', path: 'click-out'},
 			{key: 'popup', label: 'popup'},
-			{key: 'draggable', label: 'draggable'}
+			{key: 'draggable', label: 'draggable', path: 'draggable'}
 		];
 		
 		return (
@@ -134,6 +135,7 @@ class App extends Component {
 							<Route exact path="/text-input" component={TextInput}/>
 							
 							<Route exact path="/click-out" component={ClickOut}/>
+							<Route exact path="/draggable" component={Draggable}/>
 						</Content>
 					</Container>
 				</ThemeProvider>
