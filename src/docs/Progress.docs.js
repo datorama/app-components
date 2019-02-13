@@ -92,10 +92,7 @@ const ProgressDoc = ({theme}) => {
 	);
 };
 
-// todo: temp solution
-const ConnectedDoc = () => withTheme(ProgressDoc);
-export default ConnectedDoc;
-
+export default withTheme(ProgressDoc);
 
 const Box = styled.div`
 	width: 100%;
