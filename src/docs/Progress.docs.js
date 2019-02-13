@@ -29,7 +29,7 @@ const MyComp = () => (
 );
 `;
 
-const ProgressDoc = ({ theme }) => {
+const ProgressDoc = ({theme}) => {
 	const title = 'progress';
 	const description = 'preogress..';
 	
@@ -92,7 +92,10 @@ const ProgressDoc = ({ theme }) => {
 	);
 };
 
-export default withTheme(ProgressDoc);
+// todo: temp solution
+const ConnectedDoc = () => withTheme(ProgressDoc);
+export default ConnectedDoc;
+
 
 const Box = styled.div`
 	width: 100%;
