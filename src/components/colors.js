@@ -48,12 +48,68 @@ export const darkAccent = {
 	a100: '#072A60'
 };
 
-export const darkTheme = {...darkPrimary, ...darkAccent};
-export const lightTheme = {...lightPrimary, ...lightAccent};
+export const reds = {
+	r50: '#FBEDED',
+	r100: '#F6D1D2',
+	r200: '#EEA5A5',
+	r300: '#E67878',
+	r400: '#DE4B4C',
+	r500: '#B83E3F',
+	r600: '#923132',
+	r700: '#6B2424',
+	r800: '#551C1D'
+};
+
+export const greens = {
+	g50: '#E7F8EF',
+	g100: '#C2EDD8',
+	g200: '#86DBB1',
+	g300: '#49C98A',
+	g400: '#0DB864',
+	g500: '#0A9853',
+	g600: '#087941',
+	g700: '#065930',
+	g800: '#044626'
+};
+
+export const yellows = {
+	y50: '#FFF8E7',
+	y100: '#FFF2CF',
+	y200: '#FFE6A0',
+	y300: '#FFDA71',
+	y400: '#FFCE42',
+	y500: '#D4AB36',
+	y600: '#A8872B',
+	y700: '#7C6420',
+	y800: '#624F19'
+};
+
+export const oranges = {
+	o50: '#FFF4E6',
+	o100: '#FFE5BF',
+	o200: '#FFCB80',
+	o300: '#FFB141',
+	o400: '#FF9802',
+	o500: '#FF8601',
+	o600: '#FF7301',
+	o700: '#994500',
+	o800: '#402100'
+};
+
+const multi = {
+	reds,
+	greens,
+	yellows,
+	oranges
+};
+
+export const darkTheme = {...darkPrimary, ...darkAccent, ...multi};
+export const lightTheme = {...lightPrimary, ...lightAccent, ...multi};
 
 export const list = {
 	...lightAccent,
 	...lightPrimary,
 	...darkAccent,
-	...darkPrimary
+	...darkPrimary,
+	...multi
 };

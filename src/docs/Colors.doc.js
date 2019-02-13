@@ -8,7 +8,11 @@ import {
 	lightPrimary,
 	lightAccent,
 	darkPrimary,
-	darkAccent
+	darkAccent,
+	reds,
+	greens,
+	yellows,
+	oranges
 } from '../components/colors';
 import {Row, Col} from '../components/index';
 import Base from './Base';
@@ -78,6 +82,54 @@ const Colors = () => {
 			<Row>
 				<Col direction="row" justify="space-between">
 					{keys(darkAccent).reverse().map(key => <Color key={`dark-${key}`} color={darkAccent[key]} label={key}/>)}
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<SectionTitle>reds</SectionTitle>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col direction="row" justify="space-between">
+					{keys(reds).map(key => <Color key={`reds-${key}`} color={reds[key]} label={key}/>)}
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<SectionTitle>greens</SectionTitle>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col direction="row" justify="space-between">
+					{keys(greens).map(key => <Color key={`greens-${key}`} color={greens[key]} label={key}/>)}
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<SectionTitle>yellows</SectionTitle>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col direction="row" justify="space-between">
+					{keys(yellows).map(key => <Color key={`yellows-${key}`} color={yellows[key]} label={key}/>)}
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col>
+					<SectionTitle>oranges</SectionTitle>
+				</Col>
+			</Row>
+			
+			<Row>
+				<Col direction="row" justify="space-between">
+					{keys(oranges).map(key => <Color key={`oranges-${key}`} color={oranges[key]} label={key}/>)}
 				</Col>
 			</Row>
 		</Base>

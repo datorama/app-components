@@ -31,6 +31,11 @@ export const lightAccent = libColors.lightAccent;
 export const darkPrimary = libColors.darkPrimary;
 export const darkAccent = libColors.darkAccent;
 
+export const reds = libColors.reds;
+export const greens = libColors.greens;
+export const yellows = libColors.yellows;
+export const oranges = libColors.oranges;
+
 // layout
 export const Container = layout.Container;
 export const Row = layout.Row;
