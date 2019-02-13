@@ -3,6 +3,10 @@ import styled, {css} from 'styled-components';
 import {range} from 'lodash/fp';
 import PropTypes from 'prop-types';
 
+// assets
+import {ReactComponent as ArrowDown} from '../assets/arrow-down.svg';
+import {ReactComponent as DoubleArrowDown} from '../assets/double-arrow-down.svg';
+
 export default class Pagination extends React.Component {
 	static propTypes = {
 		total: PropTypes.number.isRequired,
@@ -104,8 +108,8 @@ export default class Pagination extends React.Component {
 			<Container>
 				{!noControlls && (
 					<Fragment>
-						<Button filled onClick={this.setPage(1)}/>
-						<Button filled onClick={this.prev}/>
+						<Button filled onClick={this.setPage(1)}><DoubleArrow rotate={90}/></Button>
+						<Button filled onClick={this.prev}><Arrow rotate={90}/></Button>
 					</Fragment>
 				)}
 				
@@ -113,8 +117,8 @@ export default class Pagination extends React.Component {
 				
 				{!noControlls && (
 					<Fragment>
-						<Button filled onClick={this.next}/>
-						<Button filled onClick={this.setPage(total)}/>
+						<Button filled onClick={this.next}><Arrow rotate={-90}/></Button>
+						<Button filled onClick={this.setPage(total)}><DoubleArrow rotate={-90}/></Button>
 					</Fragment>
 				)}
 				
@@ -141,6 +145,7 @@ const Button = styled.div`
 	align-items: center;
 	justify-content: center;
 	border-radius: 2px;
+	transition: ${({filled}) => filled ? 'all 300ms' : 'none'};
 	
 	${({theme}) => theme.text.smLink};
 	color: ${({theme}) => theme.p200};
@@ -148,16 +153,38 @@ const Button = styled.div`
 	${({selected, theme}) => selected && css`
 		color: ${theme.p700};
 	`};
+	
+	&:hover {
+		background: ${({theme}) => theme.p200};
+	}
 `;
 
 const Divider = styled.div`
 	width: 1px;
 	height: 18px;
-	margin: 0 4px;
-	background: ${({theme}) => theme.p100};
+	margin: 0 8px;
+	background: ${({theme}) => theme.p200};
 `;
 
 const Info = styled.div`
 	${({theme}) => theme.text.smNote};
 	width: 90px;
+`;
+
+const Arrow = styled(ArrowDown)`
+	width: 14px;
+	height: 14px;
+	transform: rotate(${({rotate}) => `${rotate}deg`});
+	* {
+		fill: ${({theme}) => theme.p600};
+	}
+`;
+
+const DoubleArrow = styled(DoubleArrowDown)`
+	width: 14px;
+	height: 14px;
+	transform: rotate(${({rotate}) => `${rotate}deg`});
+	* {
+		fill: ${({theme}) => theme.p600};
+	}
 `;

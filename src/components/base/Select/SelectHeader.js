@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import {Label} from './Select';
 import SelectSpinner from './SelectSpinner';
 import {optionsType} from './Select.types';
+import {ReactComponent as ArrowDown} from '../../assets/arrow-down.svg';
 
 const SelectHeader = props => {
 	const {
@@ -111,21 +112,14 @@ const Container = styled.div`
 
   ${({open, theme, error}) => open && css`
 		border-color: ${error ? theme.red400 : theme.a400};
-
-		${Label} {
-			//color: ${({theme}) => theme.a400};
-		}
 	`};
 `;
 
-const Arrow = styled.div`
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid ${({theme}) => theme.p300};
-  position: absolute;
-  right: 10px;
-  top: calc(50% - 2px);
+const Arrow = styled(ArrowDown)`
+	width: 12px;
+	height: 12px;
   transform: rotate(${({revert}) => (revert ? '180deg' : '0deg')});
+  * {
+  	fill: ${({theme}) => theme.p600};
+  }
 `;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Highlight from 'react-highlight-js';
+import {hexToRgba} from '../components/utils';
 
 // components
 import Base from './Base';
@@ -69,4 +70,5 @@ const Box = styled.div`
 	align-items: center;
 	border-radius: 4px;
 	justify-content: center;
+	background: ${({theme}) => hexToRgba(theme.p50, 30)};
 `;
