@@ -1,12 +1,12 @@
 import React from 'react';
 import styled, {css} from 'styled-components';
-import Highlight from 'react-highlight-js';
 
 // components
 import Base from './Base';
 import Button from '../components/base/Button';
 import Select from '../components/base/Select/Select';
 import {Row, Col} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 // add a css block snippet inside a styled component
@@ -58,7 +58,7 @@ export default class AnimationsDoc extends React.Component {
 			<Base title={title} description={description}>
 				<Row>
 					<Col>
-						<Highlight language="javascript">{snippet}</Highlight>
+						<Snippet snippet={snippet}/>
 					</Col>
 					<Col>
 						<Playground>

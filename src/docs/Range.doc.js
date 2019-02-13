@@ -1,35 +1,63 @@
 import React from 'react';
-import styled, {withTheme} from 'styled-components';
-import Highlight from 'react-highlight-js';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
 import Range from '../components/base/Range';
 import {Row, Col} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 import { Range } from 'app-components';
 
-const MyComp = () => (
+const MyComp = ({ handleChange }) => (
   <div>
-    <Range />
+    <Range min={0} max={100} onChange={handleChange} />
   </div>
 );
 `;
 
-const RangeDoc = props => {
+const disabled = `
+import { Range } from 'app-components';
+
+const MyComp = ({ handleChange }) => (
+  <div>
+    <Range disabled onChange={handleChange} />
+  </div>
+);
+`;
+
+const RangeDoc = () => {
 	const title = 'range';
 	const description = 'range.';
 	
 	return (
-		<Base title={title} description={description} name="Spinner">
+		<Base title={title} description={description} name="Range">
 			<Row align="stretch">
 				<Col>
-					<Highlight language="javascript">{snippet}</Highlight>
+					<Snippet snippet={snippet}/>
 				</Col>
 				<Col>
 					<Box>
-						<Range/>
+						<Range
+							min={0}
+							max={100}
+						/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={disabled}/>
+				</Col>
+				<Col>
+					<Box>
+						<Range
+							min={0}
+							max={100}
+							disabled
+						/>
 					</Box>
 				</Col>
 			</Row>
@@ -37,7 +65,7 @@ const RangeDoc = props => {
 	);
 };
 
-export default withTheme(RangeDoc);
+export default RangeDoc;
 
 const Box = styled.div`
 	width: 100%;

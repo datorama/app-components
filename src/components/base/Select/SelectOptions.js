@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {css} from 'styled-components/macro';
+import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
 import {find} from 'lodash/fp';
 

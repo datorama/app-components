@@ -32,6 +32,9 @@ class Datepicker extends Component {
 			const current = thisMonth.clone().set('date', i);
 			let selected = current.isBetween(selection[0], selection[1], null, '[]');
 			
+			// todo: rename
+			const selectingEnd = selection[1] || selecting;
+			
 			// check selected while selecting
 			if (selecting && current.isBetween(selection[0], hoveredDate, null, '[]')) {
 				selected = true;
@@ -45,12 +48,12 @@ class Datepicker extends Component {
 					onMouseLeave={this.setHover}
 					selected={selected}
 					isStart={current.format('YYYY-MM-DD') === selection[0]}
-					isEnd={current.format('YYYY-MM-DD') === selection[1] || selecting && current.format('YYYY-MM-DD') === hoveredDate}
+					isEnd={current.format('YYYY-MM-DD') === selectingEnd && current.format('YYYY-MM-DD') === hoveredDate}
 				>
 					<DateIcon
 						today={today.day() === (i - 1) && !(globalOffset + offset)}
 						isStart={current.format('YYYY-MM-DD') === selection[0]}
-						isEnd={current.format('YYYY-MM-DD') === selection[1] || selecting && current.format('YYYY-MM-DD') === hoveredDate}
+						isEnd={current.format('YYYY-MM-DD') === selectingEnd && current.format('YYYY-MM-DD') === hoveredDate}
 					>
 						{i}
 					</DateIcon>

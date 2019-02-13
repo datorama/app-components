@@ -1,16 +1,10 @@
-import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 export default class Draggable extends React.Component {
-	static propTypes = {
-		children: PropTypes.node,
-		onDragStart: PropTypes.func,
-		onDrag: PropTypes.func,
-		onDragEnd: PropTypes.func
-	};
-	
 	state = {
 		isDragging: false,
+		clientX: 0,
+		clientY: 0,
 		
 		originalX: 0,
 		originalY: 0,
@@ -40,19 +34,17 @@ export default class Draggable extends React.Component {
 	};
 	
 	handleMouseMove = ({clientX, clientY}) => {
-		const {isDragging, originalX, originalY} = this.state;
+		const {originalX, originalY, isDragging} = this.state;
 		const {onDrag} = this.props;
 		
 		if (!isDragging) {
 			return;
 		}
 		
-		if (onDrag) {
-			onDrag({
-				translateX: clientX - originalX,
-				translateY: clientY - originalY
-			});
-		}
+		onDrag({
+			translateX: clientX - originalX,
+			translateY: clientY - originalY
+		});
 	};
 	
 	handleMouseUp = () => {
@@ -61,8 +53,15 @@ export default class Draggable extends React.Component {
 		
 		this.setState(
 			{
+				clientX: 0,
+				clientY: 0,
+				
 				originalX: 0,
 				originalY: 0,
+				
+				translateX: 0,
+				translateY: 0,
+				
 				isDragging: false
 			},
 			() => {

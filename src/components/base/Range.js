@@ -1,33 +1,84 @@
 import React, {Component} from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import PropTypes from 'prop-types';
+import {hexToRgba} from "../utils";
 
 // components
 import Draggable from './Draggable';
 
 class Range extends Component {
 	static propTypes = {
-		value: PropTypes.number,
 		min: PropTypes.number,
 		max: PropTypes.number,
-		step: PropTypes.number,
 		disabled: PropTypes.bool,
 		className: PropTypes.string
 	};
 	
 	state = {
+		width: 0,
+		percentage: 0,
+		lastPercentage: 0,
+		dragging: false,
 		value: 0
 	};
 	
+	handleDrag = ({translateX}) => {
+		const {lastPercentage, width} = this.state;
+		const {min, max, onChange} = this.props;
+		const calcPercentage = Math.min(100, lastPercentage + (translateX) / width * 100);
+		const percentage = Math.max(0, calcPercentage);
+		
+		this.setState({
+			percentage,
+			value: Math.round(percentage / 100 * (max - min)) + min
+		}, () => {
+			if (onChange) {
+				onChange(this.state.value);
+			}
+		})
+	};
+	
+	handleDragStart = () => this.setState({dragging: true});
+	
+	handleDragEnd = () => this.setState({
+		lastPercentage: this.state.percentage,
+		dragging: false
+	});
+	
+	handleRef = el => {
+		if (el) {
+			const {width} = el.getBoundingClientRect();
+			
+			this.setState({width});
+		}
+	};
+	
 	render() {
+		const {percentage, dragging, value} = this.state;
+		const {min, max, disabled} = this.props;
+		
 		return (
-			<Container>
-				<Outer>
-					<Inner width={60}/>
+			<Container disabled={disabled}>
+				<Outer ref={this.handleRef}>
+					<Inner width={percentage}/>
 				</Outer>
-				<Draggable>
-					<Thumb/>
+				<Draggable
+					onDragStart={this.handleDragStart}
+					onDrag={this.handleDrag}
+					onDragEnd={this.handleDragEnd}
+				>
+					<Thumb
+						left={percentage}
+						dragging={dragging}
+						disabled={disabled}
+					/>
 				</Draggable>
+				<Value left={percentage} visible={dragging}>
+					{value}
+				</Value>
+				
+				<Label left="-20px">{min}</Label>
+				<Label left="calc(100% - 20px)">{max}</Label>
 			</Container>
 		);
 	}
@@ -41,6 +92,10 @@ const Container = styled.div`
 	position: relative;
 	height: 6px;
 	align-items: center;
+	
+	${({disabled}) => disabled && css`
+		pointer-events: none;
+	`};
 `;
 
 const Outer = styled.div`
@@ -59,17 +114,73 @@ const Inner = styled.div`
 	height: 2px;
 	width: ${({width}) => `${width}%`}
 	background: ${({theme}) => theme.a500};
+	transition: all 100ms;
 `;
 
-const Thumb = styled.div`
+const Thumb = styled.div.attrs({
+	style: ({left}) => ({
+		left: `calc(${left}% - 6px)`
+	})
+})`
 	width: 12px;
 	height: 12px;
 	cursor: pointer;
 	border-radius: 50%;
 	background: ${({theme}) => theme.a500};
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	position: absolute;
-	top: -6px;
+	top: -3px;
 	left: -6px;
 	opacity: 1;
+	transition: all 100ms;
+	
+	${({dragging}) => dragging && css`
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		transform: scale(1.1);
+	`};
+	
+	${({disabled, theme}) => disabled && css`
+		background: ${theme.p300};
+	`};
+	
+	&:hover {
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		transform: scale(1.1);
+	}
+`;
+
+const Label = styled.div`
+	position: absolute;
+	top: 10px;
+	left: ${({left}) => left};
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 20px;
+	pointer-events: none;
+	${({theme}) => theme.text.sm};
+	color: ${({theme}) => theme.p300};
+`;
+
+const Value = styled.div.attrs({
+	style: ({left}) => ({
+		left: `${left}%`
+	})
+})`
+	padding: 2px 6px;
+	${({theme}) => theme.text.sm};
+	color: ${({theme}) => theme.p0};
+	border-radius: 3px;
+	background: ${({theme}) => hexToRgba(theme.p500, 90)};
+	transform: translateX(-50%);
+	position: absolute;
+	transition: all 100ms;
+	top: -28px;
+	opacity: 0;
+	
+	${({visible}) => visible && css`
+		top: -36px;
+		opacity: 1;
+	`};
 `;
