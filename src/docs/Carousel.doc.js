@@ -77,5 +77,5 @@ const Slide = styled.div`
 `;
 
 const StyledCarousel = styled(Carousel)`
-	width: 800px;
+	width: 100%;
 `;

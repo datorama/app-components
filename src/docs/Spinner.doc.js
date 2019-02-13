@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {withTheme} from 'styled-components';
 import Highlight from 'react-highlight-js';
 
 // components
@@ -22,12 +22,12 @@ import { Spinner } from 'app-components';
 
 const MyComp = () => (
   <div>
-    <Spinner color="red" />
+    <Spinner color={theme.g400} />
   </div>
 );
 `;
 
-const SpinnerDoc = () => {
+const SpinnerDoc = props => {
 	const title = 'spinner';
 	const description = 'spinner.';
 	
@@ -50,7 +50,7 @@ const SpinnerDoc = () => {
 				</Col>
 				<Col>
 					<Box>
-						<Spinner color="red"/>
+						<Spinner color={props.theme.g400}/>
 					</Box>
 				</Col>
 			</Row>
@@ -58,7 +58,7 @@ const SpinnerDoc = () => {
 	);
 };
 
-export default SpinnerDoc;
+export default withTheme(SpinnerDoc);
 
 const Box = styled.div`
 	width: 100%;

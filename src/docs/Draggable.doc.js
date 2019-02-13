@@ -54,8 +54,8 @@ const Box = styled.div`
 `;
 
 const Circle = styled.div`
-	background: ${({theme}) => theme.p400};
-	width: 50px;
-	height: 50px;
+	background: ${({theme}) => theme.p300};
+	width: 40px;
+	height: 40px;
 	border-radius: 50%;
 `;
