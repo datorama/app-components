@@ -25,6 +25,7 @@ import Pagination from './docs/Pagination.doc';
 import TextInput from './docs/TextInput.doc';
 import Draggable from './docs/Draggable.doc';
 import Tag from './docs/Tags.doc';
+import Range from './docs/Range.doc';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -87,7 +88,7 @@ class App extends Component {
 			{key: 'notifications', label: 'notifications'},
 			{key: 'stepper', label: 'stepper'},
 			{key: 'tooltip', label: 'tooltip'},
-			{key: 'range-input', label: 'range input'},
+			{key: 'range-input', label: 'range input', path: 'range'},
 			{key: 'tabs', label: 'tabs'},
 			{key: 'collapse', label: 'collapse'},
 			{key: 'table', label: 'table'},
@@ -135,6 +136,7 @@ class App extends Component {
 							<Route exact path="/pagination" component={Pagination}/>
 							<Route exact path="/text-input" component={TextInput}/>
 							<Route exact path="/tag" component={Tag}/>
+							<Route exact path="/range" component={Range}/>
 							
 							<Route exact path="/click-out" component={ClickOut}/>
 							<Route exact path="/draggable" component={Draggable}/>

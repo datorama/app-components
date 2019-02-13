@@ -10,36 +10,54 @@ import {Row, Col} from '../components/index';
 const snippet = `
 import { Draggable } from 'app-components';
 
-const MyComp = () => (
+const MyComp = ({ handleDrag }) => (
   <div>
-    <Draggable>
+    <Draggable onDrag={handleDrag}>
       <CustomComp />
     </Draggable>
   </div>
 );
 `;
 
-const DraggableDoc = () => {
-	const title = 'spinner';
-	const description = 'spinner.';
+class DraggableDoc extends React.Component {
+	state = {
+		translateX: 0,
+		translateY: 0
+	};
 	
-	return (
-		<Base title={title} description={description} name="Draggable">
-			<Row align="stretch">
-				<Col>
-					<Highlight language="javascript">{snippet}</Highlight>
-				</Col>
-				<Col>
-					<Box>
-						<Draggable>
-							<Circle/>
-						</Draggable>
-					</Box>
-				</Col>
-			</Row>
-		</Base>
-	);
-};
+	handleDrag = ({translateX, translateY}) => this.setState({translateX, translateY});
+	
+	handleDragEnd = () => this.setState({
+		translateX: 0,
+		translateY: 0
+	});
+	
+	render() {
+		const {translateX, translateY} = this.state;
+		const title = 'spinner';
+		const description = 'spinner.';
+		
+		return (
+			<Base title={title} description={description} name="Draggable">
+				<Row align="stretch">
+					<Col>
+						<Highlight language="javascript">{snippet}</Highlight>
+					</Col>
+					<Col>
+						<Box>
+							<Draggable
+								onDrag={this.handleDrag}
+								onDragEnd={this.handleDragEnd}
+							>
+								<Circle translateX={translateX} translateY={translateY}/>
+							</Draggable>
+						</Box>
+					</Col>
+				</Row>
+			</Base>
+		);
+	}
+}
 
 export default DraggableDoc;
 
@@ -53,7 +71,11 @@ const Box = styled.div`
 	background: ${({theme}) => theme.p50};
 `;
 
-const Circle = styled.div`
+const Circle = styled.div.attrs({
+	style: ({translateX, translateY}) => ({
+		transform: `translate(${translateX}px, ${translateY}px)`
+	}),
+})`
 	background: ${({theme}) => theme.p300};
 	width: 40px;
 	height: 40px;

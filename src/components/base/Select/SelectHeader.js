@@ -71,7 +71,7 @@ const SelectHeader = props => {
 				<Label>{label}</Label>
 			</LabelWrapper>
 			
-			{!loading && <Arrow revert={open}/>}
+			{!loading && <Arrow rotation={open ? '180deg' : '0deg'}/>}
 			{loading && <SelectSpinner size="12px" color="#09a0ff"/>}
 		</Container>
 	);
@@ -118,7 +118,7 @@ const Container = styled.div`
 const Arrow = styled(ArrowDown)`
 	width: 12px;
 	height: 12px;
-  transform: rotate(${({revert}) => (revert ? '180deg' : '0deg')});
+  transform: rotate(${({rotation}) => rotation});
   * {
   	fill: ${({theme}) => theme.p600};
   }

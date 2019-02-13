@@ -166,6 +166,60 @@
   },
   {
     "description": "",
+    "displayName": "ClickOut",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": true,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/ClickOut.js"
+  },
+  {
+    "description": "",
     "displayName": "Checkbox",
     "methods": [],
     "props": {
@@ -220,128 +274,6 @@
       }
     },
     "filename": "/components/base/Checkbox.js"
-  },
-  {
-    "description": "",
-    "displayName": "Draggable",
-    "methods": [
-      {
-        "name": "handleMouseDown",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{clientX, clientY}",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleMouseMove",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{clientX, clientY}",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleMouseUp",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onDragStart": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onDrag": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onDragEnd": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Draggable.js"
-  },
-  {
-    "description": "",
-    "displayName": "ClickOut",
-    "methods": [
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": true,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/ClickOut.js"
   },
   {
     "description": "",
@@ -416,18 +348,37 @@
   },
   {
     "description": "",
-    "displayName": "Modal",
+    "displayName": "Draggable",
     "methods": [
       {
-        "name": "handleClick",
+        "name": "handleMouseDown",
         "docblock": null,
         "modifiers": [],
         "params": [
           {
-            "name": "onClick",
+            "name": "{clientX, clientY}",
             "type": null
           }
         ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseMove",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{clientX, clientY}",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseUp",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
         "returns": null
       }
     ],
@@ -439,46 +390,29 @@
         "required": false,
         "description": ""
       },
-      "toggleOpen": {
+      "onDragStart": {
         "type": {
           "name": "func"
         },
-        "required": true,
+        "required": false,
         "description": ""
       },
-      "open": {
+      "onDrag": {
         "type": {
-          "name": "bool"
-        },
-        "required": true,
-        "description": ""
-      },
-      "title": {
-        "type": {
-          "name": "string"
+          "name": "func"
         },
         "required": false,
         "description": ""
       },
-      "className": {
+      "onDragEnd": {
         "type": {
-          "name": "string"
+          "name": "func"
         },
         "required": false,
-        "description": ""
-      },
-      "buttons": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "object"
-          }
-        },
-        "required": true,
         "description": ""
       }
     },
-    "filename": "/components/base/Modal.js"
+    "filename": "/components/base/Draggable.js"
   },
   {
     "description": "",
@@ -552,46 +486,69 @@
   },
   {
     "description": "",
-    "displayName": "RadialProgress",
-    "methods": [],
+    "displayName": "Modal",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "onClick",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
-      "label": {
+      "children": {
         "type": {
-          "name": "string"
+          "name": "node"
         },
         "required": false,
         "description": ""
       },
-      "color": {
+      "toggleOpen": {
         "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "percentage": {
-        "type": {
-          "name": "number"
+          "name": "func"
         },
         "required": true,
         "description": ""
       },
-      "disabled": {
+      "open": {
         "type": {
           "name": "bool"
+        },
+        "required": true,
+        "description": ""
+      },
+      "title": {
+        "type": {
+          "name": "string"
         },
         "required": false,
         "description": ""
       },
-      "radius": {
+      "className": {
         "type": {
-          "name": "number"
+          "name": "string"
         },
         "required": false,
         "description": ""
+      },
+      "buttons": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": true,
+        "description": ""
       }
     },
-    "filename": "/components/base/RadialProgress.js"
+    "filename": "/components/base/Modal.js"
   },
   {
     "description": "",
@@ -635,6 +592,55 @@
       }
     },
     "filename": "/components/base/Progress.js"
+  },
+  {
+    "description": "",
+    "displayName": "RadialProgress",
+    "methods": [],
+    "props": {
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "percentage": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "radius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/RadialProgress.js"
+  },
+  {
+    "description": "",
+    "displayName": "Range",
+    "methods": [],
+    "filename": "/components/base/Range.js"
   },
   {
     "description": "",
@@ -707,6 +713,72 @@
       }
     },
     "filename": "/components/base/Tag.js"
+  },
+  {
+    "description": "",
+    "displayName": "TagGroup",
+    "methods": [],
+    "props": {
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "tags": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "id": {
+                "name": "string",
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/TagGroup.js"
   },
   {
     "description": "",
@@ -785,72 +857,6 @@
       }
     },
     "filename": "/components/base/TextInput.js"
-  },
-  {
-    "description": "",
-    "displayName": "TagGroup",
-    "methods": [],
-    "props": {
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "tags": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "id": {
-                "name": "string",
-                "required": false
-              },
-              "label": {
-                "name": "string",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "string"
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/TagGroup.js"
   },
   {
     "description": "",
@@ -1398,6 +1404,12 @@
   },
   {
     "description": "",
+    "displayName": "SelectNoResults",
+    "methods": [],
+    "filename": "/components/base/Select/SelectNoResults.js"
+  },
+  {
+    "description": "",
     "displayName": "SelectMultiHeader",
     "methods": [],
     "props": {
@@ -1509,41 +1521,6 @@
   },
   {
     "description": "",
-    "displayName": "SelectSpinner",
-    "methods": [],
-    "props": {
-      "size": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "margin": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectSpinner.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectNoResults",
-    "methods": [],
-    "filename": "/components/base/Select/SelectNoResults.js"
-  },
-  {
-    "description": "",
     "displayName": "SelectSearch",
     "methods": [],
     "props": {
@@ -1577,5 +1554,34 @@
       }
     },
     "filename": "/components/base/Select/SelectSearch.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectSpinner",
+    "methods": [],
+    "props": {
+      "size": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "margin": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectSpinner.js"
   }
 ]
