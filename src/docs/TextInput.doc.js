@@ -32,7 +32,7 @@ const TextInputDoc = () => {
 						<TextInput
 							label="Label"
 							placeholder="placeholder"
-							require={false}
+							required
 							disabled={false}
 						/>
 					</Box>

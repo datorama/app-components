@@ -96,20 +96,30 @@ export const oranges = {
 	o800: '#402100'
 };
 
-const multi = {
-	reds,
-	greens,
-	yellows,
-	oranges
+export const darkTheme = {
+	...darkPrimary,
+	...darkAccent,
+	...reds,
+	...greens,
+	...yellows,
+	...oranges
 };
-
-export const darkTheme = {...darkPrimary, ...darkAccent, ...multi};
-export const lightTheme = {...lightPrimary, ...lightAccent, ...multi};
+export const lightTheme = {
+	...lightPrimary,
+	...lightAccent,
+	...reds,
+	...greens,
+	...yellows,
+	...oranges
+};
 
 export const list = {
 	...lightAccent,
 	...lightPrimary,
 	...darkAccent,
 	...darkPrimary,
-	...multi
+	...reds,
+	...greens,
+	...yellows,
+	...oranges
 };

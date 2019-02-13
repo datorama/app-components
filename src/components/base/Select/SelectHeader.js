@@ -101,7 +101,7 @@ const Container = styled.div`
   height: 34px;
   box-sizing: border-box;
   padding: 0 10px;
-  border: 1px solid ${({error, theme}) => (error ? theme.red400 : theme.p200)};
+  border: 1px solid ${({error, theme}) => (error ? theme.r400 : theme.p200)};
   background: ${({theme}) => theme.p0};
   border-radius: 4px;
   display: flex;
@@ -111,7 +111,7 @@ const Container = styled.div`
   user-select: none;
 
   ${({open, theme, error}) => open && css`
-		border-color: ${error ? theme.red400 : theme.a400};
+		border-color: ${error ? theme.r400 : theme.a400};
 	`};
 `;
 
