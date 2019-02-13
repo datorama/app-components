@@ -17,6 +17,8 @@ const TextInput = props => (
 			onChange={props.onChange}
 			value={props.value}
 			disabled={props.disabled}
+			error={props.error}
+			valid={props.valid}
 		/>
 	</Container>
 );
@@ -27,7 +29,11 @@ TextInput.propTypes = {
 	disabled: PropTypes.bool,
 	value: PropTypes.string,
 	onChange: PropTypes.func,
-	required: PropTypes.bool
+	required: PropTypes.bool,
+	valid: PropTypes.bool,
+	error: PropTypes.bool,
+	validMessage: PropTypes.string,
+	errorMessage: PropTypes.string
 };
 
 export default TextInput;
@@ -57,6 +63,7 @@ const StyledInput = styled.input`
 	padding: 0 10px;
 	border: 1px solid ${({theme}) => theme.p200};
 	border-radius: 2px;
+	background: ${({theme}) => theme.p0};
 	${({theme}) => theme.text.sm};
 	transition: all 300ms;
 	
@@ -73,5 +80,13 @@ const StyledInput = styled.input`
 		background: ${hexToRgba(theme.p300, 10)};
 		border-color: ${hexToRgba(theme.p300, 10)};
 		color: ${theme.p200};
+	`};
+	
+	${({valid, theme}) => valid && css`
+		border-color: ${theme.g400};
+	`};
+	
+	${({error, theme}) => error && css`
+		border-color: ${theme.r400};
 	`};
 `;

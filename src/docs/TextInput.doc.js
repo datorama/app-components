@@ -10,16 +10,70 @@ import {Row, Col} from '../components/index';
 const snippet = `
 import { TextInput } from 'app-components';
 
-const MyComp = () => (
+const MyComp = ({ value, onChange }) => (
   <div>
-    <TextInput />
+    <TextInput
+      value={value}
+      onChange={onChange}
+      placeholder="placeholder"
+      label="label"
+      required
+    />
+  </div>
+);
+`;
+
+const valid = `
+import { TextInput } from 'app-components';
+
+const MyComp = ({ value, onChange }) => (
+  <div>
+    <TextInput
+      value={value}
+      onChange={onChange}
+      placeholder="placeholder"
+      label="label"
+      valid
+    />
+  </div>
+);
+`;
+
+const error = `
+import { TextInput } from 'app-components';
+
+const MyComp = ({ value, onChange }) => (
+  <div>
+    <TextInput
+      value={value}
+      onChange={onChange}
+      placeholder="placeholder"
+      label="label"
+      error
+    />
+  </div>
+);
+`;
+
+const disabled = `
+import { TextInput } from 'app-components';
+
+const MyComp = ({ value, onChange }) => (
+  <div>
+    <TextInput
+      value={value}
+      onChange={onChange}
+      placeholder="placeholder"
+      label="label"
+      disabled
+    />
   </div>
 );
 `;
 
 const TextInputDoc = () => {
-	const title = 'spinner';
-	const description = 'spinner.';
+	const title = 'text input';
+	const description = 'text input';
 	
 	return (
 		<Base title={title} description={description} name="TextInput">
@@ -33,7 +87,53 @@ const TextInputDoc = () => {
 							label="Label"
 							placeholder="placeholder"
 							required
-							disabled={false}
+						/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Highlight language="javascript">{disabled}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<TextInput
+							label="Label"
+							placeholder="placeholder"
+							disabled
+						/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Highlight language="javascript">{valid}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<TextInput
+							label="Label"
+							placeholder="placeholder"
+							required
+							valid
+						/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Highlight language="javascript">{error}</Highlight>
+				</Col>
+				<Col>
+					<Box>
+						<TextInput
+							label="Label"
+							placeholder="placeholder"
+							required
+							error
 						/>
 					</Box>
 				</Col>
