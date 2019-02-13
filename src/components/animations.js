@@ -101,6 +101,19 @@ export const fadeRight = css`
   }
 `;
 
+export const fadeRightExit = css`
+	opacity: 1;
+  animation: 500ms ease-out 0s 1 fadeRightExit forwards;
+
+  @keyframes fadeRightExit {
+    100% {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(${delta}, 0);
+    }
+  }
+`;
+
 export const zoomIn = css`
 	opacity: 0;
   visibility: hidden;
