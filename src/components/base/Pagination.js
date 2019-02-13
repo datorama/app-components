@@ -1,179 +1,126 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styled, {css} from 'styled-components';
+import {range} from 'lodash/fp';
 import PropTypes from 'prop-types';
-
-// dynamic
 
 export default class Pagination extends React.Component {
 	static propTypes = {
 		total: PropTypes.number.isRequired,
-		//onChange: PropTypes.func.isRequired
+		max: PropTypes.number.isRequired,
+		onChange: PropTypes.func.isRequired
 	};
 	
 	state = {
-		current: 4,
+		current: 1,
 		selected: 1
 	};
 	
 	next = () => {
-		const {total} = this.props;
+		const {total, max} = this.props;
 		const {current, selected} = this.state;
+		const next = current + 1;
+		const nextSelected = selected + 1;
 		
-		if (selected + 1 > total) {
+		if (nextSelected > total) {
 			return;
 		}
 		
-		let dotsVisible = false;
-		if (current <= 4 || current > total - 4) {
-			if (selected < 4 || selected > 16) {
-				dotsVisible = true;
-			}
-		}
-		
-		if (dotsVisible) {
-			this.setState({selected: selected + 1});
-		}
-		
-		// todo: check if selected is visible or not
-		if (!dotsVisible) {
-			this.setState({selected: selected + 1, current: current + 1});
-		}
+		this.setState({
+			selected: nextSelected,
+			current: nextSelected > max && next < total - max + 2 ? next : current
+		}, this.update);
 	};
+	
+	update() {
+		this.props.onChange(this.state.selected);
+	}
 	
 	prev = () => {
 		const {current, selected} = this.state;
-		const {total} = this.props;
-		const valid = selected - 1 <= 0;
-		// if (selected - 1 <= 0) {
-		// 	return;
-		// }
+		const {total, max} = this.props;
+		const next = current - 1;
+		const nextSelected = selected - 1;
 		
-		let dotsVisible = false;
-		if (this.isInDotsRange(current)) {
-			if (selected < 5 || selected > 17) {
-				dotsVisible = true;
-			}
+		if (next <= 0) {
+			return;
 		}
 		
-		if (dotsVisible && valid) {
-			this.setState({selected: selected - 1});
-		}
+		const updateCurrent = total - selected > max - 2;
 		
-		// todo: check if selected is visible or not
-		if (selected === 1) {
-		
-		}
-		
-		if (selected === total) {
-		
-		}
-		
-		// if not visible update current
-		
-		// if visible - default
-		
-		// if current in dots range
-		
-		if (!dotsVisible) {
-			this.setState({selected: selected - 1, current: current - 1});
-		}
+		this.setState({
+			selected: nextSelected,
+			current: updateCurrent ? next : current
+		}, this.update);
 	};
 	
-	isInDotsRange = id => id <= 4 || id > this.props.total - 4;
+	setPage = selected => () => {
+		const {current} = this.state;
+		const {total, max} = this.props;
+		
+		// update current
+		let next = current;
+		if (selected === 1) {
+			next = 1;
+		}
+		
+		if (selected === total && total > max) {
+			next = total - max + 1;
+		}
+		
+		this.setState({
+			selected,
+			current: next
+		}, this.update);
+	};
 	
-	setSelected = id => () => {
-		const {total} = this.props;
+	getPages() {
+		const {total, max} = this.props;
 		const {current, selected} = this.state;
 		
-		let nextSelected = id;
-		let nextCurrent = current;
+		let pageRange = range(current, current + max);
 		
-		const dotsVisible = this.isInDotsRange(current);
-		const leftVisible = current <= 4;
-		const rightVisible = current > total - 4;
-		
-		// dots visible
-		if (dotsVisible && id === 'left' && leftVisible) {
-			nextSelected = 2;
+		// show all
+		if (total <= max) {
+			pageRange = range(1, total + 1);
 		}
 		
-		if (dotsVisible && id === 'right' && rightVisible) {
-			nextSelected = total - 1;
-		}
-		
-		// dots hidden - jump
-		if (!leftVisible && id === 'left') {
-			nextSelected = selected;
-			// jump in 3
-			if (current - 3 > 3) {
-				nextCurrent -= 3;
-			} else {
-				// set left limit
-				nextCurrent = 4;
-			}
-		}
-		
-		if (!rightVisible && id === 'right') {
-			nextSelected = selected;
-			// jump in 3
-			if (current + 3 < total - 2) {
-				nextCurrent += 3;
-			} else {
-				// set right limit
-				nextCurrent = total - 3;
-			}
-		}
-		
-		let calcId = id;
-		if (id === 'left') {
-			calcId = 2;
-		}
-		if (id === 'right') {
-			calcId = total - 1;
-		}
-		
-		if (!this.isInDotsRange(calcId)) {
-			nextCurrent = calcId;
-		} else {
-			// update current to limits
-			if (calcId !== 2 && calcId !== total - 1) {
-				if (calcId <= 4) {
-					nextCurrent = 4;
-				}
-				
-				if (calcId > total - 4) {
-					nextCurrent = total - 3;
-				}
-			}
-		}
-		
-		this.setState({selected: nextSelected, current: nextCurrent});
-	};
+		return pageRange.map(page => (
+			<Button
+				key={`page-${page}`}
+				onClick={this.setPage(page)}
+				selected={page === selected}
+			>
+				{page}
+			</Button>
+		));
+	}
 	
 	render() {
-		const {total} = this.props;
-		const {current, selected} = this.state;
-		console.log({
-			current,
-			selected
-		});
-		
-		const leftBtn = current - 2 === 2 ? 2 : '...';
-		const rightBtn = current + 2 === total - 1 ? total - 1 : '...';
+		const {max, total} = this.props;
+		const {selected} = this.state;
+		const noControlls = total <= max;
 		
 		return (
 			<Container>
-				<Button filled onClick={this.prev}/>
-				<Button onClick={this.setSelected(1)} selected={selected === 1}>1</Button>
-				<Button selected={selected === 2} onClick={this.setSelected('left')}>{leftBtn}</Button>
+				{!noControlls && (
+					<Fragment>
+						<Button filled onClick={this.setPage(1)}/>
+						<Button filled onClick={this.prev}/>
+					</Fragment>
+				)}
 				
-				<Button onClick={this.setSelected(current - 1)} selected={selected === current - 1}>{current - 1}</Button>
-				<Button onClick={this.setSelected(current)} selected={selected === current}>{current}</Button>
-				<Button onClick={this.setSelected(current + 1)} selected={selected === current + 1}>{current + 1}</Button>
+				{this.getPages()}
 				
-				<Button selected={selected === total - 1} onClick={this.setSelected('right')}>{rightBtn}</Button>
-				<Button onClick={this.setSelected(total)} selected={selected === total}>{total}</Button>
-				<Button filled onClick={this.next}/>
+				{!noControlls && (
+					<Fragment>
+						<Button filled onClick={this.next}/>
+						<Button filled onClick={this.setPage(total)}/>
+					</Fragment>
+				)}
+				
+				<Divider/>
+				
+				<Info>{selected} out of {total}</Info>
 			</Container>
 		);
 	}
@@ -189,10 +136,10 @@ const Button = styled.div`
 	height: 24px;
 	background: ${({theme, filled}) => filled ? theme.p100 : 'transparent'};
 	cursor: pointer;
+	margin: 0 4px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transition: all 300ms;
 	border-radius: 2px;
 	
 	${({theme}) => theme.text.smLink};
@@ -201,4 +148,16 @@ const Button = styled.div`
 	${({selected, theme}) => selected && css`
 		color: ${theme.p700};
 	`};
+`;
+
+const Divider = styled.div`
+	width: 1px;
+	height: 18px;
+	margin: 0 4px;
+	background: ${({theme}) => theme.p100};
+`;
+
+const Info = styled.div`
+	${({theme}) => theme.text.smNote};
+	width: 90px;
 `;

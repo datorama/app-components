@@ -37,7 +37,7 @@ const SelectOptions = props => {
 				selected={selected && !multi}
 				title={option.label}
 			>
-				{multi && (<StyledCheckbox checked={selected}/>)}
+				{multi && (<StyledCheckbox checked={!!selected}/>)}
 				{optionLabelRenderer ? (
 					optionLabelRenderer(option)
 				) : (

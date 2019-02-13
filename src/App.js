@@ -88,7 +88,6 @@ class App extends Component {
 			{key: 'tabs', label: 'tabs'},
 			{key: 'collapse', label: 'collapse'},
 			{key: 'table', label: 'table'},
-			{key: 'list', label: 'list'},
 			{key: 'date-picker', label: 'date picker'},
 			{key: 'widget', label: 'widget'},
 			

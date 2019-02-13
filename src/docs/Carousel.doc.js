@@ -27,11 +27,13 @@ export default class CarouselDoc extends React.Component {
 	componentDidMount() {
 		setTimeout(() => {
 			this.setState({loading: false});
-		}, 2000);
+		}, 1000);
 	}
 	
 	slideRenderer = id => (
-		<Slide/>
+		<Slide odd={id % 2}>
+			Slide {id}
+		</Slide>
 	);
 	
 	render() {
@@ -63,17 +65,15 @@ export default class CarouselDoc extends React.Component {
 }
 
 const Slide = styled.div`
-	background: url('https://source.unsplash.com/user/noah2199/800x360') no-repeat;
-	background-size: cover;
+	background: ${({theme, odd}) => odd ? theme.p300 : theme.p200};
 	overflow: hidden;
-	width: calc(100% - 20px);
+	width: 100%;
 	border-radius: 4px;
 	height: 360px;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-	border: 1px solid ${({theme}) => theme.p200};
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	${({theme}) => theme.text.p};
 `;
 
 const StyledCarousel = styled(Carousel)`

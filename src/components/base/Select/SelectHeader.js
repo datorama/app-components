@@ -109,16 +109,13 @@ const Container = styled.div`
   transition: all 300ms;
   user-select: none;
 
-  ${({open}) =>
-	open &&
-	css`
-      border-color: ${({theme, error}) =>
-		error ? theme.red400 : theme.a400};
+  ${({open, theme, error}) => open && css`
+		border-color: ${error ? theme.red400 : theme.a400};
 
-      ${Label} {
-        color: ${({theme}) => theme.a400};
-      }
-    `};
+		${Label} {
+			//color: ${({theme}) => theme.a400};
+		}
+	`};
 `;
 
 const Arrow = styled.div`

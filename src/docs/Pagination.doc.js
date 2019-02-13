@@ -10,22 +10,19 @@ import {Row, Col} from '../components/index';
 const snippet = `
 import { Pagination } from 'app-components';
 
-const MyComp = () => (
+const MyComp = ({ fetchData }) => (
   <div>
-    <Pagination />
+    <Pagination
+    	max={4}
+    	total={256}
+    	onChange={fetchData}
+    />
   </div>
 );
 `;
 
 export default class PaginationDoc extends React.Component {
-	state = {
-		selected: 1
-	};
-	
-	setSelected = selected => this.setState({selected});
-	
 	render() {
-		const {selected} = this.state;
 		const title = 'pagination';
 		const description = 'pagination.';
 		
@@ -38,8 +35,24 @@ export default class PaginationDoc extends React.Component {
 					<Col>
 						<Box>
 							<Pagination
-								total={20}
-								//onChange={this.setSelected}
+								total={256}
+								max={4}
+								onChange={e => console.log(e)}
+							/>
+						</Box>
+					</Col>
+				</Row>
+				
+				<Row align="stretch">
+					<Col>
+						<Highlight language="javascript">{snippet}</Highlight>
+					</Col>
+					<Col>
+						<Box>
+							<Pagination
+								total={6}
+								max={10}
+								onChange={e => console.log(e)}
 							/>
 						</Box>
 					</Col>
@@ -56,5 +69,4 @@ const Box = styled.div`
 	align-items: center;
 	border-radius: 4px;
 	justify-content: center;
-	// background: ${({theme}) => theme.p50};
 `;

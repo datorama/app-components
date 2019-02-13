@@ -32,8 +32,8 @@ const SelectMultiHeader = props => {
 		<Fragment>
 			<Option className="option" onClick={selectAll} margin="5px 0 0 0">
 				<StyledCheckbox
-					checked={allSelected || partialSelected}
-					partial={partialSelected}
+					checked={!!allSelected || !!partialSelected}
+					partial={!!partialSelected}
 				/>
 				<Label>
 					{label} <Italic>{counts}</Italic>

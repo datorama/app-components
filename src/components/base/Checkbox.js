@@ -28,8 +28,8 @@ const Checkbox = ({checked, onClick, disabled, round, label, partial, className}
 );
 
 Checkbox.propTypes = {
-	checked: PropTypes.bool.isRequired,
-	onClick: PropTypes.func.isRequired,
+	checked: PropTypes.bool,
+	onClick: PropTypes.func,
 	disabled: PropTypes.bool,
 	round: PropTypes.bool,
 	label: PropTypes.string,

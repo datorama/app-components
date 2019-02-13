@@ -254,12 +254,10 @@ const Container = styled.div`
     line-height: normal;
   }
 
-  ${({disabled}) =>
-	disabled &&
-	css`
-      pointer-events: none;
-      opacity: 0.5;
-    `};
+  ${({disabled}) => disabled && css`
+		pointer-events: none;
+		opacity: 0.5;
+	`};
 `;
 
 export const Option = styled.div`

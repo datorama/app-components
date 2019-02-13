@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {withTheme} from 'styled-components';
 import Highlight from 'react-highlight-js';
 
 // components
@@ -29,7 +29,7 @@ const MyComp = () => (
 );
 `;
 
-const ProgressDoc = () => {
+const ProgressDoc = ({ theme }) => {
 	const title = 'progress';
 	const description = 'preogress..';
 	
@@ -43,11 +43,11 @@ const ProgressDoc = () => {
 				
 				<Col>
 					<Box>
-						<Progress label="20%" percentage={20} color="#d34848"/>
-						<Progress label="40%" percentage={30} color="#ff5733"/>
-						<Progress label="60%" percentage={60} color="#ffc300"/>
-						<Progress label="80%" percentage={80} color="#20716a"/>
-						<Progress label="100%" percentage={100} color="#23a393"/>
+						<Progress label="20%" percentage={20} color={theme.a800}/>
+						<Progress label="40%" percentage={30} color={theme.a700}/>
+						<Progress label="60%" percentage={60} color={theme.a600}/>
+						<Progress label="80%" percentage={80} color={theme.a500}/>
+						<Progress label="100%" percentage={100} color={theme.a400}/>
 					</Box>
 				</Col>
 			</Row>
@@ -92,7 +92,7 @@ const ProgressDoc = () => {
 	);
 };
 
-export default ProgressDoc;
+export default withTheme(ProgressDoc);
 
 const Box = styled.div`
 	width: 100%;
