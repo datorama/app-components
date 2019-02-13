@@ -3,25 +3,32 @@ import styled, {css} from 'styled-components';
 import PropTypes from 'prop-types';
 import {hexToRgba} from '../utils';
 
-const TextInput = props => (
-	<Container>
-		{props.label && (
-			<Label>
-				{props.label}
-				{props.required && <span>*</span>}
-				{!props.required && ' (optional)'}
-			</Label>
-		)}
-		<StyledInput
-			placeholder={props.placeholder}
-			onChange={props.onChange}
-			value={props.value}
-			disabled={props.disabled}
-			error={props.error}
-			valid={props.valid}
-		/>
-	</Container>
-);
+const TextInput = props => {
+	const withMessage = props.errorMessage || props.validMessage;
+	
+	return (
+		<Container>
+			{props.label && (
+				<Label>
+					{props.label}
+					{props.required && <span>*</span>}
+				</Label>
+			)}
+			<StyledInput
+				placeholder={props.placeholder}
+				onChange={props.onChange}
+				value={props.value}
+				disabled={props.disabled}
+				error={props.error}
+				valid={props.valid}
+			/>
+			{
+				withMessage && (
+					<Message valid={props.valid}>{props.errorMessage || props.validMessage}</Message>
+				)}
+		</Container>
+	);
+};
 
 TextInput.propTypes = {
 	label: PropTypes.string,
@@ -89,4 +96,10 @@ const StyledInput = styled.input`
 	${({error, theme}) => error && css`
 		border-color: ${theme.r400};
 	`};
+`;
+
+const Message = styled.div`
+	${({theme}) => theme.text.sm};
+	color: ${({theme, valid}) => valid ? theme.g400 : theme.r400};
+	margin-top: 5px;
 `;

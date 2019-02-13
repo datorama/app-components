@@ -50,6 +50,7 @@ const MyComp = ({ value, onChange }) => (
       placeholder="placeholder"
       label="label"
       error
+      errorMessage="Not authorized"
     />
   </div>
 );
@@ -66,6 +67,7 @@ const MyComp = ({ value, onChange }) => (
       placeholder="placeholder"
       label="label"
       disabled
+      validMessage="Valid input"
     />
   </div>
 );
@@ -118,6 +120,7 @@ const TextInputDoc = () => {
 							placeholder="placeholder"
 							required
 							valid
+							validMessage="Valid input"
 						/>
 					</Box>
 				</Col>
@@ -134,6 +137,7 @@ const TextInputDoc = () => {
 							placeholder="placeholder"
 							required
 							error
+							errorMessage="Not authorized"
 						/>
 					</Box>
 				</Col>
