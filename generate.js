@@ -1,12 +1,12 @@
-const fs = require("fs");
-const path = require("path");
-const reactDocs = require("react-docgen");
+const fs = require('fs');
+const path = require('path');
+const reactDocs = require('react-docgen');
 
 // The React components to load
-const componentFolder = "./src/components/base";
+const componentFolder = './src/components/base';
 
 // Where the JSON file ends up
-const componentJsonPath = "./src/meta.json";
+const componentJsonPath = './src/meta.json';
 
 const componentDataArray = [];
 
@@ -16,11 +16,11 @@ function pushComponent(component) {
 
 function createComponentFile() {
   const componentJsonArray = JSON.stringify(componentDataArray, null, 2);
-  fs.writeFile(componentJsonPath, componentJsonArray, "utf8", (err, data) => {
+  fs.writeFile(componentJsonPath, componentJsonArray, 'utf8', (err, data) => {
     if (err) {
       throw err;
     }
-    console.log("Created component file");
+    console.log('Created component file');
   });
 }
 
@@ -33,7 +33,7 @@ function createComponentFile() {
  */
 function parseComponent(component, filename) {
   const componentInfo = reactDocs.parse(component);
-  const splitIndex = filename.indexOf("/src/");
+  const splitIndex = filename.indexOf('/src/');
   const shortname = filename.substring(splitIndex + 4);
 
   componentInfo.filename = shortname;
@@ -88,10 +88,10 @@ function filewalker(dir, done) {
           // Check if is a Javascript file
           // And not a story or test
           if (
-            file.endsWith(".js") &&
-            !file.endsWith(".story.js") &&
-            !file.endsWith(".test.js") &&
-            !file.endsWith(".types.js")
+            file.endsWith('.js') &&
+            !file.endsWith('.story.js') &&
+            !file.endsWith('.test.js') &&
+            !file.endsWith('.types.js')
           ) {
             await new Promise(resolve => {
               loadComponent(file, resolve);

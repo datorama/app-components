@@ -5,7 +5,7 @@ import Highlight from 'react-highlight-js';
 // components
 import Base from './Base';
 import TextInput from '../components/base/TextInput';
-import {Row, Col} from '../components/index';
+import { Row, Col } from '../components/index';
 
 const snippet = `
 import { TextInput } from 'app-components';
@@ -74,86 +74,78 @@ const MyComp = ({ value, onChange }) => (
 `;
 
 const TextInputDoc = () => {
-	const title = 'text input';
-	const description = 'text input';
-	
-	return (
-		<Base title={title} description={description} name="TextInput">
-			<Row align="stretch">
-				<Col>
-					<Highlight language="javascript">{snippet}</Highlight>
-				</Col>
-				<Col>
-					<Box>
-						<TextInput
-							label="Label"
-							placeholder="placeholder"
-							required
-						/>
-					</Box>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Highlight language="javascript">{disabled}</Highlight>
-				</Col>
-				<Col>
-					<Box>
-						<TextInput
-							label="Label"
-							placeholder="placeholder"
-							disabled
-						/>
-					</Box>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Highlight language="javascript">{valid}</Highlight>
-				</Col>
-				<Col>
-					<Box>
-						<TextInput
-							label="Label"
-							placeholder="placeholder"
-							required
-							valid
-							validMessage="Valid input"
-						/>
-					</Box>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Highlight language="javascript">{error}</Highlight>
-				</Col>
-				<Col>
-					<Box>
-						<TextInput
-							label="Label"
-							placeholder="placeholder"
-							required
-							error
-							errorMessage="Not authorized"
-						/>
-					</Box>
-				</Col>
-			</Row>
-		</Base>
-	);
+  const title = 'text input';
+  const description = 'text input';
+
+  return (
+    <Base title={title} description={description} name="TextInput">
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{snippet}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <TextInput label="Label" placeholder="placeholder" required />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{disabled}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <TextInput label="Label" placeholder="placeholder" disabled />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{valid}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <TextInput
+              label="Label"
+              placeholder="placeholder"
+              required
+              valid
+              validMessage="Valid input"
+            />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{error}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <TextInput
+              label="Label"
+              placeholder="placeholder"
+              required
+              error
+              errorMessage="Not authorized"
+            />
+          </Box>
+        </Col>
+      </Row>
+    </Base>
+  );
 };
 
 export default TextInputDoc;
 
 const Box = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	border-radius: 4px;
-	justify-content: center;
-	background: ${({theme}) => theme.p50};
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  justify-content: center;
+  background: ${({ theme }) => theme.p50};
 `;

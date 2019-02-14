@@ -2,14 +2,12 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 // components
-import {Label} from './Select';
+import { Label } from './Select';
 
 const SelectNoResults = () => (
-	<Container>
-		<Label textAlign="center">
-			No results
-		</Label>
-	</Container>
+  <Container>
+    <Label textAlign="center">No results</Label>
+  </Container>
 );
 
 SelectNoResults.propTypes = {};

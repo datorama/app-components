@@ -30,8 +30,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint-plugin-prettier": "^3.0.1",
     "fs": "0.0.1-security",
     "path": "^0.12.7",
+    "prettier": "^1.16.4",
     "prop-types": "^15.6.2",
     "react-docgen": "^2.21.0"
   }

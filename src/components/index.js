@@ -4,26 +4,26 @@ import * as animation from './animations';
 import * as layout from './layout';
 
 // utils
-export {default as ClickOut} from './base/ClickOut';
+export { default as ClickOut } from './base/ClickOut';
 
 // base components
-export {default as Button} from './base/Button';
-export {default as Card} from './base/Card';
-export {default as Datepicker} from './base/Datepicker';
-export {default as Select} from './base/Select/Select';
+export { default as Button } from './base/Button';
+export { default as Card } from './base/Card';
+export { default as Datepicker } from './base/Datepicker';
+export { default as Select } from './base/Select/Select';
 
 // light theme
 export const lightTheme = {
-	...libColors.lightTheme,
-	text: typography,
-	animation
+  ...libColors.lightTheme,
+  text: typography,
+  animation
 };
 
 // dark theme
 export const darkTheme = {
-	...libColors.darkTheme,
-	text: typography,
-	animation
+  ...libColors.darkTheme,
+  text: typography,
+  animation
 };
 
 export const lightPrimary = libColors.lightPrimary;

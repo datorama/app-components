@@ -5,7 +5,7 @@ import Highlight from 'react-highlight-js';
 // components
 import Base from './Base';
 import ClickOut from '../components/base/ClickOut';
-import {Row, Col} from '../components/index';
+import { Row, Col } from '../components/index';
 
 const snippet = `
 import { ClickOut } from 'app-components';
@@ -18,55 +18,56 @@ const MyComponent = ({ onClick }) => (
 `;
 
 export default class ClickOutDoc extends React.Component {
-	state = {
-		counter: 0
-	};
-	
-	handleClick = () => this.setState(prevState => ({counter: prevState.counter + 1}));
-	
-	render() {
-		const {counter} = this.state;
-		const title = 'click out';
-		const description = 'click outside handler.';
-		
-		return (
-			<Base title={title} description={description} name="ClickOut">
-				<Row>
-					<Col>
-						<Highlight language="javascript">{snippet}</Highlight>
-					</Col>
-				</Row>
-				
-				<Row>
-					<Col>
-						<Container>
-							<ClickOut onClick={this.handleClick}>
-								<Card>
-									<Title>Clicked {counter} times</Title>
-									<Description>(click outside the element)</Description>
-								</Card>
-							</ClickOut>
-						</Container>
-					</Col>
-				</Row>
-			</Base>
-		);
-	}
+  state = {
+    counter: 0
+  };
+
+  handleClick = () =>
+    this.setState(prevState => ({ counter: prevState.counter + 1 }));
+
+  render() {
+    const { counter } = this.state;
+    const title = 'click out';
+    const description = 'click outside handler.';
+
+    return (
+      <Base title={title} description={description} name="ClickOut">
+        <Row>
+          <Col>
+            <Highlight language="javascript">{snippet}</Highlight>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <Container>
+              <ClickOut onClick={this.handleClick}>
+                <Card>
+                  <Title>Clicked {counter} times</Title>
+                  <Description>(click outside the element)</Description>
+                </Card>
+              </ClickOut>
+            </Container>
+          </Col>
+        </Row>
+      </Base>
+    );
+  }
 }
 
 const Container = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	height: 400px;
-	background: ${({theme}) => theme.p50};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 400px;
+  background: ${({ theme }) => theme.p50};
 `;
 
 const Card = styled.div`
 	width: 400px;
 	height: 200px;
-	background: ${({theme}) => theme.p0}
+	background: ${({ theme }) => theme.p0}
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 	display: flex;
@@ -79,9 +80,9 @@ const Card = styled.div`
 `;
 
 const Title = styled.div`
-	${({theme}) => theme.text.pBold};
+  ${({ theme }) => theme.text.pBold};
 `;
 
 const Description = styled.div`
-	${({theme}) => theme.text.pNote};
+  ${({ theme }) => theme.text.pNote};
 `;

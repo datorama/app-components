@@ -1,9 +1,9 @@
-import {css} from 'styled-components';
+import { css } from 'styled-components';
 
-const delta = "20px";
+const delta = '20px';
 
 export const fade = css`
-	opacity: 0;
+  opacity: 0;
   visibility: hidden;
   animation: 500ms ease-out 0s 1 fade forwards;
 
@@ -16,7 +16,7 @@ export const fade = css`
 `;
 
 export const fadeOut = css`
-	opacity: 1;
+  opacity: 1;
   visibility: visible;
   animation: 500ms ease-out 0s 1 fadeOut forwards;
 
@@ -29,7 +29,7 @@ export const fadeOut = css`
 `;
 
 export const fadeDown = css`
-	opacity: 0;
+  opacity: 0;
   visibility: hidden;
   animation: 500ms ease-out 0s 1 fadeDown forwards;
   transform: translate(0, -${delta});
@@ -44,7 +44,7 @@ export const fadeDown = css`
 `;
 
 export const fadeUpExit = css`
-	opacity: 1;
+  opacity: 1;
   animation: 500ms ease-out 0s 1 fadeUp forwards;
 
   @keyframes fadeUp {
@@ -57,7 +57,7 @@ export const fadeUpExit = css`
 `;
 
 export const fadeUp = css`
-	opacity: 0;
+  opacity: 0;
   visibility: hidden;
   animation: 500ms ease-out 0s 1 fadeUp forwards;
   transform: translate(0, ${delta});
@@ -72,7 +72,7 @@ export const fadeUp = css`
 `;
 
 export const fadeLeft = css`
-	opacity: 0;
+  opacity: 0;
   visibility: hidden;
   animation: 500ms ease-out 0s 1 fadeLeft forwards;
   transform: translate(${delta}, 0);
@@ -87,10 +87,10 @@ export const fadeLeft = css`
 `;
 
 export const fadeRight = css`
-	opacity: 0;
+  opacity: 0;
   visibility: hidden;
   animation: 500ms ease-out 0s 1 fadeRight forwards;
-	transform: translate(-${delta}, 0);
+  transform: translate(-${delta}, 0);
 
   @keyframes fadeRight {
     100% {
@@ -102,7 +102,7 @@ export const fadeRight = css`
 `;
 
 export const fadeRightExit = css`
-	opacity: 1;
+  opacity: 1;
   animation: 500ms ease-out 0s 1 fadeRightExit forwards;
 
   @keyframes fadeRightExit {
@@ -115,11 +115,11 @@ export const fadeRightExit = css`
 `;
 
 export const zoomIn = css`
-	opacity: 0;
+  opacity: 0;
   visibility: hidden;
   animation: 500ms ease-out 0s 1 zoomIn forwards;
-	transform: scale(0.8);
-	
+  transform: scale(0.8);
+
   @keyframes zoomIn {
     100% {
       opacity: 1;
@@ -130,11 +130,11 @@ export const zoomIn = css`
 `;
 
 export const zoomOut = css`
-	opacity: 1;
+  opacity: 1;
   visibility: visible;
   animation: 500ms ease-out 0s 1 zoomOut forwards;
-	transform: scale(1);
-	
+  transform: scale(1);
+
   @keyframes zoomOut {
     100% {
       opacity: 0;
