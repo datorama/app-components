@@ -31,8 +31,7 @@ const ToastDoc = props => {
 	
 	const notif = {
 		title: 'Toast title',
-		subtitle: 'Toast subtitle.',
-		timeout: 5000
+		subtitle: 'Toast subtitle.'
 	};
 	
 	return (
@@ -45,19 +44,19 @@ const ToastDoc = props => {
 			<Row>
 				<Col>
 					<Box>
-						<StyledButton onClick={() => props.addToast(notif)}>
+						<StyledButton onClick={() => props.addToast({ ...notif, type: 'info' })}>
 							Info toast
 						</StyledButton>
 						
-						<StyledButton onClick={() => props.addToast(notif)}>
+						<StyledButton onClick={() => props.addToast({ ...notif, type: 'alert' })}>
 							Alert toast
 						</StyledButton>
 						
-						<StyledButton onClick={() => props.addToast(notif)}>
+						<StyledButton onClick={() => props.addToast({ ...notif, type: 'success' })}>
 							Success toast
 						</StyledButton>
 						
-						<StyledButton onClick={() => props.addToast(notif)}>
+						<StyledButton onClick={() => props.addToast({ ...notif, type: 'warning' })}>
 							Warning toast
 						</StyledButton>
 					</Box>
@@ -79,6 +78,7 @@ const Box = styled.div`
 	background: ${({theme}) => theme.p50};
 	box-sizing: border-box;
 	padding: 40px;
+	flex-wrap: wrap;
 `;
 
 const StyledButton = styled(Button)`

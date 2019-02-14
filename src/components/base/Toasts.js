@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import {throttle} from 'lodash/fp';
 import PropTypes from 'prop-types';
 
-// components
-import {ReactComponent as ToastIcon} from '../assets/notif.svg';
+// assets
+import {ReactComponent as InfoIcon} from '../assets/info-line.svg';
+import {ReactComponent as WarningIcon} from '../assets/warning-line.svg';
+import {ReactComponent as SuccessIcon} from '../assets/success-line.svg';
 
 // shared context
 const Context = React.createContext();
@@ -31,14 +33,12 @@ class Toasts extends Component {
 		this.setState({
 			list: [
 				...this.state.list,
-				{id, title: notif.title, subtitle: notif.subtitle}
+				{id, ...notif}
 			]
 		}, () => {
-			if (notif.timeout) {
-				setTimeout(() => {
-					this.clearToast(id)();
-				}, notif.timeout);
-			}
+			setTimeout(() => {
+				this.clearToast(id)();
+			}, notif.timeout || 5000);
 		})
 	});
 	
@@ -52,6 +52,22 @@ class Toasts extends Component {
 		})
 	};
 	
+	icon = type => {
+		switch (type) {
+			case 'info':
+				return <StyledInfoIcon/>;
+			
+			case 'success':
+				return <StyledSuccessIcon/>;
+			
+			case 'warning':
+				return <StyledWarningIcon/>;
+			
+			default:
+				return null;
+		}
+	};
+	
 	render() {
 		const {list, leaving} = this.state;
 		const {children} = this.props;
@@ -62,14 +78,14 @@ class Toasts extends Component {
 		return (
 			<Context.Provider value={contextActions}>
 				<Fragment>
-					{list.map(({id, title, subtitle}, index) => (
+					{list.map(({id, title, subtitle, type}, index) => (
 						<Toast
 							key={`notif-${id}`}
 							top={index * 80}
 							leaving={leaving.includes(id)}
 						>
 							<CloseIcon onClick={this.clearToast(id)}/>
-							<StyledIcon/>
+							{this.icon(type)}
 							<Meta>
 								<Title>{title}</Title>
 								<Subtitle>{subtitle}</Subtitle>
@@ -118,13 +134,33 @@ const Subtitle = styled.div`
 	${({theme}) => theme.text.smNote};
 `;
 
-const StyledIcon = styled(ToastIcon)`
+const StyledInfoIcon = styled(InfoIcon)`
 	width: 26px;
 	height: 26px;
 	margin-right: 4px;
 	
 	path {
-		fill: ${({theme}) => theme.p300};
+		//fill: ${({theme}) => theme.p300};
+	}
+`;
+
+const StyledWarningIcon = styled(WarningIcon)`
+	width: 26px;
+	height: 26px;
+	margin-right: 4px;
+	
+	path {
+		//fill: ${({theme}) => theme.p300};
+	}
+`;
+
+const StyledSuccessIcon = styled(SuccessIcon)`
+	width: 26px;
+	height: 26px;
+	margin-right: 4px;
+	
+	path {
+		//fill: ${({theme}) => theme.p300};
 	}
 `;
 
