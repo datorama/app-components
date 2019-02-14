@@ -57,6 +57,9 @@ class Toasts extends Component {
 			case 'info':
 				return <StyledInfoIcon/>;
 			
+			case 'alert':
+				return <StyledAlertIcon/>;
+			
 			case 'success':
 				return <StyledSuccessIcon/>;
 			
@@ -138,30 +141,24 @@ const StyledInfoIcon = styled(InfoIcon)`
 	width: 26px;
 	height: 26px;
 	margin-right: 4px;
-	
-	path {
-		//fill: ${({theme}) => theme.p300};
-	}
+`;
+
+const StyledAlertIcon = styled(InfoIcon)`
+	width: 26px;
+	height: 26px;
+	margin-right: 4px;
 `;
 
 const StyledWarningIcon = styled(WarningIcon)`
 	width: 26px;
 	height: 26px;
 	margin-right: 4px;
-	
-	path {
-		//fill: ${({theme}) => theme.p300};
-	}
 `;
 
 const StyledSuccessIcon = styled(SuccessIcon)`
 	width: 26px;
 	height: 26px;
 	margin-right: 4px;
-	
-	path {
-		//fill: ${({theme}) => theme.p300};
-	}
 `;
 
 const CloseIcon = styled.div`
