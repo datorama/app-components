@@ -46,6 +46,17 @@ const RangeDoc = () => {
 
       <Row align="stretch">
         <Col>
+          <Snippet snippet={snippet} />
+        </Col>
+        <Col>
+          <Box>
+            <CustomRange min={200} max={600} />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
           <Snippet snippet={disabled} />
         </Col>
         <Col>
@@ -70,4 +81,36 @@ const Box = styled.div`
   box-sizing: border-box;
   padding: 40px;
   background: ${({ theme }) => theme.p50};
+`;
+
+const CustomRange = styled(Range)`
+  .thumb {
+    background: ${({ theme }) => theme.g600};
+  }
+  .inner {
+    background: ${({ theme }) => theme.g300}; /* Old browsers */
+    background: -moz-linear-gradient(
+      left,
+      ${({ theme }) => theme.g300} 0%,
+      ${({ theme }) => theme.g600} 100%
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+      left,
+      ${({ theme }) => theme.g300} 0%,
+      ${({ theme }) => theme.g600} 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+      to right,
+      ${({ theme }) => theme.g300} 0%,
+      ${({ theme }) => theme.g600} 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='${({
+      theme
+    }) => theme.g300}', endColorstr='${({ theme }) =>
+  theme.g600}',GradientType=1 ); /* IE6-9 */
+  }
+  
+  .value {
+    background: ${({ theme }) => theme.g500};
+  }
 `;

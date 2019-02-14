@@ -62,26 +62,35 @@ class Range extends Component {
 
   render() {
     const { percentage, dragging, value } = this.state;
-    const { min, max, disabled } = this.props;
+    const { min, max, disabled, className } = this.props;
 
     return (
-      <Container disabled={disabled}>
-        <Outer ref={this.handleRef}>
-          <Inner width={percentage} />
+      <Container disabled={disabled} className={className}>
+        <Outer ref={this.handleRef} className="outer">
+          <Inner width={percentage} className="inner" />
         </Outer>
         <Draggable
           onDragStart={this.handleDragStart}
           onDrag={this.handleDrag}
           onDragEnd={this.handleDragEnd}
         >
-          <Thumb left={percentage} dragging={dragging} disabled={disabled} />
+          <Thumb
+            className="thumb"
+            left={percentage}
+            dragging={dragging}
+            disabled={disabled}
+          />
         </Draggable>
-        <Value left={percentage} visible={dragging}>
+        <Value left={percentage} visible={dragging} className="value">
           {value}
         </Value>
 
-        <Label left="-20px">{min}</Label>
-        <Label left="calc(100% - 20px)">{max}</Label>
+        <Label left="-20px" className="label">
+          {min}
+        </Label>
+        <Label left="calc(100% - 20px)" className="label">
+          {max}
+        </Label>
       </Container>
     );
   }
