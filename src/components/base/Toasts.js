@@ -1,22 +1,23 @@
 import React, {Component, Fragment} from 'react';
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
+import {throttle} from 'lodash/fp';
 import PropTypes from 'prop-types';
 
 // components
-import {ReactComponent as NotifIcon} from '../assets/notif.svg';
+import {ReactComponent as ToastIcon} from '../assets/notif.svg';
 
 // shared context
 const Context = React.createContext();
 const Consumer = Context.Consumer;
-export const withNotifications = Comp => props => (
+export const withToast = Comp => props => (
 	<Consumer>
-		{({addNotification}) => (
-			<Comp {...props} addNotification={addNotification}/>
+		{({addToast}) => (
+			<Comp {...props} addToast={addToast}/>
 		)}
 	</Consumer>
 );
 
-class Notifications extends Component {
+class Toasts extends Component {
 	static propTypes = {};
 	
 	state = {
@@ -24,7 +25,7 @@ class Notifications extends Component {
 		list: []
 	};
 	
-	addNotification = notif => {
+	addToast = throttle(200, notif => {
 		const id = Math.random();
 		
 		this.setState({
@@ -32,10 +33,16 @@ class Notifications extends Component {
 				...this.state.list,
 				{id, title: notif.title, subtitle: notif.subtitle}
 			]
+		}, () => {
+			if (notif.timeout) {
+				setTimeout(() => {
+					this.clearToast(id)();
+				}, notif.timeout);
+			}
 		})
-	};
+	});
 	
-	clearNotification = id => () => {
+	clearToast = id => () => {
 		this.setState({
 			leaving: [id]
 		}, () => {
@@ -49,25 +56,25 @@ class Notifications extends Component {
 		const {list, leaving} = this.state;
 		const {children} = this.props;
 		const contextActions = {
-			addNotification: this.addNotification
+			addToast: this.addToast
 		};
 		
 		return (
 			<Context.Provider value={contextActions}>
 				<Fragment>
 					{list.map(({id, title, subtitle}, index) => (
-						<Notification
+						<Toast
 							key={`notif-${id}`}
 							top={index * 80}
 							leaving={leaving.includes(id)}
 						>
-							<CloseIcon onClick={this.clearNotification(id)}/>
+							<CloseIcon onClick={this.clearToast(id)}/>
 							<StyledIcon/>
 							<Meta>
 								<Title>{title}</Title>
 								<Subtitle>{subtitle}</Subtitle>
 							</Meta>
-						</Notification>
+						</Toast>
 					))}
 					{children}
 				</Fragment>
@@ -76,10 +83,9 @@ class Notifications extends Component {
 	}
 }
 
-export default Notifications;
+export default Toasts;
 
-
-const Notification = styled.div`
+const Toast = styled.div`
 	position: fixed;
 	width: 360px;
 	height: 70px;
@@ -112,7 +118,7 @@ const Subtitle = styled.div`
 	${({theme}) => theme.text.smNote};
 `;
 
-const StyledIcon = styled(NotifIcon)`
+const StyledIcon = styled(ToastIcon)`
 	width: 26px;
 	height: 26px;
 	margin-right: 4px;

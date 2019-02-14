@@ -4,27 +4,33 @@ import Highlight from 'react-highlight-js';
 
 // components
 import Base from './Base';
-import {withNotifications} from '../components/base/Notifications';
+import {withToast} from '../components/base/Toasts';
 import {Row, Col} from '../components/index';
 import Button from '../components/base/Button';
 
 const snippet = `
-import { NotificationsProvider, withNotifications } from 'app-components';
+import { ToastsProvider, withToast } from 'app-components';
 
 const App = () => (
-  <NotificationsProvider>
+  <ToastsProvider>
     ... wrap your entire app
-  </NotificationsProvider>
+  </ToastsProvider>
 );
 
-const NestedComp = ({ addNotification }) => ();
+const NestedComp = ({ addToast }) => ();
 
-export const withNotifications(NestedComp);
+export const withToast(NestedComp);
 `;
 
-const NotificationsDoc = props => {
-	const title = 'notifications';
-	const description = 'notifs.';
+const ToastDoc = props => {
+	const title = 'toasts';
+	const description = 'toasts.';
+	
+	const notif = {
+		title: 'default',
+		subtitle: 'datorama apps toast',
+		timeout: 2000
+	};
 	
 	return (
 		<Base title={title} description={description}>
@@ -34,8 +40,9 @@ const NotificationsDoc = props => {
 				</Col>
 				<Col>
 					<Box>
-						<Button onClick={() => props.addNotification({title: 'default', subtitle: 'datorama apps notification'})}>Add
-							notification</Button>
+						<Button onClick={() => props.addToast(notif)}>
+							add default toast
+						</Button>
 					</Box>
 				</Col>
 			</Row>
@@ -43,7 +50,7 @@ const NotificationsDoc = props => {
 	);
 };
 
-export default withNotifications(withTheme(NotificationsDoc));
+export default withToast(withTheme(ToastDoc));
 
 const Box = styled.div`
 	width: 100%;

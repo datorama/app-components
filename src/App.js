@@ -5,7 +5,7 @@ import {withRouter} from 'react-router';
 import {lightTheme, darkTheme} from './components';
 
 // notifications
-import NotificationsProvider from './components/base/Notifications';
+import ToastsProvider from './components/base/Toasts';
 
 // docs
 import Home from './docs/Home.doc';
@@ -29,7 +29,7 @@ import TextInput from './docs/TextInput.doc';
 import Draggable from './docs/Draggable.doc';
 import Tag from './docs/Tags.doc';
 import Range from './docs/Range.doc';
-import Notifications from './docs/Notifications.doc';
+import Toast from './docs/Toast.doc';
 
 const Navigation = ({list, history, location}) => (
 	<Fragment>
@@ -89,7 +89,7 @@ class App extends Component {
 			{key: 'carousel', label: 'carousel', path: 'carousel'},
 			{key: 'pagination', label: 'pagination', path: 'pagination'},
 			
-			{key: 'notifications', label: 'notifications', path: 'notifications'},
+			{key: 'toasts', label: 'toasts', path: 'toasts'},
 			{key: 'stepper', label: 'stepper'},
 			{key: 'tooltip', label: 'tooltip'},
 			{key: 'range-input', label: 'range input', path: 'range'},
@@ -108,7 +108,7 @@ class App extends Component {
 		return (
 			<Router>
 				<ThemeProvider theme={theme}>
-					<NotificationsProvider>
+					<ToastsProvider>
 						<Container>
 							<GlobalStyle light={light}/>
 							<Sidebar light={light}>
@@ -142,13 +142,13 @@ class App extends Component {
 								<Route exact path="/text-input" component={TextInput}/>
 								<Route exact path="/tag" component={Tag}/>
 								<Route exact path="/range" component={Range}/>
-								<Route exact path="/notifications" component={Notifications}/>
+								<Route exact path="/toasts" component={Toast}/>
 								
 								<Route exact path="/click-out" component={ClickOut}/>
 								<Route exact path="/draggable" component={Draggable}/>
 							</Content>
 						</Container>
-					</NotificationsProvider>
+					</ToastsProvider>
 				</ThemeProvider>
 			</Router>
 		);
