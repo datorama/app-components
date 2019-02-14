@@ -20,6 +20,9 @@ const App = () => (
 const NestedComp = ({ addToast }) => ();
 
 export const withToast(NestedComp);
+
+// toast object. types - info (default), success, warning and alert
+{ title: '',  subtitle: '', type: 'alert', timeout: 3000 }
 `;
 
 const ToastDoc = props => {
@@ -27,9 +30,9 @@ const ToastDoc = props => {
 	const description = 'toasts.';
 	
 	const notif = {
-		title: 'default',
-		subtitle: 'datorama apps toast',
-		timeout: 2000
+		title: 'Toast title',
+		subtitle: 'Toast subtitle.',
+		timeout: 5000
 	};
 	
 	return (
@@ -38,11 +41,25 @@ const ToastDoc = props => {
 				<Col>
 					<Highlight language="javascript">{snippet}</Highlight>
 				</Col>
+			</Row>
+			<Row>
 				<Col>
 					<Box>
-						<Button onClick={() => props.addToast(notif)}>
-							add default toast
-						</Button>
+						<StyledButton onClick={() => props.addToast(notif)}>
+							Info toast
+						</StyledButton>
+						
+						<StyledButton onClick={() => props.addToast(notif)}>
+							Alert toast
+						</StyledButton>
+						
+						<StyledButton onClick={() => props.addToast(notif)}>
+							Success toast
+						</StyledButton>
+						
+						<StyledButton onClick={() => props.addToast(notif)}>
+							Warning toast
+						</StyledButton>
 					</Box>
 				</Col>
 			</Row>
@@ -60,4 +77,11 @@ const Box = styled.div`
 	border-radius: 4px;
 	justify-content: center;
 	background: ${({theme}) => theme.p50};
+	box-sizing: border-box;
+	padding: 40px;
+`;
+
+const StyledButton = styled(Button)`
+	margin: 4px;
+	min-width: 100px;
 `;
