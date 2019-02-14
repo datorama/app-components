@@ -4,8 +4,9 @@ import Highlight from 'react-highlight-js';
 
 // components
 import Base from './Base';
-import Notifications from '../components/base/Notifications';
+import {withNotifications} from '../components/base/Notifications';
 import {Row, Col} from '../components/index';
+import Button from '../components/base/Button';
 
 const snippet = `
 import { NotificationsProvider, withNotifications } from 'app-components';
@@ -33,7 +34,8 @@ const NotificationsDoc = props => {
 				</Col>
 				<Col>
 					<Box>
-						<Notifications/>
+						<Button onClick={() => props.addNotification({title: 'default', subtitle: 'datorama apps notification'})}>Add
+							notification</Button>
 					</Box>
 				</Col>
 			</Row>
@@ -41,7 +43,7 @@ const NotificationsDoc = props => {
 	);
 };
 
-export default withTheme(NotificationsDoc);
+export default withNotifications(withTheme(NotificationsDoc));
 
 const Box = styled.div`
 	width: 100%;

@@ -4,6 +4,9 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {withRouter} from 'react-router';
 import {lightTheme, darkTheme} from './components';
 
+// notifications
+import NotificationsProvider from './components/base/Notifications';
+
 // docs
 import Home from './docs/Home.doc';
 
@@ -105,45 +108,47 @@ class App extends Component {
 		return (
 			<Router>
 				<ThemeProvider theme={theme}>
-					<Container>
-						<GlobalStyle light={light}/>
-						<Sidebar light={light}>
-							<ConnectedNavigation list={list}/>
-						</Sidebar>
-						
-						<ThemeButton
-							selected={!light}
-							onClick={this.toggleTheme}
-						>
-							<DropIcon/>
-						</ThemeButton>
-						
-						<Content light={light}>
-							<Route exact path="/" component={Home}/>
-							<Route exact path="/colors" component={Colors}/>
-							<Route exact path="/typography" component={Typography}/>
-							<Route exact path="/layout" component={Layout}/>
-							<Route exact path="/animations" component={Animations}/>
+					<NotificationsProvider>
+						<Container>
+							<GlobalStyle light={light}/>
+							<Sidebar light={light}>
+								<ConnectedNavigation list={list}/>
+							</Sidebar>
 							
-							<Route exact path="/button" component={Button}/>
-							<Route exact path="/datepicker" component={Datepicker}/>
-							<Route exact path="/card" component={Card}/>
-							<Route exact path="/select" component={Select}/>
-							<Route exact path="/modal" component={Modal}/>
-							<Route exact path="/toggles" component={Toggles}/>
-							<Route exact path="/progress" component={Progress}/>
-							<Route exact path="/carousel" component={Carousel}/>
-							<Route exact path="/spinner" component={Spinner}/>
-							<Route exact path="/pagination" component={Pagination}/>
-							<Route exact path="/text-input" component={TextInput}/>
-							<Route exact path="/tag" component={Tag}/>
-							<Route exact path="/range" component={Range}/>
-							<Route exact path="/notifications" component={Notifications}/>
+							<ThemeButton
+								selected={!light}
+								onClick={this.toggleTheme}
+							>
+								<DropIcon/>
+							</ThemeButton>
 							
-							<Route exact path="/click-out" component={ClickOut}/>
-							<Route exact path="/draggable" component={Draggable}/>
-						</Content>
-					</Container>
+							<Content light={light}>
+								<Route exact path="/" component={Home}/>
+								<Route exact path="/colors" component={Colors}/>
+								<Route exact path="/typography" component={Typography}/>
+								<Route exact path="/layout" component={Layout}/>
+								<Route exact path="/animations" component={Animations}/>
+								
+								<Route exact path="/button" component={Button}/>
+								<Route exact path="/datepicker" component={Datepicker}/>
+								<Route exact path="/card" component={Card}/>
+								<Route exact path="/select" component={Select}/>
+								<Route exact path="/modal" component={Modal}/>
+								<Route exact path="/toggles" component={Toggles}/>
+								<Route exact path="/progress" component={Progress}/>
+								<Route exact path="/carousel" component={Carousel}/>
+								<Route exact path="/spinner" component={Spinner}/>
+								<Route exact path="/pagination" component={Pagination}/>
+								<Route exact path="/text-input" component={TextInput}/>
+								<Route exact path="/tag" component={Tag}/>
+								<Route exact path="/range" component={Range}/>
+								<Route exact path="/notifications" component={Notifications}/>
+								
+								<Route exact path="/click-out" component={ClickOut}/>
+								<Route exact path="/draggable" component={Draggable}/>
+							</Content>
+						</Container>
+					</NotificationsProvider>
 				</ThemeProvider>
 			</Router>
 		);

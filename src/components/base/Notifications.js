@@ -5,28 +5,32 @@ import PropTypes from 'prop-types';
 // components
 import {ReactComponent as NotifIcon} from '../assets/notif.svg';
 
+// shared context
+const Context = React.createContext();
+const Consumer = Context.Consumer;
+export const withNotifications = Comp => props => (
+	<Consumer>
+		{({addNotification}) => (
+			<Comp {...props} addNotification={addNotification}/>
+		)}
+	</Consumer>
+);
 
 class Notifications extends Component {
 	static propTypes = {};
 	
 	state = {
 		leaving: [],
-		list: [
-			{
-				id: 0,
-				title: 'notification',
-				subtitle: 'notification subtitle'
-			}
-		]
+		list: []
 	};
 	
-	addNotification = () => {
+	addNotification = notif => {
 		const id = Math.random();
 		
 		this.setState({
 			list: [
 				...this.state.list,
-				{id, title: 'untitled', subtitle: 'notification subtitle'}
+				{id, title: notif.title, subtitle: notif.subtitle}
 			]
 		})
 	};
@@ -43,31 +47,37 @@ class Notifications extends Component {
 	
 	render() {
 		const {list, leaving} = this.state;
+		const {children} = this.props;
+		const contextActions = {
+			addNotification: this.addNotification
+		};
 		
 		return (
-			<Fragment>
-				{list.map(({id, title, subtitle}, index) => (
-					<Notification
-						key={`notif-${id}`}
-						top={index * 80}
-						leaving={leaving.includes(id)}
-					>
-						<CloseIcon onClick={this.clearNotification(id)}/>
-						<StyledIcon/>
-						<Meta>
-							<Title>{title}</Title>
-							<Subtitle>{subtitle}</Subtitle>
-						</Meta>
-					</Notification>
-				))}
-				
-				<div onClick={this.addNotification}>ADD NOTIFICATION</div>
-			</Fragment>
+			<Context.Provider value={contextActions}>
+				<Fragment>
+					{list.map(({id, title, subtitle}, index) => (
+						<Notification
+							key={`notif-${id}`}
+							top={index * 80}
+							leaving={leaving.includes(id)}
+						>
+							<CloseIcon onClick={this.clearNotification(id)}/>
+							<StyledIcon/>
+							<Meta>
+								<Title>{title}</Title>
+								<Subtitle>{subtitle}</Subtitle>
+							</Meta>
+						</Notification>
+					))}
+					{children}
+				</Fragment>
+			</Context.Provider>
 		);
 	}
 }
 
 export default Notifications;
+
 
 const Notification = styled.div`
 	position: fixed;
