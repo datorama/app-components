@@ -10,10 +10,16 @@ import { Row, Col } from '../components/index';
 const snippet = `
 import { Tabs } from 'app-components';
 
-const MyComp = () => (
-  <div>
-    <Tabs />
-  </div>
+const MyComp = ({ selected, handleSelect, contentRenderer }) => (
+  <Tabs
+    onSelect={handleSelect}
+    selectedIndex={selected}
+    contentRenderer={contentRenderer}
+    tabs={[
+      { id: 0, label: 'Explore' },
+      { id: 1, label: 'Filters' }
+    ]}
+  />
 );
 `;
 
