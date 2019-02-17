@@ -34,6 +34,7 @@ import Draggable from './docs/Draggable.doc';
 import Tag from './docs/Tags.doc';
 import Range from './docs/Range.doc';
 import Toast from './docs/Toast.doc';
+import Tabs from './docs/Tabs.doc';
 
 const Navigation = ({ list, history, location }) => (
   <Fragment>
@@ -93,7 +94,7 @@ class App extends Component {
       { key: 'stepper', label: 'stepper' },
       { key: 'tooltip', label: 'tooltip' },
       { key: 'range-input', label: 'range input', path: 'range' },
-      { key: 'tabs', label: 'tabs' },
+      { key: 'tabs', label: 'tabs', path: 'tabs' },
       { key: 'collapse', label: 'collapse' },
       { key: 'table', label: 'table' },
       { key: 'date-picker', label: 'date picker' },
@@ -140,6 +141,7 @@ class App extends Component {
                 <Route exact path="/tag" component={Tag} />
                 <Route exact path="/range" component={Range} />
                 <Route exact path="/toasts" component={Toast} />
+                <Route exact path="/tabs" component={Tabs} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/draggable" component={Draggable} />
