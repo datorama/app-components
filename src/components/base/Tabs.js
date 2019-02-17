@@ -2,10 +2,10 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-const Tabs = ({ contentRenderer, selectedIndex, tabs, onSelect }) => {
+const Tabs = ({ contentRenderer, selectedIndex, tabs, onSelect, justify }) => {
   return (
     <Container>
-      <Header>
+      <Header justify={justify}>
         <InnerHeader>
           {tabs.map(tab => (
             <Tab key={`tab-${tab.id}`} onClick={() => onSelect(tab.id)}>
@@ -23,6 +23,7 @@ const Tabs = ({ contentRenderer, selectedIndex, tabs, onSelect }) => {
 
 Tabs.propTypes = {
   contentRenderer: PropTypes.func.isRequired,
+  justify: PropTypes.oneOf(['flex-start', 'center', 'flex-end']),
   onSelect: PropTypes.func,
   selectedIndex: PropTypes.number.isRequired,
   tabs: PropTypes.arrayOf(
@@ -44,7 +45,7 @@ const Container = styled.div`
 const Header = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: ${({ justify }) => justify || 'center'};
   border-bottom: 1px solid ${({ theme }) => theme.p100};
 `;
 

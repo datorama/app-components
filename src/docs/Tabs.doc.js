@@ -42,6 +42,7 @@ class TabsDoc extends Component {
           <Col>
             <Box>
               <Tabs
+                justify="flex-start"
                 onSelect={selected => this.setState({ selected })}
                 tabs={[
                   { id: 0, label: 'Explore' },
