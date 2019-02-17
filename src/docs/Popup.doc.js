@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled, { withTheme } from 'styled-components';
 import Highlight from 'react-highlight-js';
 
@@ -17,25 +17,36 @@ const MyComp = () => (
 );
 `;
 
-const PopupDoc = props => {
-  const title = 'spinner';
-  const description = 'spinner.';
+class PopupDoc extends Component {
+  state = {
+    open: false
+  };
 
-  return (
-    <Base title={title} description={description} name="Spinner">
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{snippet}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <Popup />
-          </Box>
-        </Col>
-      </Row>
-    </Base>
-  );
-};
+  render() {
+    const title = 'popup';
+    const description = 'popup.';
+
+    return (
+      <Base title={title} description={description} name="Popup">
+        <Row align="stretch">
+          <Col>
+            <Highlight language="javascript">{snippet}</Highlight>
+          </Col>
+          <Col>
+            <Box>
+              <Popup open={this.state.open}>
+                <Inner
+                  onMouseEnter={() => this.setState({ open: true })}
+                  onMouseLeave={() => this.setState({ open: false })}
+                />
+              </Popup>
+            </Box>
+          </Col>
+        </Row>
+      </Base>
+    );
+  }
+}
 
 export default withTheme(PopupDoc);
 
@@ -47,4 +58,11 @@ const Box = styled.div`
   border-radius: 4px;
   justify-content: center;
   background: ${({ theme }) => theme.p50};
+`;
+
+const Inner = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  background: ${({ theme }) => theme.a500};
 `;
