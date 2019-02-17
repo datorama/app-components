@@ -54,11 +54,11 @@ class Datepicker extends Component {
           key={`date-${i}`}
           onClick={() => this.handleClick(current.format('YYYY-MM-DD'))}
           onMouseEnter={() => this.setHover(current.format('YYYY-MM-DD'))}
-          onMouseLeave={this.setHover}
+          //onMouseLeave={this.setHover}
           selected={selected}
           isStart={current.format('YYYY-MM-DD') === selection[0]}
           isEnd={
-            current.format('YYYY-MM-DD') === selectingEnd &&
+            current.format('YYYY-MM-DD') === selectingEnd ||
             current.format('YYYY-MM-DD') === hoveredDate
           }
         >
@@ -193,7 +193,7 @@ const Header = styled.div`
 const Control = styled.div`
   width: 16px;
   height: 16px;
-  background: ${({ theme }) => theme.p600};
+  background: ${({ theme }) => theme.a200};
   background-size: contain;
   cursor: pointer;
 `;
@@ -222,10 +222,10 @@ const DatesContainer = styled.div`
 
 const DateContainer = styled.div`
   box-sizing: border-box;
-  padding: 2px calc(((250px - 20px) / 7 - 26px) / 2);
-  width: calc((250px - 20px) / 7);
+  width: 26px;
   height: 26px;
   margin: 2px 0;
+  //transition: all 100ms;
 
   ${({ selected, isStart, isEnd, theme }) =>
     selected &&
@@ -246,22 +246,21 @@ const DateIcon = styled.div`
   align-items: center;
   justify-content: center;
   color: ${({ theme }) => theme.p600};
-  font-size: 12px;
-  font-weight: 300;
+  ${({ theme }) => theme.text.sm};
   box-sizing: border-box;
   border-radius: 50%;
 
   ${({ today, theme }) =>
     today &&
     css`
-      border: 1px solid ${theme.p600};
+      // border: 1px solid ${theme.p600};
       border-radius: 2px;
     `}
 
   ${({ isStart, isEnd, theme }) =>
     (isStart || isEnd) &&
     css`
-      background: ${theme.a400} !important;
+      // background: ${theme.a400} !important;
     `}
   
   &:hover {
