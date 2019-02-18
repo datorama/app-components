@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { SketchPicker } from 'react-color';
 import ClickOut from '../components/base/ClickOut';
+import { lightTheme } from '../components';
 
 const Color = ({ label, color, onClick }) => (
   <ColorCard onClick={onClick}>
@@ -23,10 +24,9 @@ class CustomColor extends Component {
 
   handleChangeComplete = (id, color) => {
     const { updateTheme } = this.props;
-    const { rgb } = color;
 
     updateTheme({
-      [id]: `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`
+      [id]: color.hex
     });
   };
 
@@ -50,6 +50,7 @@ class CustomColor extends Component {
       'a700',
       'a800'
     ];
+    const preset = colors.map(color => lightTheme[color]);
 
     return (
       <ClickOut onClick={this.handleClick}>
@@ -64,6 +65,8 @@ class CustomColor extends Component {
               <ColorPop>
                 {color === active && (
                   <SketchPicker
+                    disableAlpha={true}
+                    presetColors={preset}
                     color={theme[color]}
                     onChangeComplete={data =>
                       this.handleChangeComplete(color, data)
@@ -144,7 +147,7 @@ const ColorPreview = styled.div`
 
   &:hover {
     div {
-      opacity: 1;
+      opacity: 0.6;
     }
   }
 `;
@@ -171,9 +174,9 @@ const Info = styled.div`
 `;
 
 const PaintIcon = styled.div`
-  width: 25px;
-  height: 32px;
-  background: url(${require('../docs/assets/paint.svg')}) no-repeat;
+  width: 50px;
+  height: 50px;
+  background: url(${require('../docs/assets/drop.svg')}) no-repeat;
   background-size: contain;
   transition: all 300ms;
 `;

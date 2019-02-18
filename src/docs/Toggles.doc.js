@@ -50,7 +50,8 @@ export default class TogglesDoc extends React.Component {
 
   render() {
     const title = 'toggles';
-    const description = 'toggles';
+    const description =
+      'Selection controls allow users to complete tasks that involve making choices such as selecting options, or switching settings on or off. Selection controls are found on screens that ask users to make decisions or declare preferences such as settings or dialogs.';
     const { checked } = this.state;
 
     return (

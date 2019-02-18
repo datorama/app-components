@@ -40,7 +40,7 @@ export default class ModalDoc extends React.Component {
   render() {
     const { modalOpen } = this.state;
     const title = 'modal';
-    const description = 'modal';
+    const description = 'Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.';
 
     return (
       <Base title={title} description={description} name="Modal">

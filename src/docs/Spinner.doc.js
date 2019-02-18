@@ -29,7 +29,8 @@ const MyComp = () => (
 
 const SpinnerDoc = props => {
   const title = 'spinner';
-  const description = 'spinner.';
+  const description =
+    'Progress indicators inform users about the status of ongoing processes, such as loading an app, submitting a form, or saving updates. They communicate an app’s state and indicate available actions, such as whether users can navigate away from the current screen.';
 
   return (
     <Base title={title} description={description} name="Spinner">

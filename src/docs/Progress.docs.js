@@ -31,7 +31,7 @@ const MyComp = () => (
 
 const ProgressDoc = ({ theme }) => {
   const title = 'progress';
-  const description = 'preogress..';
+  const description = '';
 
   return (
     <Base title={title} description={description}>

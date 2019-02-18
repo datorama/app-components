@@ -146,15 +146,16 @@ class App extends Component {
               </Sidebar>
 
               <ThemeButton selected={!light} onClick={this.toggleTheme}>
-                <DropIcon />
+                <ContrastIcon />
               </ThemeButton>
 
               <ColorsButton
+                selected={colorsOpen}
                 onClick={() =>
                   this.setState({ colorsOpen: !this.state.colorsOpen })
                 }
               >
-                <PaintIcon />
+                <DropIcon />
               </ColorsButton>
 
               <Content light={light}>
@@ -317,7 +318,7 @@ const ThemeButton = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #777777;
+  background: ${({ theme }) => theme.p300};
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -329,7 +330,7 @@ const ThemeButton = styled.div`
   ${({ selected }) =>
     selected &&
     css`
-      opacity: 1;
+      opacity: 0.7;
     `};
 
   &:hover {
@@ -341,6 +342,13 @@ const DropIcon = styled.div`
   width: 30px;
   height: 30px;
   background: url(${require('./docs/assets/drop.svg')}) no-repeat;
+  background-size: contain;
+`;
+
+const ContrastIcon = styled.div`
+  width: 22px;
+  height: 22px;
+  background: url(${require('./docs/assets/dark-light.svg')}) no-repeat;
   background-size: contain;
 `;
 
@@ -368,11 +376,4 @@ const GlobalStyle = createGlobalStyle`
 
 const ColorsButton = styled(ThemeButton)`
   right: 70px;
-`;
-
-const PaintIcon = styled.div`
-  width: 15px;
-  height: 24px;
-  background: url(${require('./docs/assets/paint.svg')}) no-repeat;
-  background-size: contain;
 `;
