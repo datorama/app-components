@@ -89,10 +89,13 @@ const Strip = styled.div`
   height: 200px;
   background: ${({ light }) => (light ? '#fff' : '#272727')};
   transition: margin 500ms;
-  margin-top: ${({ active }) => (active ? 0 : -200)}px;
+  margin-top: ${({ active }) => (active ? 0 : -240)}px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: fixed;
+  z-index: 3;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
 `;
 
 const ColorContainer = styled.div`

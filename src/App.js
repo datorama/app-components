@@ -75,7 +75,13 @@ class App extends Component {
 
   toggleTheme = () => this.setState(prevState => ({ light: !prevState.light }));
 
-  updateTheme = customTheme => this.setState({ customTheme });
+  updateTheme = customTheme =>
+    this.setState({
+      customTheme: {
+        ...this.state.customTheme,
+        ...customTheme
+      }
+    });
 
   render() {
     const { light, colorsOpen, customTheme } = this.state;
@@ -314,7 +320,7 @@ const ThemeButton = styled.div`
   position: fixed;
   top: 20px;
   right: 20px;
-  z-index: 1;
+  z-index: 10;
   width: 40px;
   height: 40px;
   border-radius: 50%;
