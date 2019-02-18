@@ -75,6 +75,12 @@ class App extends Component {
     const theme = light ? lightTheme : darkTheme;
 
     const list = [
+      { key: 'getting-started', label: 'getting started' },
+      { key: 'guidelines', label: 'app guidelines' },
+      { key: 'resources', label: 'resources' },
+      { key: 'builder', label: 'builder' },
+
+      { key: 'style', label: 'style', type: 'title' },
       { key: 'colors', label: 'colors', path: 'colors' },
       { key: 'typography', label: 'typography', path: 'typography' },
       { key: 'layout', label: 'layout', path: 'layout' },
@@ -102,6 +108,7 @@ class App extends Component {
       { key: 'table', label: 'table' },
       { key: 'date-picker', label: 'date picker' },
       { key: 'widget', label: 'widget' },
+      { key: 'navbar', label: 'navbar' },
 
       { key: 'utils', label: 'utils', type: 'title' },
       { key: 'click-out', label: 'click out', path: 'click-out' },

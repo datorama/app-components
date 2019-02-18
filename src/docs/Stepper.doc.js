@@ -10,16 +10,21 @@ import { Row, Col } from '../components/index';
 const snippet = `
 import { Stepper } from 'app-components';
 
-const MyComp = () => (
+// step: { id: 0, label: '', touched: false, enabled: true }
+const MyComp = ({ steps, selected, selectStep }) => (
   <div>
-    <Stepper />
+    <Stepper
+      steps={steps}
+      currentStep={selected}
+      selectStep={selectStep}
+    />
   </div>
 );
 `;
 
 class StepperDoc extends Component {
   state = {
-    selected: 0
+    selected: 1
   };
 
   render() {
@@ -36,7 +41,7 @@ class StepperDoc extends Component {
             <Box>
               <Stepper
                 steps={[
-                  { id: 0, label: 'My brand', enabled: true },
+                  { id: 0, label: 'My brand', enabled: true, touched: true },
                   { id: 1, label: 'Competitors', enabled: true },
                   { id: 2, label: 'Summary', enabled: false }
                 ]}
