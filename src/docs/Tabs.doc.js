@@ -27,7 +27,7 @@ class TabsDoc extends Component {
 
   render() {
     const title = 'tabs';
-    const description = 'tabs.';
+    const description = 'Tabs organize and allow navigation between groups of content that are related and at the same level of hierarchy.';
     const { selected } = this.state;
 
     return (

@@ -43,7 +43,8 @@ const MyComp = ({ navigate }) => (
 
 const TooltipDoc = () => {
   const title = 'tooltip';
-  const description = 'tooltip.';
+  const description =
+    'Tooltips display informative text when users hover over, focus on, or tap an element.';
 
   return (
     <Base title={title} description={description} name="Tooltip">

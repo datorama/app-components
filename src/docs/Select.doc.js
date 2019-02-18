@@ -62,7 +62,8 @@ export default class SelectDoc extends React.Component {
   render() {
     const { values1, values2, values3 } = this.state;
     const title = 'select';
-    const description = 'select, multi select';
+    const description =
+      'Selects allow users make a selection from multiple options. They are less prominent and take up less space than selection controls, such as a set of radio buttons.';
 
     return (
       <Base title={title} description={description} name="Select">

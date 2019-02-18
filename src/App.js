@@ -42,7 +42,7 @@ import Tooltip from './docs/Tooltip.doc';
 import Stepper from './docs/Stepper.doc';
 import Collapse from './docs/Collapse.doc';
 
-const Navigation = ({ list, history, location }) => (
+const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
     <Header>
       <Title onClick={() => history.push('/')}>Apps design system</Title>
@@ -52,7 +52,10 @@ const Navigation = ({ list, history, location }) => (
         <MenuItem
           key={key}
           type={type}
-          onClick={() => history.push(`/${path}`)}
+          onClick={() => {
+            history.push(`/${path}`);
+            onClick();
+          }}
           selected={`/${path}` === location.pathname}
           disabled={!path}
         >
@@ -83,6 +86,11 @@ class App extends Component {
       }
     });
 
+  afterNavigate = () => {
+    window.scroll(0, 0);
+    this.setState({colorsOpen: false});
+  };
+  
   render() {
     const { light, colorsOpen, customTheme } = this.state;
     let theme = light ? lightTheme : darkTheme;
@@ -147,8 +155,9 @@ class App extends Component {
             />
             <Container>
               <GlobalStyle light={light} />
+              
               <Sidebar light={light}>
-                <ConnectedNavigation list={list} />
+                <ConnectedNavigation list={list} onClick={this.afterNavigate} />
               </Sidebar>
 
               <ThemeButton selected={!light} onClick={this.toggleTheme}>

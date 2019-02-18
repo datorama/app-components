@@ -119,7 +119,7 @@ const Toast = styled.div`
   transition: all 1000ms;
   right: 20px;
   top: ${({ top }) => `${20 + top}px`};
-  z-index: 10;
+  z-index: 999;
   ${({ theme, leaving }) =>
     leaving ? theme.animation.fadeRightExit : theme.animation.fadeLeft};
   display: flex;

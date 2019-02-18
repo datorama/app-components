@@ -75,7 +75,7 @@ const MyComp = ({ value, onChange }) => (
 
 const TextInputDoc = () => {
   const title = 'text input';
-  const description = 'text input';
+  const description = 'Text inputs let users enter and edit text.';
 
   return (
     <Base title={title} description={description} name="TextInput">
