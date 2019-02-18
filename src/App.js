@@ -36,6 +36,7 @@ import Range from './docs/Range.doc';
 import Toast from './docs/Toast.doc';
 import Tabs from './docs/Tabs.doc';
 import Tooltip from './docs/Tooltip.doc';
+import Stepper from './docs/Stepper.doc';
 // import Popup from './docs/Popup.doc';
 
 const Navigation = ({ list, history, location }) => (
@@ -93,7 +94,7 @@ class App extends Component {
       { key: 'pagination', label: 'pagination', path: 'pagination' },
 
       { key: 'toasts', label: 'toasts', path: 'toasts' },
-      { key: 'stepper', label: 'stepper' },
+      { key: 'stepper', label: 'stepper', path: 'stepper' },
       { key: 'tooltip', label: 'tooltip', path: 'tooltip' },
       { key: 'range-input', label: 'range input', path: 'range' },
       { key: 'tabs', label: 'tabs', path: 'tabs' },
@@ -145,6 +146,7 @@ class App extends Component {
                 <Route exact path="/toasts" component={Toast} />
                 <Route exact path="/tabs" component={Tabs} />
                 <Route exact path="/tooltip" component={Tooltip} />
+                <Route exact path="/stepper" component={Stepper} />
                 {/*<Route exact path="/popup" component={Popup} />*/}
 
                 <Route exact path="/click-out" component={ClickOut} />
