@@ -277,6 +277,93 @@
   },
   {
     "description": "",
+    "displayName": "Collapse",
+    "methods": [
+      {
+        "name": "toggleOpen",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Collapse.js"
+  },
+  {
+    "description": "",
+    "displayName": "Draggable",
+    "methods": [
+      {
+        "name": "handleMouseDown",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ clientX, clientY }",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseMove",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ clientX, clientY }",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseUp",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "filename": "/components/base/Draggable.js"
+  },
+  {
+    "description": "",
     "displayName": "Datepicker",
     "methods": [
       {
@@ -348,41 +435,69 @@
   },
   {
     "description": "",
-    "displayName": "Draggable",
+    "displayName": "Modal",
     "methods": [
       {
-        "name": "handleMouseDown",
+        "name": "handleClick",
         "docblock": null,
         "modifiers": [],
         "params": [
           {
-            "name": "{ clientX, clientY }",
+            "name": "onClick",
             "type": null
           }
         ],
-        "returns": null
-      },
-      {
-        "name": "handleMouseMove",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{ clientX, clientY }",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleMouseUp",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
         "returns": null
       }
     ],
-    "filename": "/components/base/Draggable.js"
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "toggleOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": true,
+        "description": ""
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "buttons": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": true,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Modal.js"
   },
   {
     "description": "",
@@ -453,72 +568,6 @@
       }
     },
     "filename": "/components/base/Pagination.js"
-  },
-  {
-    "description": "",
-    "displayName": "Modal",
-    "methods": [
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "onClick",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "toggleOpen": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": true,
-        "description": ""
-      },
-      "title": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "buttons": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "object"
-          }
-        },
-        "required": true,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Modal.js"
   },
   {
     "description": "",
@@ -766,6 +815,42 @@
   },
   {
     "description": "",
+    "displayName": "StepperBullet",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "touched": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "enabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/StepperBullet.js"
+  },
+  {
+    "description": "",
     "displayName": "Stepper",
     "methods": [],
     "props": {
@@ -810,9 +895,30 @@
   },
   {
     "description": "",
-    "displayName": "StepperBullet",
+    "displayName": "Tag",
     "methods": [],
     "props": {
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
       "className": {
         "type": {
           "name": "string"
@@ -820,7 +926,7 @@
         "required": false,
         "description": ""
       },
-      "touched": {
+      "disabled": {
         "type": {
           "name": "bool"
         },
@@ -833,16 +939,9 @@
         },
         "required": false,
         "description": ""
-      },
-      "enabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
       }
     },
-    "filename": "/components/base/StepperBullet.js"
+    "filename": "/components/base/Tag.js"
   },
   {
     "description": "",
@@ -916,56 +1015,6 @@
   },
   {
     "description": "",
-    "displayName": "Tag",
-    "methods": [],
-    "props": {
-      "label": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tag.js"
-  },
-  {
-    "description": "",
     "displayName": "TagGroup",
     "methods": [],
     "props": {
@@ -1029,37 +1078,6 @@
       }
     },
     "filename": "/components/base/TagGroup.js"
-  },
-  {
-    "description": "",
-    "displayName": "Toasts",
-    "methods": [
-      {
-        "name": "clearToast",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "id",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "icon",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "type",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "filename": "/components/base/Toasts.js"
   },
   {
     "description": "",
@@ -1138,6 +1156,37 @@
       }
     },
     "filename": "/components/base/TextInput.js"
+  },
+  {
+    "description": "",
+    "displayName": "Toasts",
+    "methods": [
+      {
+        "name": "clearToast",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "id",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "icon",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "type",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "filename": "/components/base/Toasts.js"
   },
   {
     "description": "",

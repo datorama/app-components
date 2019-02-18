@@ -37,7 +37,7 @@ import Toast from './docs/Toast.doc';
 import Tabs from './docs/Tabs.doc';
 import Tooltip from './docs/Tooltip.doc';
 import Stepper from './docs/Stepper.doc';
-// import Popup from './docs/Popup.doc';
+import Collapse from './docs/Collapse.doc';
 
 const Navigation = ({ list, history, location }) => (
   <Fragment>
@@ -104,7 +104,7 @@ class App extends Component {
       { key: 'tooltip', label: 'tooltip', path: 'tooltip' },
       { key: 'range-input', label: 'range input', path: 'range' },
       { key: 'tabs', label: 'tabs', path: 'tabs' },
-      { key: 'collapse', label: 'collapse' },
+      { key: 'collapse', label: 'collapse', path: 'collapse' },
       { key: 'table', label: 'table' },
       { key: 'date-picker', label: 'date picker' },
       { key: 'widget', label: 'widget' },
@@ -112,7 +112,6 @@ class App extends Component {
 
       { key: 'utils', label: 'utils', type: 'title' },
       { key: 'click-out', label: 'click out', path: 'click-out' },
-      // { key: 'popup', label: 'popup', path: 'popup' },
       { key: 'draggable', label: 'draggable', path: 'draggable' }
     ];
 
@@ -154,7 +153,7 @@ class App extends Component {
                 <Route exact path="/tabs" component={Tabs} />
                 <Route exact path="/tooltip" component={Tooltip} />
                 <Route exact path="/stepper" component={Stepper} />
-                {/*<Route exact path="/popup" component={Popup} />*/}
+                <Route exact path="/collapse" component={Collapse} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/draggable" component={Draggable} />
