@@ -2,15 +2,16 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-const Bullet = ({ selected, disabled }) => (
-  <Container selected={selected} disabled={disabled} />
+const Bullet = ({ selected, disabled, className }) => (
+  <Container selected={selected} disabled={disabled} className={className} />
 );
 
 export default Bullet;
 
 Bullet.propTypes = {
   selected: PropTypes.bool,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  className: PropTypes.string
 };
 
 const Container = styled.div`
@@ -30,12 +31,19 @@ const Container = styled.div`
     } else if (disabled) {
       return css`
         background-color: ${({ theme }) => theme.p200};
+        border: none;
+        width: 10px;
+        height: 10px;
       `;
     }
     // !selected && !disabled
     else {
       return css`
         background-color: ${theme.a400};
+        border: 4px solid ${({ theme }) => theme.p0};
+
+        &:hover {
+        }
       `;
     }
   }};

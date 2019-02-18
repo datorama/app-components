@@ -15,8 +15,11 @@ const Stepper = ({ steps = [], currentStep, selectStep }) => {
           selected={step.id === currentStep}
           onClick={() => selectStep(step.id)}
         >
-          <Bullet selected={step.id === currentStep} disabled={!step.enabled} />
-          <Label>{step.label}</Label>
+          <StyledBullet
+            selected={step.id === currentStep}
+            disabled={!step.enabled}
+          />
+          <Label disabled={!step.enabled}>{step.label}</Label>
         </Step>
       ))}
     </Container>
@@ -50,22 +53,16 @@ const Step = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 300;
-  //color: ${({ theme }) => theme.a300};
-  ${({ theme }) => theme.text.p};
-  cursor: pointer;
+  position: relative;
   transition: all 300ms;
-
-  &:hover {
-    color: ${({ theme }) => theme.a500};
-  }
+  cursor: pointer;
 
   &:not(:last-child):after {
     content: '';
     width: 30px;
-    height: 2px;
-    background: ${({ theme }) => theme.p100};
-    margin: 0 10px 0 5px;
+    height: 1px;
+    background: ${({ theme }) => theme.p200};
+    margin: 0 30px 0 5px;
   }
 
   ${({ selected }) =>
@@ -84,4 +81,20 @@ const Step = styled.div`
 
 const Label = styled.span`
   margin: 0 5px;
+  ${({ theme }) => theme.text.p};
+  line-height: 12px;
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      pointer-events: none;
+      color: ${({ theme }) => theme.p200};
+    `};
+`;
+
+const StyledBullet = styled(Bullet)`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -20px;
 `;
