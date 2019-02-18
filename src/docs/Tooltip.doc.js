@@ -12,8 +12,32 @@ import { Tooltip } from 'app-components';
 
 const MyComp = () => (
   <Tooltip title="tooltip content">
-    ...
+    ...content
   </Tooltip>
+);
+`;
+
+const snippetLeft = `
+import { Tooltip } from 'app-components';
+
+const MyComp = () => (
+  <Tooltip title="tooltip content" position="LEFT">
+    ...content
+  </Tooltip>
+);
+`;
+
+const snippetLong = `
+import { Tooltip } from 'app-components';
+
+const MyComp = ({ navigate }) => (
+  <div>
+    <Tooltip
+      title="tooltip content"
+      long
+      onClickInfo={navigate}
+    />
+  </div>
 );
 `;
 
@@ -38,13 +62,29 @@ const TooltipDoc = () => {
 
       <Row align="stretch">
         <Col>
-          <Highlight language="javascript">{snippet}</Highlight>
+          <Highlight language="javascript">{snippetLeft}</Highlight>
         </Col>
         <Col>
           <Box>
             <Tooltip title="tooltip content" position="LEFT">
               <Demo>hover me</Demo>
             </Tooltip>
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{snippetLong}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <Tooltip
+              title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam debitis eos harum non, odio placeat porro rem reprehenderit voluptatum"
+              long
+              position="TOP"
+              onClickInfo={() => console.log('clicked!')}
+            />
           </Box>
         </Col>
       </Row>

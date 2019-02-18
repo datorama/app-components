@@ -8,22 +8,25 @@ const BOTTOM = 'BOTTOM';
 const TOP = 'TOP';
 const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
-const BOTTOM_LEFT = 'BOTTOM_LEFT';
-const BOTTOM_RIGHT = 'BOTTOM_RIGHT';
-const TOP_LEFT = 'TOP_LEFT';
-const TOP_RIGHT = 'TOP_RIGHT';
+// const BOTTOM_LEFT = 'BOTTOM_LEFT';
+// const BOTTOM_RIGHT = 'BOTTOM_RIGHT';
+// const TOP_LEFT = 'TOP_LEFT';
+// const TOP_RIGHT = 'TOP_RIGHT';
 
 const Popup = ({
   children,
   open,
   className,
   position = BOTTOM,
-  contentRenderer
+  contentRenderer,
+  withClose,
+  toggleOpen
 }) => (
   <Container className={className}>
     {children}
     <Menu visible={open} className="pop-menu" position={position}>
       {contentRenderer()}
+      {withClose && <CloseIcon onClick={toggleOpen} />}
     </Menu>
   </Container>
 );
@@ -33,7 +36,9 @@ Popup.propTypes = {
   open: PropTypes.bool,
   className: PropTypes.string,
   contentRenderer: PropTypes.func,
-  position: PropTypes.string
+  position: PropTypes.string,
+  withClose: PropTypes.bool,
+  toggleOpen: PropTypes.func
 };
 
 export default Popup;
@@ -93,4 +98,47 @@ const Menu = styled.div`
 
 const Container = styled.div`
   position: relative;
+`;
+
+const CloseIcon = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+
+  width: 12px;
+  height: 12px;
+  overflow: hidden;
+
+  &:hover {
+    &::before,
+    &::after {
+      background: ${({ theme }) => theme.p500};
+    }
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: ${({ theme }) => theme.p300};
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &::before,
+  &::after {
+    height: 1px;
+  }
 `;
