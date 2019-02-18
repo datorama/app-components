@@ -80,7 +80,13 @@ class App extends Component {
   render() {
     const { light, colorsOpen, customTheme } = this.state;
     let theme = light ? lightTheme : darkTheme;
-    theme = !isEmpty(customTheme) ? customTheme : theme;
+
+    if (!isEmpty(customTheme)) {
+      theme = {
+        ...theme,
+        ...customTheme
+      };
+    }
 
     const list = [
       { key: 'getting-started', label: 'getting started' },

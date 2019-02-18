@@ -22,11 +22,11 @@ class CustomColor extends Component {
   };
 
   handleChangeComplete = (id, color) => {
-    const { updateTheme, theme } = this.props;
+    const { updateTheme } = this.props;
+    const { rgb } = color;
 
     updateTheme({
-      ...theme,
-      [id]: color.hex
+      [id]: `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${rgb.a})`
     });
   };
 
@@ -53,7 +53,7 @@ class CustomColor extends Component {
 
     return (
       <ClickOut onClick={this.handleClick}>
-      <Strip active={open} light={light}>
+        <Strip active={open} light={light}>
           {colors.map(color => (
             <ColorContainer key={color}>
               <Color
@@ -73,8 +73,8 @@ class CustomColor extends Component {
               </ColorPop>
             </ColorContainer>
           ))}
-      </Strip>
-  </ClickOut>
+        </Strip>
+      </ClickOut>
     );
   }
 }
