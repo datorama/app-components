@@ -35,7 +35,8 @@ import Tag from './docs/Tags.doc';
 import Range from './docs/Range.doc';
 import Toast from './docs/Toast.doc';
 import Tabs from './docs/Tabs.doc';
-import Popup from './docs/Popup.doc';
+import Tooltip from './docs/Tooltip.doc';
+// import Popup from './docs/Popup.doc';
 
 const Navigation = ({ list, history, location }) => (
   <Fragment>
@@ -93,7 +94,7 @@ class App extends Component {
 
       { key: 'toasts', label: 'toasts', path: 'toasts' },
       { key: 'stepper', label: 'stepper' },
-      { key: 'tooltip', label: 'tooltip' },
+      { key: 'tooltip', label: 'tooltip', path: 'tooltip' },
       { key: 'range-input', label: 'range input', path: 'range' },
       { key: 'tabs', label: 'tabs', path: 'tabs' },
       { key: 'collapse', label: 'collapse' },
@@ -103,7 +104,7 @@ class App extends Component {
 
       { key: 'utils', label: 'utils', type: 'title' },
       { key: 'click-out', label: 'click out', path: 'click-out' },
-      { key: 'popup', label: 'popup', path: 'popup' },
+      // { key: 'popup', label: 'popup', path: 'popup' },
       { key: 'draggable', label: 'draggable', path: 'draggable' }
     ];
 
@@ -143,7 +144,8 @@ class App extends Component {
                 <Route exact path="/range" component={Range} />
                 <Route exact path="/toasts" component={Toast} />
                 <Route exact path="/tabs" component={Tabs} />
-                <Route exact path="/popup" component={Popup} />
+                <Route exact path="/tooltip" component={Tooltip} />
+                {/*<Route exact path="/popup" component={Popup} />*/}
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/draggable" component={Draggable} />
