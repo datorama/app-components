@@ -4,9 +4,12 @@ import styled, {
   ThemeProvider,
   createGlobalStyle
 } from 'styled-components';
+import { isEmpty } from 'lodash/fp';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { lightTheme, darkTheme } from './components';
+
+import CustomColor from './generators/CustomColor';
 
 // notifications
 import ToastsProvider from './components/base/Toasts';
@@ -65,14 +68,19 @@ const ConnectedNavigation = withRouter(Navigation);
 
 class App extends Component {
   state = {
-    light: true
+    light: true,
+    colorsOpen: false,
+    customTheme: {}
   };
 
   toggleTheme = () => this.setState(prevState => ({ light: !prevState.light }));
 
+  updateTheme = customTheme => this.setState({ customTheme });
+
   render() {
-    const { light } = this.state;
-    const theme = light ? lightTheme : darkTheme;
+    const { light, colorsOpen, customTheme } = this.state;
+    let theme = light ? lightTheme : darkTheme;
+    theme = !isEmpty(customTheme) ? customTheme : theme;
 
     const list = [
       { key: 'getting-started', label: 'getting started' },
@@ -119,6 +127,12 @@ class App extends Component {
       <Router>
         <ThemeProvider theme={theme}>
           <ToastsProvider>
+            <CustomColor
+              open={colorsOpen}
+              theme={theme}
+              light={light}
+              updateTheme={this.updateTheme}
+            />
             <Container>
               <GlobalStyle light={light} />
               <Sidebar light={light}>
@@ -128,6 +142,14 @@ class App extends Component {
               <ThemeButton selected={!light} onClick={this.toggleTheme}>
                 <DropIcon />
               </ThemeButton>
+
+              <ColorsButton
+                onClick={() =>
+                  this.setState({ colorsOpen: !this.state.colorsOpen })
+                }
+              >
+                <PaintIcon />
+              </ColorsButton>
 
               <Content light={light}>
                 <Route exact path="/" component={Home} />
@@ -336,4 +358,15 @@ const GlobalStyle = createGlobalStyle`
     css`
       @import url(${require('../node_modules/highlight.js/styles/atom-one-dark.css')});
     `};
+`;
+
+const ColorsButton = styled(ThemeButton)`
+  right: 70px;
+`;
+
+const PaintIcon = styled.div`
+  width: 15px;
+  height: 24px;
+  background: url(${require('./docs/assets/paint.svg')}) no-repeat;
+  background-size: contain;
 `;

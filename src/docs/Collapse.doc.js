@@ -84,7 +84,7 @@ const Box = styled.div`
 `;
 
 const StyledCollapse = styled(Collapse)`
-	margin-bottom: 5px;
+  margin-bottom: 5px;
 `;
 
 const Demo = styled.div`
