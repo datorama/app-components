@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styled, { withTheme } from 'styled-components';
 import Highlight from 'react-highlight-js';
 
@@ -6,6 +6,7 @@ import Highlight from 'react-highlight-js';
 import Base from './Base';
 import Widget from '../components/base/Widget';
 import { Row, Col } from '../components/index';
+import TagGroup from '../components/base/TagGroup';
 
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 
@@ -64,6 +65,30 @@ const data = [
   }
 ];
 
+const Chart = ({ theme }) => (
+  <Fragment>
+    <StyledTagGroup
+      selected={['a', 'c']}
+      onChange={() => null}
+      tags={[
+        { id: 'a', label: 'Account Growth' },
+        { id: 'b', label: 'BDR Prospecting' },
+        { id: 'c', label: 'CPL Vendor' }
+      ]}
+    />
+    <ResponsiveContainer width="100%" aspect={8}>
+      <LineChart data={data}>
+        <Line
+          type="monotone"
+          dataKey="pv"
+          stroke={theme.a400}
+          strokeWidth={2}
+        />
+      </LineChart>
+    </ResponsiveContainer>
+  </Fragment>
+);
+
 const WidgetDoc = ({ theme }) => {
   const title = 'widget';
   const description = 'description.';
@@ -77,16 +102,7 @@ const WidgetDoc = ({ theme }) => {
         <Col>
           <Box>
             <Widget>
-              <ResponsiveContainer width="100%" aspect={8}>
-                <LineChart data={data}>
-                  <Line
-                    type="monotone"
-                    dataKey="pv"
-                    stroke={theme.a400}
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              <Chart theme={theme} />
             </Widget>
           </Box>
         </Col>
@@ -99,16 +115,7 @@ const WidgetDoc = ({ theme }) => {
         <Col>
           <Box>
             <Widget disabled>
-              <ResponsiveContainer width="100%" aspect={8}>
-                <LineChart data={data}>
-                  <Line
-                    type="monotone"
-                    dataKey="pv"
-                    stroke={theme.a400}
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
+              <Chart theme={theme} />
             </Widget>
           </Box>
         </Col>
@@ -162,4 +169,8 @@ const Box = styled.div`
   background: ${({ theme }) => theme.p50};
   box-sizing: border-box;
   padding: 20px;
+`;
+
+const StyledTagGroup = styled(TagGroup)`
+  margin-bottom: 20px;
 `;

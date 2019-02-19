@@ -36,7 +36,7 @@ const Container = styled.div`
     disabled &&
     css`
       pointer-events: none;
-      opacity: 0.6;
+      opacity: 0.4;
     `};
 `;
 
