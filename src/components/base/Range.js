@@ -115,7 +115,8 @@ const Container = styled.div`
 const Outer = styled.div`
   width: 100%;
   height: 2px;
-  background: ${({ theme, disabled }) => (disabled ? theme.p200 : theme.a200)};
+  background: ${({ theme, disabled }) =>
+    disabled ? theme.p200 : hexToRgba(theme.a300, 40)};
   border-radius: 3px;
   position: relative;
   overflow: hidden;

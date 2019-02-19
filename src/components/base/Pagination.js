@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import { range } from 'lodash/fp';
 import PropTypes from 'prop-types';
-import {hexToRgba} from '../utils';
+import { hexToRgba } from '../utils';
 
 // assets
 import { ReactComponent as ArrowDown } from '../assets/arrow-down.svg';
@@ -158,7 +158,8 @@ const Container = styled.div`
 const Button = styled.div`
   width: 24px;
   height: 24px;
-  background: ${({ theme, filled }) => (filled ? hexToRgba(theme.p300, 15) : 'transparent')};
+  background: ${({ theme, filled }) =>
+    filled ? hexToRgba(theme.p300, 15) : 'transparent'};
   cursor: pointer;
   margin: 0 4px;
   display: flex;
@@ -179,6 +180,14 @@ const Button = styled.div`
   &:hover {
     color: ${({ theme }) => theme.p400};
   }
+
+  ${({ filled, theme }) =>
+    filled &&
+    css`
+      &:hover {
+        background: ${hexToRgba(theme.p300, 30)};
+      }
+    `};
 `;
 
 const Divider = styled.div`
@@ -194,8 +203,8 @@ const Info = styled.div`
 `;
 
 const Arrow = styled(ArrowDown)`
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   transform: rotate(${({ rotate }) => `${rotate}deg`});
   * {
     fill: ${({ theme }) => theme.p400};

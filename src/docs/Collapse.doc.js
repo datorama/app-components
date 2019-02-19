@@ -53,14 +53,6 @@ const CollapseDoc = props => {
                 Aliquid aut cupiditate eligendi illo minima molestias nihil
               </Demo>
             </StyledCollapse>
-
-            <StyledCollapse label="collapse label">
-              <Demo>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi
-                cupiditate dolores exercitationem numquam perferendis rem.
-                Aliquid aut cupiditate eligendi illo minima molestias nihil
-              </Demo>
-            </StyledCollapse>
           </Box>
         </Col>
       </Row>

@@ -281,7 +281,7 @@ export const Option = styled.div`
 `;
 
 export const Label = styled.div`
-  ${({ theme }) => theme.text.p};
+  ${({ theme }) => theme.text.sm};
   color: ${({ color, theme }) => color || theme.p700};
   transition: all 300ms;
   white-space: nowrap;

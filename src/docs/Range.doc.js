@@ -6,6 +6,7 @@ import Base from './Base';
 import Range from '../components/base/Range';
 import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
+import { hexToRgba } from '../components/utils';
 
 const snippet = `
 import { Range } from 'app-components';
@@ -84,6 +85,10 @@ const Box = styled.div`
 `;
 
 const CustomRange = styled(Range)`
+  .outer {
+    background: ${({ theme }) => hexToRgba(theme.g300, 20)};
+  }
+  
   .thumb {
     background: ${({ theme }) => theme.g600};
   }

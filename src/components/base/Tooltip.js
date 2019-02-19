@@ -113,7 +113,7 @@ const StyledLong = styled(Popup)`
     padding: 15px 36px 15px 15px;
     line-height: 16px;
     border-radius: 2px;
-    ${({ theme }) => theme.text.smLink};
+    ${({ theme }) => theme.text.sm};
 
     &:after {
       border: solid transparent;

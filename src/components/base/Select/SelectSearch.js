@@ -45,10 +45,11 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
+    border-color: ${({ theme }) => theme.a500};
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.p500};
+    color: ${({ theme }) => theme.p200};
   }
 `;
 

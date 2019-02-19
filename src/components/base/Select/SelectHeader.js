@@ -118,8 +118,8 @@ const Container = styled.div`
 `;
 
 const Arrow = styled(ArrowDown)`
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   transform: rotate(${({ rotation }) => rotation});
   transition: all 300ms;
   * {

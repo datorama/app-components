@@ -76,8 +76,8 @@ const Content = styled.div`
 `;
 
 const StyledArrow = styled(ArrowDown)`
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   margin-right: 10px;
   transition: all 300ms;
   transform: rotate(${({ open }) => (open ? '0deg' : '-90deg')});
