@@ -19,7 +19,7 @@ const Outer = styled.div`
   position: relative;
   width: 100%;
   height: 2px;
-  background: ${({ theme }) => theme.p100};
+  background: ${({ theme }) => theme.a200};
   overflow: hidden;
 `;
 
@@ -38,7 +38,8 @@ const Inner = styled.div`
       left: 0;
     }
     70% {
-      width: 120%;
+      width: 100%;
+      left: 0;
     }
     100% {
       left: 100%;

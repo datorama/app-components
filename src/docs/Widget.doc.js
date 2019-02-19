@@ -131,18 +131,7 @@ const WidgetDoc = ({ theme }) => {
         </Col>
         <Col>
           <Box>
-            <Widget>
-              <ResponsiveContainer width="100%" aspect={8}>
-                <LineChart data={data}>
-                  <Line
-                    type="monotone"
-                    dataKey="pv"
-                    stroke={theme.a500}
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </Widget>
+            <Widget />
           </Box>
         </Col>
       </Row>
@@ -153,18 +142,7 @@ const WidgetDoc = ({ theme }) => {
         </Col>
         <Col>
           <Box>
-            <Widget>
-              <ResponsiveContainer width="100%" aspect={8}>
-                <LineChart data={data}>
-                  <Line
-                    type="monotone"
-                    dataKey="pv"
-                    stroke={theme.a500}
-                    strokeWidth={2}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </Widget>
+            <Widget />
           </Box>
         </Col>
       </Row>
