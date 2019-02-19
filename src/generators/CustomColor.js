@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import { SketchPicker } from 'react-color';
 import ClickOut from '../components/base/ClickOut';
 import { lightTheme } from '../components';
+import { LightenDarkenColor } from '../components/utils';
 
 const Color = ({ label, color, onClick, small }) => (
   <ColorCard onClick={onClick} small={small}>
@@ -20,11 +21,19 @@ class CustomColor extends Component {
     active: null
   };
 
-  handleChangeComplete = (id, color) => {
+  handleChangeComplete = color => {
     const { updateTheme } = this.props;
 
     updateTheme({
-      [id]: color.hex
+      a100: LightenDarkenColor(color.hex, 80),
+      a200: LightenDarkenColor(color.hex, 60),
+      a300: LightenDarkenColor(color.hex, 40),
+      a350: LightenDarkenColor(color.hex, 20),
+      a400: color.hex,
+      a500: LightenDarkenColor(color.hex, -20),
+      a600: LightenDarkenColor(color.hex, -40),
+      a700: LightenDarkenColor(color.hex, -60),
+      a800: LightenDarkenColor(color.hex, -80)
     });
   };
 
@@ -68,9 +77,7 @@ class CustomColor extends Component {
                       disableAlpha={true}
                       presetColors={preset}
                       color={theme[color]}
-                      onChangeComplete={data =>
-                        this.handleChangeComplete(color, data)
-                      }
+                      onChangeComplete={this.handleChangeComplete}
                     />
                   )}
                 </ColorPop>
@@ -124,12 +131,16 @@ const ColorCard = styled.div`
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: all 300ms;
+  border: 4px solid rgba(0, 0, 0, 0.1);
 
   ${({ small }) =>
     small &&
     css`
       pointer-events: none;
-      transform: scale(0.8);
+      width: 100%;
+      max-width: 100px;
+      height: 120px;
+      border: none;
     `};
 
   &:hover {
