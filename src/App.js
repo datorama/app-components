@@ -41,6 +41,7 @@ import Tabs from './docs/Tabs.doc';
 import Tooltip from './docs/Tooltip.doc';
 import Stepper from './docs/Stepper.doc';
 import Collapse from './docs/Collapse.doc';
+import Widget from './docs/Widget.doc';
 
 const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
@@ -88,9 +89,9 @@ class App extends Component {
 
   afterNavigate = () => {
     window.scroll(0, 0);
-    this.setState({colorsOpen: false});
+    this.setState({ colorsOpen: false });
   };
-  
+
   render() {
     const { light, colorsOpen, customTheme } = this.state;
     let theme = light ? lightTheme : darkTheme;
@@ -134,8 +135,8 @@ class App extends Component {
       { key: 'tabs', label: 'tabs', path: 'tabs' },
       { key: 'collapse', label: 'collapse', path: 'collapse' },
       { key: 'table', label: 'table' },
-      { key: 'date-picker', label: 'date picker' },
-      { key: 'widget', label: 'widget' },
+      { key: 'date-picker', label: 'date picker', path: 'datepicker' },
+      { key: 'widget', label: 'widget', path: 'widget' },
       { key: 'navbar', label: 'navbar' },
 
       { key: 'utils', label: 'utils', type: 'title' },
@@ -155,7 +156,7 @@ class App extends Component {
             />
             <Container>
               <GlobalStyle light={light} />
-              
+
               <Sidebar light={light}>
                 <ConnectedNavigation list={list} onClick={this.afterNavigate} />
               </Sidebar>
@@ -198,6 +199,7 @@ class App extends Component {
                 <Route exact path="/tooltip" component={Tooltip} />
                 <Route exact path="/stepper" component={Stepper} />
                 <Route exact path="/collapse" component={Collapse} />
+                <Route exact path="/widget" component={Widget} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/draggable" component={Draggable} />
