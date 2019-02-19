@@ -72,7 +72,7 @@ const StyledInput = styled.input`
   border: 1px solid ${({ theme }) => theme.p200};
   border-radius: 2px;
   background: ${({ theme }) => theme.p0};
-  ${({ theme }) => theme.text.sm};
+  ${({ theme }) => theme.text.p};
   transition: all 300ms;
 
   &:hover {
@@ -83,13 +83,17 @@ const StyledInput = styled.input`
     border-color: ${({ theme }) => theme.a400};
   }
 
+  &::placeholder {
+    color: ${({ theme }) => theme.p300};
+  }
+
   ${({ disabled, theme }) =>
     disabled &&
     css`
       pointer-events: none;
       background: ${hexToRgba(theme.p300, 10)};
-      border-color: ${hexToRgba(theme.p300, 10)};
-      color: ${theme.p200};
+      border-color: transparent;
+      color: ${theme.p200}; // todo: check
     `};
 
   ${({ valid, theme }) =>

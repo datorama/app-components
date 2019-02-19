@@ -17,6 +17,7 @@ const MyComp = ({ modalOpen, toggleOpen }) => (
     <Modal
       open={modalOpen}
       toggleOpen={toggleOpen}
+      size="medium"
       title="Modal Example"
       buttons={[
       	{ type: 'secondary', label: 'cancel', onClick: toggleOpen},
@@ -31,20 +32,25 @@ const MyComp = ({ modalOpen, toggleOpen }) => (
 
 export default class ModalDoc extends React.Component {
   state = {
-    modalOpen: false
+    modalOpen: false,
+    size: 'small'
   };
 
   toggleOpen = () =>
     this.setState(prevState => ({ modalOpen: !prevState.modalOpen }));
 
+  openModal = size => () => this.setState({ size }, this.toggleOpen);
+
   render() {
-    const { modalOpen } = this.state;
+    const { modalOpen, size } = this.state;
     const title = 'modal';
-    const description = 'Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.';
+    const description =
+      'Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks.';
 
     return (
       <Base title={title} description={description} name="Modal">
         <Modal
+          size={size}
           open={modalOpen}
           toggleOpen={this.toggleOpen}
           title="Modal Example"
@@ -66,7 +72,18 @@ export default class ModalDoc extends React.Component {
           </Col>
           <Col>
             <Box>
-              <Button onClick={this.toggleOpen}>Open modal</Button>
+              <StyledButton onClick={this.openModal('small')}>
+                Small modal
+              </StyledButton>
+              <StyledButton onClick={this.openModal('medium')}>
+                Medium modal
+              </StyledButton>
+              <StyledButton onClick={this.openModal('large')}>
+                Large modal
+              </StyledButton>
+              <StyledButton onClick={this.openModal('full')}>
+                Full-screen modal
+              </StyledButton>
             </Box>
           </Col>
         </Row>
@@ -83,8 +100,15 @@ const Box = styled.div`
   border-radius: 4px;
   justify-content: center;
   background: ${({ theme }) => theme.p50};
+  flex-direction: column;
 `;
 
 const Text = styled.div`
-  ${({ theme }) => theme.text.p};
+  ${({ theme }) => theme.text.sm};
+  line-height: 16px;
+`;
+
+const StyledButton = styled(Button)`
+  margin: 5px 0;
+  width: 120px;
 `;

@@ -103,7 +103,7 @@ const Container = styled.div`
   padding: 0 10px;
   border: 1px solid ${({ error, theme }) => (error ? theme.r400 : theme.p200)};
   background: ${({ theme }) => theme.p0};
-  border-radius: 4px;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   position: relative;
@@ -121,6 +121,7 @@ const Arrow = styled(ArrowDown)`
   width: 12px;
   height: 12px;
   transform: rotate(${({ rotation }) => rotation});
+  transition: all 300ms;
   * {
     fill: ${({ theme }) => theme.p600};
   }

@@ -82,7 +82,7 @@ const WidgetDoc = ({ theme }) => {
                   <Line
                     type="monotone"
                     dataKey="pv"
-                    stroke={theme.a500}
+                    stroke={theme.a400}
                     strokeWidth={2}
                   />
                 </LineChart>
@@ -104,7 +104,7 @@ const WidgetDoc = ({ theme }) => {
                   <Line
                     type="monotone"
                     dataKey="pv"
-                    stroke={theme.a500}
+                    stroke={theme.a400}
                     strokeWidth={2}
                   />
                 </LineChart>

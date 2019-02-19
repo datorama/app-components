@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 // utils
@@ -17,7 +17,8 @@ export default class Modal extends React.Component {
     open: PropTypes.bool.isRequired,
     title: PropTypes.string,
     className: PropTypes.string,
-    buttons: PropTypes.arrayOf(PropTypes.object).isRequired
+    buttons: PropTypes.arrayOf(PropTypes.object).isRequired,
+    size: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
   };
 
   state = {
@@ -47,7 +48,7 @@ export default class Modal extends React.Component {
   };
 
   render() {
-    const { open, className, title, buttons, children } = this.props;
+    const { open, className, title, buttons, children, size } = this.props;
     const { localOpen } = this.state;
 
     if (!localOpen) {
@@ -62,7 +63,12 @@ export default class Modal extends React.Component {
           visible={open}
         />
         <Container open={localOpen} className={className} visible>
-          <StyledCard open={localOpen} className="modal-card" visible={open}>
+          <StyledCard
+            open={localOpen}
+            className="modal-card"
+            visible={open}
+            size={size}
+          >
             <CloseIcon onClick={this.throttledToggle} />
             {title && (
               <Header>
@@ -117,31 +123,52 @@ const StyledCard = styled(Card)`
   position: relative;
   ${({ theme, visible }) =>
     visible ? theme.animation.fadeDown : theme.animation.fadeUpExit};
+
+  ${({ size }) =>
+    size === 'medium' &&
+    css`
+      width: 560px;
+      min-height: 300px;
+    `};
+
+  ${({ size }) =>
+    size === 'large' &&
+    css`
+      width: 800px;
+      min-height: 400px;
+    `};
+
+  ${({ size }) =>
+    size === 'full' &&
+    css`
+      width: 80vw;
+      height: 80vh;
+    `};
 `;
 
 const Header = styled.div`
   width: 100%;
-  height: 50px;
+  min-height: 50px;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 30px 30px 0 30px;
+  margin-bottom: 16px;
 `;
 
 const Footer = styled.div`
   width: 100%;
   border-top: 1px solid ${({ theme }) => theme.p100};
-  height: 50px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   box-sizing: border-box;
-  padding: 0 20px;
+  padding: 16px 30px;
 `;
 
 const Content = styled.div`
   flex: 1;
   width: 100%;
   box-sizing: border-box;
-  padding: 20px;
+  padding: 0 30px 30px 30px;
 `;
 
 const StyledButton = styled(Button)`

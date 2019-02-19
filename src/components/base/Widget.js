@@ -42,6 +42,6 @@ const Container = styled.div`
 
 const StyledProgress = styled(LinearProgress)`
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
 `;

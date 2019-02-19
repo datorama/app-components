@@ -117,11 +117,11 @@ const Bullet = styled.div`
   ${({ selected, theme }) =>
     selected &&
     css`
-      background: ${theme.p300};
+      background: ${theme.p400};
     `};
 
   &:hover {
-    background: ${({ theme }) => theme.p400};
+    background: ${({ theme }) => theme.p300};
   }
 `;
 

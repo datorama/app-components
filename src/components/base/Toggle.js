@@ -27,7 +27,7 @@ const Container = styled.div`
   height: 12px;
   position: relative;
   border-radius: 6px;
-  background: ${({ theme, checked }) => (checked ? theme.a500 : theme.p200)};
+  background: ${({ theme, checked }) => (checked ? theme.a400 : theme.p200)};
   transition: all 300ms;
 
   ${({ disabled, theme }) =>

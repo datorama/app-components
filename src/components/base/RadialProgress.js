@@ -68,7 +68,7 @@ const Meter = styled(Circle)`
 `;
 
 const Value = styled(Circle)`
-  stroke: ${({ theme }) => theme.a500};
+  stroke: ${({ theme }) => theme.a400};
   stroke-linecap: round;
   stroke-dashoffset: ${({ circumference }) => circumference};
   stroke-dasharray: ${({ circumference }) => circumference};
@@ -82,7 +82,7 @@ const Value = styled(Circle)`
 
 const Text = styled.text`
   ${({ theme }) => theme.text.sm};
-  fill: ${({ theme }) => theme.p600};
+  fill: ${({ theme }) => theme.p300};
   text-anchor: middle;
   alignment-baseline: middle;
 `;

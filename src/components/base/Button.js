@@ -36,7 +36,7 @@ Button.defaultProps = {
 export default Button;
 
 const Container = styled.div`
-  padding: 0 8px;
+  padding: 0 16px;
   height: 34px;
   background: ${({ theme }) => theme.a400};
   display: inline-flex;
@@ -52,7 +52,9 @@ const Container = styled.div`
     small &&
     css`
       height: 24px;
-      ${theme.smLink};
+      ${theme.text.smLink};
+      color: ${({ theme }) => theme.p0};
+      padding: 0 14px;
     `};
 
   ${({ secondary, theme }) =>

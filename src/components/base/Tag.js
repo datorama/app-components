@@ -30,9 +30,10 @@ const Container = styled.div`
   background: ${({ theme }) => hexToRgba(theme.p300, 15)};
   ${({ theme }) => theme.text.pLink};
   color: ${({ theme }) => theme.p300};
-  height: 25px;
-  padding: 0 14px;
-  border-radius: 13px;
+  height: 24px;
+  padding: 0 16px;
+  border-radius: 12px;
+  line-height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;

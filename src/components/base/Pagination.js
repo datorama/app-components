@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import { range } from 'lodash/fp';
 import PropTypes from 'prop-types';
+import {hexToRgba} from '../utils';
 
 // assets
 import { ReactComponent as ArrowDown } from '../assets/arrow-down.svg';
@@ -157,7 +158,7 @@ const Container = styled.div`
 const Button = styled.div`
   width: 24px;
   height: 24px;
-  background: ${({ theme, filled }) => (filled ? theme.p100 : 'transparent')};
+  background: ${({ theme, filled }) => (filled ? hexToRgba(theme.p300, 15) : 'transparent')};
   cursor: pointer;
   margin: 0 4px;
   display: flex;
@@ -167,7 +168,7 @@ const Button = styled.div`
   transition: ${({ filled }) => (filled ? 'all 300ms' : 'none')};
 
   ${({ theme }) => theme.text.smLink};
-  color: ${({ theme }) => theme.p200};
+  color: ${({ theme }) => theme.p300};
 
   ${({ selected, theme }) =>
     selected &&
@@ -176,7 +177,7 @@ const Button = styled.div`
     `};
 
   &:hover {
-    background: ${({ theme }) => theme.p200};
+    color: ${({ theme }) => theme.p400};
   }
 `;
 

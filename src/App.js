@@ -134,10 +134,10 @@ class App extends Component {
       { key: 'range-input', label: 'range input', path: 'range' },
       { key: 'tabs', label: 'tabs', path: 'tabs' },
       { key: 'collapse', label: 'collapse', path: 'collapse' },
-      { key: 'table', label: 'table' },
       { key: 'date-picker', label: 'date picker', path: 'datepicker' },
       { key: 'widget', label: 'widget', path: 'widget' },
       { key: 'navbar', label: 'navbar' },
+      { key: 'table', label: 'table' },
 
       { key: 'utils', label: 'utils', type: 'title' },
       { key: 'click-out', label: 'click out', path: 'click-out' },

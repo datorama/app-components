@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { hexToRgba } from '../utils';
 
 const LinearProgress = props => (
   <Outer className={props.className}>
@@ -19,7 +20,7 @@ const Outer = styled.div`
   position: relative;
   width: 100%;
   height: 2px;
-  background: ${({ theme }) => theme.a200};
+  background: ${({ theme }) => hexToRgba(theme.a300, 40)};
   overflow: hidden;
 `;
 

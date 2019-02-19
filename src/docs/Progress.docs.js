@@ -42,11 +42,11 @@ const ProgressDoc = ({ theme }) => {
 
         <Col>
           <Box>
-            <Progress label="20%" percentage={20} color={theme.a800} />
-            <Progress label="40%" percentage={30} color={theme.a700} />
-            <Progress label="60%" percentage={60} color={theme.a600} />
-            <Progress label="80%" percentage={80} color={theme.a500} />
-            <Progress label="100%" percentage={100} color={theme.a400} />
+            <Progress label="20%" percentage={20} color={theme.a300} />
+            <Progress label="40%" percentage={30} color={theme.a400} />
+            <Progress label="60%" percentage={60} color={theme.a500} />
+            <Progress label="80%" percentage={80} color={theme.a600} />
+            <Progress label="100%" percentage={100} color={theme.a700} />
           </Box>
         </Col>
       </Row>

@@ -74,6 +74,11 @@ const Tab = styled.div`
 const Label = styled.div`
   transition: all 300ms;
   ${({ theme }) => theme.text.pLink};
+  color: ${({ theme }) => theme.p300};
+
+  &:hover {
+    color: ${({ theme }) => theme.a400};
+  }
 
   ${({ selected, theme }) =>
     selected &&

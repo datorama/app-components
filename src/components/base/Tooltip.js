@@ -174,5 +174,6 @@ const LongAction = styled.span`
   ${({ theme }) => theme.text.smLink};
   cursor: pointer;
   color: ${({ theme }) => theme.a400};
+  line-height: 17px; // todo
   margin-left: 6px;
 `;

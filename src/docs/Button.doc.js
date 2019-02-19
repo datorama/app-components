@@ -127,7 +127,7 @@ const ButtonDoc = () => {
         </Col>
         <Col>
           <Box>
-            <Button secondry onClick={() => null}>
+            <Button secondary onClick={() => null}>
               Secondary
             </Button>
           </Box>

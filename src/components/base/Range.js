@@ -127,7 +127,7 @@ const Inner = styled.div`
 	left: 0;
 	height: 2px;
 	width: ${({ width }) => `${width}%`}
-	background: ${({ theme }) => theme.a500};
+	background: ${({ theme }) => theme.a400};
 	transition: all 100ms;
 `;
 
@@ -140,7 +140,7 @@ const Thumb = styled.div.attrs({
   height: 12px;
   cursor: pointer;
   border-radius: 50%;
-  background: ${({ theme }) => theme.a500};
+  background: ${({ theme }) => theme.a400};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: absolute;
   top: -3px;
@@ -158,7 +158,7 @@ const Thumb = styled.div.attrs({
   ${({ disabled, theme }) =>
     disabled &&
     css`
-      background: ${theme.p300};
+      background: ${theme.p200};
     `};
 
   &:hover {

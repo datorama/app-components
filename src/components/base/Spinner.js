@@ -47,6 +47,6 @@ export default Spinner;
 
 const Svg = styled.svg`
   path {
-    fill: ${({ theme, color }) => color || theme.a500};
+    fill: ${({ theme, color }) => color || theme.a400};
   }
 `;

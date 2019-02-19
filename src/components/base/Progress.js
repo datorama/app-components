@@ -39,7 +39,7 @@ const Inner = styled.div`
 	left: 0;
 	height: 4px;
 	width: 0;
-	background: ${({ theme, color }) => color || theme.a500};
+	background: ${({ theme, color }) => color || theme.a400};
 	max-width: ${({ percentage }) => `${percentage}%`}
 	transition: all 100ms;
   animation: 1000ms ease-out 0s 1 stretchRight forwards;
@@ -65,8 +65,10 @@ const Strip = styled.div`
 
 const Label = styled.div`
   ${({ theme }) => theme.text.sm};
-  margin-right: 10px;
+  margin-right: 15px;
   width: 40px;
+  text-align: right;
+  color: ${({ theme }) => theme.p300};
 
   ${({ disabled, theme }) =>
     disabled &&
