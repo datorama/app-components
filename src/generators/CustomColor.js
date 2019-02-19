@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { SketchPicker } from 'react-color';
 import ClickOut from '../components/base/ClickOut';
 import { lightTheme } from '../components';
 
-const Color = ({ label, color, onClick }) => (
-  <ColorCard onClick={onClick}>
-    <ColorPreview color={color}>
-      <PaintIcon />
-    </ColorPreview>
+const Color = ({ label, color, onClick, small }) => (
+  <ColorCard onClick={onClick} small={small}>
+    <ColorPreview color={color}>{!small && <PaintIcon />}</ColorPreview>
 
     <ColorCardInfo>
       <Info>{label}</Info>
@@ -58,22 +56,25 @@ class CustomColor extends Component {
           {colors.map(color => (
             <ColorContainer key={color}>
               <Color
+                small={color !== 'a400'}
                 label={color}
                 color={theme[color]}
                 onClick={() => this.setState({ active: color })}
               />
-              <ColorPop>
-                {color === active && (
-                  <SketchPicker
-                    disableAlpha={true}
-                    presetColors={preset}
-                    color={theme[color]}
-                    onChangeComplete={data =>
-                      this.handleChangeComplete(color, data)
-                    }
-                  />
-                )}
-              </ColorPop>
+              {color === 'a400' && (
+                <ColorPop>
+                  {color === active && (
+                    <SketchPicker
+                      disableAlpha={true}
+                      presetColors={preset}
+                      color={theme[color]}
+                      onChangeComplete={data =>
+                        this.handleChangeComplete(color, data)
+                      }
+                    />
+                  )}
+                </ColorPop>
+              )}
             </ColorContainer>
           ))}
         </Strip>
@@ -123,6 +124,13 @@ const ColorCard = styled.div`
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   transition: all 300ms;
+
+  ${({ small }) =>
+    small &&
+    css`
+      pointer-events: none;
+      transform: scale(0.8);
+    `};
 
   &:hover {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
