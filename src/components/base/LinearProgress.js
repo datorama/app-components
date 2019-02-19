@@ -29,7 +29,8 @@ const Inner = styled.div`
   top: 0;
   left: 0;
   height: 2px;
-  background: ${({ theme, color }) => color || theme.a400};
+  background: ${({ theme }) =>
+    `linear-gradient(to right, ${theme.a400} , ${theme.a700})`};
   animation: linearProgress 2s infinite ease-in-out;
 
   @keyframes linearProgress {
