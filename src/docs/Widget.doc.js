@@ -77,7 +77,84 @@ const WidgetDoc = ({ theme }) => {
         <Col>
           <Box>
             <Widget>
-              <ResponsiveContainer width="100%" aspect={8 / 1}>
+              <ResponsiveContainer width="100%" aspect={8}>
+                <LineChart data={data}>
+                  <Line
+                    type="monotone"
+                    dataKey="pv"
+                    stroke={theme.a500}
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </Widget>
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{snippet}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <Widget disabled>
+              <ResponsiveContainer width="100%" aspect={8}>
+                <LineChart data={data}>
+                  <Line
+                    type="monotone"
+                    dataKey="pv"
+                    stroke={theme.a500}
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </Widget>
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{snippet}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <Widget loading={true} />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{snippet}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <Widget>
+              <ResponsiveContainer width="100%" aspect={8}>
+                <LineChart data={data}>
+                  <Line
+                    type="monotone"
+                    dataKey="pv"
+                    stroke={theme.a500}
+                    strokeWidth={2}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </Widget>
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{snippet}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <Widget>
+              <ResponsiveContainer width="100%" aspect={8}>
                 <LineChart data={data}>
                   <Line
                     type="monotone"

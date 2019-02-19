@@ -5,6 +5,7 @@ import Highlight from 'react-highlight-js';
 // components
 import Base from './Base';
 import Spinner from '../components/base/Spinner';
+import LinearProgress from '../components/base/LinearProgress';
 import { Row, Col } from '../components/index';
 
 const snippet = `
@@ -23,6 +24,16 @@ import { Spinner } from 'app-components';
 const MyComp = () => (
   <div>
     <Spinner color={theme.g400} />
+  </div>
+);
+`;
+
+const linear = `
+import { LinearProgress } from 'app-components';
+
+const MyComp = () => (
+  <div>
+    <LinearProgress />
   </div>
 );
 `;
@@ -55,6 +66,17 @@ const SpinnerDoc = props => {
           </Box>
         </Col>
       </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{linear}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <LinearProgress />
+          </Box>
+        </Col>
+      </Row>
     </Base>
   );
 };
@@ -69,4 +91,6 @@ const Box = styled.div`
   border-radius: 4px;
   justify-content: center;
   background: ${({ theme }) => theme.p50};
+  box-sizing: border-box;
+  padding: 60px;
 `;
