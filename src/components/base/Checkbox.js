@@ -4,8 +4,8 @@ import { hexToRgba } from '../utils';
 import PropTypes from 'prop-types';
 
 // assets
-import checkIcon from '../assets/check.svg';
-import lineIcon from '../assets/line.svg';
+import { ReactComponent as CheckIcon } from '../assets/check.svg';
+import { ReactComponent as LineIcon } from '../assets/line.svg';
 
 const Checkbox = ({
   checked,
@@ -24,12 +24,12 @@ const Checkbox = ({
       partial={partial}
       className={className}
     >
-      <Icon
-        selected={checked}
-        src={partial ? lineIcon : checkIcon}
-        top={partial ? 6 : 4}
-        round={round}
-      />
+      {partial && (
+        <StyledLineIcon selected={checked} round={round} disabled={disabled} />
+      )}
+      {!partial && (
+        <StyledCheckIcon selected={checked} round={round} disabled={disabled} />
+      )}
     </CheckboxContainer>
     {label && <Label disabled={disabled}>{label}</Label>}
   </Strip>
@@ -91,16 +91,15 @@ const CheckboxContainer = styled.div`
   ${({ disabled }) =>
     disabled &&
     css`
-      background: ${({ theme }) => hexToRgba(theme.p300, 35)};
-      border-color: ${({ theme }) => hexToRgba(theme.p300, 35)};
+      background: ${({ theme }) => hexToRgba(theme.p200, 35)};
+      border-color: ${({ theme }) => hexToRgba(theme.p200, 35)};
     `};
 `;
 
-export const Icon = styled.div`
+export const iconStyles = css`
   width: 10px;
   height: 10px;
   position: absolute;
-  top: ${({ top }) => top || 4}px;
   left: 2px;
   transition: all 300ms;
   transform: translateY(-5px);
@@ -109,8 +108,6 @@ export const Icon = styled.div`
   ${({ selected }) =>
     selected &&
     css`
-      background: url(${({ src }) => src}) no-repeat;
-      background-size: contain;
       transform: translateY(0);
       opacity: 1;
     `};
@@ -121,8 +118,26 @@ export const Icon = styled.div`
       width: 8px;
       height: 8px;
       left: 3px;
-      top: 4px;
+      top: 3px;
     `};
+
+  ${({ disabled, theme }) =>
+    disabled &&
+    css`
+      path {
+        fill: ${hexToRgba(theme.p300, 35)}};
+      }
+    `};
+`;
+
+const StyledLineIcon = styled(LineIcon)`
+  top: 2px;
+  ${iconStyles};
+`;
+
+const StyledCheckIcon = styled(CheckIcon)`
+  top: 2px;
+  ${iconStyles};
 `;
 
 const Strip = styled.div`

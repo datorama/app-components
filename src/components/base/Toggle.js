@@ -30,6 +30,18 @@ const Container = styled.div`
   background: ${({ theme, checked }) => (checked ? theme.a400 : theme.p200)};
   transition: all 300ms;
 
+  &:hover {
+    background: ${({ theme }) => theme.a500};
+  }
+
+  ${({ checked, theme }) =>
+    !checked &&
+    css`
+      &:hover {
+        background: ${theme.p300};
+      }
+    `};
+
   ${({ disabled, theme }) =>
     disabled &&
     css`
