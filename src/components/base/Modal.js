@@ -115,7 +115,7 @@ const Overlay = styled(Container)`
 
 const StyledCard = styled(Card)`
   width: 400px;
-  min-height: 200px;
+  min-height: 100px;
   padding: 0;
   pointer-events: all;
   display: flex;
@@ -128,7 +128,7 @@ const StyledCard = styled(Card)`
     size === 'medium' &&
     css`
       width: 560px;
-      min-height: 300px;
+      min-height: 240px;
     `};
 
   ${({ size }) =>

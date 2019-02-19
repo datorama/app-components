@@ -3,8 +3,6 @@ import styled, { css } from 'styled-components';
 
 // components
 import Base from './Base';
-import Button from '../components/base/Button';
-import Select from '../components/base/Select/Select';
 import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
@@ -16,30 +14,12 @@ const snippet = `
 
 // fade left
 ({ theme }) => theme.animation.fadeLeft;
-
-// fade right
-({ theme }) => theme.animation.fadeRight;
-
-// fade up
-({ theme }) => theme.animation.fadeUp;
-
-// fade down
-({ theme }) => theme.animation.fadeDown;
-
-// zoom in
-({ theme }) => theme.animation.zoomIn;
-
-// zoom out
-({ theme }) => theme.animation.zoomOut;
 `;
 
-export default class AnimationsDoc extends React.Component {
+class AnimatedCard extends React.Component {
   state = {
-    selected: [{ value: 'zoomIn', label: 'zoom in [zoomIn]' }],
     animate: true
   };
-
-  handleSelect = selected => this.setState({ selected });
 
   animate = () => {
     this.setState({ animate: false }, () => {
@@ -50,75 +30,89 @@ export default class AnimationsDoc extends React.Component {
   };
 
   render() {
-    const title = 'animations';
-    const description =
-      'Animations helps make a UI expressive and easy to use. @todo: support exit animations.';
-    const { selected, animate } = this.state;
+    const { animate } = this.state;
+    const { type } = this.props;
 
     return (
-      <Base title={title} description={description}>
-        <Row>
-          <Col>
-            <Snippet snippet={snippet} />
-          </Col>
-          <Col>
-            <Playground>
-              <Header>
-                <Select
-                  options={[
-                    { value: 'fade', label: 'fade in [fade]' },
-                    { value: 'fadeOut', label: 'fade out [fadeOut]' },
-                    { value: 'fadeLeft', label: 'fade left [fadeLeft]' },
-                    { value: 'fadeRight', label: 'fade right [fadeRight]' },
-                    { value: 'fadeUp', label: 'fade up [fadeUp]' },
-                    { value: 'fadeDown', label: 'fade down [fadeDown]' },
-                    { value: 'zoomIn', label: 'zoom in [zoomIn]' },
-                    { value: 'zoomOut', label: 'zoom out [zoomOut]' }
-                  ]}
-                  values={selected}
-                  onChange={this.handleSelect}
-                />
-                <StyledButton onClick={this.animate}>Animate</StyledButton>
-              </Header>
-
-              <Card type={selected[0].value} animate={animate} />
-            </Playground>
-          </Col>
-        </Row>
-      </Base>
+      <Card onClick={this.animate}>
+        <Hint>click to animate ({type})</Hint>
+        <Anim type={type} animate={animate}>
+          <Element />
+        </Anim>
+      </Card>
     );
   }
 }
 
-const Playground = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  background: ${({ theme }) => theme.p50};
-  width: 100%;
-  height: 385px;
-  border-radius: 4px;
-`;
+const AnimationsDoc = () => {
+  const title = 'animations';
+  const description =
+    'Animations helps make a UI expressive and easy to use. @todo: support exit animations.';
 
-const Header = styled(Row)`
-  padding: 10px;
-  margin-bottom: 40px;
-  margin-left: 20px;
-`;
+  return (
+    <Base title={title} description={description}>
+      <Row>
+        <Col>
+          <Snippet snippet={snippet} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <AnimatedCard type="fade" />
+        </Col>
+
+        <Col>
+          <AnimatedCard type="fadeOut" />
+        </Col>
+
+        <Col>
+          <AnimatedCard type="fadeLeft" />
+        </Col>
+
+        <Col>
+          <AnimatedCard type="fadeRight" />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <AnimatedCard type="fadeUp" />
+        </Col>
+
+        <Col>
+          <AnimatedCard type="fadeDown" />
+        </Col>
+
+        <Col>
+          <AnimatedCard type="zoomIn" />
+        </Col>
+
+        <Col>
+          <AnimatedCard type="zoomOut" />
+        </Col>
+      </Row>
+    </Base>
+  );
+};
+
+export default AnimationsDoc;
 
 const Card = styled.div`
-  width: 60%;
+  width: 100%;
   height: 200px;
   background: ${({ theme }) => theme.p0};
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  opacity: 0;
-  border: 1px solid ${({ theme }) => theme.p100};
+  cursor: pointer;
+`;
 
+const Anim = styled.div`
+  opacity: 1;
   ${({ type }) =>
     type === 'fadeOut' &&
     css`
@@ -128,6 +122,15 @@ const Card = styled.div`
   ${({ type, theme, animate }) => animate && theme.animation[type]};
 `;
 
-const StyledButton = styled(Button)`
-  margin-left: 20px;
+const Hint = styled.div`
+  ${({ theme }) => theme.text.sm};
+  color: ${({ theme }) => theme.p200};
+  margin-bottom: 20px;
+`;
+
+const Element = styled.div`
+  width: 60px;
+  height: 60px;
+  border-radius: 2px;
+  background: ${({ theme }) => theme.a600};
 `;

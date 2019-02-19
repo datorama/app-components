@@ -105,7 +105,8 @@ const Box = styled.div`
 
 const Text = styled.div`
   ${({ theme }) => theme.text.sm};
-  line-height: 16px;
+  font-size: 14px;
+  line-height: 18px;
 `;
 
 const StyledButton = styled(Button)`
