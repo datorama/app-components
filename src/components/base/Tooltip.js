@@ -110,9 +110,10 @@ const StyledLong = styled(Popup)`
     min-height: 40px;
     color: ${({ theme }) => theme.p600};
     box-sizing: border-box;
-    padding: 10px 36px 10px 10px;
+    padding: 15px 36px 15px 15px;
     line-height: 16px;
     border-radius: 2px;
+    ${({ theme }) => theme.text.smLink};
 
     &:after {
       border: solid transparent;
@@ -171,9 +172,7 @@ const StyledLong = styled(Popup)`
 `;
 
 const LongAction = styled.span`
-  ${({ theme }) => theme.text.smLink};
   cursor: pointer;
   color: ${({ theme }) => theme.a400};
-  line-height: 17px; // todo
   margin-left: 6px;
 `;

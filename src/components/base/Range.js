@@ -66,7 +66,7 @@ class Range extends Component {
 
     return (
       <Container disabled={disabled} className={className}>
-        <Outer ref={this.handleRef} className="outer">
+        <Outer ref={this.handleRef} className="outer" disabled={disabled}>
           <Inner width={percentage} className="inner" />
         </Outer>
         <Draggable
@@ -115,7 +115,7 @@ const Container = styled.div`
 const Outer = styled.div`
   width: 100%;
   height: 2px;
-  background: ${({ theme }) => theme.p200};
+  background: ${({ theme, disabled }) => (disabled ? theme.p200 : theme.a200)};
   border-radius: 3px;
   position: relative;
   overflow: hidden;

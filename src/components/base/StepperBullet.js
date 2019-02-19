@@ -2,9 +2,14 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-const StepperBullet = ({ touched, selected, enabled }) => (
+const StepperBullet = ({ touched, selected, enabled, hovered }) => (
   <Outer touched={touched} selected={selected} enabled={enabled}>
-    <Inner touched={touched} selected={selected} enabled={enabled} />
+    <Inner
+      touched={touched}
+      selected={selected}
+      enabled={enabled}
+      hovered={hovered}
+    />
   </Outer>
 );
 
@@ -14,7 +19,8 @@ StepperBullet.propTypes = {
   className: PropTypes.string,
   touched: PropTypes.bool,
   selected: PropTypes.bool,
-  enabled: PropTypes.bool
+  enabled: PropTypes.bool,
+  hovered: PropTypes.bool
 };
 
 const Outer = styled.div`
@@ -69,5 +75,11 @@ const Inner = styled.div`
     !enabled &&
     css`
       background: ${theme.p200};
+    `};
+
+  ${({ theme, hovered }) =>
+    hovered &&
+    css`
+      background: ${theme.a400};
     `};
 `;

@@ -1,33 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 // components
 import StepperBullet from './StepperBullet';
 
-const Stepper = ({ steps = [], currentStep, selectStep, className }) => {
-  return (
-    <Container className={className}>
-      {steps.map((step, index) => (
-        <Step
-          key={step.id}
-          disabled={!step.enabled}
-          onClick={() => selectStep(step.id)}
-        >
-          <StyledBullet
-            selected={step.id === currentStep}
-            enabled={step.enabled}
-            touched={step.touched}
-          />
-          <Label disabled={!step.enabled} selected={step.id === currentStep}>
-            {step.label}
-          </Label>
-          {index !== steps.length - 1 && <Divider />}
-        </Step>
-      ))}
-    </Container>
-  );
-};
+class Stepper extends Component {
+  state = {
+    hovered: false
+  };
+
+  toggleHover = id => () => this.setState({ hovered: id });
+
+  render() {
+    let { steps, currentStep, selectStep, className } = this.props;
+    const { hovered } = this.state;
+
+    return (
+      <Container className={className}>
+        {steps.map((step, index) => (
+          <Step
+            key={step.id}
+            disabled={!step.enabled}
+            onClick={() => selectStep(step.id)}
+            onMouseEnter={this.toggleHover(step.id)}
+            onMouseLeave={this.toggleHover(null)}
+          >
+            <StyledBullet
+              hovered={
+                hovered === step.id && step.id !== currentStep && step.enabled
+              }
+              selected={step.id === currentStep}
+              enabled={step.enabled}
+              touched={step.touched}
+            />
+            <Label disabled={!step.enabled} selected={step.id === currentStep}>
+              {step.label}
+            </Label>
+            {index !== steps.length - 1 && <Divider />}
+          </Step>
+        ))}
+      </Container>
+    );
+  }
+}
+
+Stepper.defaultProps = { steps: [] };
 
 export default Stepper;
 
