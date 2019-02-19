@@ -1,18 +1,23 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { withTheme } from 'styled-components/macro';
+import PropTypes from 'prop-types';
 
 // components
 import { Label } from './Select';
 
-const SelectNoResults = () => (
+const SelectNoResults = ({ theme }) => (
   <Container>
-    <Label textAlign="center">No results</Label>
+    <Label color={theme.p300} textAlign="center">
+      No results
+    </Label>
   </Container>
 );
 
-SelectNoResults.propTypes = {};
+SelectNoResults.propTypes = {
+  theme: PropTypes.object
+};
 
-export default SelectNoResults;
+export default withTheme(SelectNoResults);
 
 const Container = styled.div`
   width: 100%;

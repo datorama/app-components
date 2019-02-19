@@ -272,16 +272,17 @@ export const Option = styled.div`
   box-sizing: border-box;
   padding: 0 10px;
   background: ${({ selected, theme }) =>
-    selected ? theme.a100 : 'transparent'};
+    selected ? theme.a200 : 'transparent'};
   margin: ${({ margin }) => margin || 0};
 
   &:hover {
-    background: ${({ theme }) => theme.a200};
+    background: ${({ theme }) => theme.a100};
   }
 `;
 
 export const Label = styled.div`
-  ${({ theme }) => theme.text.sm};
+  ${({ theme }) => theme.text.p};
+  color: ${({ color, theme }) => color || theme.p700};
   transition: all 300ms;
   white-space: nowrap;
   overflow: hidden;
