@@ -8,30 +8,56 @@ export const hexToRgba = (hex, opacity) => {
   return `rgba(${r}, ${g}, ${b}, ${opacity / 100})`;
 };
 
-export const LightenDarkenColor = (hex, amt) => {
-  let usePound = false;
+const getShadePercent = varNum => {
+  const accent = varNum.toString();
+  switch (accent) {
+    case '0':
+      return 1;
+    case '50':
+      return 0.9;
+    case '100':
+      return 0.75;
+    case '200':
+      return 0.6;
+    case '300':
+      return 0.3;
+    case '350':
+      return 0.3;
+    case '400':
+      return 0;
+    case '500':
+      return -0.25;
+    case '600':
+      return -0.45;
+    case '700':
+      return -0.55;
+    case '800':
+      return -0.75;
+    default:
+      return 1;
+  }
+};
 
-  if (hex[0] === '#') {
-    hex = hex.slice(1);
-    usePound = true;
+export const shadeColor = (argColor, varNum) => {
+  let color = argColor;
+  if (color.toUpperCase() === '#FFF') {
+    color = '#ffffff';
   }
 
-  const num = parseInt(hex, 16);
+  const percent = getShadePercent(varNum);
+  const f = parseInt(color.slice(1), 16),
+    t = percent < 0 ? 0 : 255,
+    p = percent < 0 ? percent * -1 : percent,
+    R = f >> 16,
+    G = (f >> 8) & 0x00ff,
+    B = f & 0x0000ff;
 
-  let r = (num >> 16) + amt;
-
-  if (r > 255) r = 255;
-  else if (r < 0) r = 0;
-
-  let b = ((num >> 8) & 0x00ff) + amt;
-
-  if (b > 255) b = 255;
-  else if (b < 0) b = 0;
-
-  let g = (num & 0x0000ff) + amt;
-
-  if (g > 255) g = 255;
-  else if (g < 0) g = 0;
-
-  return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16);
+  return `#${(
+    0x1000000 +
+    (Math.round((t - R) * p) + R) * 0x10000 +
+    (Math.round((t - G) * p) + G) * 0x100 +
+    (Math.round((t - B) * p) + B)
+  )
+    .toString(16)
+    .slice(1)}`;
 };

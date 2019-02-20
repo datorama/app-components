@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { SketchPicker } from 'react-color';
 import ClickOut from '../components/base/ClickOut';
 import { lightTheme } from '../components';
-import { LightenDarkenColor } from '../components/utils';
+import { shadeColor } from '../components/utils';
 
 const Color = ({ label, color, onClick, small }) => (
   <ColorCard onClick={onClick} small={small}>
@@ -25,15 +25,15 @@ class CustomColor extends Component {
     const { updateTheme } = this.props;
 
     updateTheme({
-      a100: LightenDarkenColor(color.hex, 80),
-      a200: LightenDarkenColor(color.hex, 60),
-      a300: LightenDarkenColor(color.hex, 40),
-      a350: LightenDarkenColor(color.hex, 20),
+      a100: shadeColor(color.hex, 100),
+      a200: shadeColor(color.hex, 200),
+      a300: shadeColor(color.hex, 300),
+      a350: shadeColor(color.hex, 350),
       a400: color.hex,
-      a500: LightenDarkenColor(color.hex, -20),
-      a600: LightenDarkenColor(color.hex, -40),
-      a700: LightenDarkenColor(color.hex, -60),
-      a800: LightenDarkenColor(color.hex, -80)
+      a500: shadeColor(color.hex, 500),
+      a600: shadeColor(color.hex, 600),
+      a700: shadeColor(color.hex, 700),
+      a800: shadeColor(color.hex, 800)
     });
   };
 

@@ -12,18 +12,30 @@ export { default as Card } from './base/Card';
 export { default as Datepicker } from './base/Datepicker';
 export { default as Select } from './base/Select/Select';
 
+// default sizes (height)
+const SMALL = '24px';
+const MEDIUM = '34px';
+const LARGE = '44px';
+const sizes = {
+  SMALL,
+  MEDIUM,
+  LARGE
+};
+
 // light theme
 export const lightTheme = {
   ...libColors.lightTheme,
   text: typography,
-  animation
+  animation,
+  sizes
 };
 
 // dark theme
 export const darkTheme = {
   ...libColors.darkTheme,
   text: typography,
-  animation
+  animation,
+  sizes
 };
 
 export const lightPrimary = libColors.lightPrimary;
