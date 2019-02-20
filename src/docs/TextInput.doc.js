@@ -23,6 +23,23 @@ const MyComp = ({ value, onChange }) => (
 );
 `;
 
+const sizesSnippet = `
+import { TextInput } from 'app-components';
+
+const MyComp = ({ value, onChange }) => (
+  <div>
+    <TextInput
+      value={value}
+      onChange={onChange}
+      placeholder="placeholder"
+      label="label"
+      required
+      large
+    />
+  </div>
+);
+`;
+
 const valid = `
 import { TextInput } from 'app-components';
 
@@ -86,6 +103,17 @@ const TextInputDoc = () => {
         <Col>
           <Box>
             <TextInput label="Label" placeholder="placeholder" required />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{sizesSnippet}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <TextInput large label="Label" placeholder="placeholder" required />
           </Box>
         </Col>
       </Row>

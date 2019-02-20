@@ -21,6 +21,7 @@ const TextInput = props => {
         disabled={props.disabled}
         error={props.error}
         valid={props.valid}
+        large={props.large}
       />
       {withMessage && (
         <Message valid={props.valid}>
@@ -41,7 +42,8 @@ TextInput.propTypes = {
   valid: PropTypes.bool,
   error: PropTypes.bool,
   validMessage: PropTypes.string,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+  large: PropTypes.bool
 };
 
 export default TextInput;
@@ -66,7 +68,8 @@ const Label = styled.div`
 
 const StyledInput = styled.input`
   width: 100%;
-  height: 34px;
+  height: ${({ theme, large }) =>
+    large ? theme.size.LARGE : theme.size.MEDIUM};
   box-sizing: border-box;
   padding: 0 10px;
   border: 1px solid ${({ theme }) => theme.p200};
@@ -75,13 +78,18 @@ const StyledInput = styled.input`
   ${({ theme }) => theme.text.p};
   transition: all 300ms;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.p300};
-  }
+  ${({ theme, valid, error }) =>
+    !valid &&
+    !error &&
+    css`
+      &:hover {
+        border-color: ${theme.p300};
+      }
 
-  &:focus {
-    border-color: ${({ theme }) => theme.a400};
-  }
+      &:focus {
+        border-color: ${theme.a400};
+      }
+    `};
 
   &::placeholder {
     color: ${({ theme }) => theme.p300};

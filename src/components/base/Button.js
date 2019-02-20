@@ -37,7 +37,7 @@ export default Button;
 
 const Container = styled.div`
   padding: 0 16px;
-  height: 34px;
+  height: ${({ theme }) => theme.size.LARGE};
   background: ${({ theme }) => theme.a400};
   display: inline-flex;
   align-items: center;
@@ -51,9 +51,9 @@ const Container = styled.div`
   ${({ small, theme }) =>
     small &&
     css`
-      height: 24px;
+      height: ${({ theme }) => theme.size.SMALL};
       ${theme.text.smLink};
-      color: ${({ theme }) => theme.p0};
+      color: #fff;
       padding: 0 14px;
     `};
 

@@ -12,11 +12,11 @@ export { default as Card } from './base/Card';
 export { default as Datepicker } from './base/Datepicker';
 export { default as Select } from './base/Select/Select';
 
-// default sizes (height)
+// default size (height)
 const SMALL = '24px';
-const MEDIUM = '34px';
-const LARGE = '44px';
-const sizes = {
+const MEDIUM = '30px';
+const LARGE = '34px';
+const size = {
   SMALL,
   MEDIUM,
   LARGE
@@ -27,7 +27,7 @@ export const lightTheme = {
   ...libColors.lightTheme,
   text: typography,
   animation,
-  sizes
+  size
 };
 
 // dark theme
@@ -35,7 +35,7 @@ export const darkTheme = {
   ...libColors.darkTheme,
   text: typography,
   animation,
-  sizes
+  size
 };
 
 export const lightPrimary = libColors.lightPrimary;

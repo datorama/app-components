@@ -98,7 +98,7 @@ const LabelWrapper = styled.div`
 const Container = styled.div`
   cursor: pointer;
   width: 170px;
-  height: 34px;
+  height: ${({ theme }) => theme.size.MEDIUM};
   box-sizing: border-box;
   padding: 0 10px;
   border: 1px solid ${({ error, theme }) => (error ? theme.r400 : theme.p200)};
