@@ -27,7 +27,8 @@ const SelectMenu = props => {
     searchPlaceholder,
     optionLabelRenderer,
     small,
-    large
+    large,
+    inlineSearch
   } = props;
 
   if (menuRenderer) {
@@ -44,14 +45,15 @@ const SelectMenu = props => {
 
   return (
     <Container visible={open} className="menu" maxheight={`${maxHeight}px`}>
-      <SelectSearch
-        searchable={searchable}
-        onChange={onSearch}
-        value={searchTerm}
-        searchPlaceholder={searchPlaceholder}
-        small={small}
-        large={large}
-      />
+      {!inlineSearch && searchable && (
+        <SelectSearch
+          onChange={onSearch}
+          value={searchTerm}
+          searchPlaceholder={searchPlaceholder}
+          small={small}
+          large={large}
+        />
+      )}
 
       <SelectMultiHeader
         options={options}
@@ -59,6 +61,8 @@ const SelectMenu = props => {
         multi={multi}
         selectAll={selectAll}
         total={total}
+        onChange={onSearch}
+        value={searchTerm}
       />
 
       {!options.length && <SelectNoResults />}
@@ -74,6 +78,7 @@ const SelectMenu = props => {
         optionLabelRenderer={optionLabelRenderer}
         small={small}
         large={large}
+        inlineSearch={inlineSearch}
       />
     </Container>
   );
@@ -97,7 +102,8 @@ SelectMenu.propTypes = {
   searchPlaceholder: PropTypes.string,
   optionLabelRenderer: PropTypes.func,
   small: PropTypes.bool,
-  large: PropTypes.bool
+  large: PropTypes.bool,
+  inlineSearch: PropTypes.bool
 };
 
 const Container = styled.div`

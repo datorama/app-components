@@ -9,6 +9,7 @@ import ClickOut from '../ClickOut';
 import SelectHeader from './SelectHeader';
 import SelectMenu from './SelectMenu';
 import { optionsType } from './Select.types';
+import InlineSearch from './InlineSearch';
 
 export default class Select extends React.Component {
   static propTypes = {
@@ -37,7 +38,8 @@ export default class Select extends React.Component {
     searchPlaceholder: PropTypes.string,
     error: PropTypes.bool,
     small: PropTypes.bool,
-    large: PropTypes.bool
+    large: PropTypes.bool,
+    inlineSearch: PropTypes.bool
   };
 
   state = {
@@ -197,7 +199,8 @@ export default class Select extends React.Component {
       searchPlaceholder,
       error,
       small,
-      large
+      large,
+      inlineSearch
     } = this.props;
     const { open, searchTerm, localValues } = this.state;
     const filteredOptions = this.filterOptions();
@@ -205,19 +208,35 @@ export default class Select extends React.Component {
     return (
       <ClickOut onClick={this.handleClickOut} className={className}>
         <Container disabled={disabled} className={className}>
-          <SelectHeader
-            open={open}
-            placeholder={placeholder}
-            values={localValues}
-            options={options}
-            headerRenderer={headerRenderer}
-            toggleOpen={this.toggleOpen}
-            placeholderRenderer={placeholderRenderer}
-            loading={loading}
-            error={error}
-            small={small}
-            large={large}
-          />
+          {!inlineSearch && (
+            <SelectHeader
+              open={open}
+              placeholder={placeholder}
+              values={localValues}
+              options={options}
+              headerRenderer={headerRenderer}
+              toggleOpen={this.toggleOpen}
+              placeholderRenderer={placeholderRenderer}
+              loading={loading}
+              error={error}
+              small={small}
+              large={large}
+            />
+          )}
+
+          {inlineSearch && (
+            <InlineSearch
+              values={localValues}
+              open={open}
+              placeholder={placeholder}
+              toggleOpen={this.toggleOpen}
+              error={error}
+              small={small}
+              large={large}
+              onSearch={this.onSearch}
+              value={searchTerm}
+            />
+          )}
 
           <SelectMenu
             open={open}
@@ -237,6 +256,7 @@ export default class Select extends React.Component {
             optionLabelRenderer={optionLabelRenderer}
             small={small}
             large={large}
+            inlineSearch={inlineSearch}
           />
         </Container>
       </ClickOut>

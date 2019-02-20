@@ -7,9 +7,9 @@ const TextInput = props => {
   const withMessage = props.errorMessage || props.validMessage;
 
   return (
-    <Container>
+    <Container className={props.className}>
       {props.label && (
-        <Label>
+        <Label className="text-input-label">
           {props.label}
           {props.required && <span>*</span>}
         </Label>
@@ -22,6 +22,8 @@ const TextInput = props => {
         error={props.error}
         valid={props.valid}
         large={props.large}
+        onFocus={props.onFocus}
+        className="text-input"
       />
       {withMessage && (
         <Message valid={props.valid}>
@@ -43,7 +45,9 @@ TextInput.propTypes = {
   error: PropTypes.bool,
   validMessage: PropTypes.string,
   errorMessage: PropTypes.string,
-  large: PropTypes.bool
+  large: PropTypes.bool,
+  onFocus: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default TextInput;
@@ -101,7 +105,7 @@ const StyledInput = styled.input`
       pointer-events: none;
       background: ${hexToRgba(theme.p300, 10)};
       border-color: transparent;
-      color: ${theme.p200}; // todo: check
+      color: ${theme.p200};
     `};
 
   ${({ valid, theme }) =>

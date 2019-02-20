@@ -2,24 +2,23 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import PropTypes from 'prop-types';
 
+// assets
 import searchIcon from '../../assets/search-thin.svg';
 
-const SelectSearch = props =>
-  props.searchable && (
-    <Container>
-      <Input
-        placeholder={props.searchPlaceholder || 'Search'}
-        onChange={props.onChange}
-        value={props.value}
-        small={props.small}
-        large={props.large}
-      />
-      <SearchIcon />
-    </Container>
-  );
+const SelectSearch = props => (
+  <Container>
+    <Input
+      placeholder={props.searchPlaceholder || 'Search'}
+      onChange={props.onChange}
+      value={props.value}
+      small={props.small}
+      large={props.large}
+    />
+    <SearchIcon />
+  </Container>
+);
 
 SelectSearch.propTypes = {
-  searchable: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.string,
   searchPlaceholder: PropTypes.string,

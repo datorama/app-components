@@ -52,6 +52,22 @@ const MyComp = ({ selected }) => (
 );
 `;
 
+const inlineSearch = `
+import { Select } from 'app-components';
+
+const MyComp = ({ selected }) => (
+  <Fragment>
+    <Select
+      searchable
+      inlineSearch
+      placeholder="Select colors"
+      options={[]}
+      values={selected}
+    />
+  </Fragment>
+);
+`;
+
 const multi = `
 import { Select } from 'app-components';
 
@@ -72,11 +88,12 @@ export default class SelectDoc extends React.Component {
   state = {
     values1: [],
     values2: [],
-    values3: []
+    values3: [],
+    values4: []
   };
 
   render() {
-    const { values1, values2, values3 } = this.state;
+    const { values1, values2, values3, values4 } = this.state;
     const title = 'select';
     const description =
       'Selects allow users make a selection from multiple options. They are less prominent and take up less space than selection controls, such as a set of radio buttons.';
@@ -137,7 +154,7 @@ export default class SelectDoc extends React.Component {
                 onChange={values1 => this.setState({ values1 })}
                 small
               />
-  
+
               <StyledSelect
                 placeholder="select colors"
                 values={values1}
@@ -152,7 +169,7 @@ export default class SelectDoc extends React.Component {
                 ]}
                 onChange={values1 => this.setState({ values1 })}
               />
-  
+
               <StyledSelect
                 placeholder="select colors"
                 values={values1}
@@ -196,6 +213,37 @@ export default class SelectDoc extends React.Component {
                   { value: '6', label: 'white' }
                 ]}
                 onChange={values2 => this.setState({ values2 })}
+              />
+            </Box>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionTitle>inline search</SectionTitle>
+          </Col>
+        </Row>
+        <Row align="stretch">
+          <Col>
+            <Highlight language="javascript">{inlineSearch}</Highlight>
+          </Col>
+          <Col>
+            <Box>
+              <Select
+                placeholder="select colors"
+                searchable
+                inlineSearch
+                multi
+                values={values4}
+                options={[
+                  { value: '1', label: 'orange' },
+                  { value: '2', label: 'purple' },
+                  { value: '3', label: 'black' },
+                  { value: '4', label: 'green' },
+                  { value: '5', label: 'yellow' },
+                  { value: '6', label: 'white' }
+                ]}
+                onChange={values4 => this.setState({ values4 })}
               />
             </Box>
           </Col>

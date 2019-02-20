@@ -19,7 +19,8 @@ const SelectOptions = props => {
     searchable,
     optionLabelRenderer,
     small,
-    large
+    large,
+    inlineSearch
   } = props;
 
   const items = options.map(option => {
@@ -52,7 +53,7 @@ const SelectOptions = props => {
   return (
     <Container
       maxItems={maxItems}
-      marginTop={multi || searchable ? '5px' : 0}
+      marginTop={multi || (searchable && !inlineSearch) ? '5px' : 0}
       small={small}
       large={large}
     >
@@ -71,7 +72,8 @@ SelectOptions.propTypes = {
   searchable: PropTypes.bool,
   optionLabelRenderer: PropTypes.func,
   small: PropTypes.bool,
-  large: PropTypes.bool
+  large: PropTypes.bool,
+  inlineSearch: PropTypes.bool
 };
 
 export default SelectOptions;
