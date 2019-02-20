@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import meta from '../meta';
-import { find, keys, getOr } from 'lodash/fp';
+import { find, keys, getOr, get } from 'lodash/fp';
 
 const PropTable = ({ compKey }) => {
   const data = find(({ displayName }) => displayName === compKey, meta);
@@ -15,16 +15,23 @@ const PropTable = ({ compKey }) => {
         <Col bold>Type</Col>
         <Col bold>Required</Col>
       </Row>
-      {keys(props).map(key => (
-        <Row key={key}>
-          <Col>{key}</Col>
-          <Col>{getOr('-', 'defaultValue.value', props[key])}</Col>
-          <Col>
-            <Tag>{props[key].type.name}</Tag>
-          </Col>
-          <Col>{props[key].required.toString()}</Col>
-        </Row>
-      ))}
+      {keys(props).map(key => {
+        const value = get('type.value.name', props[key]);
+
+        return (
+          <Row key={key}>
+            <Col>{key}</Col>
+            <Col>{getOr('-', 'defaultValue.value', props[key])}</Col>
+            <Col>
+              <Tag>
+                {props[key].type.name}
+                {value && <span> ({value})</span>}
+              </Tag>
+            </Col>
+            <Col>{props[key].required.toString()}</Col>
+          </Row>
+        );
+      })}
     </Container>
   );
 };
