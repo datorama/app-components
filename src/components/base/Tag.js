@@ -29,7 +29,7 @@ export default Tag;
 const Container = styled.div`
   background: ${({ theme }) => hexToRgba(theme.p300, 15)};
   ${({ theme }) => theme.text.pLink};
-  color: ${({ theme }) => theme.p300};
+  color: ${({ theme }) => theme.lightTheme.p300};
   height: 24px;
   padding: 0 16px;
   border-radius: 12px;
@@ -41,14 +41,14 @@ const Container = styled.div`
   cursor: pointer;
 
   &:hover {
-    color: ${({ theme }) => theme.p0};
+    color: ${({ theme }) => theme.lightTheme.p0};
     background: ${({ theme, color }) => color || theme.a400};
   }
 
   ${({ selected }) =>
     selected &&
     css`
-      color: ${({ theme }) => theme.p0};
+      color: ${({ theme }) => theme.lightTheme.p0};
       background: ${({ theme, color }) => color || theme.a400};
     `};
 
@@ -56,6 +56,6 @@ const Container = styled.div`
     disabled &&
     css`
       pointer-events: none;
-      color: ${hexToRgba(theme.p300, 50)};
+      color: ${hexToRgba(theme.lightTheme.p300, 50)};
     `};
 `;

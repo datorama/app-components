@@ -52,8 +52,8 @@ class TagDoc extends React.Component {
           <Col>
             <Box>
               <StyledTag label="Account Growth" />
-              <StyledTag label="Account Growth" color={'#7257e8'} />
-              <StyledTag label="Account Disabled" color={'#7257e8'} disabled />
+              <StyledTag label="Account Growth" />
+              <StyledTag label="Account Growth" disabled />
             </Box>
           </Col>
         </Row>
@@ -70,7 +70,6 @@ class TagDoc extends React.Component {
           <Col>
             <Box>
               <StyledTagGroup
-                color={'#7257e8'}
                 selected={selected}
                 onChange={selected => this.setState({ selected })}
                 tags={[

@@ -240,19 +240,20 @@ export default class SelectDoc extends React.Component {
           </Col>
           <Col>
             <Box>
-              <Select
-                placeholder="select colors"
+              <InlineSelect
+                placeholder="select members"
                 searchable
                 inlineSearch
                 multi
+                maxTags={2}
                 values={values4}
                 options={[
-                  { value: '1', label: 'orange' },
-                  { value: '2', label: 'purple' },
-                  { value: '3', label: 'black' },
-                  { value: '4', label: 'green' },
-                  { value: '5', label: 'yellow' },
-                  { value: '6', label: 'white' }
+                  { value: '1', label: 'Robert Baratheon' },
+                  { value: '2', label: 'Jaime Lannister' },
+                  { value: '3', label: 'Catelyn Stark' },
+                  { value: '4', label: 'Daenerys Targaryen' },
+                  { value: '5', label: 'Tyrion Lannister' },
+                  { value: '6', label: 'Khal Drogo' }
                 ]}
                 onChange={values4 => this.setState({ values4 })}
               />
@@ -312,3 +313,5 @@ const Box = styled.div`
 const StyledSelect = styled(Select)`
   margin: 4px 0;
 `;
+
+const InlineSelect = styled(Select)``;

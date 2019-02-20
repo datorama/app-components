@@ -57,7 +57,7 @@ const CheckboxContainer = styled.div`
   border: 1px solid ${({ theme }) => theme.p200};
   border-radius: 2px;
   position: relative;
-  transition: all 300ms;
+  transition: all 200ms;
   overflow: hidden;
   background: transparent;
 
@@ -101,7 +101,7 @@ export const iconStyles = css`
   height: 10px;
   position: absolute;
   left: 2px;
-  transition: all 300ms;
+  transition: all 400ms;
   transform: translateY(-5px);
   opacity: 0;
 

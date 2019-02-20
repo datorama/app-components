@@ -1,54 +1,115 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { optionsType } from './Select.types';
 import { Arrow } from './SelectHeader';
+import { map } from 'lodash/fp';
 
-// placeholder={props.placeholder || 'Search'}
-// value={props.value}
+const mapWithIndex = map.convert({ cap: false });
 
-const InlineSearch = props => {
-  return (
-    <Container
-      onClick={props.toggleOpen}
-      error={props.error}
-      small={props.small}
-      large={props.large}
-    >
-      <Inner>
-        {props.values.map(value => (
-          <SmallTag key={`small-tag-${value.id}`}>
-            <SmallTagLabel>{value.label}</SmallTagLabel>
-            <CloseIcon />
+class InlineSearch extends Component {
+  static propTypes = {
+    values: optionsType,
+    placeholder: PropTypes.string,
+    toggleOpen: PropTypes.func,
+    error: PropTypes.bool,
+    small: PropTypes.bool,
+    large: PropTypes.bool,
+    open: PropTypes.bool,
+    value: PropTypes.string,
+    onSearch: PropTypes.func,
+    maxTags: PropTypes.number,
+    onSelect: PropTypes.func
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.values !== prevProps.values) {
+      this.focus();
+    }
+  }
+
+  handleRef = el => {
+    if (el) {
+      this.el = el;
+    }
+  };
+
+  focus() {
+    if (this.el) {
+      this.el.focus();
+    }
+  }
+
+  handleClick = () => {
+    this.props.toggleOpen();
+    this.focus();
+  };
+
+  handleInput = el => {
+    const { open, toggleOpen } = this.props;
+
+    if (!open) {
+      toggleOpen();
+    }
+    this.props.onSearch(el);
+  };
+
+  render() {
+    const tags = [];
+
+    mapWithIndex((option, index) => {
+      if (index < this.props.maxTags) {
+        tags.push(
+          <SmallTag key={`small-tag-${option.value}`} title={option.label}>
+            <SmallTagLabel>{option.label}</SmallTagLabel>
+            <CloseIcon onClick={this.props.onSelect(option)} />
           </SmallTag>
-        ))}
-        <SmallInput onChange={props.onSearch} />
-      </Inner>
-      <Arrow rotation={props.open ? '180deg' : '0deg'} />
-    </Container>
-  );
-};
+        );
+      }
+    }, this.props.values);
 
-InlineSearch.proptypes = {
-  values: optionsType,
-  placeholder: PropTypes.string,
-  toggleOpen: PropTypes.func,
-  error: PropTypes.bool,
-  small: PropTypes.bool,
-  large: PropTypes.bool,
-  open: PropTypes.bool,
-  value: PropTypes.string,
-  onSearch: PropTypes.func
-};
+    if (this.props.values.length > this.props.maxTags) {
+      tags.push(
+        <SmallTag key="extra-tags" type="info">
+          <SmallTagLabel>
+            +{this.props.values.length - this.props.maxTags}
+          </SmallTagLabel>
+        </SmallTag>
+      );
+    }
+
+    return (
+      <Container
+        onClick={this.handleClick}
+        error={this.props.error}
+        small={this.props.small}
+        large={this.props.large}
+        className="inline-container"
+        open={this.props.open}
+      >
+        <Inner>
+          {tags}
+          <SmallInput
+            onChange={this.handleInput}
+            value={this.props.value}
+            placeholder={this.props.placeholder || 'Search'}
+            ref={this.handleRef}
+          />
+        </Inner>
+        <Arrow rotation={this.props.open ? '180deg' : '0deg'} />
+      </Container>
+    );
+  }
+}
 
 export default InlineSearch;
 
 const Container = styled.div`
   cursor: pointer;
-  min-width: 170px;
-  height: ${({ theme }) => theme.size.MEDIUM};
+  width: 400px;
+  min-height: ${({ theme }) => theme.size.MEDIUM};
   box-sizing: border-box;
-  padding: 0 4px;
+  padding: 0 2px;
   border: 1px solid ${({ error, theme }) => (error ? theme.r400 : theme.p200)};
   background: ${({ theme }) => theme.p0};
   border-radius: 2px;
@@ -84,18 +145,26 @@ const Inner = styled.div`
   align-items: center;
   box-sizing: border-box;
   padding: 0 10px 0 0;
+  flex-wrap: wrap;
 `;
 
 const SmallTag = styled.div`
-  padding: 0 18px 0 2px;
+  padding: ${({ padding }) => padding || '0 18px 0 4px'};
   background: ${({ theme }) => theme.a400};
   cursor: pointer;
   border-radius: 2px;
-  margin-right: 4px;
+  margin: 2px;
   display: flex;
   align-items: center;
   position: relative;
   transition: all 300ms;
+
+  ${({ type }) =>
+    type === 'info' &&
+    css`
+      padding: 0 4px;
+      pointer-events: none;
+    `};
 
   &:hover {
     background: ${({ theme }) => theme.a500};
@@ -105,10 +174,11 @@ const SmallTag = styled.div`
 const SmallTagLabel = styled.div`
   ${({ theme }) => theme.text.sm};
   color: #fff;
-  line-height: 12px;
-  height: 20px;
-  display: flex;
-  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+  padding: 2px;
 `;
 
 const CloseIcon = styled.div`
@@ -142,7 +212,7 @@ const CloseIcon = styled.div`
 
   &::before,
   &::after {
-    height: 1px;
+    height: 2px;
   }
 `;
 
@@ -152,4 +222,7 @@ const SmallInput = styled.input`
   background: transparent;
   color: ${({ theme }) => theme.p800};
   ${({ theme }) => theme.text.sm};
+  flex: 1;
+  box-sizing: border-box;
+  padding: 0 4px;
 `;

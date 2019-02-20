@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import PropTypes from 'prop-types';
 import { find, orderBy, debounce } from 'lodash/fp';
-import { hexToRgba } from '../../utils';
 
 // components
 import ClickOut from '../ClickOut';
@@ -39,7 +38,8 @@ export default class Select extends React.Component {
     error: PropTypes.bool,
     small: PropTypes.bool,
     large: PropTypes.bool,
-    inlineSearch: PropTypes.bool
+    inlineSearch: PropTypes.bool,
+    maxTags: PropTypes.number
   };
 
   state = {
@@ -79,7 +79,7 @@ export default class Select extends React.Component {
   }
 
   toggleOpen = () => {
-    const { keepOpen } = this.props;
+    const { keepOpen, inlineSearch } = this.props;
     const { open } = this.state;
 
     if (keepOpen && open) {
@@ -105,6 +105,10 @@ export default class Select extends React.Component {
 
         if (!open) {
           window.removeEventListener('keydown', this.handleKeyDown);
+
+          if (inlineSearch) {
+            setTimeout(() => { this.setState({ searchTerm: '' }); }, 300);
+          }
 
           if (onClose) {
             onClose();
@@ -200,7 +204,8 @@ export default class Select extends React.Component {
       error,
       small,
       large,
-      inlineSearch
+      inlineSearch,
+      maxTags
     } = this.props;
     const { open, searchTerm, localValues } = this.state;
     const filteredOptions = this.filterOptions();
@@ -235,6 +240,8 @@ export default class Select extends React.Component {
               large={large}
               onSearch={this.onSearch}
               value={searchTerm}
+              maxTags={maxTags}
+              onSelect={this.onSelect}
             />
           )}
 
@@ -273,7 +280,8 @@ Select.defaultProps = {
   searchBy: ['label'],
   sortDirection: 'asc',
   closeOnSelect: true, // apply only for single select
-  debounce: 0
+  debounce: 0,
+  maxTags: 999
 };
 
 const Container = styled.div`

@@ -25,6 +25,8 @@ const size = {
 // light theme
 export const lightTheme = {
   ...libColors.lightTheme,
+  darkTheme: libColors.darkTheme,
+  lightTheme: libColors.lightTheme,
   text: typography,
   animation,
   size
@@ -33,6 +35,8 @@ export const lightTheme = {
 // dark theme
 export const darkTheme = {
   ...libColors.darkTheme,
+  lightTheme: libColors.lightTheme,
+  darkTheme: libColors.darkTheme,
   text: typography,
   animation,
   size
