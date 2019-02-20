@@ -25,7 +25,9 @@ const SelectMenu = props => {
     total,
     maxItems,
     searchPlaceholder,
-    optionLabelRenderer
+    optionLabelRenderer,
+    small,
+    large
   } = props;
 
   if (menuRenderer) {
@@ -47,6 +49,8 @@ const SelectMenu = props => {
         onChange={onSearch}
         value={searchTerm}
         searchPlaceholder={searchPlaceholder}
+        small={small}
+        large={large}
       />
 
       <SelectMultiHeader
@@ -68,6 +72,8 @@ const SelectMenu = props => {
         maxItems={maxItems}
         searchable={searchable}
         optionLabelRenderer={optionLabelRenderer}
+        small={small}
+        large={large}
       />
     </Container>
   );
@@ -89,7 +95,9 @@ SelectMenu.propTypes = {
   total: PropTypes.number,
   maxItems: PropTypes.number,
   searchPlaceholder: PropTypes.string,
-  optionLabelRenderer: PropTypes.func
+  optionLabelRenderer: PropTypes.func,
+  small: PropTypes.bool,
+  large: PropTypes.bool
 };
 
 const Container = styled.div`
@@ -102,7 +110,7 @@ const Container = styled.div`
   max-height: ${({ maxHeight }) => maxHeight};
   background: ${({ theme }) => theme.p0};
   border-radius: 2px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   transition: all 300ms;
   user-select: none;
   overflow: hidden;

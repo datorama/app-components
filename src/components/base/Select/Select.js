@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components/macro';
 import PropTypes from 'prop-types';
 import { find, orderBy, debounce } from 'lodash/fp';
+import { hexToRgba } from '../../utils';
 
 // components
 import ClickOut from '../ClickOut';
@@ -34,7 +35,9 @@ export default class Select extends React.Component {
     closeOnSelect: PropTypes.bool,
     sortDirection: PropTypes.oneOf(['asc', 'desc']),
     searchPlaceholder: PropTypes.string,
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    small: PropTypes.bool,
+    large: PropTypes.bool
   };
 
   state = {
@@ -192,7 +195,9 @@ export default class Select extends React.Component {
       loading,
       maxItems,
       searchPlaceholder,
-      error
+      error,
+      small,
+      large
     } = this.props;
     const { open, searchTerm, localValues } = this.state;
     const filteredOptions = this.filterOptions();
@@ -210,6 +215,8 @@ export default class Select extends React.Component {
             placeholderRenderer={placeholderRenderer}
             loading={loading}
             error={error}
+            small={small}
+            large={large}
           />
 
           <SelectMenu
@@ -228,6 +235,8 @@ export default class Select extends React.Component {
             maxItems={maxItems}
             searchPlaceholder={searchPlaceholder}
             optionLabelRenderer={optionLabelRenderer}
+            small={small}
+            large={large}
           />
         </Container>
       </ClickOut>
@@ -264,7 +273,7 @@ const Container = styled.div`
 
 export const Option = styled.div`
   width: 100%;
-  height: 35px;
+  height: ${({ theme }) => theme.size.MEDIUM};
   display: flex;
   align-items: center;
   transition: all 300ms;
@@ -278,6 +287,18 @@ export const Option = styled.div`
   &:hover {
     background: ${({ theme }) => theme.a100};
   }
+
+  ${({ theme, small }) =>
+    small &&
+    css`
+      height: ${theme.size.SMALL};
+    `};
+
+  ${({ theme, large }) =>
+    large &&
+    css`
+      height: ${theme.size.LARGE};
+    `};
 `;
 
 export const Label = styled.div`

@@ -19,7 +19,9 @@ const SelectHeader = props => {
     toggleOpen,
     placeholderRenderer,
     loading,
-    error
+    error,
+    small,
+    large
   } = props;
 
   if (headerRenderer) {
@@ -66,6 +68,8 @@ const SelectHeader = props => {
       className="header"
       title={label}
       error={error}
+      small={small}
+      large={large}
     >
       <LabelWrapper>
         <Label>{label}</Label>
@@ -86,7 +90,9 @@ SelectHeader.propTypes = {
   toggleOpen: PropTypes.func,
   placeholderRenderer: PropTypes.func,
   loading: PropTypes.bool,
-  error: PropTypes.bool
+  error: PropTypes.bool,
+  small: PropTypes.bool,
+  large: PropTypes.bool
 };
 
 export default SelectHeader;
@@ -114,6 +120,19 @@ const Container = styled.div`
     open &&
     css`
       border-color: ${error ? theme.r400 : theme.a400};
+    `};
+
+  ${({ small, theme }) =>
+    small &&
+    css`
+      height: ${theme.size.SMALL};
+      ${theme.text.sm};
+    `};
+
+  ${({ large, theme }) =>
+    large &&
+    css`
+      height: ${theme.size.LARGE};
     `};
 `;
 

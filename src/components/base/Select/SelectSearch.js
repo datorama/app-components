@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 import PropTypes from 'prop-types';
 
 import searchIcon from '../../assets/search-thin.svg';
@@ -11,6 +11,8 @@ const SelectSearch = props =>
         placeholder={props.searchPlaceholder || 'Search'}
         onChange={props.onChange}
         value={props.value}
+        small={props.small}
+        large={props.large}
       />
       <SearchIcon />
     </Container>
@@ -20,7 +22,9 @@ SelectSearch.propTypes = {
   searchable: PropTypes.bool,
   onChange: PropTypes.func,
   value: PropTypes.string,
-  searchPlaceholder: PropTypes.string
+  searchPlaceholder: PropTypes.string,
+  small: PropTypes.bool,
+  large: PropTypes.bool
 };
 
 export default SelectSearch;
@@ -33,7 +37,7 @@ const Container = styled.div`
 const Input = styled.input`
   width: calc(100% - 20px);
   margin: 10px 10px 0 10px;
-  height: 30px;
+  height: ${({ theme }) => theme.size.MEDIUM};
   border-radius: 2px;
   border: 1px solid ${({ theme }) => theme.p200};
   box-sizing: border-box;
@@ -41,6 +45,20 @@ const Input = styled.input`
   font-size: 13px;
   font-weight: 300;
   background: ${({ theme }) => theme.p0};
+
+  ${({ theme, small }) =>
+    small &&
+    css`
+      height: ${theme.size.SMALL};
+      ${theme.text.sm};
+    `};
+
+  ${({ theme, large }) =>
+    large &&
+    css`
+      height: ${theme.size.LARGE};
+    `};
+
   color: ${({ theme }) => theme.p500};
 
   &:focus {

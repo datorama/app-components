@@ -12,10 +12,26 @@ import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
-    <Card
+    <Select
       placeholder="Select colors"
       options={[]}
       values={selected}
+    />
+  </Fragment>
+);
+`;
+
+const sizesSnippet = `
+import { Select } from 'app-components';
+
+const MyComp = ({ selected }) => (
+  <Fragment>
+    <Select
+      placeholder="Select colors"
+      options={[]}
+      values={selected}
+      small={false}
+      large
     />
   </Fragment>
 );
@@ -26,7 +42,7 @@ import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
-    <Card
+    <Select
       searchable
       placeholder="Select colors"
       options={[]}
@@ -41,7 +57,7 @@ import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
-    <Card
+    <Select
       multi
       searchable
       placeholder="Select colors"
@@ -90,6 +106,67 @@ export default class SelectDoc extends React.Component {
                   { value: '6', label: 'white' }
                 ]}
                 onChange={values1 => this.setState({ values1 })}
+              />
+            </Box>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionTitle>select sizes</SectionTitle>
+          </Col>
+        </Row>
+        <Row align="stretch">
+          <Col>
+            <Highlight language="javascript">{sizesSnippet}</Highlight>
+          </Col>
+          <Col>
+            <Box>
+              <StyledSelect
+                placeholder="select colors"
+                values={values1}
+                searchable
+                options={[
+                  { value: '1', label: 'orange' },
+                  { value: '2', label: 'purple' },
+                  { value: '3', label: 'black' },
+                  { value: '4', label: 'green' },
+                  { value: '5', label: 'yellow' },
+                  { value: '6', label: 'white' }
+                ]}
+                onChange={values1 => this.setState({ values1 })}
+                small
+              />
+  
+              <StyledSelect
+                placeholder="select colors"
+                values={values1}
+                searchable
+                options={[
+                  { value: '1', label: 'orange' },
+                  { value: '2', label: 'purple' },
+                  { value: '3', label: 'black' },
+                  { value: '4', label: 'green' },
+                  { value: '5', label: 'yellow' },
+                  { value: '6', label: 'white' }
+                ]}
+                onChange={values1 => this.setState({ values1 })}
+              />
+  
+              <StyledSelect
+                placeholder="select colors"
+                values={values1}
+                searchable
+                options={[
+                  { value: '1', label: 'orange' },
+                  { value: '2', label: 'purple' },
+                  { value: '3', label: 'black' },
+                  { value: '4', label: 'green' },
+                  { value: '5', label: 'yellow' },
+                  { value: '6', label: 'white' }
+                ]}
+                onChange={values1 => this.setState({ values1 })}
+                large
               />
             </Box>
           </Col>
@@ -170,4 +247,9 @@ const Box = styled.div`
   border-radius: 4px;
   justify-content: center;
   background: ${({ theme }) => theme.p50};
+  flex-direction: column;
+`;
+
+const StyledSelect = styled(Select)`
+  margin: 4px 0;
 `;
