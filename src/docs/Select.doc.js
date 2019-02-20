@@ -89,11 +89,22 @@ export default class SelectDoc extends React.Component {
     values1: [],
     values2: [],
     values3: [],
-    values4: []
+    values4: [],
+    values5: [],
+    values6: [],
+    values7: []
   };
 
   render() {
-    const { values1, values2, values3, values4 } = this.state;
+    const {
+      values1,
+      values2,
+      values3,
+      values4,
+      values5,
+      values6,
+      values7
+    } = this.state;
     const title = 'select';
     const description =
       'Selects allow users make a selection from multiple options. They are less prominent and take up less space than selection controls, such as a set of radio buttons.';
@@ -141,7 +152,7 @@ export default class SelectDoc extends React.Component {
             <Box>
               <StyledSelect
                 placeholder="select colors"
-                values={values1}
+                values={values5}
                 searchable
                 options={[
                   { value: '1', label: 'orange' },
@@ -151,13 +162,13 @@ export default class SelectDoc extends React.Component {
                   { value: '5', label: 'yellow' },
                   { value: '6', label: 'white' }
                 ]}
-                onChange={values1 => this.setState({ values1 })}
+                onChange={values5 => this.setState({ values5 })}
                 small
               />
 
               <StyledSelect
                 placeholder="select colors"
-                values={values1}
+                values={values6}
                 searchable
                 options={[
                   { value: '1', label: 'orange' },
@@ -167,12 +178,12 @@ export default class SelectDoc extends React.Component {
                   { value: '5', label: 'yellow' },
                   { value: '6', label: 'white' }
                 ]}
-                onChange={values1 => this.setState({ values1 })}
+                onChange={values6 => this.setState({ values6 })}
               />
 
               <StyledSelect
                 placeholder="select colors"
-                values={values1}
+                values={values7}
                 searchable
                 options={[
                   { value: '1', label: 'orange' },
@@ -182,7 +193,7 @@ export default class SelectDoc extends React.Component {
                   { value: '5', label: 'yellow' },
                   { value: '6', label: 'white' }
                 ]}
-                onChange={values1 => this.setState({ values1 })}
+                onChange={values7 => this.setState({ values7 })}
                 large
               />
             </Box>
