@@ -3,16 +3,16 @@ import * as typography from './typography';
 import * as animation from './animations';
 import * as layout from './layout';
 
-// utils
-export { default as ClickOut } from './base/ClickOut';
+// UTILS
+//export { default as ClickOut } from './base/ClickOut';
 
-// base components
-export { default as Button } from './base/Button';
-export { default as Card } from './base/Card';
-export { default as Datepicker } from './base/Datepicker';
-export { default as Select } from './base/Select/Select';
+// BASE COMPONENTS
+// export { default as Button } from './base/Button';
+// export { default as Card } from './base/Card';
+// export { default as Datepicker } from './base/Datepicker';
+// export { default as Select } from './base/Select/Select';
 
-// default size (height)
+// DEFAULT COMPONENTS HEIGHTS
 const SMALL = '24px';
 const MEDIUM = '30px';
 const LARGE = '34px';
@@ -22,7 +22,7 @@ const size = {
   LARGE
 };
 
-// light theme
+// LIGHT THEME
 export const lightTheme = {
   ...libColors.lightTheme,
   darkTheme: libColors.darkTheme,
@@ -32,7 +32,7 @@ export const lightTheme = {
   size
 };
 
-// dark theme
+// DARK THEME
 export const darkTheme = {
   ...libColors.darkTheme,
   lightTheme: libColors.lightTheme,
@@ -52,7 +52,7 @@ export const greens = libColors.greens;
 export const yellows = libColors.yellows;
 export const oranges = libColors.oranges;
 
-// layout
+// GRID LAYOUT
 export const Container = layout.Container;
 export const Row = layout.Row;
 export const Col = layout.Col;

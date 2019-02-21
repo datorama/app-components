@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { throttle } from 'lodash/fp';
-// import PropTypes from 'prop-types';
 
 // assets
 import { ReactComponent as InfoIcon } from '../assets/info-line.svg';
