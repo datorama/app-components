@@ -5,7 +5,7 @@ import { find } from 'lodash/fp';
 
 // components
 import Checkbox from '../Checkbox';
-import { Option, Label } from './Select';
+import { Option, Label } from './Select.common';
 import { optionsType } from './Select.types';
 
 const SelectOptions = props => {

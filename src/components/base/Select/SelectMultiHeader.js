@@ -3,7 +3,7 @@ import styled from 'styled-components/macro';
 import PropTypes from 'prop-types';
 
 // components
-import { Label, Option } from './Select';
+import { Label, Option } from './Select.common';
 import { optionsType } from './Select.types';
 import Checkbox from '../Checkbox';
 

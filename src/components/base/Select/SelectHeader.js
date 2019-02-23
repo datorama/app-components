@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash/fp';
 import PropTypes from 'prop-types';
 
 // components
-import { Label } from './Select';
+import { Label } from './Select.common';
 import SelectSpinner from './SelectSpinner';
 import { optionsType } from './Select.types';
 import { ReactComponent as ArrowDown } from '../../assets/arrow-down.svg';

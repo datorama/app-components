@@ -3,7 +3,7 @@ import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 
 // components
-import { Label } from './Select';
+import { Label } from './Select.common';
 
 const SelectNoResults = ({ theme }) => (
   <Container>
