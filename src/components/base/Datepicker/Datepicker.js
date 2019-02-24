@@ -121,9 +121,11 @@ class Datepicker extends Component {
 
     if (selecting) {
       if (moment(date).isBefore(selection[0])) {
-        return;
+        //extra = { selection: [date, selection[0]] };
+        // @todo - handle selection
+      } else {
+        extra = { selection: [selection[0], date] };
       }
-      extra = { selection: [selection[0], date] };
     }
 
     this.setState({ hoveredDate: date, ...extra });
@@ -153,11 +155,16 @@ class Datepicker extends Component {
 
   prev = () => this.setState(prevState => ({ offset: prevState.offset - 1 }));
 
+  apply = () => this.toggleOpen();
+
+  cancel = () => this.toggleOpen();
+
   handleClick = date => {
     const { selecting, selection } = this.state;
 
     if (selecting) {
       if (moment(date).isBefore(selection[0])) {
+        this.setState({ selecting: false, selection: [date, selection[0]] });
         return;
       }
 
@@ -202,8 +209,10 @@ class Datepicker extends Component {
           <Divider />
 
           <Buttons>
-            <InlineButton>Cancel</InlineButton>
-            <InlineButton primary>Apply</InlineButton>
+            <InlineButton onClick={this.cancel}>Cancel</InlineButton>
+            <InlineButton primary onClick={this.apply}>
+              Apply
+            </InlineButton>
           </Buttons>
         </Container>
       </ClickOut>
@@ -267,6 +276,11 @@ const MonthTitle = styled.div`
   margin-top: -21px;
   margin-bottom: 20px;
   cursor: pointer;
+  transition: all 300ms;
+
+  &:hover {
+    color: ${({ theme }) => theme.a500};
+  }
 `;
 
 const DatesContainer = styled.div`
@@ -299,6 +313,8 @@ const DateContainer = styled.div`
   ${({ theme, selected }) =>
     !selected &&
     css`
+      transition: all 300ms;
+
       &:hover {
         background: ${theme.a100};
       }
