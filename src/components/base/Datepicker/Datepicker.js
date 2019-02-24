@@ -20,6 +20,7 @@ const TITLES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
  * close - go to selection start offset
  * apply cancel
  * loops
+ * fix offsets - first day of month on day
  * */
 class Datepicker extends Component {
   static propTypes = {
@@ -33,7 +34,7 @@ class Datepicker extends Component {
     open: false,
 
     selection: [],
-    lastSelection: [],
+    tmpStart: null,
     selecting: false,
     hoveredDate: null
   };
@@ -115,16 +116,15 @@ class Datepicker extends Component {
   };
 
   setHover = (date = null) => {
-    const { selecting, selection } = this.state;
+    const { selecting, tmpStart } = this.state;
 
     let extra = {};
 
     if (selecting) {
-      if (moment(date).isBefore(selection[0])) {
-        //extra = { selection: [date, selection[0]] };
-        // @todo - handle selection
+      if (moment(date).isBefore(tmpStart)) {
+        extra = { selection: [date, tmpStart] };
       } else {
-        extra = { selection: [selection[0], date] };
+        extra = { selection: [tmpStart, date] };
       }
     }
 
@@ -137,7 +137,11 @@ class Datepicker extends Component {
       () => {
         if (!this.state.open) {
           setTimeout(() => {
-            this.setState({ offset: 0 });
+            this.setState({
+              offset: 0,
+              selecting: false,
+              hoveredDate: null
+            });
           }, 300);
         }
       }
@@ -160,17 +164,29 @@ class Datepicker extends Component {
   cancel = () => this.toggleOpen();
 
   handleClick = date => {
-    const { selecting, selection } = this.state;
+    const { selecting, tmpStart } = this.state;
 
     if (selecting) {
-      if (moment(date).isBefore(selection[0])) {
-        this.setState({ selecting: false, selection: [date, selection[0]] });
+      if (moment(date).isBefore(tmpStart)) {
+        this.setState({
+          selecting: false,
+          selection: [date, tmpStart],
+          tmpStart: null
+        });
         return;
       }
 
-      this.setState({ selecting: false, selection: [selection[0], date] });
+      this.setState({
+        selecting: false,
+        selection: [tmpStart, date],
+        tmpStart: null
+      });
     } else {
-      this.setState({ selecting: true, selection: [date, null] });
+      this.setState({
+        selecting: true,
+        selection: [date, null],
+        tmpStart: date
+      });
     }
   };
 
@@ -313,8 +329,7 @@ const DateContainer = styled.div`
   ${({ theme, selected }) =>
     !selected &&
     css`
-      transition: all 300ms;
-
+      border-radius: 13px;
       &:hover {
         background: ${theme.a100};
       }
