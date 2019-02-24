@@ -97,10 +97,25 @@ class App extends Component {
     let theme = light ? lightTheme : darkTheme;
 
     if (!isEmpty(customTheme)) {
-      theme = {
-        ...theme,
-        ...customTheme
-      };
+      if (light) {
+        theme = {
+          ...theme,
+          ...customTheme
+        };
+      } else {
+        theme = {
+          ...theme,
+          a100: customTheme.a800,
+          a200: customTheme.a700,
+          a300: customTheme.a600,
+          a350: customTheme.a500,
+          a400: customTheme.a400,
+          a500: customTheme.a350,
+          a600: customTheme.a300,
+          a700: customTheme.a200,
+          a800: customTheme.a100
+        };
+      }
     }
 
     const list = [
