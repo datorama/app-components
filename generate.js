@@ -4,6 +4,7 @@ const reactDocs = require('react-docgen');
 
 // The React components to load
 const componentFolder = './src/components/base';
+const excludes = ['Select.common.js'];
 
 // Where the JSON file ends up
 const componentJsonPath = './src/meta.json';
@@ -87,7 +88,14 @@ function filewalker(dir, done) {
         } else {
           // Check if is a Javascript file
           // And not a story or test
+          let valid = true;
+          for (let i = 0; i < excludes.length; i++) {
+            if (file.includes(excludes[i])) {
+              valid = false;
+            }
+          }
           if (
+            valid &&
             file.endsWith('.js') &&
             !file.endsWith('.story.js') &&
             !file.endsWith('.test.js') &&

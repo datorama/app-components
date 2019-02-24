@@ -1,20 +1,39 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import moment from 'moment';
-import ClickOut from './ClickOut';
+import PropTypes from 'prop-types';
 
 // assets
-import { ReactComponent as Arrow } from '../assets/arrow-date.svg';
+import { ReactComponent as Arrow } from '../../assets/arrow-date.svg';
 
+// components
+import DatepickerHeader from './DatepickerHeader';
+import ClickOut from '../ClickOut';
+import DatepickerPresets from './DatepickerPresets';
+
+const DATE_FORMAT = 'YYYY-MM-DD';
+const TITLES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+
+/*
+ * presets
+ * single
+ * close - go to selection start offset
+ * apply cancel
+ * loops
+ * */
 class Datepicker extends Component {
-  static propTypes = {};
+  static propTypes = {
+    onChange: PropTypes.func,
+    className: PropTypes.string
+  };
 
   state = {
     today: moment(),
     offset: 0,
     open: false,
 
-    selection: ['2019-01-01', '2019-02-02'],
+    selection: [],
+    lastSelection: [],
     selecting: false,
     hoveredDate: null
   };
@@ -27,18 +46,12 @@ class Datepicker extends Component {
       .startOf('month')
       .add(globalOffset + offset, 'month');
     const total = thisMonth.daysInMonth();
+    const label = thisMonth.format('MMMM YYYY');
 
-    const label = today
-      .clone()
-      .startOf('month')
-      .add(globalOffset + offset, 'month')
-      .format('MMMM YYYY');
-
-    const titles = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-    for (let i = 0; i < titles.length; i++) {
+    for (let i = 0; i < TITLES.length; i++) {
       dates.push(
-        <DateContainer key={`date-${titles[i]}-${i}`} type="title">
-          <DateIcon type="title">{titles[i]}</DateIcon>
+        <DateContainer key={`date-${TITLES[i]}-${i}`} type="title">
+          <DateIcon type="title">{TITLES[i]}</DateIcon>
         </DateContainer>
       );
     }
@@ -55,21 +68,21 @@ class Datepicker extends Component {
         selected = true;
       }
 
-      const isStart = current.format('YYYY-MM-DD') === selection[0];
-      const isEnd = current.format('YYYY-MM-DD') === selection[1];
+      const isStart = current.format(DATE_FORMAT) === selection[0];
+      const isEnd = current.format(DATE_FORMAT) === selection[1];
 
       dates.push(
         <DateContainer
           key={`date-${i}`}
-          onClick={() => this.handleClick(current.format('YYYY-MM-DD'))}
-          onMouseEnter={() => this.setHover(current.format('YYYY-MM-DD'))}
+          onClick={() => this.handleClick(current.format(DATE_FORMAT))}
+          onMouseEnter={() => this.setHover(current.format(DATE_FORMAT))}
           selected={selected}
           sameDay={selection[0] === selection[1] || !selection[1]}
           isStart={isStart}
           isEnd={isEnd}
         >
           <DateIcon
-            today={today.day() === i - 1 && !(globalOffset + offset)}
+            today={current.format(DATE_FORMAT) === today.format(DATE_FORMAT)}
             type={isStart || isEnd ? 'edge' : 'normal'}
           >
             {i}
@@ -80,7 +93,22 @@ class Datepicker extends Component {
 
     return (
       <DatesContainer>
-        <MonthTitle>{label}</MonthTitle>
+        <MonthTitle
+          onClick={this.selectMonth([
+            today
+              .clone()
+              .add(globalOffset + offset, 'month')
+              .startOf('month')
+              .format(DATE_FORMAT),
+            today
+              .clone()
+              .add(globalOffset + offset, 'month')
+              .endOf('month')
+              .format(DATE_FORMAT)
+          ])}
+        >
+          {label}
+        </MonthTitle>
         {dates}
       </DatesContainer>
     );
@@ -88,6 +116,7 @@ class Datepicker extends Component {
 
   setHover = (date = null) => {
     const { selecting, selection } = this.state;
+
     let extra = {};
 
     if (selecting) {
@@ -138,22 +167,31 @@ class Datepicker extends Component {
     }
   };
 
+  selectMonth = selection => () =>
+    this.setState({ selection, selecting: false });
+
   render() {
     const { open, selection } = this.state;
+    const { className } = this.props;
 
     return (
       <ClickOut onClick={this.handleClickOut}>
-        <CustomInput onClick={this.toggleOpen}>
-          {`${selection[0] || ''} - ${selection[1] || ''}`}
-        </CustomInput>
+        <DatepickerHeader onClick={this.toggleOpen} selection={selection} />
 
-        <Container visible={open}>
+        <Container visible={open} className={className}>
+          <DatepickerPresets />
+          <Divider margin="0" />
+
           <Header>
-            <StyledArrow
-              onClick={this.prev}
-              style={{ transform: 'rotate(-180deg)' }}
-            />
-            <StyledArrow onClick={this.next} />
+            <ArrowHolder>
+              <StyledArrow
+                onClick={this.prev}
+                style={{ transform: 'rotate(-180deg)' }}
+              />
+            </ArrowHolder>
+            <ArrowHolder>
+              <StyledArrow onClick={this.next} />
+            </ArrowHolder>
           </Header>
 
           <Dates>
@@ -165,7 +203,7 @@ class Datepicker extends Component {
 
           <Buttons>
             <InlineButton>Cancel</InlineButton>
-            <InlineButton>Apply</InlineButton>
+            <InlineButton primary>Apply</InlineButton>
           </Buttons>
         </Container>
       </ClickOut>
@@ -211,10 +249,10 @@ const Header = styled.div`
   height: 40px;
   box-sizing: border-box;
   width: 100%;
-  padding: 0 20px;
-  position: absolute;
-  top: 10px;
-  left: 0;
+  padding: 0 10px;
+  margin-bottom: -50px;
+  pointer-events: none;
+  z-index: 2;
 `;
 
 const MonthTitle = styled.div`
@@ -228,6 +266,7 @@ const MonthTitle = styled.div`
   height: 20px;
   margin-top: -21px;
   margin-bottom: 20px;
+  cursor: pointer;
 `;
 
 const DatesContainer = styled.div`
@@ -256,6 +295,14 @@ const DateContainer = styled.div`
       border-bottom-right-radius: ${isEnd || sameDay ? '50%' : 0};
       border-top-right-radius: ${isEnd || sameDay ? '50%' : 0};
     `}
+
+  ${({ theme, selected }) =>
+    !selected &&
+    css`
+      &:hover {
+        background: ${theme.a100};
+      }
+    `};
 
   ${({ isStart, isEnd, theme }) =>
     (isStart || isEnd) &&
@@ -295,26 +342,13 @@ const DateIcon = styled.div`
       `;
     }
   }};
-`;
 
-const CustomInput = styled.div`
-  width: 180px;
-  height: 25px;
-  background: ${({ theme }) => theme.p50};
-  box-sizing: border-box;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 300ms;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6f6f6f;
-  font-size: 12px;
-  font-weight: 300;
-
-  &:hover {
-    background: #fafafa;
-  }
+  ${({ today, theme }) =>
+    today &&
+    css`
+      border: 1px solid ${theme.p600};
+      border-radius: 2px;
+    `};
 `;
 
 const Dates = styled.div`
@@ -325,12 +359,12 @@ const Divider = styled.div`
   width: 100%;
   height: 1px;
   background: ${({ theme }) => theme.p100};
-  margin-top: 20px;
+  margin-top: ${({ margin }) => margin || '20px'};
 `;
 
 const Buttons = styled.div`
   width: 100%;
-  height: 50px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -341,10 +375,35 @@ const InlineButton = styled.div`
   ${({ theme }) => theme.text.pLink};
   line-height: 14px;
   cursor: pointer;
+
+  ${({ primary, theme }) =>
+    primary &&
+    css`
+      color: ${theme.a400};
+    `};
+`;
+
+const ArrowHolder = styled.div`
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: all;
+
+  &:hover {
+    path {
+      fill: ${({ theme }) => theme.a400};
+    }
+  }
 `;
 
 const StyledArrow = styled(Arrow)`
   width: 14px;
   height: 14px;
-  cursor: pointer;
+
+  path {
+    fill: ${({ theme }) => theme.p600};
+  }
 `;

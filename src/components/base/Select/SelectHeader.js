@@ -25,7 +25,7 @@ const SelectHeader = props => {
   } = props;
 
   if (headerRenderer) {
-    return headerRenderer({ values, placeholder, options, open });
+    return headerRenderer({ values, placeholder, options, open, toggleOpen });
   }
 
   let label = placeholder;

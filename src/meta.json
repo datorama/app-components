@@ -110,6 +110,62 @@
   },
   {
     "description": "",
+    "displayName": "Carousel",
+    "methods": [
+      {
+        "name": "setSlide",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "current",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "total": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "slideRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "minHeight": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Carousel.js"
+  },
+  {
+    "description": "",
     "displayName": "Checkbox",
     "methods": [],
     "props": {
@@ -167,62 +223,6 @@
   },
   {
     "description": "",
-    "displayName": "Carousel",
-    "methods": [
-      {
-        "name": "setSlide",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "current",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "loading": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "total": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "slideRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "minHeight": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Carousel.js"
-  },
-  {
-    "description": "",
     "displayName": "Collapse",
     "methods": [
       {
@@ -269,6 +269,50 @@
       }
     },
     "filename": "/components/base/Collapse.js"
+  },
+  {
+    "description": "",
+    "displayName": "Draggable",
+    "methods": [
+      {
+        "name": "handleMouseDown",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ clientX, clientY }",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseMove",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ clientX, clientY }",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseUp",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "filename": "/components/base/Draggable.js"
+  },
+  {
+    "description": "",
+    "displayName": "LinearProgress",
+    "methods": [],
+    "filename": "/components/base/LinearProgress.js"
   },
   {
     "description": "",
@@ -323,121 +367,6 @@
       }
     },
     "filename": "/components/base/ClickOut.js"
-  },
-  {
-    "description": "",
-    "displayName": "Datepicker",
-    "methods": [
-      {
-        "name": "datesRenderer",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "globalOffset",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "setHover",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "date",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "toggleOpen",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleClickOut",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "next",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "prev",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "date",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "filename": "/components/base/Datepicker.js"
-  },
-  {
-    "description": "",
-    "displayName": "LinearProgress",
-    "methods": [],
-    "filename": "/components/base/LinearProgress.js"
-  },
-  {
-    "description": "",
-    "displayName": "Draggable",
-    "methods": [
-      {
-        "name": "handleMouseDown",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{ clientX, clientY }",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleMouseMove",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{ clientX, clientY }",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleMouseUp",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "filename": "/components/base/Draggable.js"
   },
   {
     "description": "",
@@ -824,6 +753,48 @@
   },
   {
     "description": "",
+    "displayName": "SegmentedButton",
+    "methods": [],
+    "props": {
+      "sections": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "id": {
+                "name": "number",
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/SegmentedButton.js"
+  },
+  {
+    "description": "",
     "displayName": "Spinner",
     "methods": [],
     "props": {
@@ -843,6 +814,49 @@
       }
     },
     "filename": "/components/base/Spinner.js"
+  },
+  {
+    "description": "",
+    "displayName": "StepperBullet",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "touched": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "enabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "hovered": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/StepperBullet.js"
   },
   {
     "description": "",
@@ -900,49 +914,6 @@
       }
     },
     "filename": "/components/base/Stepper.js"
-  },
-  {
-    "description": "",
-    "displayName": "StepperBullet",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "touched": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "enabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "hovered": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/StepperBullet.js"
   },
   {
     "description": "",
@@ -1305,6 +1276,49 @@
   },
   {
     "description": "",
+    "displayName": "Widget",
+    "methods": [],
+    "props": {
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "error": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "empty": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Widget.js"
+  },
+  {
+    "description": "",
     "displayName": "Tooltip",
     "methods": [
       {
@@ -1382,171 +1396,28 @@
   },
   {
     "description": "",
-    "displayName": "Widget",
+    "displayName": "DatepickerHeader",
     "methods": [],
     "props": {
-      "loading": {
+      "onClick": {
         "type": {
-          "name": "bool"
+          "name": "func"
         },
         "required": false,
         "description": ""
       },
-      "disabled": {
+      "selection": {
         "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "error": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "empty": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "children": {
-        "type": {
-          "name": "node"
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
         },
         "required": false,
         "description": ""
       }
     },
-    "filename": "/components/base/Widget.js"
-  },
-  {
-    "description": "",
-    "displayName": "InlineSearch",
-    "methods": [
-      {
-        "name": "handleRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "focus",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleInput",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "toggleOpen": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "error": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "small": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "large": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "value": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onSearch": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "maxTags": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onSelect": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/InlineSearch.js"
+    "filename": "/components/base/Datepicker/DatepickerHeader.js"
   },
   {
     "description": "",
@@ -1902,12 +1773,52 @@
   },
   {
     "description": "",
-    "displayName": "SelectHeader",
-    "methods": [],
+    "displayName": "InlineSearch",
+    "methods": [
+      {
+        "name": "handleRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "focus",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleInput",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
-      "open": {
+      "values": {
         "type": {
-          "name": "bool"
+          "name": "custom",
+          "raw": "optionsType"
         },
         "required": false,
         "description": ""
@@ -1919,46 +1830,9 @@
         "required": false,
         "description": ""
       },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "options": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "headerRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
       "toggleOpen": {
         "type": {
           "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholderRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "loading": {
-        "type": {
-          "name": "bool"
         },
         "required": false,
         "description": ""
@@ -1983,96 +1857,50 @@
         },
         "required": false,
         "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectHeader.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectOptions",
-    "methods": [],
-    "props": {
-      "options": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
       },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "optionRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "multi": {
+      "open": {
         "type": {
           "name": "bool"
         },
         "required": false,
         "description": ""
       },
-      "handleClick": {
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onSearch": {
         "type": {
           "name": "func"
         },
         "required": false,
         "description": ""
       },
-      "maxItems": {
+      "maxTags": {
         "type": {
           "name": "number"
         },
         "required": false,
         "description": ""
       },
-      "searchable": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "optionLabelRenderer": {
+      "onSelect": {
         "type": {
           "name": "func"
         },
         "required": false,
         "description": ""
-      },
-      "small": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "large": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "inlineSearch": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
       }
     },
-    "filename": "/components/base/Select/SelectOptions.js"
+    "filename": "/components/base/Select/InlineSearch.js"
+  },
+  {
+    "description": "",
+    "displayName": "DatepickerPresets",
+    "methods": [],
+    "filename": "/components/base/Datepicker/DatepickerPresets.js"
   },
   {
     "description": "",
@@ -2205,6 +2033,93 @@
   },
   {
     "description": "",
+    "displayName": "SelectHeader",
+    "methods": [],
+    "props": {
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "headerRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "toggleOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholderRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "error": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "small": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "large": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectHeader.js"
+  },
+  {
+    "description": "",
     "displayName": "SelectMultiHeader",
     "methods": [],
     "props": {
@@ -2262,6 +2177,93 @@
       }
     },
     "filename": "/components/base/Select/SelectNoResults.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectOptions",
+    "methods": [],
+    "props": {
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "optionRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "multi": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "handleClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxItems": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "optionLabelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "small": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "large": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "inlineSearch": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectOptions.js"
   },
   {
     "description": "",
@@ -2334,5 +2336,104 @@
       }
     },
     "filename": "/components/base/Select/SelectSpinner.js"
+  },
+  {
+    "description": "",
+    "displayName": "Datepicker",
+    "methods": [
+      {
+        "name": "datesRenderer",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "globalOffset",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "date",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "toggleOpen",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleClickOut",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "next",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "prev",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "date",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "selectMonth",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "selection",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Datepicker/Datepicker.js"
   }
 ]
