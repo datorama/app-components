@@ -14,14 +14,6 @@ import DatepickerPresets from './DatepickerPresets';
 const DATE_FORMAT = 'YYYY-MM-DD';
 const TITLES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 
-/*
- * presets
- * single
- * close - go to selection start offset
- * apply cancel
- * loops
- * fix offsets - first day of month on day
- * */
 class Datepicker extends Component {
   static propTypes = {
     onChange: PropTypes.func,
@@ -34,6 +26,7 @@ class Datepicker extends Component {
     open: false,
 
     selection: [],
+    committedSelection: [],
     tmpStart: null,
     selecting: false,
     hoveredDate: null
@@ -148,10 +141,14 @@ class Datepicker extends Component {
     );
 
   handleClickOut = () => {
-    const { open } = this.state;
+    const { open, selecting } = this.state;
 
     if (open) {
-      this.toggleOpen();
+      if (selecting) {
+        this.cancel();
+      } else {
+        this.toggleOpen();
+      }
     }
   };
 
@@ -159,9 +156,19 @@ class Datepicker extends Component {
 
   prev = () => this.setState(prevState => ({ offset: prevState.offset - 1 }));
 
-  apply = () => this.toggleOpen();
+  apply = () =>
+    this.setState(
+      { committedSelection: this.state.selection },
+      this.toggleOpen
+    );
 
-  cancel = () => this.toggleOpen();
+  cancel = () => {
+    this.setState({ open: false, selecting: false }, () => {
+      setTimeout(() => {
+        this.setState({ selection: this.state.committedSelection });
+      }, 300);
+    });
+  };
 
   handleClick = date => {
     const { selecting, tmpStart } = this.state;
@@ -194,12 +201,15 @@ class Datepicker extends Component {
     this.setState({ selection, selecting: false });
 
   render() {
-    const { open, selection } = this.state;
+    const { open, committedSelection } = this.state;
     const { className } = this.props;
 
     return (
       <ClickOut onClick={this.handleClickOut}>
-        <DatepickerHeader onClick={this.toggleOpen} selection={selection} />
+        <DatepickerHeader
+          onClick={this.toggleOpen}
+          selection={committedSelection}
+        />
 
         <Container visible={open} className={className}>
           <DatepickerPresets />
