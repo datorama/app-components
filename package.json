@@ -18,7 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "build:lib": "cd src/lib && npm run build",
+    "build:lib": "rimraf dist && webpack",
     "docs": "node generate.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -38,7 +38,26 @@
     "path": "^0.12.7",
     "prettier": "^1.16.4",
     "prop-types": "^15.6.2",
-    "react-docgen": "^2.21.0"
+    "react-docgen": "^2.21.0",
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "file-loader": "^3.0.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "autoprefixer": "^9.1.5",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "8.0.2",
+    "babel-plugin-macros": "2.4.3",
+    "css-loader": "^1.0.0",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-loader": "^3.0.0",
+    "rimraf": "2.6.2",
+    "style-loader": "^0.23.1",
+    "terser-webpack-plugin": "1.1.0"
   },
   "peerDependencies": {
     "lodash": ">= 4.17.11",
@@ -49,7 +68,9 @@
   },
   "main": "dist/index.js",
   "module": "src/dist/index.js",
-  "files": [ "dist" ],
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/datorama/app-components"

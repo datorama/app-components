@@ -4,9 +4,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: path.resolve(__dirname, '../src/components/index.js'),
+  entry: path.resolve(__dirname, './src/components/index.js'),
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: 'index.js',
     library: 'app-components',
     libraryTarget: 'umd',
