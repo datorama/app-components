@@ -15,3 +15,6 @@ Set up global theme
 		    ...
 	    </AppTheme>
     );
+    
+    // CSS
+    // @import '~app-components/dist/app-components.css';
