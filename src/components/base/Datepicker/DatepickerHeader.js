@@ -23,7 +23,7 @@ DatepickerHeader.propTypes = {
 export default DatepickerHeader;
 
 const Container = styled.div`
-  width: 210px;
+  min-width: 210px;
   padding: 4px 8px;
   box-sizing: border-box;
   border-radius: 4px;
