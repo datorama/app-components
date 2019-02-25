@@ -145,19 +145,14 @@ class Datepicker extends Component {
             });
           }, 300);
         } else {
-          // load offset from selection start
           const { today, selection } = this.state;
-          const { months } = this.props;
 
           if (selection[0]) {
-            let offset = moment(selection[0])
-              .startOf('month')
-              .diff(today, 'months');
-
-            // @todo - single offset, on change, presets.
-            if (months === 1 && offset > 0) {
-              offset = 1;
-            }
+            const selectionMonthStart = moment(selection[0]).startOf('month');
+            let offset = selectionMonthStart.diff(
+              today.startOf('month'),
+              'months'
+            );
 
             this.setState({ offset });
           }
