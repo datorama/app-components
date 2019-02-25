@@ -16,6 +16,7 @@ import ToastsProvider from './components/base/Toasts';
 
 // docs
 import Home from './docs/Home.doc';
+import GettingStarted from './docs/GettingStarted';
 
 import Colors from './docs/Colors.doc';
 import Layout from './docs/Layout.doc';
@@ -119,7 +120,11 @@ class App extends Component {
     }
 
     const list = [
-      { key: 'getting-started', label: 'getting started' },
+      {
+        key: 'getting-started',
+        label: 'getting started',
+        path: 'getting-started'
+      },
       { key: 'guidelines', label: 'app guidelines' },
 
       { key: 'style', label: 'style', type: 'title' },
@@ -189,6 +194,12 @@ class App extends Component {
 
               <Content light={light}>
                 <Route exact path="/" component={Home} />
+                <Route
+                  exact
+                  path="/getting-started"
+                  component={GettingStarted}
+                />
+
                 <Route exact path="/colors" component={Colors} />
                 <Route exact path="/typography" component={Typography} />
                 <Route exact path="/layout" component={Layout} />
