@@ -107,7 +107,9 @@ export default class Select extends React.Component {
           window.removeEventListener('keydown', this.handleKeyDown);
 
           if (inlineSearch) {
-            setTimeout(() => { this.setState({ searchTerm: '' }); }, 300);
+            setTimeout(() => {
+              this.setState({ searchTerm: '' });
+            }, 300);
           }
 
           if (onClose) {
