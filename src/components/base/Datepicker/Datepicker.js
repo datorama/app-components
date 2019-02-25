@@ -145,17 +145,7 @@ class Datepicker extends Component {
             });
           }, 300);
         } else {
-          const { today, selection } = this.state;
-
-          if (selection[0]) {
-            const selectionMonthStart = moment(selection[0]).startOf('month');
-            let offset = selectionMonthStart.diff(
-              today.startOf('month'),
-              'months'
-            );
-
-            this.setState({ offset });
-          }
+          this.setOffset();
         }
       }
     );
@@ -165,6 +155,17 @@ class Datepicker extends Component {
 
     if (open) {
       this.cancel();
+    }
+  };
+
+  setOffset = () => {
+    const { today, selection } = this.state;
+
+    if (selection[0]) {
+      const selectionMonthStart = moment(selection[0]).startOf('month');
+      let offset = selectionMonthStart.diff(today.startOf('month'), 'months');
+
+      this.setState({ offset });
     }
   };
 
@@ -217,7 +218,7 @@ class Datepicker extends Component {
     this.setState({ selection, selecting: false });
 
   setPreset = preset => {
-    this.setState({ selection: preset[0].selection });
+    this.setState({ selection: preset[0].selection }, this.setOffset);
   };
 
   render() {
