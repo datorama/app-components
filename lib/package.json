@@ -1,0 +1,31 @@
+{
+  "name": "app-components",
+  "version": "1.0.0",
+  "description": "Datorama React components library",
+  "scripts": {
+    "build": "rimraf dist && webpack"
+  },
+  "author": "Shay Keinan",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.3.3",
+    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "file-loader": "^3.0.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "autoprefixer": "^9.1.5",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "8.0.2",
+    "babel-plugin-macros": "2.4.3",
+    "css-loader": "^1.0.0",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-loader": "^3.0.0",
+    "rimraf": "2.6.2",
+    "style-loader": "^0.23.1",
+    "terser-webpack-plugin": "1.1.0"
+  }
+}
