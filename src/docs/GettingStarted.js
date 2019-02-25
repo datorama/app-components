@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Base from './Base';
 import { Row, Col } from '../components/index';
 
-const snippet = `npm i --save git+ssh://git@github.com/datorama/app-components.git;`;
+const snippet = `npm i --save git+ssh://git@github.com/datorama/app-components.git`;
 
 const theme = `
   import { AppTheme, lightTheme } from 'app-components';
