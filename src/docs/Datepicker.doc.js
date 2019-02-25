@@ -16,6 +16,22 @@ const MyComponent = ({ onChange }) => (
 );
 `;
 
+const double = `
+import { Datepickewr } from 'app-components';
+
+const MyComponent = ({ onChange }) => (
+  <Datepicker onChange={onChange} months={2} />
+);
+`;
+
+const multi = `
+import { Datepickewr } from 'app-components';
+
+const MyComponent = ({ onChange }) => (
+  <Datepicker onChange={onChange} months={3} />
+);
+`;
+
 const DatePickerDoc = () => {
   const title = 'datepicker';
   const description = 'Default date picker';
@@ -28,7 +44,29 @@ const DatePickerDoc = () => {
         </Col>
         <Col>
           <Box>
-            <StyledDatepicker />
+            <StyledDatepicker months={1} />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{double}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <StyledDatepicker months={2} />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Highlight language="javascript">{multi}</Highlight>
+        </Col>
+        <Col>
+          <Box>
+            <StyledDatepicker months={3} />
           </Box>
         </Col>
       </Row>

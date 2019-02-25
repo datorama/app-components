@@ -8,7 +8,7 @@ import { ReactComponent as Calendar } from '../../assets/calendar.svg';
 const DatepickerHeader = ({ selection, onClick }) => (
   <Container onClick={onClick}>
     <StyledCalendar />
-    {`${selection[0] || ''} - ${selection[1] || ''}`}
+    {`${selection[0] || 'start date'} - ${selection[1] || 'end date'}`}
   </Container>
 );
 

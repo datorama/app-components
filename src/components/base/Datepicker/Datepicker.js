@@ -17,7 +17,12 @@ const TITLES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 class Datepicker extends Component {
   static propTypes = {
     onChange: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    months: PropTypes.number
+  };
+
+  static defaultProps = {
+    months: 1
   };
 
   state = {
@@ -35,10 +40,8 @@ class Datepicker extends Component {
   datesRenderer = (globalOffset = 0) => {
     const { offset, today, selection, selecting, hoveredDate } = this.state;
     const dates = [];
-    const thisMonth = today
-      .clone()
-      .startOf('month')
-      .add(globalOffset + offset, 'month');
+    const monthStart = today.clone().startOf('month');
+    const thisMonth = monthStart.add(globalOffset + offset, 'month');
     const total = thisMonth.daysInMonth();
     const label = thisMonth.format('MMMM YYYY');
 
@@ -48,6 +51,11 @@ class Datepicker extends Component {
           <DateIcon type="title">{TITLES[i]}</DateIcon>
         </DateContainer>
       );
+    }
+
+    // previews disabled dates
+    for (let i = monthStart.day(); i > 0; i--) {
+      dates.push(<DateContainer key={`date-placeholder-${i}`} disabled />);
     }
 
     for (let i = 1; i <= total; i++) {
@@ -86,7 +94,7 @@ class Datepicker extends Component {
     }
 
     return (
-      <DatesContainer>
+      <DatesContainer key={`month-${globalOffset}`}>
         <MonthTitle
           onClick={this.selectMonth([
             today
@@ -136,19 +144,32 @@ class Datepicker extends Component {
               hoveredDate: null
             });
           }, 300);
+        } else {
+          // load offset from selection start
+          const { today, selection } = this.state;
+          const { months } = this.props;
+
+          if (selection[0]) {
+            let offset = moment(selection[0])
+              .startOf('month')
+              .diff(today, 'months');
+
+            // @todo - single offset, on change, presets.
+            if (months === 1 && offset > 0) {
+              offset = 1;
+            }
+
+            this.setState({ offset });
+          }
         }
       }
     );
 
   handleClickOut = () => {
-    const { open, selecting } = this.state;
+    const { open } = this.state;
 
     if (open) {
-      if (selecting) {
-        this.cancel();
-      } else {
-        this.toggleOpen();
-      }
+      this.cancel();
     }
   };
 
@@ -200,9 +221,18 @@ class Datepicker extends Component {
   selectMonth = selection => () =>
     this.setState({ selection, selecting: false });
 
+  setPreset = preset => {
+    this.setState({ selection: preset[0].selection });
+  };
+
   render() {
     const { open, committedSelection } = this.state;
-    const { className } = this.props;
+    const { className, months } = this.props;
+    const monthsElement = [];
+
+    for (let i = 0; i < months; i++) {
+      monthsElement.push(this.datesRenderer(i));
+    }
 
     return (
       <ClickOut onClick={this.handleClickOut}>
@@ -211,26 +241,20 @@ class Datepicker extends Component {
           selection={committedSelection}
         />
 
-        <Container visible={open} className={className}>
-          <DatepickerPresets />
+        <Container visible={open} className={className} total={months}>
+          <DatepickerPresets onChange={this.setPreset} />
           <Divider margin="0" />
 
           <Header>
-            <ArrowHolder>
-              <StyledArrow
-                onClick={this.prev}
-                style={{ transform: 'rotate(-180deg)' }}
-              />
+            <ArrowHolder onClick={this.prev}>
+              <StyledArrow style={{ transform: 'rotate(-180deg)' }} />
             </ArrowHolder>
-            <ArrowHolder>
-              <StyledArrow onClick={this.next} />
+            <ArrowHolder onClick={this.next}>
+              <StyledArrow />
             </ArrowHolder>
           </Header>
 
-          <Dates>
-            {this.datesRenderer()}
-            {this.datesRenderer(1)}
-          </Dates>
+          <Dates>{monthsElement}</Dates>
 
           <Divider />
 
@@ -250,7 +274,7 @@ export default Datepicker;
 
 const Container = styled.div`
   user-select: none;
-  width: calc(182px * 2 + 32px + 40px);
+  width: ${({ total }) => total * (182 + 20) + 32 + 20}px;
   padding: 0 20px;
   min-height: 250px;
   background: ${({ theme }) => theme.p0};
@@ -267,6 +291,7 @@ const Container = styled.div`
   visibility: hidden;
   transition: all 300ms;
   border-radius: 4px;
+  z-index: 2;
 
   ${({ visible }) =>
     visible &&
@@ -287,7 +312,7 @@ const Header = styled.div`
   padding: 0 10px;
   margin-bottom: -50px;
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
 `;
 
 const MonthTitle = styled.div`
@@ -356,6 +381,12 @@ const DateContainer = styled.div`
     css`
       pointer-events: none;
     `};
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      pointer-events: none;
+    `};
 `;
 
 const DateIcon = styled.div`
@@ -417,10 +448,18 @@ const InlineButton = styled.div`
   line-height: 14px;
   cursor: pointer;
 
+  &:hover {
+    color: ${({ theme }) => theme.p600};
+  }
+
   ${({ primary, theme }) =>
     primary &&
     css`
       color: ${theme.a400};
+
+      &:hover {
+        color: ${theme.a500};
+      }
     `};
 `;
 

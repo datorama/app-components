@@ -1,32 +1,47 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 // components
 import Select from '../Select/Select';
 
+const today = moment();
 const CustomHeader = ({ toggleOpen, placeholder }) => (
   <Header onClick={toggleOpen}>{placeholder}</Header>
 );
 
-const DatepickerPresets = () => (
+const DatepickerPresets = ({ onChange }) => (
   <Container>
     <Select
       placeholder="Presets"
       options={[
-        { value: 'last-month', label: 'Last month' },
-        { value: 'last-90-days', label: 'Last 90 days' },
-        { value: 'last-quarter', label: 'Last quarter' },
-        { value: 'last-year', label: 'Last year' }
+        {
+          value: 'last-week',
+          label: 'Last week',
+          selection: [
+            today
+              .clone()
+              .subtract(7, 'days')
+              .format('YYYY-MM-DD'),
+            today.format('YYYY-MM-DD')
+          ]
+        },
+        { value: 'last-month', label: 'Last month', selection: [] },
+        { value: 'last-quarter', label: 'Last quarter', selection: [] },
+        { value: 'last-year', label: 'Last year', selection: [] },
+        { value: 'last-3-years', label: 'Last 3 years', selection: [] }
       ]}
       values={[]}
       headerRenderer={CustomHeader}
-      onChange={() => null}
+      onChange={onChange}
     />
   </Container>
 );
 
-DatepickerPresets.propTypes = {};
+DatepickerPresets.propTypes = {
+  onChange: PropTypes.func
+};
 
 export default DatepickerPresets;
 
@@ -53,4 +68,5 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
 `;
