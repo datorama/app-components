@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+// assets
+import { ReactComponent as ArrowDown } from '../../assets/arrow-down.svg';
+
 // components
 import Select from '../Select/Select';
 
@@ -139,8 +142,11 @@ const PREV_YEAR = [
     .format(FORMAT)
 ];
 
-const CustomHeader = ({ toggleOpen, placeholder }) => (
-  <Header onClick={toggleOpen}>{placeholder}</Header>
+const CustomHeader = ({ open, toggleOpen, placeholder }) => (
+  <Header onClick={toggleOpen}>
+    {placeholder}
+    <Arrow rotation={open ? '180deg' : '0deg'} />
+  </Header>
 );
 
 const DatepickerPresets = ({ onChange }) => (
@@ -234,4 +240,16 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 2;
+`;
+
+export const Arrow = styled(ArrowDown)`
+  width: 10px;
+  height: 10px;
+  transform: rotate(${({ rotation }) => rotation});
+  transition: all 300ms;
+  margin-left: 10px;
+
+  * {
+    fill: ${({ theme }) => theme.p600};
+  }
 `;
