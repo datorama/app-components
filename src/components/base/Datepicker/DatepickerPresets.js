@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-// assets
-import { ReactComponent as ArrowDown } from '../../assets/arrow-down.svg';
+// icons
+import ArrowDown from '../../icons/ArrowDown.icon';
 
 // components
 import Select from '../Select/Select';

@@ -4,9 +4,9 @@ import { range } from 'lodash/fp';
 import PropTypes from 'prop-types';
 import { hexToRgba } from '../utils';
 
-// assets
-import { ReactComponent as ArrowDown } from '../assets/arrow-down.svg';
-import { ReactComponent as DoubleArrowDown } from '../assets/double-arrow-down.svg';
+// icons
+import ArrowDown from '../icons/ArrowDown.icon';
+import DoubleArrowDown from '../icons/DoubleArrowDown.icon';
 
 export default class Pagination extends React.Component {
   static propTypes = {

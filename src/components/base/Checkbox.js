@@ -3,9 +3,9 @@ import React from 'react';
 import { hexToRgba } from '../utils';
 import PropTypes from 'prop-types';
 
-// assets
-import { ReactComponent as CheckIcon } from '../assets/check.svg';
-import { ReactComponent as LineIcon } from '../assets/line.svg';
+// icons
+import CheckIcon from '../icons/Check.icon';
+import LineIcon from '../icons/Line.icon';
 
 const Checkbox = ({
   checked,

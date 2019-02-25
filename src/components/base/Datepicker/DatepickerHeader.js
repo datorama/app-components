@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-// assets
-import { ReactComponent as Calendar } from '../../assets/calendar.svg';
-import { ReactComponent as ArrowDown } from '../../assets/arrow-down.svg';
+// icons
+import Calendar from '../../icons/Calendar.icon';
+import ArrowDown from '../../icons/ArrowDown.icon';
 
 const DatepickerHeader = ({ open, selection, onClick }) => (
   <Container onClick={onClick}>

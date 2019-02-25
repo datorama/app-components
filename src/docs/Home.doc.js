@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // components
 import { Row, Col } from '../components/index';
 
-// assets
+// icons
 import rightHero from './assets/right.svg';
 import leftHero from './assets/left.svg';
 

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-// assets
-import { ReactComponent as ArrowDown } from '../assets/arrow-down.svg';
+// icons
+import ArrowDown from '../icons/ArrowDown.icon';
 
 class Collapse extends Component {
   static propTypes = {

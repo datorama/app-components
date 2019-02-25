@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
-// assets
-import { ReactComponent as Arrow } from '../../assets/arrow-date.svg';
+// icons
+import Arrow from '../../icons/ArrowDate.icon';
 
 // components
 import DatepickerHeader from './DatepickerHeader';
@@ -244,10 +244,10 @@ class Datepicker extends Component {
 
           <Header>
             <ArrowHolder onClick={this.prev}>
-              <StyledArrow style={{ transform: 'rotate(-180deg)' }} />
+              <StyledArrow rotation="-180deg" />
             </ArrowHolder>
             <ArrowHolder onClick={this.next}>
-              <StyledArrow />
+              <StyledArrow rotation="0deg" />
             </ArrowHolder>
           </Header>
 
@@ -479,6 +479,7 @@ const ArrowHolder = styled.div`
 const StyledArrow = styled(Arrow)`
   width: 14px;
   height: 14px;
+  transform: rotate(${({ rotation }) => rotation});
 
   path {
     fill: ${({ theme }) => theme.p600};

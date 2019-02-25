@@ -2,8 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-// assets
-import searchIcon from '../../assets/search-thin.svg';
+// icons
+import SearchIcon from '../../icons/SearchThin.icon';
 
 const SelectSearch = props => (
   <Container>
@@ -14,7 +14,7 @@ const SelectSearch = props => (
       small={props.small}
       large={props.large}
     />
-    <SearchIcon />
+    <StyledSearchIcon />
   </Container>
 );
 
@@ -70,11 +70,9 @@ const Input = styled.input`
   }
 `;
 
-const SearchIcon = styled.div`
+const StyledSearchIcon = styled(SearchIcon)`
   width: 18px;
   height: 18px;
-  background: url(${searchIcon}) no-repeat;
-  background-size: contain;
   position: absolute;
   right: 15px;
   top: calc(50% - 4px);

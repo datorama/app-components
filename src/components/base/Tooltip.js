@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import Popup from './Popup';
 
-// assets
-import { ReactComponent as TipIcon } from '../assets/tip-line.svg';
+// icons
+import TipIcon from '../icons/TipLine.icon';
 
 class Tooltip extends Component {
   static propTypes = {

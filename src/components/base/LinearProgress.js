@@ -9,7 +9,7 @@ const LinearProgress = props => (
   </Outer>
 );
 
-LinearProgress.proptypes = {
+LinearProgress.propTypes = {
   className: PropTypes.string,
   color: PropTypes.string
 };

@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { throttle } from 'lodash/fp';
 
-// assets
-import { ReactComponent as InfoIcon } from '../assets/info-line.svg';
-import { ReactComponent as WarningIcon } from '../assets/warning-line.svg';
-import { ReactComponent as SuccessIcon } from '../assets/success-line.svg';
+// icons
+import InfoIcon from '../icons/InfoLine.icon';
+import WarningIcon from '../icons/WarningLine.icon';
+import SuccessIcon from '../icons/SuccessLine.icon';
 
 // shared context
 const Context = React.createContext();
