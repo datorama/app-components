@@ -18,6 +18,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build:lib": "cd src/lib && npm run build",
     "docs": "node generate.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
