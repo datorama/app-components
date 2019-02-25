@@ -235,6 +235,7 @@ class Datepicker extends Component {
         <DatepickerHeader
           onClick={this.toggleOpen}
           selection={committedSelection}
+          open={open}
         />
 
         <Container visible={open} className={className} total={months}>
