@@ -303,7 +303,7 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 40px;
+  height: 60px;
   box-sizing: border-box;
   width: 100%;
   padding: 0 10px;
@@ -321,7 +321,7 @@ const MonthTitle = styled.div`
   ${({ theme }) => theme.text.pBold};
   width: 100%;
   height: 20px;
-  margin-top: -21px;
+  margin-top: -30px;
   margin-bottom: 20px;
   cursor: pointer;
   transition: all 300ms;

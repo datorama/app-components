@@ -34,6 +34,7 @@ const Container = styled.div`
   justify-content: center;
   ${({ theme }) => theme.text.p};
   line-height: 14px;
+  font-weight: 600;
 
   &:hover {
     background: ${({ theme }) => theme.p50};
@@ -45,6 +46,7 @@ const StyledCalendar = styled(Calendar)`
   height: 14px;
   cursor: pointer;
   margin-right: 10px;
+
   path {
     fill: ${({ theme }) => theme.p600};
   }

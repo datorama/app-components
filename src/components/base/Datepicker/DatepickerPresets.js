@@ -227,6 +227,8 @@ const Header = styled.div`
   justify-content: center;
   ${({ theme }) => theme.text.smLink};
   transition: all 300ms;
+  line-height: 12px;
+  font-weight: 600;
 
   &:hover {
     background: ${({ theme }) => theme.p100};
@@ -243,8 +245,8 @@ const Container = styled.div`
 `;
 
 export const Arrow = styled(ArrowDown)`
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   transform: rotate(${({ rotation }) => rotation});
   transition: all 300ms;
   margin-left: 10px;
