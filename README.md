@@ -15,11 +15,3 @@ Set up global theme
 		    ...
 	    </AppTheme>
     );
-
-```mermaid
-graph RL
-A[App seed]
-B(app-components) --> A
-c(app-utils) --> A
-d(SDK) --> A
-```
