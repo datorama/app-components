@@ -1,6 +1,10 @@
 {
   "name": "app-components",
   "version": "0.1.0",
+  "description": "Datorama React components lib",
+  "author": "Shay Keinan",
+  "repository": "https://github.com/datorama/app-components",
+  "main": "dist/index.js",
   "private": true,
   "dependencies": {
     "react": "^16.8.3",
@@ -21,5 +25,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
+  ],
+  "files": [
+    "dist"
   ]
 }
