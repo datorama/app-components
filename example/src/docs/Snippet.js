@@ -1,5 +1,5 @@
 import React from 'react';
-import Highlight from 'react-highlight-js';
+import Highlight from 'react-highlight.js';
 
 export default class Snippet extends React.PureComponent {
   render() {

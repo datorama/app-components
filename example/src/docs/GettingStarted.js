@@ -1,5 +1,5 @@
 import React from 'react';
-import Highlight from 'react-highlight-js';
+import Highlight from 'react-highlight.js';
 import styled from 'styled-components';
 
 // components

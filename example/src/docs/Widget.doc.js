@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import styled, { withTheme } from 'styled-components';
-import Highlight from 'react-highlight-js';
+import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight-js';
+import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';

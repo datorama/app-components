@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { keys } from 'lodash/fp';
-import Highlight from 'react-highlight-js';
+import Highlight from 'react-highlight.js';
 
 // components
 import {Row, Col, lightPrimary, lightAccent, darkPrimary, darkAccent, reds, greens, yellows, oranges} from 'app-components';
