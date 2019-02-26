@@ -2,9 +2,8 @@
   "name": "app-components",
   "version": "1.0.0",
   "description": "Datorama React components lib",
-  "author": "crazypixel",
-  "license": "MIT",
-  "repository": "crazypixel/app-components",
+  "author": "Shay Keinan",
+  "repository": "https://github.com/datorama/app-components",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
@@ -25,9 +24,9 @@
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",
     "react-dom": "^15.0.0 || ^16.0.0",
-    "lodash": ">= 4.17.11",
-    "moment": ">= 2.23.0",
-    "styled-components": ">= 4.1.3"
+    "lodash": "^4.17.11",
+    "moment": "^2.23.0",
+    "styled-components": "^4.1.3"
   },
   "devDependencies": {
     "@svgr/rollup": "^2.4.1",
