@@ -1,20 +1,31 @@
-﻿# Datorama React app components
+# app-components
 
+> Datorama React components lib
 
-## Installation
+[![NPM](https://img.shields.io/npm/v/app-components.svg)](https://www.npmjs.com/package/app-components) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
-    npm install --save git+ssh://git@github.com/datorama/app-components.git
+## Install
 
-Set up global theme
+```bash
+npm install --save app-components
+```
 
-    import { AppTheme, lightTheme } from 'app-components';
-    import { ThemeProvider } from 'styled-components';
-    
-    const App = () => (
-	    <AppTheme theme={lightTheme} provider={ThemeProvider}>
-		    ...
-	    </AppTheme>
-    );
-    
-    // CSS
-    // @import '~app-components/dist/app-components.css';
+## Usage
+
+```jsx
+import React, { Component } from 'react'
+
+import MyComponent from 'app-components'
+
+class Example extends Component {
+  render () {
+    return (
+      <MyComponent />
+    )
+  }
+}
+```
+
+## License
+
+MIT © [crazypixel](https://github.com/crazypixel)
