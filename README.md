@@ -21,5 +21,5 @@ const App = () => (
 );
 
 // CSS
-// @import '~app-components/dist/app-components.css';
+// @import '~app-components/dist/index.css';
 ```
