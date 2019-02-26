@@ -24,7 +24,6 @@ export default {
     }
   ],
   plugins: [
-    cssbundle(),
     external(),
     postcss({
       modules: true
@@ -53,6 +52,7 @@ export default {
           ]
         }
       }
-    )
+    ),
+    cssbundle()
   ]
 }
