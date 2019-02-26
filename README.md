@@ -5,27 +5,21 @@
 [![NPM](https://img.shields.io/npm/v/app-components.svg)](https://www.npmjs.com/package/app-components) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Install
-
 ```bash
-npm install --save app-components
+npm install --save git+ssh://git@github.com/datorama/app-components.git
 ```
 
-## Usage
-
+#### Set up global theme
 ```jsx
-import React, { Component } from 'react'
+import { AppTheme, lightTheme } from 'app-components';
+import { ThemeProvider } from 'styled-components';
+    
+const App = () => (
+  <AppTheme theme={lightTheme} provider={ThemeProvider}>
+    ...
+  </AppTheme>
+);
 
-import MyComponent from 'app-components'
-
-class Example extends Component {
-  render () {
-    return (
-      <MyComponent />
-    )
-  }
-}
+// CSS
+// @import '~app-components/dist/app-components.css';
 ```
-
-## License
-
-MIT © [crazypixel](https://github.com/crazypixel)
