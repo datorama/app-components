@@ -404,12 +404,12 @@ const GlobalStyle = createGlobalStyle`
 		padding: 20px !important;
 	}
 
-	@import url(${require('../node_modules/highlight.js/styles/atom-one-light.css')});
+	@import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.5/styles/atom-one-light.min.css');
 	
 	${({ light }) =>
     !light &&
     css`
-      @import url(${require('../node_modules/highlight.js/styles/atom-one-dark.css')});
+      @import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.5/styles/atom-one-dark.min.css');
     `};
 `;
 
