@@ -49,11 +49,14 @@ export default class Pagination extends React.Component {
     const next = current - 1;
     const nextSelected = selected - 1;
 
-    if (next <= 0) {
+    if (nextSelected <= 0) {
       return;
     }
-
-    const updateCurrent = total - selected > max - 2;
+    
+    let updateCurrent = nextSelected >= max;
+    if (nextSelected > max) {
+      updateCurrent = total - selected > max - 2;
+    }
 
     this.setState(
       {
@@ -112,11 +115,11 @@ export default class Pagination extends React.Component {
   render() {
     const { max, total } = this.props;
     const { selected } = this.state;
-    const noControlls = total <= max;
+    const noControls = total <= max;
 
     return (
       <Container>
-        {!noControlls && (
+        {!noControls && (
           <Fragment>
             <Button filled onClick={this.setPage(1)}>
               <DoubleArrow rotate={90} />
@@ -129,7 +132,7 @@ export default class Pagination extends React.Component {
 
         {this.getPages()}
 
-        {!noControlls && (
+        {!noControls && (
           <Fragment>
             <Button filled onClick={this.next}>
               <Arrow rotate={-90} />
