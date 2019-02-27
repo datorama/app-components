@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "cd app && npm run start",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "cd app && npm run build"
   },
   "main": "dist/index.js",
   "files": [
