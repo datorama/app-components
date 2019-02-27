@@ -14,7 +14,8 @@
     "styled-components": "^4.1.3"
   },
   "scripts": {
-    "start": "npm install serve && serve -s app/build",
+    "heroku-prebuild": "cd app && npm install",
+    "start": "cd app && npm start",
     "heroku-postbuild": "cd app && npm run build"
   },
   "main": "dist/index.js",
