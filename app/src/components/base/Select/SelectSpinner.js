@@ -2,65 +2,37 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const SelectSpinner = props => {
-  return (
-    <Container size={props.size} margin={props.margin} color={props.color}>
-      <div className="fulfilling-square-spinner">
-        <div className="spinner-inner" />
-      </div>
-    </Container>
-  );
-};
+const SelectSpinner = props => (
+  <Container className={props.className}>
+    <Dot delay="0" />
+    <Dot delay="500ms" />
+    <Dot delay="1000ms" />
+  </Container>
+);
 
 export default SelectSpinner;
 
 SelectSpinner.propTypes = {
-  size: PropTypes.string,
-  margin: PropTypes.string,
-  color: PropTypes.string
+  className: PropTypes.string
 };
 
 const Container = styled.div`
-  margin: ${({ margin }) => margin || 0};
+  display: flex;
+  align-items: center;
+`;
 
-  .fulfilling-square-spinner,
-  .fulfilling-square-spinner * {
-    box-sizing: border-box;
-  }
-
-  .fulfilling-square-spinner {
-    width: ${({ size }) => size || '40px'};
-    height: ${({ size }) => size || '40px'};
-    position: relative;
-    border: 1px solid ${({ color }) => color || '#fff'};
-    border-radius: 50%;
-    overflow: hidden;
-  }
-
-  .fulfilling-square-spinner .spinner-inner {
-    vertical-align: top;
-    display: inline-block;
-    background-color: ${({ color }) => color || '#fff'};
-    width: 100%;
-    opacity: 1;
-    animation: fulfilling-square-spinner-inner-animation 4s infinite ease-in;
-  }
-
-  @keyframes fulfilling-square-spinner-inner-animation {
-    0% {
-      height: 0;
-    }
-    25% {
-      height: 0;
-    }
-    50% {
-      height: 100%;
-    }
-    75% {
-      height: 100%;
-    }
-    100% {
-      height: 0;
-    }
+const Dot = styled.div`
+  width: 4px;
+  height: 4px;
+  background: ${({ theme }) => theme.p200};
+  border-radius: 50%;
+  margin: 0 1px;
+  animation: scaleAlpha 1500ms infinite linear;
+  animation-delay: ${({ delay }) => delay};
+  
+  @keyframes scaleAlpha {
+    33% { opacity: 0.25; }
+    66% { opacity: 1; }
+    100% { opacity: 0.25; }
   }
 `;

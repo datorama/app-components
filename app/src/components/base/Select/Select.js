@@ -244,6 +244,7 @@ export default class Select extends React.Component {
               value={searchTerm}
               maxTags={maxTags}
               onSelect={this.onSelect}
+              loading={loading}
             />
           )}
 

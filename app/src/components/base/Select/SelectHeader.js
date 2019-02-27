@@ -72,13 +72,14 @@ const SelectHeader = props => {
       error={error}
       small={small}
       large={large}
+      disabled={loading}
     >
       <LabelWrapper>
         <Label>{label}</Label>
       </LabelWrapper>
 
       {!loading && <Arrow rotation={open ? '180deg' : '0deg'} />}
-      {loading && <SelectSpinner size="12px" color="#09a0ff" />}
+      {loading && <StyledSelectSpinner />}
     </Container>
   );
 };
@@ -117,6 +118,11 @@ const Container = styled.div`
   position: relative;
   transition: all 300ms;
   user-select: none;
+  
+  ${({disabled}) => disabled && css`
+    pointer-events: none;
+    opacity: 0.8;
+  `};
 
   ${({ open, theme, error }) =>
     open &&
@@ -146,4 +152,8 @@ export const Arrow = styled(ArrowDown)`
   * {
     fill: ${({ theme }) => theme.p600};
   }
+`;
+
+const StyledSelectSpinner = styled(SelectSpinner)`
+  margin-right: 2px;
 `;

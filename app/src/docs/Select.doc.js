@@ -83,6 +83,23 @@ const MyComp = ({ selected }) => (
 );
 `;
 
+const loading = `
+import { Select } from '../components/index';
+
+const MyComp = ({ selected }) => (
+  <Fragment>
+    <Select
+      multi
+      searchable
+      placeholder="Select colors"
+      options={[]}
+      values={selected}
+      loading
+    />
+  </Fragment>
+);
+`;
+
 export default class SelectDoc extends React.Component {
   state = {
     values1: [],
@@ -91,7 +108,9 @@ export default class SelectDoc extends React.Component {
     values4: [],
     values5: [],
     values6: [],
-    values7: []
+    values7: [],
+    values8: [],
+    values9: [],
   };
 
   render() {
@@ -102,7 +121,9 @@ export default class SelectDoc extends React.Component {
       values4,
       values5,
       values6,
-      values7
+      values7,
+      values8,
+      values9
     } = this.state;
     const title = 'select';
     const description =
@@ -289,6 +310,54 @@ export default class SelectDoc extends React.Component {
             </Box>
           </Col>
         </Row>
+  
+        <Row>
+          <Col>
+            <SectionTitle>loading</SectionTitle>
+          </Col>
+        </Row>
+        <Row align="stretch">
+          <Col>
+            <Highlight language="javascript">{loading}</Highlight>
+          </Col>
+          <Col>
+            <Box>
+              <InlineSelect
+                placeholder="select members"
+                searchable
+                inlineSearch
+                multi
+                loading
+                maxTags={2}
+                values={values8}
+                options={[
+                  { value: '1', label: 'Robert Baratheon' },
+                  { value: '2', label: 'Jaime Lannister' },
+                  { value: '3', label: 'Catelyn Stark' },
+                  { value: '4', label: 'Daenerys Targaryen' },
+                  { value: '5', label: 'Tyrion Lannister' },
+                  { value: '6', label: 'Khal Drogo' }
+                ]}
+                onChange={values8 => this.setState({ values8 })}
+              />
+  
+              <Select
+                placeholder="select colors"
+                values={values9}
+                loading
+                options={[
+                  { value: '1', label: 'orange' },
+                  { value: '2', label: 'purple' },
+                  { value: '3', label: 'black' },
+                  { value: '4', label: 'green' },
+                  { value: '5', label: 'yellow' },
+                  { value: '6', label: 'white' }
+                ]}
+                onChange={values9 => this.setState({ values9 })}
+              />
+            </Box>
+          </Col>
+        </Row>
       </Base>
     );
   }
@@ -313,4 +382,6 @@ const StyledSelect = styled(Select)`
   margin: 4px 0;
 `;
 
-const InlineSelect = styled(Select)``;
+const InlineSelect = styled(Select)`
+  margin: 10px 0;
+`;

@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { optionsType } from './Select.types';
 import { Arrow } from './SelectHeader';
+import SelectSpinner from './SelectSpinner';
 import { map } from 'lodash/fp';
 
 const mapWithIndex = map.convert({ cap: false });
@@ -19,7 +20,8 @@ class InlineSearch extends Component {
     value: PropTypes.string,
     onSearch: PropTypes.func,
     maxTags: PropTypes.number,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    loading: PropTypes.bool
   };
 
   componentDidUpdate(prevProps) {
@@ -55,6 +57,7 @@ class InlineSearch extends Component {
   };
 
   render() {
+    const { loading } = this.props;
     const tags = [];
 
     mapWithIndex((option, index) => {
@@ -80,6 +83,7 @@ class InlineSearch extends Component {
 
     return (
       <Container
+        disabled={loading}
         onClick={this.handleClick}
         error={this.props.error}
         small={this.props.small}
@@ -96,7 +100,8 @@ class InlineSearch extends Component {
             ref={this.handleRef}
           />
         </Inner>
-        <Arrow rotation={this.props.open ? '180deg' : '0deg'} />
+        {!loading && <StyledArrow rotation={this.props.open ? '180deg' : '0deg'} />}
+        {loading && <StyledSelectSpinner />}
       </Container>
     );
   }
@@ -106,10 +111,10 @@ export default InlineSearch;
 
 const Container = styled.div`
   cursor: pointer;
-  width: 400px;
+  width: 320px;
   min-height: ${({ theme }) => theme.size.MEDIUM};
   box-sizing: border-box;
-  padding: 0 2px;
+  padding: 0 4px;
   border: 1px solid ${({ error, theme }) => (error ? theme.r400 : theme.p200)};
   background: ${({ theme }) => theme.p0};
   border-radius: 2px;
@@ -137,6 +142,11 @@ const Container = styled.div`
     css`
       height: ${theme.size.LARGE};
     `};
+  
+  ${({ disabled }) => disabled && css`
+    pointer-events: none;
+    opacity: 0.8;
+  `};
 `;
 
 const Inner = styled.div`
@@ -218,11 +228,24 @@ const CloseIcon = styled.div`
 
 const SmallInput = styled.input`
   border: none;
+  width: 40px;
   height: 24px;
   background: transparent;
-  color: ${({ theme }) => theme.p800};
+  color: ${({ theme }) => theme.p600};
   ${({ theme }) => theme.text.sm};
   flex: 1;
   box-sizing: border-box;
   padding: 0 4px;
+  
+  &::placeholder {
+    color: ${({ theme }) => theme.p600};
+  }
+`;
+
+const StyledArrow = styled(Arrow)`
+  margin-right: 12px;
+`;
+
+const StyledSelectSpinner = styled(SelectSpinner)`
+  margin-right: 8px;
 `;
