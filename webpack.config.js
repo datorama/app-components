@@ -1,6 +1,7 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   mode: 'production',
@@ -23,14 +24,13 @@ module.exports = {
       })
     ]
   },
+  plugins: [
+    new CopyPlugin([
+      { from: 'app/src/index.css' }
+    ])
+  ],
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.m?js$/,
-      //   exclude: /(node_modules)/,
-      //   loader: 'eslint-loader'
-      // },
       {
         test: /\.m?js$/,
         exclude: /(node_modules)/,
