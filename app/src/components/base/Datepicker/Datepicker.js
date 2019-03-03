@@ -163,7 +163,7 @@ class Datepicker extends Component {
 
     if (selection[0]) {
       const selectionMonthStart = moment(selection[0]).startOf('month');
-      let offset = selectionMonthStart.diff(today.startOf('month'), 'months');
+      let offset = selectionMonthStart.diff(today.clone().startOf('month'), 'months');
 
       this.setState({ offset });
     }
