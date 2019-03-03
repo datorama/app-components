@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { get } from 'lodash/fp';
 import moment from 'moment';
 
 // icons
@@ -142,14 +143,14 @@ const PREV_YEAR = [
     .format(FORMAT)
 ];
 
-const CustomHeader = ({ open, toggleOpen, placeholder }) => (
+const CustomHeader = ({ open, toggleOpen, placeholder, values }) => (
   <Header onClick={toggleOpen}>
-    {placeholder}
+    {get('[0].label', values) || placeholder}
     <Arrow rotation={open ? '180deg' : '0deg'} />
   </Header>
 );
 
-const DatepickerPresets = ({ onChange }) => (
+const DatepickerPresets = ({ onChange, selectedPreset }) => (
   <Container>
     <Select
       placeholder="Presets"
@@ -203,7 +204,7 @@ const DatepickerPresets = ({ onChange }) => (
         },
         { value: 'prev-year', label: 'Previous year', selection: PREV_YEAR }
       ]}
-      values={[]}
+      values={selectedPreset}
       headerRenderer={CustomHeader}
       onChange={onChange}
     />
@@ -211,7 +212,8 @@ const DatepickerPresets = ({ onChange }) => (
 );
 
 DatepickerPresets.propTypes = {
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  selectedPreset: PropTypes.array
 };
 
 export default DatepickerPresets;

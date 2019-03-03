@@ -34,7 +34,9 @@ class Datepicker extends Component {
     committedSelection: [],
     tmpStart: null,
     selecting: false,
-    hoveredDate: null
+    hoveredDate: null,
+    
+    selectedPreset: []
   };
 
   datesRenderer = (globalOffset = 0) => {
@@ -209,7 +211,8 @@ class Datepicker extends Component {
       this.setState({
         selecting: true,
         selection: [date, null],
-        tmpStart: date
+        tmpStart: date,
+        selectedPreset: []
       });
     }
   };
@@ -218,11 +221,11 @@ class Datepicker extends Component {
     this.setState({ selection, selecting: false });
 
   setPreset = preset => {
-    this.setState({ selection: preset[0].selection }, this.setOffset);
+    this.setState({ selection: preset[0].selection, selectedPreset: preset }, this.setOffset);
   };
 
   render() {
-    const { open, committedSelection } = this.state;
+    const { open, committedSelection, selectedPreset } = this.state;
     const { className, months } = this.props;
     const monthsElement = [];
 
@@ -239,7 +242,10 @@ class Datepicker extends Component {
         />
 
         <Container visible={open} className={className} total={months}>
-          <DatepickerPresets onChange={this.setPreset} />
+          <DatepickerPresets
+            onChange={this.setPreset}
+            selectedPreset={selectedPreset}
+          />
           <Divider margin="0" />
 
           <Header>
