@@ -18,7 +18,7 @@ const SelectMultiHeader = props => {
   let label = 'Select all';
 
   let allSelected = false;
-  let partialSelected = values.length && values.length < options.length;
+  let partialSelected = values.length && values.length < total;
 
   if (total === values.length) {
     allSelected = true;
