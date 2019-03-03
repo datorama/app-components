@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';
 import {Row, Col, hexToRgba, Container} from '../components/index';
+import Snippet from './Snippet';
 
 const auto = `
 // auto column size
@@ -102,7 +102,7 @@ const Layout = () => {
       <Row>
         <Col>
           <Subheadline>auto width</Subheadline>
-          <Highlight language="javascript">{auto}</Highlight>
+          <Snippet snippet={auto} />
         </Col>
       </Row>
 
@@ -138,7 +138,7 @@ const Layout = () => {
       <Row>
         <Col>
           <Subheadline>column sizes</Subheadline>
-          <Highlight language="javascript">{withSize}</Highlight>
+          <Snippet snippet={withSize} />
         </Col>
       </Row>
 
@@ -198,7 +198,7 @@ const Layout = () => {
       <Row>
         <Col>
           <Subheadline>offset</Subheadline>
-          <Highlight language="javascript">{withOffset}</Highlight>
+          <Snippet snippet={withOffset} />
         </Col>
       </Row>
 
@@ -238,7 +238,7 @@ const Layout = () => {
       <Row>
         <Col>
           <Subheadline>distribution</Subheadline>
-          <Highlight language="javascript">{dist}</Highlight>
+          <Snippet snippet={dist} />
         </Col>
       </Row>
 
@@ -298,7 +298,7 @@ const Layout = () => {
       <Row>
         <Col>
           <Subheadline>nested grids</Subheadline>
-          <Highlight language="javascript">{nested}</Highlight>
+          <Snippet snippet={nested} />
         </Col>
       </Row>
 
@@ -354,7 +354,7 @@ const Layout = () => {
       <Row>
         <Col>
           <Subheadline>break points</Subheadline>
-          <Highlight language="javascript">{breakpoint}</Highlight>
+          <Snippet snippet={breakpoint} />
         </Col>
       </Row>
 

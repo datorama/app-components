@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';
 import {Row, Col, Modal, Button} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 import { Modal } from '../components/index';
@@ -66,7 +66,7 @@ export default class ModalDoc extends React.Component {
         </Modal>
         <Row align="stretch">
           <Col>
-            <Highlight language="javascript">{snippet}</Highlight>
+            <Snippet snippet={snippet} />
           </Col>
           <Col>
             <Box>

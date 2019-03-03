@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import styled, { withTheme } from 'styled-components';
-import Highlight from 'react-highlight.js';
+import React, {Component} from 'react';
+import styled, {withTheme} from 'styled-components';
 
 // components
 import Base from './Base';
 import {Row, Col, Stepper} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 import { Stepper } from '../components/index';
@@ -22,37 +22,37 @@ const MyComp = ({ steps, selected, selectStep }) => (
 `;
 
 class StepperDoc extends Component {
-  state = {
-    selected: 1
-  };
-
-  render() {
-    const title = 'stepper';
-    const description = 'stepper.';
-
-    return (
-      <Base title={title} description={description} name="Stepper">
-        <Row align="stretch">
-          <Col>
-            <Highlight language="javascript">{snippet}</Highlight>
-          </Col>
-          <Col>
-            <Box>
-              <Stepper
-                steps={[
-                  { id: 0, label: 'My brand', enabled: true, touched: true },
-                  { id: 1, label: 'Competitors', enabled: true },
-                  { id: 2, label: 'Summary', enabled: false }
-                ]}
-                currentStep={this.state.selected}
-                selectStep={selected => this.setState({ selected })}
-              />
-            </Box>
-          </Col>
-        </Row>
-      </Base>
-    );
-  }
+	state = {
+		selected: 1
+	};
+	
+	render() {
+		const title = 'stepper';
+		const description = 'stepper.';
+		
+		return (
+			<Base title={title} description={description} name="Stepper">
+				<Row align="stretch">
+					<Col>
+						<Snippet snippet={snippet}/>
+					</Col>
+					<Col>
+						<Box>
+							<Stepper
+								steps={[
+									{id: 0, label: 'My brand', enabled: true, touched: true},
+									{id: 1, label: 'Competitors', enabled: true},
+									{id: 2, label: 'Summary', enabled: false}
+								]}
+								currentStep={this.state.selected}
+								selectStep={selected => this.setState({selected})}
+							/>
+						</Box>
+					</Col>
+				</Row>
+			</Base>
+		);
+	}
 }
 
 export default withTheme(StepperDoc);
@@ -64,5 +64,5 @@ const Box = styled.div`
   align-items: center;
   border-radius: 4px;
   justify-content: center;
-  background: ${({ theme }) => theme.p50};
+  background: ${({theme}) => theme.p50};
 `;

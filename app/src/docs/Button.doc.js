@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
 
 // components
+import Snippet from './Snippet';
 import Base from './Base';
 import {Row, Col, Button, SegmentedButton} from '../components/index';
 
@@ -103,7 +103,7 @@ class ButtonDoc extends Component {
       <Base title={title} description={description} name="Button">
         <Row>
           <Col>
-            <Highlight language="javascript">{defaultButton}</Highlight>
+            <Snippet snippet={defaultButton}/>
           </Col>
           <Col>
             <Box>
@@ -114,7 +114,7 @@ class ButtonDoc extends Component {
 
         <Row align="stretch">
           <Col>
-            <Highlight language="javascript">{segmentedButton}</Highlight>
+            <Snippet snippet={segmentedButton}/>
           </Col>
           <Col>
             <Box>
@@ -133,7 +133,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Highlight language="javascript">{disabled}</Highlight>
+            <Snippet snippet={disabled}/>
           </Col>
           <Col>
             <Box>
@@ -146,7 +146,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Highlight language="javascript">{small}</Highlight>
+            <Snippet snippet={small}/>
           </Col>
           <Col>
             <Box>
@@ -159,7 +159,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Highlight language="javascript">{secondary}</Highlight>
+            <Snippet snippet={secondary}/>
           </Col>
           <Col>
             <Box>
@@ -172,7 +172,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Highlight language="javascript">{smallSecondary}</Highlight>
+            <Snippet snippet={smallSecondary}/>
           </Col>
           <Col>
             <Box>
@@ -185,7 +185,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Highlight language="javascript">{round}</Highlight>
+            <Snippet snippet={round}/>
           </Col>
           <Col>
             <Box>
@@ -198,7 +198,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Highlight language="javascript">{secondarySmallRound}</Highlight>
+            <Snippet snippet={secondarySmallRound}/>
           </Col>
           <Col>
             <Box>

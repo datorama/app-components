@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';
 import {Row, Col, TextInput} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 import { TextInput } from '../components/index';
@@ -90,79 +90,79 @@ const MyComp = ({ value, onChange }) => (
 `;
 
 const TextInputDoc = () => {
-  const title = 'text input';
-  const description = 'Text inputs let users enter and edit text.';
-
-  return (
-    <Base title={title} description={description} name="TextInput">
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{snippet}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <TextInput label="Label" placeholder="placeholder" required />
-          </Box>
-        </Col>
-      </Row>
-
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{sizesSnippet}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <TextInput large label="Label" placeholder="placeholder" required />
-          </Box>
-        </Col>
-      </Row>
-
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{disabled}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <TextInput label="Label" placeholder="placeholder" disabled />
-          </Box>
-        </Col>
-      </Row>
-
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{valid}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <TextInput
-              label="Label"
-              placeholder="placeholder"
-              required
-              valid
-              validMessage="Valid input"
-            />
-          </Box>
-        </Col>
-      </Row>
-
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{error}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <TextInput
-              label="Label"
-              placeholder="placeholder"
-              required
-              error
-              errorMessage="Not authorized"
-            />
-          </Box>
-        </Col>
-      </Row>
-    </Base>
-  );
+	const title = 'text input';
+	const description = 'Text inputs let users enter and edit text.';
+	
+	return (
+		<Base title={title} description={description} name="TextInput">
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={snippet}/>
+				</Col>
+				<Col>
+					<Box>
+						<TextInput label="Label" placeholder="placeholder" required/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={sizesSnippet}/>
+				</Col>
+				<Col>
+					<Box>
+						<TextInput large label="Label" placeholder="placeholder" required/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={disabled}/>
+				</Col>
+				<Col>
+					<Box>
+						<TextInput label="Label" placeholder="placeholder" disabled/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={valid}/>
+				</Col>
+				<Col>
+					<Box>
+						<TextInput
+							label="Label"
+							placeholder="placeholder"
+							required
+							valid
+							validMessage="Valid input"
+						/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={error}/>
+				</Col>
+				<Col>
+					<Box>
+						<TextInput
+							label="Label"
+							placeholder="placeholder"
+							required
+							error
+							errorMessage="Not authorized"
+						/>
+					</Box>
+				</Col>
+			</Row>
+		</Base>
+	);
 };
 
 export default TextInputDoc;
@@ -174,5 +174,5 @@ const Box = styled.div`
   align-items: center;
   border-radius: 4px;
   justify-content: center;
-  background: ${({ theme }) => theme.p50};
+  background: ${({theme}) => theme.p50};
 `;

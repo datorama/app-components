@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { keys } from 'lodash/fp';
-import Highlight from 'react-highlight.js';
 
 // components
 import {Row, Col, lightPrimary, lightAccent, darkPrimary, darkAccent, reds, greens, yellows, oranges} from '../components/index';
 import Base from './Base';
+import Snippet from './Snippet';
 
 const snippet = `
 // inside a component
@@ -35,7 +35,7 @@ const Colors = () => {
     >
       <Row>
         <Col>
-          <Highlight language="javascript">{snippet}</Highlight>
+          <Snippet snippet={snippet} />
         </Col>
       </Row>
 

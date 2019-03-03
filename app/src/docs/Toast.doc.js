@@ -1,10 +1,10 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components';
-import Highlight from 'react-highlight.js';
+import styled, {withTheme} from 'styled-components';
 
 // components
 import Base from './Base';
 import {Row, Col, withToast, Button} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 import { ToastsProvider, withToast } from '../components/index';
@@ -24,52 +24,52 @@ export const withToast(NestedComp);
 `;
 
 const ToastDoc = props => {
-  const title = 'toasts';
-  const description = 'toasts.';
-
-  const notif = {
-    title: 'Toast title',
-    subtitle: 'Toast subtitle.'
-  };
-
-  return (
-    <Base title={title} description={description}>
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{snippet}</Highlight>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Box>
-            <StyledButton
-              onClick={() => props.addToast({ ...notif, type: 'info' })}
-            >
-              Info toast
-            </StyledButton>
-
-            <StyledButton
-              onClick={() => props.addToast({ ...notif, type: 'alert' })}
-            >
-              Alert toast
-            </StyledButton>
-
-            <StyledButton
-              onClick={() => props.addToast({ ...notif, type: 'success' })}
-            >
-              Success toast
-            </StyledButton>
-
-            <StyledButton
-              onClick={() => props.addToast({ ...notif, type: 'warning' })}
-            >
-              Warning toast
-            </StyledButton>
-          </Box>
-        </Col>
-      </Row>
-    </Base>
-  );
+	const title = 'toasts';
+	const description = 'toasts.';
+	
+	const notif = {
+		title: 'Toast title',
+		subtitle: 'Toast subtitle.'
+	};
+	
+	return (
+		<Base title={title} description={description}>
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={snippet}/>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<Box>
+						<StyledButton
+							onClick={() => props.addToast({...notif, type: 'info'})}
+						>
+							Info toast
+						</StyledButton>
+						
+						<StyledButton
+							onClick={() => props.addToast({...notif, type: 'alert'})}
+						>
+							Alert toast
+						</StyledButton>
+						
+						<StyledButton
+							onClick={() => props.addToast({...notif, type: 'success'})}
+						>
+							Success toast
+						</StyledButton>
+						
+						<StyledButton
+							onClick={() => props.addToast({...notif, type: 'warning'})}
+						>
+							Warning toast
+						</StyledButton>
+					</Box>
+				</Col>
+			</Row>
+		</Base>
+	);
 };
 
 export default withToast(withTheme(ToastDoc));
@@ -81,7 +81,7 @@ const Box = styled.div`
   align-items: center;
   border-radius: 4px;
   justify-content: center;
-  background: ${({ theme }) => theme.p50};
+  background: ${({theme}) => theme.p50};
   box-sizing: border-box;
   padding: 40px;
   flex-wrap: wrap;

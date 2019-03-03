@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';
 import {Row, Col, Card} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 // inside a component
@@ -29,7 +29,7 @@ const CardDoc = () => {
     <Base title={title} description={description} name="Card">
       <Row>
         <Col>
-          <Highlight language="javascript">{snippet}</Highlight>
+          <Snippet snippet={snippet} />
         </Col>
         <Col>
           <Card>
@@ -40,7 +40,7 @@ const CardDoc = () => {
 
       <Row>
         <Col>
-          <Highlight language="javascript">{clickable}</Highlight>
+          <Snippet snippet={clickable} />
         </Col>
         <Col>
           <Card clickable>

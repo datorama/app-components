@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';
 import {Row, Col, Carousel} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 import { Modal } from '../components/index';
@@ -40,7 +40,7 @@ export default class CarouselDoc extends React.Component {
       <Base title={title} description={description} name="Carousel">
         <Row>
           <Col>
-            <Highlight language="javascript">{snippet}</Highlight>
+            <Snippet snippet={snippet} />
           </Col>
         </Row>
 

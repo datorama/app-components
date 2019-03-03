@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';
 import {Row, Col, Datepicker, hexToRgba} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 import { Datepickewr } from '../components/index';
@@ -31,45 +31,45 @@ const MyComponent = ({ onChange }) => (
 `;
 
 const DatePickerDoc = () => {
-  const title = 'datepicker';
-  const description = 'Default date picker';
-
-  return (
-    <Base title={title} description={description} name="Datepicker">
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{snippet}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <StyledDatepicker months={1} />
-          </Box>
-        </Col>
-      </Row>
-
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{double}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <StyledDatepicker months={2} />
-          </Box>
-        </Col>
-      </Row>
-
-      <Row align="stretch">
-        <Col>
-          <Highlight language="javascript">{multi}</Highlight>
-        </Col>
-        <Col>
-          <Box>
-            <StyledDatepicker months={3} />
-          </Box>
-        </Col>
-      </Row>
-    </Base>
-  );
+	const title = 'datepicker';
+	const description = 'Default date picker';
+	
+	return (
+		<Base title={title} description={description} name="Datepicker">
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={snippet}/>
+				</Col>
+				<Col>
+					<Box>
+						<StyledDatepicker months={1}/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={double}/>
+				</Col>
+				<Col>
+					<Box>
+						<StyledDatepicker months={2}/>
+					</Box>
+				</Col>
+			</Row>
+			
+			<Row align="stretch">
+				<Col>
+					<Snippet snippet={multi}/>
+				</Col>
+				<Col>
+					<Box>
+						<StyledDatepicker months={3}/>
+					</Box>
+				</Col>
+			</Row>
+		</Base>
+	);
 };
 
 export default DatePickerDoc;
@@ -81,7 +81,7 @@ const Box = styled.div`
   align-items: center;
   border-radius: 4px;
   justify-content: center;
-  background: ${({ theme }) => hexToRgba(theme.p50, 40)};
+  background: ${({theme}) => hexToRgba(theme.p50, 40)};
 `;
 
 const StyledDatepicker = styled(Datepicker)`

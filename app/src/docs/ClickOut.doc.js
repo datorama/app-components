@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
 
 // components
 import Base from './Base';
 import {Row, Col, ClickOut} from '../components/index';
+import Snippet from './Snippet';
 
 const snippet = `
 import { ClickOut } from '../components/index';
@@ -33,7 +33,7 @@ export default class ClickOutDoc extends React.Component {
       <Base title={title} description={description} name="ClickOut">
         <Row>
           <Col>
-            <Highlight language="javascript">{snippet}</Highlight>
+            <Snippet snippet={snippet} />
           </Col>
         </Row>
 
