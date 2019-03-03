@@ -1,6 +1,6 @@
 # app-components
 
-> Datorama React components lib
+> Datorama React components library
 
 [![NPM](https://img.shields.io/npm/v/app-components.svg)](https://www.npmjs.com/package/app-components) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
