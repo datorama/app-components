@@ -7,7 +7,7 @@ import {Tooltip, Row, Col} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Tooltip } from '../components/index';
+import { Tooltip } from 'app-components';
 
 const MyComp = () => (
   <Tooltip title="tooltip content">
@@ -17,7 +17,7 @@ const MyComp = () => (
 `;
 
 const snippetLeft = `
-import { Tooltip } from '../components/index';
+import { Tooltip } from 'app-components';
 
 const MyComp = () => (
   <Tooltip title="tooltip content" position="LEFT">
@@ -27,7 +27,7 @@ const MyComp = () => (
 `;
 
 const snippetLong = `
-import { Tooltip } from '../components/index';
+import { Tooltip } from 'app-components';
 
 const MyComp = ({ navigate }) => (
   <div>

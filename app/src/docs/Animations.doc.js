@@ -47,7 +47,7 @@ class AnimatedCard extends React.Component {
 const AnimationsDoc = () => {
   const title = 'animations';
   const description =
-    'Animations helps make a UI expressive and easy to use. @todo: support exit animations.';
+    'Animations helps make a UI expressive and easy to use';
 
   return (
     <Base title={title} description={description}>

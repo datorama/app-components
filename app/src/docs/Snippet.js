@@ -10,7 +10,6 @@ const Snippet = props => {
 	
 	return (
 		<Relative>
-			
 			<CopyToClipboard
 				text={snippet}
 				onCopy={() => props.addToast({

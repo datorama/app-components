@@ -26,6 +26,7 @@ const RadialProgress = ({ disabled, label, color, percentage, radius }) => {
           strokeWidth={5}
           dashoffset={dashoffset}
           circumference={circumference}
+          color={color}
         />
       </Group>
       <Text y="50%" x="50%" dy={2}>
@@ -68,14 +69,12 @@ const Meter = styled(Circle)`
 `;
 
 const Value = styled(Circle)`
-  stroke: ${({ theme }) => theme.a400};
+  stroke: ${({ theme, color }) => color || theme.a400};
   stroke-linecap: round;
   stroke-dashoffset: ${({ circumference }) => circumference};
   stroke-dasharray: ${({ circumference }) => circumference};
 
-  ${({ dashoffset }) =>
-    dashoffset &&
-    css`
+  ${({ dashoffset }) => css`
       animation: ${animate(dashoffset)} 1s linear forwards;
     `};
 `;

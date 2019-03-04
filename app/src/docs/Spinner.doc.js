@@ -7,7 +7,7 @@ import {Row, Col, Spinner, LinearProgress} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Spinner } from '../components/index';
+import { Spinner } from 'app-components';
 
 const MyComp = () => (
   <div>
@@ -17,7 +17,7 @@ const MyComp = () => (
 `;
 
 const colored = `
-import { Spinner } from '../components/index';
+import { Spinner } from 'app-components';
 
 const MyComp = () => (
   <div>
@@ -27,7 +27,7 @@ const MyComp = () => (
 `;
 
 const linear = `
-import { LinearProgress } from '../components/index';
+import { LinearProgress } from 'app-components';
 
 const MyComp = () => (
   <div>

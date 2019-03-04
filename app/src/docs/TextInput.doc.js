@@ -7,7 +7,7 @@ import {Row, Col, TextInput} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { TextInput } from '../components/index';
+import { TextInput } from 'app-components';
 
 const MyComp = ({ value, onChange }) => (
   <div>
@@ -23,7 +23,7 @@ const MyComp = ({ value, onChange }) => (
 `;
 
 const sizesSnippet = `
-import { TextInput } from '../components/index';
+import { TextInput } from 'app-components';
 
 const MyComp = ({ value, onChange }) => (
   <div>
@@ -40,7 +40,7 @@ const MyComp = ({ value, onChange }) => (
 `;
 
 const valid = `
-import { TextInput } from '../components/index';
+import { TextInput } from 'app-components';
 
 const MyComp = ({ value, onChange }) => (
   <div>
@@ -56,7 +56,7 @@ const MyComp = ({ value, onChange }) => (
 `;
 
 const error = `
-import { TextInput } from '../components/index';
+import { TextInput } from 'app-components';
 
 const MyComp = ({ value, onChange }) => (
   <div>
@@ -73,7 +73,7 @@ const MyComp = ({ value, onChange }) => (
 `;
 
 const disabled = `
-import { TextInput } from '../components/index';
+import { TextInput } from 'app-components';
 
 const MyComp = ({ value, onChange }) => (
   <div>

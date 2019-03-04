@@ -395,6 +395,11 @@ const GlobalStyle = createGlobalStyle`
 	pre {
 		margin: 0 !important;
 		width: 100%;
+		height: 100%;
+	}
+	
+	code {
+	  height: 100%;
 	}
 
 	.hljs {

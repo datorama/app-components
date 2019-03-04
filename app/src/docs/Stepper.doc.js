@@ -7,7 +7,7 @@ import {Row, Col, Stepper} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Stepper } from '../components/index';
+import { Stepper } from 'app-components';
 
 // step: { id: 0, label: '', touched: false, enabled: true }
 const MyComp = ({ steps, selected, selectStep }) => (

@@ -7,7 +7,7 @@ import {Row, Col, Tabs} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Tabs } from '../components/index';
+import { Tabs } from 'app-components';
 
 const MyComp = ({ selected, handleSelect, contentRenderer, tabs }) => (
   <Tabs

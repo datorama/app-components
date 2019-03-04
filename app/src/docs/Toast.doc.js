@@ -7,7 +7,7 @@ import {Row, Col, withToast, Button} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { ToastsProvider, withToast } from '../components/index';
+import { ToastsProvider, withToast } from 'app-components';
 
 const App = () => (
   <ToastsProvider>
@@ -20,7 +20,7 @@ const NestedComp = ({ addToast }) => ();
 export const withToast(NestedComp);
 
 // toast object. types - info (default), success, warning and alert
-{ title: '',  subtitle: '', type: 'alert', timeout: 3000 }
+// { title: '',  subtitle: '', type: 'alert', timeout: 3000 }
 `;
 
 const ToastDoc = props => {

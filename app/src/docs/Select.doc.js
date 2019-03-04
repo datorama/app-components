@@ -7,7 +7,7 @@ import {Row, Col, Select} from '../components/index';
 import Snippet from './Snippet';
 
 const single = `
-import { Select } from '../components/index';
+import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -21,7 +21,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const sizesSnippet = `
-import { Select } from '../components/index';
+import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -37,7 +37,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const searchable = `
-import { Select } from '../components/index';
+import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -52,13 +52,15 @@ const MyComp = ({ selected }) => (
 `;
 
 const inlineSearch = `
-import { Select } from '../components/index';
+import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
     <Select
       searchable
       inlineSearch
+      multi
+      maxTags={3}
       placeholder="Select colors"
       options={[]}
       values={selected}
@@ -68,7 +70,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const multi = `
-import { Select } from '../components/index';
+import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -84,7 +86,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const loading = `
-import { Select } from '../components/index';
+import { Select } from 'app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>

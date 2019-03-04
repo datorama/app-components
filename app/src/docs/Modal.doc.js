@@ -7,7 +7,7 @@ import {Row, Col, Modal, Button} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Modal } from '../components/index';
+import { Modal } from 'app-components';
 
 const MyComp = ({ modalOpen, toggleOpen }) => (
   <div>

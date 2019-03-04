@@ -7,7 +7,7 @@ import {Row, Col, ClickOut} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { ClickOut } from '../components/index';
+import { ClickOut } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <ClickOut onClick={onClick}>

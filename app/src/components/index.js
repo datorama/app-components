@@ -37,6 +37,7 @@ export { default as Tooltip } from './base/Tooltip'
 export { default as Widget } from './base/Widget'
 export { default as Pagination } from './base/Pagination'
 export { default as Datepicker } from './base/Datepicker/Datepicker'
+export { default as MultiProgress } from './base/MultiProgress'
 
 export const AppTheme = ({ provider: Provider, theme, children }) => (
   <Provider theme={theme}>

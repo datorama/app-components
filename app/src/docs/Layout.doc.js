@@ -7,6 +7,8 @@ import {Row, Col, hexToRgba, Container} from '../components/index';
 import Snippet from './Snippet';
 
 const auto = `
+import { Container, Row, Col } from 'app-components';
+
 // auto column size
 const MyComp = () => (
   <Container>
@@ -19,6 +21,8 @@ const MyComp = () => (
 `;
 
 const nested = `
+import { Container, Row, Col } from 'app-components';
+
 // nested rows
 const MyComp = () => (
   <Container>
@@ -36,6 +40,8 @@ const MyComp = () => (
 `;
 
 const withSize = `
+import { Container, Row, Col } from 'app-components';
+
 // with column size
 const MyComp = () => (
   <Container>
@@ -48,6 +54,8 @@ const MyComp = () => (
 `;
 
 const withOffset = `
+import { Container, Row, Col } from 'app-components';
+
 // column offset
 const MyComp = () => (
   <Container>
@@ -60,7 +68,11 @@ const MyComp = () => (
 `;
 
 const dist = `
-/* column distribution (flex-start, center, flex-end, space-between, space-evenly, space-around) */
+import { Container, Row, Col } from 'app-components';
+
+/* column distribution
+*  flex-start, center, flex-end, space-between, space-evenly and space-around
+*/
 const MyComp = () => (
   <Container>
     <Row justify="space-evenly">
@@ -72,6 +84,8 @@ const MyComp = () => (
 `;
 
 const breakpoint = `
+import { Container, Row, Col } from 'app-components';
+
 /*
   the default break points are
   xs: max 576px

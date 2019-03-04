@@ -7,7 +7,7 @@ import Base from './Base';
 import {Row, Col, Button, SegmentedButton} from '../components/index';
 
 const defaultButton = `
-import { Button } from '../components/index';
+import { Button } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button onClick={onClick}>
@@ -17,7 +17,7 @@ const MyComponent = ({ onClick }) => (
 `;
 
 const segmentedButton = `
-import { SegmentedButton } from '../components/index';
+import { SegmentedButton } from 'app-components';
 
 // section = {id: 0, label: 'section label'}
 const MyComponent = ({ onClick, selected, sections }) => (
@@ -30,7 +30,7 @@ const MyComponent = ({ onClick, selected, sections }) => (
 `;
 
 const disabled = `
-import { Button } from '../components/index';
+import { Button } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button disabled onClick={onClick}>
@@ -40,7 +40,7 @@ const MyComponent = ({ onClick }) => (
 `;
 
 const small = `
-import { Button } from '../components/index';
+import { Button } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button small onClick={onClick}>
@@ -50,7 +50,7 @@ const MyComponent = ({ onClick }) => (
 `;
 
 const secondary = `
-import { Button } from '../components/index';
+import { Button } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button secondary onClick={onClick}>
@@ -60,7 +60,7 @@ const MyComponent = ({ onClick }) => (
 `;
 
 const smallSecondary = `
-import { Button } from '../components/index';
+import { Button } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button small secondary onClick={onClick}>
@@ -70,21 +70,21 @@ const MyComponent = ({ onClick }) => (
 `;
 
 const round = `
-import { Button } from '../components/index';
+import { Button } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button round onClick={onClick}>
-    Click Me
+    +
   </Button>
 );
 `;
 
 const secondarySmallRound = `
-import { Button } from '../components/index';
+import { Button } from 'app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button secondary small round onClick={onClick}>
-    Click Me
+    +
   </Button>
 );
 `;

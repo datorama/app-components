@@ -9,7 +9,7 @@ import Snippet from './Snippet';
 const snippet = `npm i --save git+ssh://git@github.com/datorama/app-components.git`;
 
 const theme = `
-  import { AppTheme, lightTheme } from '../components/index';
+  import { AppTheme, lightTheme } from 'app-components';
   import {ThemeProvider} from 'styled-components';
   
   const App = () => (
@@ -20,7 +20,7 @@ const theme = `
 `;
 
 const components = `
-  import { Button } from '../components/index';
+  import { Button } from 'app-components';
   
   const MyComp = ({ handleClick }) => (
     <div>
@@ -31,6 +31,9 @@ const components = `
 `;
 
 const styling = `
+  // add to your css file -
+  // @import '~app-components/dist/index.css';
+
   const MyComp = styled.div'
     // typography
     $\{({ theme }) => theme.text.smLink};

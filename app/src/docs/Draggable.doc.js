@@ -7,11 +7,11 @@ import {Row, Col, Draggable} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Draggable } from '../components/index';
+import { Draggable } from 'app-components';
 
 const MyComp = () => (
   <div>
-    <Draggable>
+    <Draggable onDragStart={} onDrag={} onDragEnd={}>
       <CustomComp />
     </Draggable>
   </div>

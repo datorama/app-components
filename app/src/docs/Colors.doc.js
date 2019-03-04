@@ -9,8 +9,13 @@ import Snippet from './Snippet';
 
 const snippet = `
 // inside a component
-import { lightTheme } from '../components/index';
-// lightTheme.a500 for example.
+import { withTheme } from 'styled-components';
+
+const MyComp = ({ theme }) => (
+  <Button color={theme.a600}>click here</Button>
+);
+
+export default withTheme(MyComp);
 
 // using styled-components
 ({ theme }) => theme.p300

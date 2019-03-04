@@ -7,11 +7,11 @@ import Snippet from './Snippet';
 import {Row, Col, Collapse} from '../components/index';
 
 const snippet = `
-import { Collapse } from '../components/index';
+import { Collapse } from 'app-components';
 
 const MyComp = () => (
-  <Collapse>
-    ...
+  <Collapse label="My label">
+    ...content
   </Collapse>
 );
 `;

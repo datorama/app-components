@@ -7,7 +7,7 @@ import {Row, Col, Carousel} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Modal } from '../components/index';
+import { Modal } from 'app-components';
 
 const MyComp = ({ renderer }) => (
   <div>

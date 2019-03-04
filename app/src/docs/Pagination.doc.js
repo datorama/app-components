@@ -7,13 +7,27 @@ import {Row, Col, hexToRgba, Pagination} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Pagination } from '../components/index';
+import { Pagination } from 'app-components';
 
 const MyComp = ({ fetchData }) => (
   <div>
     <Pagination
     	max={4}
     	total={256}
+    	onChange={fetchData}
+    />
+  </div>
+);
+`;
+
+const snippetSmall = `
+import { Pagination } from 'app-components';
+
+const MyComp = ({ fetchData }) => (
+  <div>
+    <Pagination
+    	max={6}
+    	total={6}
     	onChange={fetchData}
     />
   </div>
@@ -40,7 +54,7 @@ export default class PaginationDoc extends React.Component {
 				
 				<Row align="stretch">
 					<Col>
-						<Snippet snippet={snippet}/>
+						<Snippet snippet={snippetSmall}/>
 					</Col>
 					<Col>
 						<Box>

@@ -8,7 +8,7 @@ import PropTable from './PropTable';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Checkbox } from '../components/index';
+import { Checkbox } from 'app-components';
 
 const MyComp = ({ toggle }) => (
   <div>
@@ -25,7 +25,7 @@ const MyComp = ({ toggle }) => (
 `;
 
 const toggleSnippet = `
-import { Toggle } from '../components/index';
+import { Toggle } from 'app-components';
 
 const MyComp = () => (
   <div>

@@ -7,7 +7,7 @@ import {Row, Col, Datepicker, hexToRgba} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Datepickewr } from '../components/index';
+import { Datepickewr } from 'app-components';
 
 const MyComponent = ({ onChange }) => (
   <Datepicker onChange={onChange} />
@@ -15,7 +15,7 @@ const MyComponent = ({ onChange }) => (
 `;
 
 const double = `
-import { Datepickewr } from '../components/index';
+import { Datepickewr } from 'app-components';
 
 const MyComponent = ({ onChange }) => (
   <Datepicker onChange={onChange} months={2} />
@@ -23,7 +23,7 @@ const MyComponent = ({ onChange }) => (
 `;
 
 const multi = `
-import { Datepickewr } from '../components/index';
+import { Datepickewr } from 'app-components';
 
 const MyComponent = ({ onChange }) => (
   <Datepicker onChange={onChange} months={3} />

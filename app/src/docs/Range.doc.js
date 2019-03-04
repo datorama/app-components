@@ -7,7 +7,7 @@ import {Row, Col, Range, hexToRgba} from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Range } from '../components/index';
+import { Range } from 'app-components';
 
 const MyComp = ({ handleChange }) => (
   <div>
@@ -17,7 +17,7 @@ const MyComp = ({ handleChange }) => (
 `;
 
 const disabled = `
-import { Range } from '../components/index';
+import { Range } from 'app-components';
 
 const MyComp = ({ handleChange }) => (
   <div>

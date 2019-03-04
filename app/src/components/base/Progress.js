@@ -54,7 +54,6 @@ const Inner = styled.div`
 const Strip = styled.div`
   display: flex;
   align-items: center;
-  cursor: pointer;
 
   ${({ disabled }) =>
     disabled &&

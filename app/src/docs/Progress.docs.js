@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled, {withTheme} from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, Progress, RadialProgress} from '../components/index';
+import {Row, Col, Progress, RadialProgress, MultiProgress} from '../components/index';
 import PropTable from './PropTable';
 import Snippet from './Snippet';
+import * as PropTypes from "prop-types";
 
 const snippet = `
-import { Checkbox } from '../components/index';
+import { Checkbox } from 'app-components';
 
 const MyComp = () => (
   <div>
@@ -17,77 +18,137 @@ const MyComp = () => (
 );
 `;
 
-const radialSnippet = `
-import { Checkbox } from '../components/index';
+const multiSnippet = `
+import { Checkbox } from 'app-components';
 
 const MyComp = () => (
   <div>
-    <RadialProgress percentage={50} label="success"/>
+    <RadialProgress
+      values={[
+        {color: theme.g600, percentage: 40},
+        {color: theme.g500, percentage: 60},
+        {color: theme.g400, percentage: 80},
+        {color: theme.g300, percentage: 100}
+      ]}
+    />
   </div>
 );
 `;
 
-const ProgressDoc = ({theme}) => {
-	const title = 'progress';
-	const description = '';
-	
-	return (
-		<Base title={title} description={description}>
-			<Row align="stretch">
-				<Col>
-					<Snippet snippet={snippet}/>
-				</Col>
+const radialSnippet = `
+import { Checkbox } from 'app-components';
+
+const MyComp = () => (
+  <div>
+    <MultiProgress
+      percentage={50}
+      label="success"
+      color="red"
+    />
+  </div>
+);
+`;
+
+class ProgressDoc extends Component {
+	render() {
+		let {theme} = this.props;
+		const title = 'progress';
+		const description = '';
+		
+		return (
+			<Base title={title} description={description}>
+				<Row align="stretch">
+					<Col>
+						<Snippet snippet={snippet}/>
+					</Col>
+					
+					<Col>
+						<Box>
+							<Progress label="20%" percentage={20} color={theme.a300}/>
+							<Progress label="40%" percentage={30} color={theme.a400}/>
+							<Progress label="60%" percentage={60} color={theme.a500}/>
+							<Progress label="80%" percentage={80} color={theme.a600}/>
+							<Progress label="100%" percentage={100} color={theme.a700}/>
+						</Box>
+					</Col>
+				</Row>
 				
-				<Col>
-					<Box>
-						<Progress label="20%" percentage={20} color={theme.a300}/>
-						<Progress label="40%" percentage={30} color={theme.a400}/>
-						<Progress label="60%" percentage={60} color={theme.a500}/>
-						<Progress label="80%" percentage={80} color={theme.a600}/>
-						<Progress label="100%" percentage={100} color={theme.a700}/>
-					</Box>
-				</Col>
-			</Row>
-			
-			<Row>
-				<Col>
-					<PropTable compKey="Progress"/>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Snippet snippet={radialSnippet}/>
-				</Col>
+				<Row>
+					<Col>
+						<PropTable compKey="Progress"/>
+					</Col>
+				</Row>
 				
-				<Col>
-					<Box>
-						<Row>
-							<Col>
-								<RadialProgress percentage={20} radius={26}/>
-							</Col>
-							<Col>
-								<RadialProgress percentage={40} radius={26}/>
-							</Col>
-							<Col>
-								<RadialProgress percentage={60} radius={26}/>
-							</Col>
-							<Col>
-								<RadialProgress percentage={80} radius={26}/>
-							</Col>
-						</Row>
-					</Box>
-				</Col>
-			</Row>
-			
-			<Row>
-				<Col>
-					<PropTable compKey="RadialProgress"/>
-				</Col>
-			</Row>
-		</Base>
-	);
-};
+				<Row align="stretch">
+					<Col>
+						<Snippet snippet={multiSnippet}/>
+					</Col>
+					
+					<Col>
+						<Box style={{ flexDirection: 'row'}}>
+							<MultiProgress
+								values={[
+									{color: theme.a600, percentage: 40},
+									{color: theme.a500, percentage: 60},
+									{color: theme.a400, percentage: 80},
+									{color: theme.a300, percentage: 100}
+								]}
+							/>
+							
+							<MultiProgress
+								values={[
+									{color: theme.g600, percentage: 40},
+									{color: theme.g500, percentage: 60},
+									{color: theme.g400, percentage: 80},
+									{color: theme.g300, percentage: 100}
+								]}
+							/>
+						</Box>
+					</Col>
+				</Row>
+				
+				<Row>
+					<Col>
+						<PropTable compKey="MultiProgress"/>
+					</Col>
+				</Row>
+				
+				<Row align="stretch">
+					<Col>
+						<Snippet snippet={radialSnippet}/>
+					</Col>
+					
+					<Col>
+						<Box>
+							<Row>
+								<Col>
+									<RadialProgress percentage={20} radius={26} color={theme.r300}/>
+								</Col>
+								<Col>
+									<RadialProgress percentage={40} radius={26} color={theme.o400}/>
+								</Col>
+								<Col>
+									<RadialProgress percentage={60} radius={26}/>
+								</Col>
+								<Col>
+									<RadialProgress percentage={100} radius={26} color={theme.g300}/>
+								</Col>
+							</Row>
+						</Box>
+					</Col>
+				</Row>
+				
+				<Row>
+					<Col>
+						<PropTable compKey="RadialProgress"/>
+					</Col>
+				</Row>
+			</Base>
+		);
+	}
+}
+
+ProgressDoc.propTypes = {theme: PropTypes.any};
 
 export default withTheme(ProgressDoc);
 

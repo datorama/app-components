@@ -9,7 +9,7 @@ import Snippet from './Snippet';
 import {LineChart, Line, ResponsiveContainer} from 'recharts';
 
 const snippet = `
-import { Widget } from '../components/index';
+import { Widget } from 'app-components';
 
 const MyComp = () => (
   <Widget>

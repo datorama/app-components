@@ -8,7 +8,7 @@ import PropTable from './PropTable';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Tag } from '../components/index';
+import { Tag } from 'app-components';
 
 const MyComp = ({ toggle }) => (
   <div>
@@ -18,12 +18,12 @@ const MyComp = ({ toggle }) => (
 `;
 
 const snippetGroup = `
-import { TagGroup } from '../components/index';
+import { TagGroup } from 'app-components';
 
 const MyComp = ({ onChange, selected }) => (
   <div>
     <TagGroup
-      tags=[{id: 'aaa', label: 'tag label'}]
+      tags=[{id: 'tag-a', label: 'Tag label'}]
       onChange={onChange}
       selected={selected}
     />

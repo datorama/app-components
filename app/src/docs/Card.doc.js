@@ -8,16 +8,16 @@ import Snippet from './Snippet';
 
 const snippet = `
 // inside a component
-import { Card } from '../components/index';
+import { Card } from 'app-components';
 
 const MyComp = () => (<Card>...</Card>);
 `;
 
 const clickable = `
 // inside a component
-import { Card } from '../components/index';
+import { Card } from 'app-components';
 
-const MyComp = () => (<Card clickable>...</Card>);
+const MyComp = () => (<Card clickable onClick={handleClick}>...</Card>);
 `;
 
 const CardDoc = () => {
