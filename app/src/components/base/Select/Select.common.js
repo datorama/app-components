@@ -39,4 +39,9 @@ export const Label = styled.div`
   text-overflow: ellipsis;
   width: 100%;
   text-align: ${({ textAlign }) => textAlign || 'left'};
+  font-size: 14px;
+  
+  ${({ small }) => small && css`
+		font-size: 12px;
+	`};
 `;

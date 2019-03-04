@@ -44,7 +44,12 @@ const SelectOptions = props => {
         {optionLabelRenderer ? (
           optionLabelRenderer(option)
         ) : (
-          <Label>{option.label}</Label>
+          <Label
+            small={small}
+            large={large}
+          >
+            {option.label}
+          </Label>
         )}
       </Option>
     );

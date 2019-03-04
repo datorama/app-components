@@ -41,7 +41,7 @@ const Input = styled.input`
   border: 1px solid ${({ theme }) => theme.p200};
   box-sizing: border-box;
   padding: 0 30px 0 10px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 300;
   background: ${({ theme }) => theme.p0};
 
@@ -62,11 +62,11 @@ const Input = styled.input`
 
   &:focus {
     outline: none;
-    border-color: ${({ theme }) => theme.a500};
+    border-color: ${({ theme }) => theme.a400};
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.p200};
+    color: ${({ theme }) => theme.p300};
   }
 `;
 

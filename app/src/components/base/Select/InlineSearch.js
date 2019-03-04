@@ -57,14 +57,14 @@ class InlineSearch extends Component {
   };
 
   render() {
-    const { loading } = this.props;
+    const { loading, small } = this.props;
     const tags = [];
 
     mapWithIndex((option, index) => {
       if (index < this.props.maxTags) {
         tags.push(
           <SmallTag key={`small-tag-${option.value}`} title={option.label}>
-            <SmallTagLabel>{option.label}</SmallTagLabel>
+            <SmallTagLabel small={small}>{option.label}</SmallTagLabel>
             <CloseIcon onClick={this.props.onSelect(option)} />
           </SmallTag>
         );
@@ -74,7 +74,7 @@ class InlineSearch extends Component {
     if (this.props.values.length > this.props.maxTags) {
       tags.push(
         <SmallTag key="extra-tags" type="info">
-          <SmallTagLabel>
+          <SmallTagLabel small={small}>
             +{this.props.values.length - this.props.maxTags}
           </SmallTagLabel>
         </SmallTag>
@@ -98,6 +98,7 @@ class InlineSearch extends Component {
             value={this.props.value}
             placeholder={this.props.placeholder || 'Search'}
             ref={this.handleRef}
+            small={this.props.small}
           />
         </Inner>
         {!loading && <StyledArrow rotation={this.props.open ? '180deg' : '0deg'} />}
@@ -183,12 +184,17 @@ const SmallTag = styled.div`
 
 const SmallTagLabel = styled.div`
   ${({ theme }) => theme.text.sm};
+  font-size: 14px;
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 60px;
   padding: 2px;
+  
+  ${({ small }) => small && css`
+    font-size: 12px;
+  `};
 `;
 
 const CloseIcon = styled.div`
@@ -233,12 +239,17 @@ const SmallInput = styled.input`
   background: transparent;
   color: ${({ theme }) => theme.p600};
   ${({ theme }) => theme.text.sm};
+  font-size: 14px;
   flex: 1;
   box-sizing: border-box;
   padding: 0 4px;
   
+  ${({ small }) => small && css`
+    font-size: 12px;
+  `};
+  
   &::placeholder {
-    color: ${({ theme }) => theme.p600};
+    color: ${({ theme }) => theme.p300};
   }
 `;
 

@@ -75,7 +75,12 @@ const SelectHeader = props => {
       disabled={loading}
     >
       <LabelWrapper>
-        <Label>{label}</Label>
+        <Label
+          small={small}
+          large={large}
+        >
+          {label}
+        </Label>
       </LabelWrapper>
 
       {!loading && <Arrow rotation={open ? '180deg' : '0deg'} />}
@@ -134,7 +139,6 @@ const Container = styled.div`
     small &&
     css`
       height: ${theme.size.SMALL};
-      ${theme.text.sm};
     `};
 
   ${({ large, theme }) =>
