@@ -9,7 +9,7 @@ import Snippet from './Snippet';
 import * as PropTypes from "prop-types";
 
 const snippet = `
-import { Checkbox } from 'app-components';
+import { Progress } from 'app-components';
 
 const MyComp = () => (
   <div>
@@ -19,11 +19,11 @@ const MyComp = () => (
 `;
 
 const multiSnippet = `
-import { Checkbox } from 'app-components';
+import { MultiProgress } from 'app-components';
 
 const MyComp = () => (
   <div>
-    <RadialProgress
+    <MultiProgress
       values={[
         {color: theme.g600, percentage: 40},
         {color: theme.g500, percentage: 60},
@@ -36,11 +36,11 @@ const MyComp = () => (
 `;
 
 const radialSnippet = `
-import { Checkbox } from 'app-components';
+import { RadialProgress } from 'app-components';
 
 const MyComp = () => (
   <div>
-    <MultiProgress
+    <RadialProgress
       percentage={50}
       label="success"
       color="red"
