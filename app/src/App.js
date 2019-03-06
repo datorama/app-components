@@ -41,6 +41,7 @@ import Tooltip from './docs/Tooltip.doc';
 import Stepper from './docs/Stepper.doc';
 import Collapse from './docs/Collapse.doc';
 import Widget from './docs/Widget.doc';
+import ErrorPage from './docs/ErrorPage.doc';
 
 const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
@@ -155,6 +156,9 @@ class App extends Component {
       { key: 'navbar', label: 'navbar' },
       { key: 'table', label: 'table' },
 
+      { key: 'pages', label: 'pages', type: 'title' },
+      { key: 'error-page', label: 'error page', path: 'error-page' },
+
       { key: 'utils', label: 'utils', type: 'title' },
       { key: 'click-out', label: 'click out', path: 'click-out' },
       { key: 'draggable', label: 'draggable', path: 'draggable' }
@@ -222,6 +226,7 @@ class App extends Component {
                 <Route exact path="/stepper" component={Stepper} />
                 <Route exact path="/collapse" component={Collapse} />
                 <Route exact path="/widget" component={Widget} />
+                <Route exact path="/error-page" component={ErrorPage} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/draggable" component={Draggable} />
