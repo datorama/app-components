@@ -28,7 +28,12 @@ ErrorPage.propTypes = {
     subtitle: PropTypes.string,
     buttonLabel: PropTypes.string,
     onClick: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    fixed: PropTypes.bool
+};
+
+ErrorPage.defaultProps = {
+  fixed: true
 };
 
 export default ErrorPage;

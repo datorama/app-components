@@ -40,6 +40,7 @@ export default class ErrorPageDoc extends React.Component {
                 title="Oops…Something went wrong"
                 subtitle="A problem was encountered while installing App Name"
                 buttonLabel="Back to Market"
+                fixed={false}
                 onClick={() => undefined}
             />
           </Col>
