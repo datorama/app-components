@@ -91,6 +91,7 @@ const Menu = styled.div.attrs({
 	}
 })`
   position: absolute;
+  z-index: 999;
   padding: 6px 12px;
   border-radius: 3px;
   pointer-events: none;
