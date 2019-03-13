@@ -1,7 +1,7 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React, {Component} from 'react';
+import styled, {css} from 'styled-components';
 import PropTypes from 'prop-types';
-import { hexToRgba } from '../utils';
+import {hexToRgba} from '../utils';
 
 // positions
 const BOTTOM = 'BOTTOM';
@@ -13,37 +13,83 @@ const RIGHT = 'RIGHT';
 // const TOP_LEFT = 'TOP_LEFT';
 // const TOP_RIGHT = 'TOP_RIGHT';
 
-const Popup = ({
-  children,
-  open,
-  className,
-  position = BOTTOM,
-  contentRenderer,
-  withClose,
-  toggleOpen
-}) => (
-  <Container className={className}>
-    {children}
-    <Menu visible={open} className="pop-menu" position={position}>
-      {contentRenderer()}
-      {withClose && <CloseIcon onClick={toggleOpen} />}
-    </Menu>
-  </Container>
-);
+export default class Popup extends Component {
+	static propTypes = {
+		children: PropTypes.node,
+		open: PropTypes.bool,
+		className: PropTypes.string,
+		contentRenderer: PropTypes.func,
+		position: PropTypes.string,
+		withClose: PropTypes.bool,
+		toggleOpen: PropTypes.func,
+		fixed: PropTypes.bool
+	};
+	
+	static defaultProps = {position: BOTTOM};
+	
+	state = {
+		x: 0,
+		y: 0
+	};
+	
+	componentDidUpdate(prevProps) {
+		if (this.props.fixed) {
+			if (this.props.open && !prevProps.open) {
+				window.addEventListener('mousemove', this.handleMouseMove);
+			}
+			
+			if (!this.props.open && prevProps.open) {
+				window.removeEventListener('mousemove', this.handleMouseMove);
+			}
+		}
+	}
+	
+	componentWillUnmount() {
+		window.removeEventListener('mousemove', this.handleMouseMove);
+	}
+	
+	handleMouseMove = e => this.setState({x: e.clientX, y: e.clientY});
+	
+	render() {
+		let {
+			children,
+			open,
+			className,
+			position,
+			contentRenderer,
+			withClose,
+			toggleOpen,
+			fixed
+		} = this.props;
+		const {x, y} = this.state;
+		
+		return (
+			<Container className={className}>
+				{children}
+				<Menu
+					visible={open}
+					className="pop-menu"
+					position={position}
+					fixed={fixed}
+					x={x}
+					y={y}
+				>
+					{contentRenderer()}
+					{withClose && <CloseIcon onClick={toggleOpen}/>}
+				</Menu>
+			</Container>
+		);
+	}
+}
 
-Popup.propTypes = {
-  children: PropTypes.node,
-  open: PropTypes.bool,
-  className: PropTypes.string,
-  contentRenderer: PropTypes.func,
-  position: PropTypes.string,
-  withClose: PropTypes.bool,
-  toggleOpen: PropTypes.func
-};
-
-export default Popup;
-
-const Menu = styled.div`
+const Menu = styled.div.attrs({
+	style: ({fixed, x, y}) => {
+		if (fixed) {
+			return {top: y, left: x};
+		}
+		return {};
+	}
+})`
   position: absolute;
   padding: 6px 12px;
   border-radius: 3px;
@@ -52,48 +98,56 @@ const Menu = styled.div`
   opacity: 0;
   transition: all 300ms;
 
-  background: ${({ theme }) => hexToRgba(theme.p200, 0.8)};
-  ${({ theme }) => theme.text.tooltip};
+  background: ${({theme}) => hexToRgba(theme.p200, 0.8)};
+  ${({theme}) => theme.text.tooltip};
 
-  ${({ visible }) =>
-    visible &&
-    css`
+  ${({visible}) =>
+	visible &&
+	css`
       pointer-events: all;
       opacity: 1;
       visibility: visible;
     `};
 
-  ${({ position }) =>
-    position === BOTTOM &&
-    css`
+  ${({position}) =>
+	position === BOTTOM &&
+	css`
       top: calc(100% + 10px);
       left: 50%;
       transform: translateX(-50%);
     `};
 
-  ${({ position }) =>
-    position === TOP &&
-    css`
+  ${({position}) =>
+	position === TOP &&
+	css`
       bottom: calc(100% + 10px);
       left: 50%;
       transform: translateX(-50%);
     `};
 
-  ${({ position }) =>
-    position === RIGHT &&
-    css`
+  ${({position}) =>
+	position === RIGHT &&
+	css`
       top: 50%;
       left: calc(100% + 10px);
       transform: translateY(-50%);
     `};
 
-  ${({ position }) =>
-    position === LEFT &&
-    css`
+  ${({position}) =>
+	position === LEFT &&
+	css`
       top: 50%;
       right: calc(100% + 10px);
       transform: translateY(-50%);
     `};
+  
+  ${({fixed}) => fixed && css`
+		transition: none;
+		position: fixed;
+		bottom: auto;
+		right: auto;
+		transform: translate(10px, -50%);
+	`};
 `;
 
 const Container = styled.div`
@@ -113,7 +167,7 @@ const CloseIcon = styled.div`
   &:hover {
     &::before,
     &::after {
-      background: ${({ theme }) => theme.p500};
+      background: ${({theme}) => theme.p500};
     }
   }
 
@@ -126,7 +180,7 @@ const CloseIcon = styled.div`
     top: 50%;
     left: 0;
     margin-top: -1px;
-    background: ${({ theme }) => theme.p300};
+    background: ${({theme}) => theme.p300};
   }
 
   &::before {

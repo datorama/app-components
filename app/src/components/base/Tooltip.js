@@ -12,7 +12,8 @@ class Tooltip extends Component {
     title: PropTypes.string,
     long: PropTypes.bool,
     onClickInfo: PropTypes.func,
-    position: PropTypes.string
+    position: PropTypes.string,
+    fixed: PropTypes.bool
   };
 
   state = {
@@ -44,11 +45,16 @@ class Tooltip extends Component {
   };
 
   smallTooltip() {
-    const { children, position = 'TOP' } = this.props;
+    const { children, position = 'TOP', fixed } = this.props;
     const { open } = this.state;
 
     return (
-      <StyledPopup open={open} contentRenderer={this.title} position={position}>
+      <StyledPopup
+        open={open}
+        contentRenderer={this.title}
+        position={position}
+        fixed={fixed}
+      >
         <Container
           onMouseEnter={this.toggleOpen('content')}
           onMouseLeave={this.toggleOpen('content')}
