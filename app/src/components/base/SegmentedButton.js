@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { hexToRgba } from '../utils';
 
-const SegmentedButton = ({ sections, selected, onClick }) => (
-  <Sections>
+const SegmentedButton = ({ sections, selected, onClick, className }) => (
+  <Sections className={className}>
     {sections.map((section, index) => {
       let type = 'default';
       if (index === 0) {
@@ -37,7 +37,8 @@ SegmentedButton.propTypes = {
     })
   ),
   selected: PropTypes.number,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  className: PropTypes.string
 };
 
 export default SegmentedButton;

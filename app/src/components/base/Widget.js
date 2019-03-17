@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import LinearProgress from './LinearProgress';
 
 const Widget = props => (
-  <Container disabled={props.disabled}>
+  <Container disabled={props.disabled} className={props.className}>
     {props.children}
     {props.loading && <StyledProgress />}
   </Container>
@@ -17,7 +17,8 @@ Widget.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   empty: PropTypes.bool,
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string
 };
 
 export default Widget;

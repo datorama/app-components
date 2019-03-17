@@ -2,9 +2,16 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-const Tabs = ({ contentRenderer, selectedIndex, tabs, onSelect, justify }) => {
+const Tabs = ({
+  contentRenderer,
+  selectedIndex,
+  tabs,
+  onSelect,
+  justify,
+  className
+}) => {
   return (
-    <Container>
+    <Container className={className}>
       <Header justify={justify}>
         <InnerHeader>
           {tabs.map(tab => (
@@ -22,6 +29,7 @@ const Tabs = ({ contentRenderer, selectedIndex, tabs, onSelect, justify }) => {
 };
 
 Tabs.propTypes = {
+  className: PropTypes.string,
   contentRenderer: PropTypes.func.isRequired,
   justify: PropTypes.oneOf(['flex-start', 'center', 'flex-end']),
   onSelect: PropTypes.func,

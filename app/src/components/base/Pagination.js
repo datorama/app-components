@@ -12,7 +12,8 @@ export default class Pagination extends React.Component {
   static propTypes = {
     total: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    className: PropTypes.string
   };
 
   state = {
@@ -52,7 +53,7 @@ export default class Pagination extends React.Component {
     if (nextSelected <= 0) {
       return;
     }
-    
+
     let updateCurrent = nextSelected >= max;
     if (nextSelected > max) {
       updateCurrent = total - selected > max - 2;
@@ -113,12 +114,12 @@ export default class Pagination extends React.Component {
   }
 
   render() {
-    const { max, total } = this.props;
+    const { max, total, className } = this.props;
     const { selected } = this.state;
     const noControls = total <= max;
 
     return (
-      <Container>
+      <Container className={className}>
         {!noControls && (
           <Fragment>
             <Button filled onClick={this.setPage(1)}>

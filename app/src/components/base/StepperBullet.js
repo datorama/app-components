@@ -2,8 +2,13 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-const StepperBullet = ({ touched, selected, enabled, hovered }) => (
-  <Outer touched={touched} selected={selected} enabled={enabled}>
+const StepperBullet = ({ touched, selected, enabled, hovered, className }) => (
+  <Outer
+    touched={touched}
+    selected={selected}
+    enabled={enabled}
+    className={className}
+  >
     <Inner
       touched={touched}
       selected={selected}

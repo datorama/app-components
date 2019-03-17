@@ -1,6 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class Draggable extends React.Component {
+  static propTypes = {
+    onDragStart: PropTypes.func,
+    onDrag: PropTypes.func,
+    onDragEnd: PropTypes.func,
+    children: PropTypes.node,
+    className: PropTypes.string
+  };
+
   state = {
     isDragging: false,
     clientX: 0,
@@ -73,8 +82,12 @@ export default class Draggable extends React.Component {
   };
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
 
-    return <div onMouseDown={this.handleMouseDown}>{children}</div>;
+    return (
+      <div onMouseDown={this.handleMouseDown} className={className}>
+        {children}
+      </div>
+    );
   }
 }
