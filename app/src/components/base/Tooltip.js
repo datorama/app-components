@@ -13,7 +13,8 @@ class Tooltip extends Component {
     long: PropTypes.bool,
     onClickInfo: PropTypes.func,
     position: PropTypes.string,
-    fixed: PropTypes.bool
+    fixed: PropTypes.bool,
+    className: PropTypes.string
   };
 
   state = {
@@ -45,7 +46,7 @@ class Tooltip extends Component {
   };
 
   smallTooltip() {
-    const { children, position = 'TOP', fixed } = this.props;
+    const { children, position = 'TOP', fixed, className } = this.props;
     const { open } = this.state;
 
     return (
@@ -54,6 +55,7 @@ class Tooltip extends Component {
         contentRenderer={this.title}
         position={position}
         fixed={fixed}
+        className={className}
       >
         <Container
           onMouseEnter={this.toggleOpen('content')}
@@ -66,7 +68,7 @@ class Tooltip extends Component {
   }
 
   longTooltip() {
-    const { position = 'TOP' } = this.props;
+    const { position = 'TOP', className } = this.props;
     const { open } = this.state;
 
     return (
@@ -76,6 +78,7 @@ class Tooltip extends Component {
         position={position}
         withClose
         toggleOpen={this.toggleOpen('close-icon')}
+        className={className}
       >
         <Container onMouseEnter={this.toggleOpen('icon')}>
           <StyledTip />

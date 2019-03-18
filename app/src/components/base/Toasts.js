@@ -75,7 +75,7 @@ class Toasts extends Component {
 
   render() {
     const { list, leaving } = this.state;
-    const { children } = this.props;
+    const { children, className } = this.props;
     const contextActions = {
       addToast: this.addToast
     };
@@ -88,6 +88,7 @@ class Toasts extends Component {
               key={`notif-${id}`}
               top={index * 80}
               leaving={leaving.includes(id)}
+              className={className}
             >
               <CloseIcon onClick={this.clearToast(id)} />
               {this.icon(type)}

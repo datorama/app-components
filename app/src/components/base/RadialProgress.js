@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 
 const DEF_RADIUS = 54;
 
-const RadialProgress = ({ disabled, label, color, percentage, radius }) => {
+const RadialProgress = ({
+  disabled,
+  label,
+  color,
+  percentage,
+  radius,
+  className
+}) => {
   const progress = percentage / 100;
   const rad = radius || DEF_RADIUS;
   const circumference = 2 * Math.PI * rad;
@@ -16,6 +23,7 @@ const RadialProgress = ({ disabled, label, color, percentage, radius }) => {
       width={2 * outerRadius}
       height={2 * outerRadius}
       viewBox={`0 0 ${2 * outerRadius} ${2 * outerRadius}`}
+      className={className}
     >
       <Group>
         <Meter cx={outerRadius} cy={outerRadius} r={rad} strokeWidth={2} />
@@ -41,7 +49,8 @@ RadialProgress.propTypes = {
   color: PropTypes.string,
   percentage: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
-  radius: PropTypes.number
+  radius: PropTypes.number,
+  className: PropTypes.string
 };
 
 export default RadialProgress;
@@ -75,8 +84,8 @@ const Value = styled(Circle)`
   stroke-dasharray: ${({ circumference }) => circumference};
 
   ${({ dashoffset }) => css`
-      animation: ${animate(dashoffset)} 1s linear forwards;
-    `};
+    animation: ${animate(dashoffset)} 1s linear forwards;
+  `};
 `;
 
 const Text = styled.text`
