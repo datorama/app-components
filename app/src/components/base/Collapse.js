@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import Collapsible from './Collapsible';
+
 // icons
 import ArrowDown from '../icons/ArrowDown.icon';
 
@@ -13,34 +15,24 @@ class Collapse extends Component {
   };
 
   state = {
-    open: true,
-    height: 'auto'
+    open: false
   };
 
   toggleOpen = () => this.setState(prevState => ({ open: !prevState.open }));
 
-  handleRef = el => {
-    if (el) {
-      const { height } = el.getBoundingClientRect();
-
-      this.setState({ height: `${height}px` }, this.toggleOpen);
-    }
-  };
-
   render() {
-    const { open, height } = this.state;
+    const { open } = this.state;
     const { children, className, label } = this.props;
 
-    let calcHeight = open ? height : 0;
     return (
       <Container className={className}>
         <Header onClick={this.toggleOpen}>
           <StyledArrow open={open} />
           {label}
         </Header>
-        <Content height={calcHeight} open={open} ref={this.handleRef}>
+        <Collapsible open={open} toggleOpen={this.toggleOpen}>
           {children}
-        </Content>
+        </Collapsible>
       </Container>
     );
   }
@@ -65,14 +57,6 @@ const Header = styled.div`
   ${({ theme }) => theme.text.smBold};
   line-height: 12px;
   cursor: pointer;
-`;
-
-const Content = styled.div`
-  width: 100%;
-  height: ${({ height }) => height};
-  transition: all 300ms;
-  overflow: hidden;
-  opacity: ${({ open }) => (open ? 1 : 0)};
 `;
 
 const StyledArrow = styled(ArrowDown)`
