@@ -5,14 +5,21 @@ import { get } from 'lodash/fp';
 import { shadeColor } from '../utils';
 import Tooltip from './Tooltip';
 
-const DEF_RADIUS = 20;
-const DEF_STROKE = 10;
-
 export default class MultiProgress extends Component {
   static propTypes = {
     values: PropTypes.array.isRequired,
     radius: PropTypes.number,
-    className: PropTypes.string
+    strokeWidth: PropTypes.number,
+    innerRadius: PropTypes.number,
+    gap: PropTypes.number,
+    className: PropTypes.string,
+    meterColor: PropTypes.string
+  };
+  
+  static defaultProps = {
+    strokeWidth: 10,
+    innerRadius: 20,
+    gap: 20
   };
 
   state = {
@@ -22,9 +29,9 @@ export default class MultiProgress extends Component {
   setHover = hoveredIndex => () => this.setState({ hoveredIndex });
 
   render() {
-    const { values } = this.props;
+    const { values, strokeWidth, innerRadius, gap, meterColor } = this.props;
     const { hoveredIndex } = this.state;
-    const outerRadius = (DEF_RADIUS + 4) * values.length;
+    const outerRadius = innerRadius + gap * (values.length - 1) + 0.5 * strokeWidth + 2;
 
     return (
       <Tooltip fixed title={`${get(`[${hoveredIndex}].percentage`, values)}%`}>
@@ -36,7 +43,7 @@ export default class MultiProgress extends Component {
         >
           {values.map((value, index) => {
             const progress = value.percentage / 100;
-            const rad = DEF_RADIUS * (index + 1);
+            const rad = innerRadius + gap * index;
             const circumference = 2 * Math.PI * rad;
             const dashoffset = circumference * (1 - progress);
 
@@ -45,18 +52,20 @@ export default class MultiProgress extends Component {
                 key={`bar-${index}`}
                 color={value.color}
                 onMouseEnter={this.setHover(index)}
+                strokeWidth={strokeWidth}
               >
                 <Meter
                   cx={outerRadius}
                   cy={outerRadius}
                   r={rad}
-                  strokeWidth={DEF_STROKE}
+                  strokeWidth={strokeWidth}
+                  meterColor={meterColor}
                 />
                 <Value
                   cx={outerRadius}
                   cy={outerRadius}
                   r={rad}
-                  strokeWidth={DEF_STROKE}
+                  strokeWidth={strokeWidth}
                   dashoffset={dashoffset}
                   circumference={circumference}
                   color={value.color}
@@ -93,21 +102,26 @@ const Value = styled(Circle)`
   `};
 `;
 
+const Meter = styled(Circle)`
+  stroke: ${({ theme, meterColor }) => meterColor || theme.p100};
+  transition: all 300ms;
+`;
+
 const Group = styled.g`
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
 
   &:hover {
     circle {
-      stroke-width: ${DEF_STROKE + 2}px;
+      stroke-width: ${({ strokeWidth }) => strokeWidth + 2}px;
     }
 
     ${Value} {
       stroke: ${({ color }) => shadeColor(color, 500)};
     }
+    
+    ${Meter} {
+      stroke: ${({ theme }) => theme.p100};
+    }
   }
-`;
-
-const Meter = styled(Circle)`
-  stroke: ${({ theme }) => theme.p100};
 `;

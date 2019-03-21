@@ -96,11 +96,14 @@ class ProgressDoc extends Component {
 							/>
 							
 							<MultiProgress
+								strokeWidth={6}
+								innerRadius={40}
+								gap={18}
+								meterColor="transparent"
 								values={[
 									{color: theme.g600, percentage: 40},
 									{color: theme.g500, percentage: 60},
-									{color: theme.g400, percentage: 80},
-									{color: theme.g300, percentage: 100}
+									{color: theme.g400, percentage: 80}
 								]}
 							/>
 						</Box>
