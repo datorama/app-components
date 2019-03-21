@@ -19,6 +19,9 @@ const TagGroup = ({ color, tags, selected, onChange, className, disabled }) => (
   <Container className={className}>
     {tags.map(tag => (
       <StyledTag
+        className={
+          selected.includes(tag.id) ? 'tag-group-tag-selected' : 'tag-group-tag'
+        }
         key={`tag-${tag.id}`}
         selected={selected.includes(tag.id)}
         onClick={() => onChange(prepSelection(selected, tag.id))}
