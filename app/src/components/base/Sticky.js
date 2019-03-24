@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 class Sticky extends Component {
   static propTypes = {
     children: PropTypes.node,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onChange: PropTypes.func
   };
 
   state = {
@@ -21,14 +22,22 @@ class Sticky extends Component {
       const { top } = this.el.getBoundingClientRect();
 
       if (top <= 0 && this.state.position !== 'fixed') {
-        this.setState({ position: 'fixed' });
+        this.setState({ position: 'fixed' }, this.update);
       }
 
       if (top > 0 && this.state.position !== 'relative') {
-        this.setState({ position: 'relative' });
+        this.setState({ position: 'relative' }, this.update);
       }
     }
   };
+
+  update() {
+    const { onChange } = this.props;
+
+    if (onChange) {
+      onChange({ fixed: this.state.position === 'fixed' });
+    }
+  }
 
   render() {
     const { position } = this.state;

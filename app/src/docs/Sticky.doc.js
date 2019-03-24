@@ -5,6 +5,7 @@ import styled, { withTheme } from 'styled-components';
 import Base from './Base';
 import { Row, Col, Sticky } from '../components/index';
 import Snippet from './Snippet';
+import PropTable from './PropTable';
 
 const snippet = `
 import { Sticky } from 'app-components';
@@ -17,9 +18,14 @@ const MyComp = () => (
 `;
 
 class StickyDoc extends Component {
+  state = {
+    fixed: false
+  };
+
   render() {
     const title = 'fixed bar';
     const description = 'relative - fixed bar';
+    const { fixed } = this.state;
 
     return (
       <Base title={title} description={description}>
@@ -31,7 +37,18 @@ class StickyDoc extends Component {
 
         <Row>
           <Col>
-            <StyledSticky>Sticky bar</StyledSticky>
+            <PropTable compKey="Sticky" />
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <StyledSticky
+              fixed={fixed}
+              onChange={({ fixed }) => this.setState({ fixed })}
+            >
+              Sticky bar
+            </StyledSticky>
           </Col>
         </Row>
         <Spacer />
