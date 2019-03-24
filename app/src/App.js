@@ -42,6 +42,7 @@ import Stepper from './docs/Stepper.doc';
 import Collapse from './docs/Collapse.doc';
 import Widget from './docs/Widget.doc';
 import ErrorPage from './docs/ErrorPage.doc';
+import Sticky from './docs/Sticky.doc';
 
 const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
@@ -153,7 +154,7 @@ class App extends Component {
       { key: 'collapse', label: 'collapse', path: 'collapse' },
       { key: 'date-picker', label: 'date picker', path: 'datepicker' },
       { key: 'widget', label: 'widget', path: 'widget' },
-      { key: 'navbar', label: 'navbar' },
+      { key: 'sticky', label: 'sticky', path: 'sticky' },
       { key: 'table', label: 'table' },
 
       { key: 'pages', label: 'pages', type: 'title' },
@@ -226,6 +227,7 @@ class App extends Component {
                 <Route exact path="/stepper" component={Stepper} />
                 <Route exact path="/collapse" component={Collapse} />
                 <Route exact path="/widget" component={Widget} />
+                <Route exact path="/sticky" component={Sticky} />
                 <Route exact path="/error-page" component={ErrorPage} />
 
                 <Route exact path="/click-out" component={ClickOut} />
