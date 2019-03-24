@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { withTheme, css } from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 
 // components
 import Base from './Base';
