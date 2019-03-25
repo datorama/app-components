@@ -47,7 +47,7 @@ const Tabs = ({
 Tabs.propTypes = {
   className: PropTypes.string,
   contentRenderer: PropTypes.func,
-  headerRenderer: PropTypes.func,
+  labelRenderer: PropTypes.func,
   justify: PropTypes.oneOf(['flex-start', 'center', 'flex-end']),
   onSelect: PropTypes.func,
   selectedIndex: PropTypes.number.isRequired,
