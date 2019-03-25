@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, Draggable} from '../components/index';
+import { Row, Col, Draggable } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
@@ -34,8 +34,8 @@ class DraggableDoc extends React.Component {
     });
 
   render() {
-    const title = 'spinner';
-    const description = 'spinner.';
+    const title = 'draggable';
+    const description = 'Draggable component';
     const { translation } = this.state;
 
     return (

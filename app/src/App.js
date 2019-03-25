@@ -162,7 +162,8 @@ class App extends Component {
 
       { key: 'utils', label: 'utils', type: 'title' },
       { key: 'click-out', label: 'click out', path: 'click-out' },
-      { key: 'draggable', label: 'draggable', path: 'draggable' }
+      { key: 'draggable', label: 'draggable', path: 'draggable' },
+      { key: 'droppable', label: 'droppable' }
     ];
 
     return (
