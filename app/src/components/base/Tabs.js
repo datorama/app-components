@@ -2,8 +2,12 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
+// @todo - get this dynamically from each tab header
+const TAB_WIDTH = 120;
+
 const Tabs = ({
   contentRenderer,
+  labelRenderer,
   selectedIndex,
   tabs,
   onSelect,
@@ -14,23 +18,36 @@ const Tabs = ({
     <Container className={className}>
       <Header justify={justify}>
         <InnerHeader>
-          {tabs.map(tab => (
-            <Tab key={`tab-${tab.id}`} onClick={() => onSelect(tab.id)}>
-              <Label selected={tab.id === selectedIndex}>{tab.label}</Label>
-            </Tab>
-          ))}
-          <Line left={selectedIndex * 100} />
+          {tabs.map(tab => {
+            const key = `tab-${tab.id}`;
+            const handleClick = () => onSelect(tab.id);
+            const selected = tab.id === selectedIndex;
+
+            return (
+              <Tab key={key} onClick={handleClick}>
+                {labelRenderer ? (
+                  labelRenderer({ selected, tab })
+                ) : (
+                  <Label selected={selected}>{tab.label}</Label>
+                )}
+              </Tab>
+            );
+          })}
+          <Line left={selectedIndex * TAB_WIDTH} />
         </InnerHeader>
       </Header>
 
-      <Content>{contentRenderer(tabs[selectedIndex])}</Content>
+      {contentRenderer && (
+        <Content>{contentRenderer(tabs[selectedIndex])}</Content>
+      )}
     </Container>
   );
 };
 
 Tabs.propTypes = {
   className: PropTypes.string,
-  contentRenderer: PropTypes.func.isRequired,
+  contentRenderer: PropTypes.func,
+  headerRenderer: PropTypes.func,
   justify: PropTypes.oneOf(['flex-start', 'center', 'flex-end']),
   onSelect: PropTypes.func,
   selectedIndex: PropTypes.number.isRequired,
@@ -72,7 +89,7 @@ const Content = styled.div`
 `;
 
 const Tab = styled.div`
-  width: 100px;
+  width: ${TAB_WIDTH}px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -100,7 +117,7 @@ const Line = styled.div`
   bottom: -2px;
   height: 2px;
   left: ${({ left }) => `${left}px`};
-  width: 100px;
+  width: ${TAB_WIDTH}px;
   transition: all 300ms;
   background: ${({ theme }) => theme.a400};
 `;

@@ -1218,7 +1218,7 @@
       pointer-events: none;
       color: ${({theme:e})=>e.p200};
     `};
-`,Bn=s()(Rn)``,Pn=({contentRenderer:e,selectedIndex:t,tabs:n,onSelect:r,justify:a,className:i})=>o.a.createElement(Un,{className:i},o.a.createElement(Zn,{justify:a},o.a.createElement(Vn,null,n.map(e=>o.a.createElement(Hn,{key:`tab-${e.id}`,onClick:()=>r(e.id)},o.a.createElement(Gn,{selected:e.id===t},e.label))),o.a.createElement(Kn,{left:100*t}))),o.a.createElement(Yn,null,e(n[t])));Pn.propTypes={className:K.a.string,contentRenderer:K.a.func.isRequired,justify:K.a.oneOf(["flex-start","center","flex-end"]),onSelect:K.a.func,selectedIndex:K.a.number.isRequired,tabs:K.a.arrayOf(K.a.shape({id:K.a.number,label:K.a.string})).isRequired};var qn=Pn;const Un=s.a.div`
+`,Bn=s()(Rn)``,Pn=({contentRenderer:e,labelRenderer:t,selectedIndex:n,tabs:r,onSelect:a,justify:i,className:l})=>o.a.createElement(Un,{className:l},o.a.createElement(Zn,{justify:i},o.a.createElement(Vn,null,r.map(e=>{const r=`tab-${e.id}`,i=e.id===n;return o.a.createElement(Hn,{key:r,onClick:()=>a(e.id)},t?t({selected:i,tab:e}):o.a.createElement(Gn,{selected:i},e.label))}),o.a.createElement(Kn,{left:120*n}))),e&&o.a.createElement(Yn,null,e(r[n])));Pn.propTypes={className:K.a.string,contentRenderer:K.a.func,headerRenderer:K.a.func,justify:K.a.oneOf(["flex-start","center","flex-end"]),onSelect:K.a.func,selectedIndex:K.a.number.isRequired,tabs:K.a.arrayOf(K.a.shape({id:K.a.number,label:K.a.string})).isRequired};var qn=Pn;const Un=s.a.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1238,7 +1238,7 @@
   box-sizing: border-box;
   padding: 20px 0;
 `,Hn=s.a.div`
-  width: 100px;
+  width: ${120}px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1260,7 +1260,7 @@
   bottom: -2px;
   height: 2px;
   left: ${({left:e})=>`${e}px`};
-  width: 100px;
+  width: ${120}px;
   transition: all 300ms;
   background: ${({theme:e})=>e.a400};
 `,Xn=e=>o.a.createElement(Qn,{className:e.className,onClick:e.onClick,color:e.color,disabled:e.disabled,selected:e.selected},e.label);Xn.propTypes={label:K.a.string,color:K.a.string,onClick:K.a.func,className:K.a.string,disabled:K.a.bool,selected:K.a.bool};var Jn=Xn;const Qn=s.a.div`
