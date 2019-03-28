@@ -32,7 +32,7 @@ const SegmentedButton = ({ sections, selected, onClick, className }) => (
 SegmentedButton.propTypes = {
   sections: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       label: PropTypes.string
     })
   ),
