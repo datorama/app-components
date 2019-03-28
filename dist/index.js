@@ -300,7 +300,7 @@
       background: ${Y(t.p300,10)};
       color: ${Y(t.p300,50)};
     `};
-`,ee=({sections:e,selected:t,onClick:n,className:r})=>o.a.createElement(ne,{className:r},e.map((r,a)=>{let i="default";return 0===a&&(i="start"),a===e.length-1&&(i="end"),o.a.createElement(re,{type:i,selected:r.id===t,onClick:()=>n(r.id),key:`section-${r.id}`},r.label)}));ee.propTypes={sections:K.a.arrayOf(K.a.shape({id:K.a.oneOfType([K.a.number,K.a.string]),label:K.a.string})),selected:K.a.number,onClick:K.a.func,className:K.a.string};var te=ee;const ne=s.a.div`
+`,ee=({sections:e,selected:t,onClick:n,className:r})=>o.a.createElement(ne,{className:r},e.map((r,a)=>{let i="default";return 0===a&&(i="start"),a===e.length-1&&(i="end"),o.a.createElement(re,{type:i,selected:r.id===t,onClick:()=>n(r.id),key:`section-${r.id}`},r.label)}));ee.propTypes={sections:K.a.arrayOf(K.a.shape({id:K.a.oneOfType([K.a.number,K.a.string]),label:K.a.string})),selected:K.a.oneOfType([K.a.number,K.a.string]),onClick:K.a.func,className:K.a.string};var te=ee;const ne=s.a.div`
   display: flex;
   align-items: center;
 `,re=s.a.div`

@@ -36,7 +36,7 @@ SegmentedButton.propTypes = {
       label: PropTypes.string
     })
   ),
-  selected: PropTypes.number,
+  selected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onClick: PropTypes.func,
   className: PropTypes.string
 };
