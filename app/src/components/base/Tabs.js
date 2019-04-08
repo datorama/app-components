@@ -24,11 +24,13 @@ const Tabs = ({
             const selected = tab.id === selectedIndex;
 
             return (
-              <Tab key={key} onClick={handleClick}>
+              <Tab key={key} onClick={tab.disabled ? null : handleClick}>
                 {labelRenderer ? (
                   labelRenderer({ selected, tab })
                 ) : (
-                  <Label selected={selected}>{tab.label}</Label>
+                  <Label disabled={tab.disabled} selected={selected}>
+                    {tab.label}
+                  </Label>
                 )}
               </Tab>
             );
@@ -102,13 +104,13 @@ const Label = styled.div`
   color: ${({ theme }) => theme.p300};
 
   &:hover {
-    color: ${({ theme }) => theme.a400};
+    color: ${({ theme, disabled }) => (disabled ? theme.p200 : theme.a400)};
   }
 
-  ${({ selected, theme }) =>
+  ${({ selected, theme, disabled }) =>
     selected &&
     css`
-      color: ${theme.a400};
+      color: ${disabled ? theme.p200 : theme.a400};
     `};
 `;
 
