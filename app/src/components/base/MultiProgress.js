@@ -15,7 +15,7 @@ export default class MultiProgress extends Component {
     className: PropTypes.string,
     meterColor: PropTypes.string
   };
-  
+
   static defaultProps = {
     strokeWidth: 10,
     innerRadius: 20,
@@ -31,10 +31,12 @@ export default class MultiProgress extends Component {
   render() {
     const { values, strokeWidth, innerRadius, gap, meterColor } = this.props;
     const { hoveredIndex } = this.state;
-    const outerRadius = innerRadius + gap * (values.length - 1) + 0.5 * strokeWidth + 2;
+    const outerRadius =
+      innerRadius + gap * (values.length - 1) + 0.5 * strokeWidth + 2;
+    const value = get(`[${hoveredIndex}].percentage`, values);
 
     return (
-      <Tooltip fixed title={`${get(`[${hoveredIndex}].percentage`, values)}%`}>
+      <Tooltip fixed title={value && `${value}%`}>
         <svg
           className={this.props.className}
           width={2 * outerRadius}
@@ -52,6 +54,7 @@ export default class MultiProgress extends Component {
                 key={`bar-${index}`}
                 color={value.color}
                 onMouseEnter={this.setHover(index)}
+                onMouseLeave={this.setHover(null)}
                 strokeWidth={strokeWidth}
               >
                 <Meter
@@ -119,7 +122,7 @@ const Group = styled.g`
     ${Value} {
       stroke: ${({ color }) => shadeColor(color, 500)};
     }
-    
+
     ${Meter} {
       stroke: ${({ theme }) => theme.p100};
     }

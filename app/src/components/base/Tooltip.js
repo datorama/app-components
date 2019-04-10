@@ -33,11 +33,11 @@ class Tooltip extends Component {
   };
 
   title = () => {
-    const { long, onClickInfo } = this.props;
+    const { long, onClickInfo, title } = this.props;
 
     return (
       <Fragment>
-        <span>{this.props.title}</span>
+        <span>{title}</span>
         {long && onClickInfo && (
           <LongAction onClick={onClickInfo}>More Info</LongAction>
         )}
@@ -46,12 +46,12 @@ class Tooltip extends Component {
   };
 
   smallTooltip() {
-    const { children, position = 'TOP', fixed, className } = this.props;
+    const { title, children, position = 'TOP', fixed, className } = this.props;
     const { open } = this.state;
 
     return (
       <StyledPopup
-        open={open}
+        open={title && open}
         contentRenderer={this.title}
         position={position}
         fixed={fixed}
