@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, Range, hexToRgba} from '../components/index';
+import { Row, Col, Range, hexToRgba } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `

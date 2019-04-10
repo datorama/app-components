@@ -6,9 +6,18 @@ import { hexToRgba } from '../utils';
 const Progress = ({ label, color, percentage, disabled, className }) => {
   return (
     <Strip className={className} disabled={disabled}>
-      {label && <Label disabled={disabled}>{label}</Label>}
-      <Outer>
-        <Inner percentage={percentage} color={color} disabled={disabled} />
+      {label && (
+        <Label className="label" disabled={disabled}>
+          {label}
+        </Label>
+      )}
+      <Outer className="outer">
+        <Inner
+          percentage={percentage}
+          color={color}
+          disabled={disabled}
+          className="inner"
+        />
       </Outer>
     </Strip>
   );
