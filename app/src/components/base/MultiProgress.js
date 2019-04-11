@@ -33,10 +33,18 @@ export default class MultiProgress extends Component {
     const { hoveredIndex } = this.state;
     const outerRadius =
       innerRadius + gap * (values.length - 1) + 0.5 * strokeWidth + 2;
-    const value = get(`[${hoveredIndex}].percentage`, values);
+
+    let label = get(`[${hoveredIndex}].percentage`, values);
+    if (label) {
+      label += '%';
+    }
+
+    if (get(`[${hoveredIndex}].label`, values)) {
+      label = get(`[${hoveredIndex}].label`, values);
+    }
 
     return (
-      <Tooltip fixed title={value && `${value}%`}>
+      <Tooltip fixed title={label}>
         <svg
           className={this.props.className}
           width={2 * outerRadius}
