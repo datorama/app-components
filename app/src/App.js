@@ -43,6 +43,7 @@ import Collapse from './docs/Collapse.doc';
 import Widget from './docs/Widget.doc';
 import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
+import MultiTagInput from './docs/MultiTagInput.doc';
 
 const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
@@ -141,6 +142,11 @@ class App extends Component {
       { key: 'progress', label: 'progress', path: 'progress' },
       { key: 'spinner', label: 'spinner', path: 'spinner' },
       { key: 'text-input', label: 'text-input', path: 'text-input' },
+      {
+        key: 'multi-tag-input',
+        label: 'Multi tag input',
+        path: 'multi-tag-input'
+      },
       { key: 'tag', label: 'tag', path: 'tag' },
       { key: 'select', label: 'select', path: 'select' },
       { key: 'carousel', label: 'carousel', path: 'carousel' },
@@ -220,6 +226,11 @@ class App extends Component {
                 <Route exact path="/spinner" component={Spinner} />
                 <Route exact path="/pagination" component={Pagination} />
                 <Route exact path="/text-input" component={TextInput} />
+                <Route
+                  exact
+                  path="/multi-tag-input"
+                  component={MultiTagInput}
+                />
                 <Route exact path="/tag" component={Tag} />
                 <Route exact path="/range" component={Range} />
                 <Route exact path="/toasts" component={Toast} />
