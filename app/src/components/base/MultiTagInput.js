@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, string, boolean } from 'prop-types';
+import { func, string, bool } from 'prop-types';
 import styled from 'styled-components';
 import { without } from 'lodash/fp';
 
@@ -67,7 +67,7 @@ MultiTagInput.propTypes = {
   onChange: func,
   validate: func,
   placeholder: string,
-  large: boolean
+  large: bool
 };
 
 const TextSelectWrapper = styled.div`
