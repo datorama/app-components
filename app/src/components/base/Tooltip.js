@@ -46,8 +46,19 @@ class Tooltip extends Component {
   };
 
   smallTooltip() {
-    const { title, children, position = 'TOP', fixed, className } = this.props;
+    const {
+      title,
+      children,
+      position = 'TOP',
+      fixed,
+      className,
+      disabled
+    } = this.props;
     const { open } = this.state;
+
+    if (disabled) {
+      return children;
+    }
 
     return (
       <StyledPopup
