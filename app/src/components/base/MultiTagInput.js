@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { func, string } from 'prop-types';
+import { func, string, boolean } from 'prop-types';
 import styled from 'styled-components';
 import { without } from 'lodash/fp';
 
@@ -41,13 +41,14 @@ class MultiTagInput extends Component {
       <TextSelectWrapper>
         <Tags>
           {(this.state.tags || []).map(tag => (
-            <Tag key={tag}>
+            <Tag key={tag} large={this.props.large}>
               <Text>{tag}</Text>
               <Remove onClick={() => this.removeTag(tag)} />
             </Tag>
           ))}
         </Tags>
         <Input
+          large={this.props.large}
           placeholder={this.props.placeholder}
           onKeyPress={this.handleKeyPress}
           onChange={event =>
@@ -65,7 +66,8 @@ class MultiTagInput extends Component {
 MultiTagInput.propTypes = {
   onChange: func,
   validate: func,
-  placeholder: string
+  placeholder: string,
+  large: boolean
 };
 
 const TextSelectWrapper = styled.div`
@@ -89,7 +91,10 @@ const Input = styled.input`
   border: none;
   width: 100%;
   font-size: 14px;
-  padding: 5px 0;
+  background: ${({ theme }) => theme.p0};
+  ${({ theme }) => theme.text.p};
+  height: ${({ theme, large }) =>
+    large ? theme.size.LARGE : theme.size.MEDIUM};
 `;
 
 const Tags = styled.div`
@@ -111,7 +116,8 @@ const Tag = styled.span`
   display: flex;
   color: #fff;
   margin: 3px 3px 0 0;
-  line-height: 28px;
+  height: ${({ theme, large }) =>
+    large ? theme.size.LARGE : theme.size.MEDIUM};
   border-radius: 5px;
   font-size: 14px;
   padding: 0 10px;

@@ -20,6 +20,21 @@ const MyComp = ({ onChange, validate }) => (
 );
 `;
 
+const MultiTagLarge = `
+import { MultiTagInput } from 'app-components';
+
+const MyComp = ({ onChange, validate }) => (
+  <div>
+    <MultiTagInput
+      large
+      onChange={onChange}
+      placeholder="placeholder"
+      validate={validate}
+    />
+  </div>
+);
+`;
+
 class MultiTagInputDoc extends Component {
   render() {
     const title = 'multi tag Input';
@@ -35,6 +50,22 @@ class MultiTagInputDoc extends Component {
           <Col>
             <Box>
               <MultiTagInput
+                placeholder="Add"
+                onChange={() => undefined}
+                validate={() => true}
+              />
+            </Box>
+          </Col>
+        </Row>
+
+        <Row align="stretch">
+          <Col>
+            <Snippet snippet={MultiTagLarge} />
+          </Col>
+          <Col>
+            <Box>
+              <MultiTagInput
+                large
                 placeholder="Add"
                 onChange={() => undefined}
                 validate={() => true}
