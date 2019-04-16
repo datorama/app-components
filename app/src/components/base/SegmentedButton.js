@@ -17,9 +17,11 @@ const SegmentedButton = ({ sections, selected, onClick, className }) => (
 
       return (
         <Section
+          disabled={section.disabled}
           type={type}
+          className={section.className}
           selected={section.id === selected}
-          onClick={() => onClick(section.id)}
+          onClick={section.disabled ? null : () => onClick(section.id)}
           key={`section-${section.id}`}
         >
           {section.label}
@@ -33,7 +35,9 @@ SegmentedButton.propTypes = {
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      label: PropTypes.string
+      label: PropTypes.string,
+      className: PropTypes.string,
+      disabled: PropTypes.boolean
     })
   ),
   selected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -51,7 +55,7 @@ const Sections = styled.div`
 const Section = styled.div`
   height: ${({ theme }) => theme.size.LARGE};
   padding: 0 14px;
-  background: ${({ theme }) => hexToRgba(theme.p300, 15)};
+  background: ${({ theme }) => hexToRgba(theme.p300, 15 / 100)};
   color: ${({ theme }) => theme.p400};
 
   ${({ theme }) => theme.text.pLink};
@@ -92,7 +96,19 @@ const Section = styled.div`
 
   &:hover {
     background: ${({ theme, selected }) =>
-      selected ? theme.a500 : hexToRgba(theme.p300, 25)};
+      selected ? theme.a500 : hexToRgba(theme.p300, 25 / 100)};
     color: ${({ theme, selected }) => (selected ? '#fff' : theme.p400)};
   }
+
+  ${({ theme, disabled }) =>
+    disabled &&
+    css`
+      background: ${hexToRgba(theme.p300, 10)};
+      color: ${hexToRgba(theme.p300, 50)};
+
+      &:hover {
+        background: ${hexToRgba(theme.p300, 10)};
+        color: ${hexToRgba(theme.p300, 50)};
+      }
+    `};
 `;
