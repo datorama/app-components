@@ -37,6 +37,7 @@ class Carousel extends Component {
   };
 
   prev = () => {
+    console.log('gpg test');
     const { current } = this.state;
     const { total } = this.props;
 
