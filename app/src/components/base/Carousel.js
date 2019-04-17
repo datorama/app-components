@@ -10,18 +10,62 @@ class Carousel extends Component {
     total: PropTypes.number.isRequired,
     slideRenderer: PropTypes.func.isRequired,
     className: PropTypes.string,
-    minHeight: PropTypes.number
+    minHeight: PropTypes.number,
+    prevControl: PropTypes.node,
+    nextControl: PropTypes.node,
+    controls: PropTypes.bool,
+    bulletSize: PropTypes.string,
+    bulletBg: PropTypes.string,
+    bulletActiveBg: PropTypes.string,
+    bulletHoverBg: PropTypes.string
   };
 
   state = {
     current: 0
   };
 
-  setSlide = current => () => this.setState({ current });
+  next = () => {
+    const { current } = this.state;
+    const { total } = this.props;
+
+    // Last slide - go to first slide
+    if (current === total - 1) {
+      this.setSlide(0);
+    } else {
+      this.setSlide(current + 1);
+    }
+  };
+
+  prev = () => {
+    const { current } = this.state;
+    const { total } = this.props;
+
+    // First slide - go to last slide
+    if (current === 0) {
+      this.setSlide(total - 1);
+    } else {
+      this.setSlide(current - 1);
+    }
+  };
+
+  setSlide = current => this.setState({ current });
 
   render() {
     const { current } = this.state;
-    const { total, slideRenderer, className, loading, minHeight } = this.props;
+    const {
+      total,
+      slideRenderer,
+      className,
+      loading,
+      minHeight,
+      controls,
+      nextControl,
+      prevControl,
+      bulletSize,
+      bulletBg,
+      bulletActiveBg,
+      bulletHoverBg
+    } = this.props;
     const ids = range(0, total);
     const slides = [];
     const bullets = [];
@@ -43,8 +87,12 @@ class Carousel extends Component {
 
       bullets.push(
         <Bullet
+          size={bulletSize}
+          background={bulletBg}
+          activeBackground={bulletActiveBg}
+          hoverBackground={bulletHoverBg}
           key={`bullet-${id}`}
-          onClick={this.setSlide(id)}
+          onClick={() => this.setSlide(id)}
           selected={current === id}
         />
       );
@@ -52,9 +100,23 @@ class Carousel extends Component {
 
     return (
       <Container className={className}>
-        <Inner total={total} translate={-1 * current * (100 / total)}>
-          {slides}
-        </Inner>
+        <SlidesAndControls>
+          {controls && (
+            <Control onClick={this.prev}>
+              {prevControl ? prevControl : 'Prev'}
+            </Control>
+          )}
+          <SlidesContainer>
+            <Slides total={total} translate={-1 * current * (100 / total)}>
+              {slides}
+            </Slides>
+          </SlidesContainer>
+          {controls && (
+            <Control onClick={this.next}>
+              {nextControl ? nextControl : 'Next'}
+            </Control>
+          )}
+        </SlidesAndControls>
         <Bullets>{bullets}</Bullets>
       </Container>
     );
@@ -64,20 +126,35 @@ class Carousel extends Component {
 export default Carousel;
 
 const Container = styled.div`
-  position: relative;
-  overflow: hidden;
   width: 100%;
   box-sizing: border-box;
-
   ${({ theme }) => theme.animation.fade};
 `;
 
-const Inner = styled.div`
+const SlidesAndControls = styled.div`
+  display: flex;
+  height: 100%;
+`;
+
+const SlidesContainer = styled.div`
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+`;
+
+const Slides = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   width: ${({ total }) => `${total * 100}%`};
   transition: all 500ms ease-out;
   transform: ${({ translate }) => `translateX(${translate}%)`};
+`;
+
+const Control = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 `;
 
 const Slide = styled.div`
@@ -106,22 +183,23 @@ const Bullets = styled.div`
 `;
 
 const Bullet = styled.div`
-  width: 8px;
-  height: 8px;
-  background: ${({ theme }) => theme.p200};
+  width: ${({ size }) => size || '8px'};
+  height: ${({ size }) => size || '8px'};
+  background: ${({ theme, background }) => background || theme.p200};
   border-radius: 50%;
   margin: 0 4px;
   cursor: pointer;
   transition: all 300ms;
 
-  ${({ selected, theme }) =>
+  ${({ selected, activeBackground, theme }) =>
     selected &&
     css`
-      background: ${theme.p400};
+      background: ${activeBackground || theme.p400};
     `};
 
   &:hover {
-    background: ${({ theme }) => theme.p300};
+    background: ${({ theme, hoverBackground }) =>
+      hoverBackground || theme.p300};
   }
 `;
 
