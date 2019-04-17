@@ -22,7 +22,8 @@ class Datepicker extends Component {
   };
 
   static defaultProps = {
-    months: 1
+    months: 1,
+    onChange: () => {}
   };
 
   state = {
@@ -35,7 +36,7 @@ class Datepicker extends Component {
     tmpStart: null,
     selecting: false,
     hoveredDate: null,
-    
+
     selectedPreset: []
   };
 
@@ -165,7 +166,10 @@ class Datepicker extends Component {
 
     if (selection[0]) {
       const selectionMonthStart = moment(selection[0]).startOf('month');
-      let offset = selectionMonthStart.diff(today.clone().startOf('month'), 'months');
+      let offset = selectionMonthStart.diff(
+        today.clone().startOf('month'),
+        'months'
+      );
 
       this.setState({ offset });
     }
@@ -176,10 +180,10 @@ class Datepicker extends Component {
   prev = () => this.setState(prevState => ({ offset: prevState.offset - 1 }));
 
   apply = () =>
-    this.setState(
-      { committedSelection: this.state.selection },
-      this.toggleOpen
-    );
+    this.setState({ committedSelection: this.state.selection }, () => {
+      this.toggleOpen();
+      this.props.onChange(this.state.committedSelection);
+    });
 
   cancel = () => {
     this.setState({ open: false, selecting: false }, () => {
@@ -221,7 +225,13 @@ class Datepicker extends Component {
     this.setState({ selection, selecting: false });
 
   setPreset = preset => {
-    this.setState({ selection: preset[0].selection, selectedPreset: preset }, this.setOffset);
+    this.setState(
+      { selection: preset[0].selection, selectedPreset: preset },
+      () => {
+        this.setOffset();
+        this.props.onChange(preset[0].selection);
+      }
+    );
   };
 
   render() {
