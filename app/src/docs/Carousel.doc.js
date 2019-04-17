@@ -3,18 +3,27 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, Carousel} from '../components/index';
+import { Row, Col, Carousel } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Modal } from 'app-components';
+import { Carousel } from 'app-components';
 
 const MyComp = ({ renderer }) => (
   <div>
     ...
     <Carousel
-    	total={12}
-    	slideRenderer={renderer}
+    	controls
+        bulletSize={'20px'}
+        bulletBg={'gray'}
+        bulletActiveBg={'darkgray'}
+        bulletHoverBg={'lightblue'}
+        total={5}
+        slideRenderer={this.slideRenderer}
+        prevControl={<Control>{'<'}</Control>}
+        nextControl={<Control>{'>'}</Control>}
+        loading={loading}
+        minHeight={360}
     />
   </div>
 );
@@ -47,8 +56,15 @@ export default class CarouselDoc extends React.Component {
         <Row>
           <Col>
             <StyledCarousel
+              controls
+              bulletSize={'20px'}
+              bulletBg={'gray'}
+              bulletActiveBg={'darkgray'}
+              bulletHoverBg={'lightblue'}
               total={5}
               slideRenderer={this.slideRenderer}
+              prevControl={<Control>{'<'}</Control>}
+              nextControl={<Control>{'>'}</Control>}
               loading={loading}
               minHeight={360}
             />
@@ -69,6 +85,11 @@ const Slide = styled.div`
   align-items: center;
   justify-content: center;
   ${({ theme }) => theme.text.p};
+`;
+
+const Control = styled.div`
+  font-size: 20px;
+  padding: 20px;
 `;
 
 const StyledCarousel = styled(Carousel)`
