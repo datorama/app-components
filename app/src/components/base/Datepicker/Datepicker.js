@@ -18,12 +18,14 @@ class Datepicker extends Component {
   static propTypes = {
     onChange: PropTypes.func,
     className: PropTypes.string,
-    months: PropTypes.number
+    months: PropTypes.number,
+    initialSelection: PropTypes.arrayOf(PropTypes.string)
   };
 
   static defaultProps = {
     months: 1,
-    onChange: () => {}
+    onChange: () => {},
+    initialSelection: []
   };
 
   state = {
@@ -31,8 +33,8 @@ class Datepicker extends Component {
     offset: 0,
     open: false,
 
-    selection: [],
-    committedSelection: [],
+    selection: this.props.initialSelection,
+    committedSelection: this.props.initialSelection,
     tmpStart: null,
     selecting: false,
     hoveredDate: null,
