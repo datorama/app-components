@@ -25,7 +25,7 @@ class Datepicker extends Component {
   static defaultProps = {
     months: 1,
     onChange: () => {},
-    initialSelection: ['2018-01-01', '2018-01-02']
+    initialSelection: []
   };
 
   state = {
