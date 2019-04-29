@@ -19,13 +19,15 @@ class Datepicker extends Component {
     onChange: PropTypes.func,
     className: PropTypes.string,
     months: PropTypes.number,
-    initialSelection: PropTypes.arrayOf(PropTypes.string)
+    initialSelection: PropTypes.arrayOf(PropTypes.string),
+    firstDayOfWeek: PropTypes.number
   };
 
   static defaultProps = {
     months: 1,
     onChange: () => {},
-    initialSelection: []
+    initialSelection: [],
+    firstDayOfWeek: 0
   };
 
   state = {
@@ -238,7 +240,7 @@ class Datepicker extends Component {
 
   render() {
     const { open, committedSelection, selectedPreset } = this.state;
-    const { className, months } = this.props;
+    const { className, months, firstDayOfWeek } = this.props;
     const monthsElement = [];
 
     for (let i = 0; i < months; i++) {
@@ -257,6 +259,7 @@ class Datepicker extends Component {
           <DatepickerPresets
             onChange={this.setPreset}
             selectedPreset={selectedPreset}
+            firstDayOfWeek={firstDayOfWeek}
           />
           <Divider margin="0" />
 

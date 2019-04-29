@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { get } from 'lodash/fp';
@@ -10,139 +10,6 @@ import ArrowDown from '../../icons/ArrowDown.icon';
 // components
 import Select from '../Select/Select';
 
-const TODAY = moment().startOf('day');
-const FORMAT = 'YYYY-MM-DD';
-
-const THIS_WEEK = [
-  TODAY.clone()
-    .startOf('week')
-    .format(FORMAT),
-  TODAY.clone()
-    .endOf('week')
-    .format(FORMAT)
-];
-const THIS_MONTH = [
-  TODAY.clone()
-    .startOf('month')
-    .format(FORMAT),
-  TODAY.clone()
-    .endOf('month')
-    .format(FORMAT)
-];
-const THIS_QUARTER = [
-  TODAY.clone()
-    .startOf('quarter')
-    .format(FORMAT),
-  TODAY.clone()
-    .endOf('quarter')
-    .format(FORMAT)
-];
-const THIS_YEAR = [
-  TODAY.clone()
-    .startOf('year')
-    .format(FORMAT),
-  TODAY.clone()
-    .endOf('year')
-    .format(FORMAT)
-];
-
-const LAST_7_DAYS = [
-  TODAY.clone()
-    .subtract(6, 'days')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-const LAST_14_DAYS = [
-  TODAY.clone()
-    .subtract(13, 'days')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-const LAST_30_days = [
-  TODAY.clone()
-    .subtract(29, 'days')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-const LAST_90_DAYS = [
-  TODAY.clone()
-    .subtract(89, 'days')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-
-const YESTERDAY_TO_DATE = [
-  TODAY.clone()
-    .subtract(1, 'days')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-const WEEK_TO_DATE = [
-  TODAY.clone()
-    .startOf('week')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-const MONTH_TO_DATE = [
-  TODAY.clone()
-    .startOf('month')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-const QUARTER_TO_DATE = [
-  TODAY.clone()
-    .startOf('quarter')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-const YEAR_TO_DATE = [
-  TODAY.clone()
-    .startOf('year')
-    .format(FORMAT),
-  TODAY.format(FORMAT)
-];
-
-const PREV_WEEK = [
-  TODAY.clone()
-    .subtract(1, 'week')
-    .startOf('week')
-    .format(FORMAT),
-  TODAY.clone()
-    .subtract(1, 'week')
-    .endOf('week')
-    .format(FORMAT)
-];
-const PREV_MONTH = [
-  TODAY.clone()
-    .subtract(1, 'month')
-    .startOf('month')
-    .format(FORMAT),
-  TODAY.clone()
-    .subtract(1, 'month')
-    .endOf('month')
-    .format(FORMAT)
-];
-const PREV_QUARTER = [
-  TODAY.clone()
-    .subtract(1, 'quarter')
-    .startOf('quarter')
-    .format(FORMAT),
-  TODAY.clone()
-    .subtract(1, 'quarter')
-    .endOf('quarter')
-    .format(FORMAT)
-];
-const PREV_YEAR = [
-  TODAY.clone()
-    .subtract(1, 'year')
-    .startOf('year')
-    .format(FORMAT),
-  TODAY.clone()
-    .subtract(1, 'year')
-    .endOf('year')
-    .format(FORMAT)
-];
-
 const CustomHeader = ({ open, toggleOpen, placeholder, values }) => (
   <Header onClick={toggleOpen}>
     {get('[0].label', values) || placeholder}
@@ -150,66 +17,269 @@ const CustomHeader = ({ open, toggleOpen, placeholder, values }) => (
   </Header>
 );
 
-const DatepickerPresets = ({ onChange, selectedPreset }) => (
-  <Container>
-    <Select
-      placeholder="Presets"
-      options={[
-        { value: 'this-week', label: 'This week', selection: THIS_WEEK },
-        { value: 'this-month', label: 'This month', selection: THIS_MONTH },
-        {
-          value: 'this-quarter',
-          label: 'This quarter',
-          selection: THIS_QUARTER
-        },
-        { value: 'this-year', label: 'This year', selection: THIS_YEAR },
+class DatepickerPresets extends Component {
+  componentDidMount() {
+    const { firstDayOfWeek } = this.props;
 
-        { value: 'last-7', label: 'Last 7 days', selection: LAST_7_DAYS },
-        { value: 'last-14', label: 'Last 14 days', selection: LAST_14_DAYS },
-        { value: 'last-30', label: 'Last 30 days', selection: LAST_30_days },
-        { value: 'last-90', label: 'Last 90 days', selection: LAST_90_DAYS },
+    moment.updateLocale('en', {
+      week: {
+        dow: firstDayOfWeek
+      }
+    });
 
-        {
-          value: 'yesterday-to-date',
-          label: 'Yesterday',
-          selection: YESTERDAY_TO_DATE
-        },
-        {
-          value: 'week-to-date',
-          label: 'Week to date',
-          selection: WEEK_TO_DATE
-        },
-        {
-          value: 'month-to-date',
-          label: 'Month to date',
-          selection: MONTH_TO_DATE
-        },
-        {
-          value: 'quarter-to-date',
-          label: 'Quarter to date',
-          selection: QUARTER_TO_DATE
-        },
-        {
-          value: 'year-to-date',
-          label: 'Year to date',
-          selection: YEAR_TO_DATE
-        },
+    this.setPresets();
+  }
 
-        { value: 'prev-week', label: 'Previous week', selection: PREV_WEEK },
-        { value: 'prev-month', label: 'Previous month', selection: PREV_MONTH },
-        {
-          value: 'prev-quarter',
-          label: 'Previous quarter',
-          selection: PREV_QUARTER
-        },
-        { value: 'prev-year', label: 'Previous year', selection: PREV_YEAR }
-      ]}
-      values={selectedPreset}
-      headerRenderer={CustomHeader}
-      onChange={onChange}
-    />
-  </Container>
-);
+  setPresets() {
+    this.TODAY = moment().startOf('day');
+    this.FORMAT = 'YYYY-MM-DD';
+
+    this.THIS_WEEK = [
+      this.TODAY.clone()
+        .startOf('week')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .endOf('week')
+        .format(this.FORMAT)
+    ];
+    this.THIS_MONTH = [
+      this.TODAY.clone()
+        .startOf('month')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .endOf('month')
+        .format(this.FORMAT)
+    ];
+    this.THIS_QUARTER = [
+      this.TODAY.clone()
+        .startOf('quarter')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .endOf('quarter')
+        .format(this.FORMAT)
+    ];
+    this.THIS_YEAR = [
+      this.TODAY.clone()
+        .startOf('year')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .endOf('year')
+        .format(this.FORMAT)
+    ];
+
+    this.LAST_7_DAYS = [
+      this.TODAY.clone()
+        .subtract(7, 'days')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'days')
+        .format(this.FORMAT)
+    ];
+    this.LAST_14_DAYS = [
+      this.TODAY.clone()
+        .subtract(14, 'days')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'days')
+        .format(this.FORMAT)
+    ];
+    this.LAST_30_days = [
+      this.TODAY.clone()
+        .subtract(30, 'days')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'days')
+        .format(this.FORMAT)
+    ];
+    this.LAST_90_DAYS = [
+      this.TODAY.clone()
+        .subtract(90, 'days')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'days')
+        .format(this.FORMAT)
+    ];
+
+    this.YESTERDAY = [
+      this.TODAY.clone()
+        .subtract(1, 'days')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'days')
+        .format(this.FORMAT)
+    ];
+    this.WEEK_TO_DATE = [
+      this.TODAY.clone()
+        .startOf('week')
+        .format(this.FORMAT),
+      this.TODAY.format(this.FORMAT)
+    ];
+    this.MONTH_TO_DATE = [
+      this.TODAY.clone()
+        .startOf('month')
+        .format(this.FORMAT),
+      this.TODAY.format(this.FORMAT)
+    ];
+    this.QUARTER_TO_DATE = [
+      this.TODAY.clone()
+        .startOf('quarter')
+        .format(this.FORMAT),
+      this.TODAY.format(this.FORMAT)
+    ];
+    this.YEAR_TO_DATE = [
+      this.TODAY.clone()
+        .startOf('year')
+        .format(this.FORMAT),
+      this.TODAY.format(this.FORMAT)
+    ];
+
+    this.PREV_WEEK = [
+      this.TODAY.clone()
+        .subtract(1, 'week')
+        .startOf('week')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'week')
+        .endOf('week')
+        .format(this.FORMAT)
+    ];
+    this.PREV_MONTH = [
+      this.TODAY.clone()
+        .subtract(1, 'month')
+        .startOf('month')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'month')
+        .endOf('month')
+        .format(this.FORMAT)
+    ];
+    this.PREV_QUARTER = [
+      this.TODAY.clone()
+        .subtract(1, 'quarter')
+        .startOf('quarter')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'quarter')
+        .endOf('quarter')
+        .format(this.FORMAT)
+    ];
+    this.PREV_YEAR = [
+      this.TODAY.clone()
+        .subtract(1, 'year')
+        .startOf('year')
+        .format(this.FORMAT),
+      this.TODAY.clone()
+        .subtract(1, 'year')
+        .endOf('year')
+        .format(this.FORMAT)
+    ];
+  }
+
+  render() {
+    const { onChange, selectedPreset } = this.props;
+
+    return (
+      <Container>
+        <Select
+          placeholder="Presets"
+          options={[
+            {
+              value: 'this-week',
+              label: 'This week',
+              selection: this.THIS_WEEK
+            },
+            {
+              value: 'this-month',
+              label: 'This month',
+              selection: this.THIS_MONTH
+            },
+            {
+              value: 'this-quarter',
+              label: 'This quarter',
+              selection: this.THIS_QUARTER
+            },
+            {
+              value: 'this-year',
+              label: 'This year',
+              selection: this.THIS_YEAR
+            },
+
+            {
+              value: 'last-7',
+              label: 'Last 7 days',
+              selection: this.LAST_7_DAYS
+            },
+            {
+              value: 'last-14',
+              label: 'Last 14 days',
+              selection: this.LAST_14_DAYS
+            },
+            {
+              value: 'last-30',
+              label: 'Last 30 days',
+              selection: this.LAST_30_days
+            },
+            {
+              value: 'last-90',
+              label: 'Last 90 days',
+              selection: this.LAST_90_DAYS
+            },
+
+            {
+              value: 'yesterday',
+              label: 'Yesterday',
+              selection: this.YESTERDAY
+            },
+            {
+              value: 'week-to-date',
+              label: 'Week to date',
+              selection: this.WEEK_TO_DATE
+            },
+            {
+              value: 'month-to-date',
+              label: 'Month to date',
+              selection: this.MONTH_TO_DATE
+            },
+            {
+              value: 'quarter-to-date',
+              label: 'Quarter to date',
+              selection: this.QUARTER_TO_DATE
+            },
+            {
+              value: 'year-to-date',
+              label: 'Year to date',
+              selection: this.YEAR_TO_DATE
+            },
+
+            {
+              value: 'prev-week',
+              label: 'Previous week',
+              selection: this.PREV_WEEK
+            },
+            {
+              value: 'prev-month',
+              label: 'Previous month',
+              selection: this.PREV_MONTH
+            },
+            {
+              value: 'prev-quarter',
+              label: 'Previous quarter',
+              selection: this.PREV_QUARTER
+            },
+            {
+              value: 'prev-year',
+              label: 'Previous year',
+              selection: this.PREV_YEAR
+            }
+          ]}
+          values={selectedPreset}
+          headerRenderer={CustomHeader}
+          onChange={onChange}
+        />
+      </Container>
+    );
+  }
+}
 
 DatepickerPresets.propTypes = {
   onChange: PropTypes.func,
