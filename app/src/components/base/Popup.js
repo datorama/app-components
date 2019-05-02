@@ -9,10 +9,10 @@ const BOTTOM = 'BOTTOM';
 const TOP = 'TOP';
 const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
-// const BOTTOM_LEFT = 'BOTTOM_LEFT';
-// const BOTTOM_RIGHT = 'BOTTOM_RIGHT';
-// const TOP_LEFT = 'TOP_LEFT';
-// const TOP_RIGHT = 'TOP_RIGHT';
+const BOTTOM_LEFT = 'BOTTOM_LEFT';
+const BOTTOM_RIGHT = 'BOTTOM_RIGHT';
+const TOP_LEFT = 'TOP_LEFT';
+const TOP_RIGHT = 'TOP_RIGHT';
 
 export default class Popup extends Component {
   static propTypes = {
