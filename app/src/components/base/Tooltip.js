@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { debounce } from 'lodash/fp';
 import Popup from './Popup';
 
 // icons
@@ -24,10 +25,48 @@ class Tooltip extends Component {
   };
 
   state = {
-    open: false
+    open: false,
+    offset: 0,
+    initOffset: null
   };
 
+  tooltipRef = React.createRef();
   toggleOpenTimeoutId = null;
+
+  componentDidMount() {
+    this.setTooltipOffset();
+    window.addEventListener('resize', this.setTooltipOffset);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setTooltipOffset);
+  }
+
+  // TODO: support left side offsets
+  setTooltipOffset = debounce(1000, () => {
+    if (!this.tooltipRef.current) {
+      return;
+    }
+
+    const { x, width } = this.tooltipRef.current.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+
+    const offset = x + width - windowWidth;
+
+    if (!this.state.initOffset) {
+      this.setState({ initOffset: x + width });
+    }
+
+    if (windowWidth < this.state.initOffset) {
+      this.setState(prevState => ({
+        offset: Math.max(0, prevState.offset + offset + 20)
+      }));
+    }
+
+    if (windowWidth >= this.state.initOffset && this.state.offset) {
+      this.setState({ offset: 0 });
+    }
+  });
 
   toggleOpen = origin => event => {
     const { open } = this.state;
@@ -69,7 +108,7 @@ class Tooltip extends Component {
       className,
       disabled
     } = this.props;
-    const { open } = this.state;
+    const { open, offset } = this.state;
 
     if (disabled) {
       return children;
@@ -82,6 +121,8 @@ class Tooltip extends Component {
         position={position}
         fixed={fixed}
         className={className}
+        menuRef={this.tooltipRef}
+        offset={offset}
       >
         <Container
           onMouseEnter={this.toggleOpen('content')}
@@ -95,7 +136,7 @@ class Tooltip extends Component {
 
   longTooltip() {
     const { position = 'TOP', className, withClose } = this.props;
-    const { open } = this.state;
+    const { open, offset } = this.state;
 
     return (
       <StyledLong
@@ -105,6 +146,8 @@ class Tooltip extends Component {
         withClose={withClose}
         toggleOpen={this.toggleOpen('close-icon')}
         className={className}
+        menuRef={this.tooltipRef}
+        offset={offset}
       >
         <Container
           onMouseEnter={this.toggleOpen('icon')}
@@ -118,7 +161,6 @@ class Tooltip extends Component {
 
   render() {
     const { long } = this.props;
-
     if (long) {
       return this.longTooltip();
     }
@@ -162,6 +204,7 @@ const StyledLong = styled(Popup)`
       pointer-events: none;
       border-top-color: ${({ theme }) => theme.p0};
       border-width: 6px;
+      transition: all 300ms;
     }
 
     ${({ position }) =>
@@ -196,26 +239,26 @@ const StyledLong = styled(Popup)`
         }
       `};
 
-    ${({ position }) =>
+    ${({ position, offset }) =>
       position === 'RIGHT' &&
       css`
         &:after {
           top: 50%;
-          right: 100%;
+          right: calc(100% - ${offset}px);
           margin-top: -6px;
           transform: rotate(90deg);
         }
       `};
 
-    ${({ position }) =>
+    ${({ position, offset }) =>
       position === 'TOP_RIGHT' &&
       css`
         bottom: calc(100% + 10px);
-        left: -12px;
+        left: calc(-12px - ${offset}px);
 
         &:after {
           top: 100%;
-          left: 12px;
+          left: calc(12px + ${offset}px);
           transform: translateX(50%);
         }
       `};
@@ -233,11 +276,11 @@ const StyledLong = styled(Popup)`
         }
       `};
 
-    ${({ position }) =>
+    ${({ position, offset }) =>
       position === 'BOTTOM_RIGHT' &&
       css`
       top: calc(100% + 10px);
-      left: -12px;
+      left: calc(-12px - ${offset}px);
         
         &:after {
           bottom: 100%;
