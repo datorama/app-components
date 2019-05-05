@@ -14,22 +14,32 @@ class Tooltip extends Component {
     onClickInfo: PropTypes.func,
     position: PropTypes.string,
     fixed: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    delay: PropTypes.number
   };
 
   state = {
     open: false
   };
 
-  toggleOpen = origin => () => {
+  toggleOpenTimeoutId = null;
+
+  toggleOpen = origin => event => {
     const { open } = this.state;
-    const { long } = this.props;
+    const { long, delay = 0 } = this.props;
 
     if (long && open && origin === 'icon') {
       return;
     }
 
-    this.setState({ open: !open });
+    if (!open && event.type === 'mouseleave' && this.toggleOpenTimeoutId) {
+      return clearTimeout(this.toggleOpenTimeoutId);
+    }
+
+    this.toggleOpenTimeoutId = setTimeout(
+      () => this.setState(prevState => ({ open: !prevState.open })),
+      open ? 0 : delay
+    );
   };
 
   title = () => {
@@ -91,7 +101,10 @@ class Tooltip extends Component {
         toggleOpen={this.toggleOpen('close-icon')}
         className={className}
       >
-        <Container onMouseEnter={this.toggleOpen('icon')}>
+        <Container
+          onMouseEnter={this.toggleOpen('icon')}
+          onMouseLeave={this.toggleOpen('icon')}
+        >
           <StyledTip />
         </Container>
       </StyledLong>
