@@ -217,26 +217,27 @@ const Subtitle = styled.div`
 `;
 
 const StyledInfoIcon = styled(InfoIcon)`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   margin-right: 4px;
+  margin-bottom: 1px;
 `;
 
 const StyledAlertIcon = styled(InfoIcon)`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   margin-right: 4px;
 `;
 
 const StyledWarningIcon = styled(WarningIcon)`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   margin-right: 4px;
 `;
 
 const StyledSuccessIcon = styled(SuccessIcon)`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   margin-right: 4px;
 `;
 
@@ -301,7 +302,7 @@ const Snackbar = styled.div`
   height: 30px;
   border-radius: 2px;
   box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
-  background-color: rgba(79, 80, 83, 0.9);
+  background-color: ${({ theme }) => theme.p400};
 
   ${CloseIcon} {
     top: 10px;
