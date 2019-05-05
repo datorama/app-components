@@ -32,7 +32,11 @@ export { default as Tabs } from './base/Tabs';
 export { default as Tag } from './base/Tag';
 export { default as TagGroup } from './base/TagGroup';
 export { default as TextInput } from './base/TextInput';
-export { withToast, default as ToastsProvider } from './base/Toasts';
+export {
+  withToast,
+  withSnackbar,
+  default as ToastsProvider
+} from './base/Toasts';
 export { default as Toggle } from './base/Toggle';
 export { default as Tooltip } from './base/Tooltip';
 export { default as Widget } from './base/Widget';
