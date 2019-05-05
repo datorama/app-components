@@ -15,7 +15,12 @@ class Tooltip extends Component {
     position: PropTypes.string,
     fixed: PropTypes.bool,
     className: PropTypes.string,
-    delay: PropTypes.number
+    delay: PropTypes.number,
+    withClose: PropTypes.bool
+  };
+
+  static defaultProps = {
+    withClose: true
   };
 
   state = {
@@ -26,9 +31,9 @@ class Tooltip extends Component {
 
   toggleOpen = origin => event => {
     const { open } = this.state;
-    const { long, delay = 0 } = this.props;
+    const { long, withClose, delay = 0 } = this.props;
 
-    if (long && open && origin === 'icon') {
+    if (long && open && origin === 'icon' && withClose) {
       return;
     }
 
@@ -89,7 +94,7 @@ class Tooltip extends Component {
   }
 
   longTooltip() {
-    const { position = 'TOP', className } = this.props;
+    const { position = 'TOP', className, withClose } = this.props;
     const { open } = this.state;
 
     return (
@@ -97,7 +102,7 @@ class Tooltip extends Component {
         open={open}
         contentRenderer={this.title}
         position={position}
-        withClose
+        withClose={withClose}
         toggleOpen={this.toggleOpen('close-icon')}
         className={className}
       >
