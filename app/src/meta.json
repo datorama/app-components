@@ -1179,6 +1179,49 @@
   },
   {
     "description": "",
+    "displayName": "StepperBullet",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "touched": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "enabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "hovered": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/StepperBullet.js"
+  },
+  {
+    "description": "",
     "displayName": "Stepper",
     "methods": [
       {
@@ -1277,49 +1320,6 @@
       }
     },
     "filename": "/components/base/Sticky.js"
-  },
-  {
-    "description": "",
-    "displayName": "StepperBullet",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "touched": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "enabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "hovered": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/StepperBullet.js"
   },
   {
     "description": "",
@@ -1943,115 +1943,13 @@
   },
   {
     "description": "",
-    "displayName": "Datepicker",
+    "displayName": "DatepickerPresets",
     "methods": [
       {
-        "name": "datesRenderer",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "globalOffset",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "setHover",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "date",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "toggleOpen",
+        "name": "setPresets",
         "docblock": null,
         "modifiers": [],
         "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleClickOut",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "setOffset",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "next",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "prev",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "apply",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "cancel",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "date",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "selectMonth",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "selection",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "setPreset",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "preset",
-            "type": null
-          }
-        ],
         "returns": null
       }
     ],
@@ -2061,76 +1959,101 @@
           "name": "func"
         },
         "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "() => {}",
-          "computed": false
-        }
+        "description": ""
       },
-      "className": {
+      "selectedPreset": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Datepicker/DatepickerPresets.js"
+  },
+  {
+    "description": "",
+    "displayName": "InlineSearch",
+    "methods": [
+      {
+        "name": "handleRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "focus",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleInput",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholder": {
         "type": {
           "name": "string"
         },
         "required": false,
         "description": ""
       },
-      "months": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "1",
-          "computed": false
-        }
-      },
-      "initialSelection": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "string"
-          }
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "[]",
-          "computed": false
-        }
-      },
-      "firstDayOfWeek": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "0",
-          "computed": false
-        }
-      }
-    },
-    "filename": "/components/base/Datepicker/Datepicker.js"
-  },
-  {
-    "description": "",
-    "displayName": "DatepickerHeader",
-    "methods": [],
-    "props": {
-      "onClick": {
+      "toggleOpen": {
         "type": {
           "name": "func"
         },
         "required": false,
         "description": ""
       },
-      "selection": {
+      "error": {
         "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "string"
-          }
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "small": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "large": {
+        "type": {
+          "name": "bool"
         },
         "required": false,
         "description": ""
@@ -2141,9 +2064,44 @@
         },
         "required": false,
         "description": ""
+      },
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onSearch": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxTags": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onSelect": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
       }
     },
-    "filename": "/components/base/Datepicker/DatepickerHeader.js"
+    "filename": "/components/base/Select/InlineSearch.js"
   },
   {
     "description": "",
@@ -2715,36 +2673,6 @@
   },
   {
     "description": "",
-    "displayName": "DatepickerPresets",
-    "methods": [
-      {
-        "name": "setPresets",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selectedPreset": {
-        "type": {
-          "name": "array"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Datepicker/DatepickerPresets.js"
-  },
-  {
-    "description": "",
     "displayName": "SelectMultiHeader",
     "methods": [],
     "props": {
@@ -2802,49 +2730,6 @@
       }
     },
     "filename": "/components/base/Select/SelectNoResults.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectSearch",
-    "methods": [],
-    "props": {
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "value": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchPlaceholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "small": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "large": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectSearch.js"
   },
   {
     "description": "",
@@ -2935,73 +2820,26 @@
   },
   {
     "description": "",
-    "displayName": "InlineSearch",
-    "methods": [
-      {
-        "name": "handleRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "focus",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleInput",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "displayName": "SelectSearch",
+    "methods": [],
     "props": {
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "toggleOpen": {
+      "onChange": {
         "type": {
           "name": "func"
         },
         "required": false,
         "description": ""
       },
-      "error": {
+      "value": {
         "type": {
-          "name": "bool"
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchPlaceholder": {
+        "type": {
+          "name": "string"
         },
         "required": false,
         "description": ""
@@ -3019,51 +2857,9 @@
         },
         "required": false,
         "description": ""
-      },
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "value": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onSearch": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "maxTags": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onSelect": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "loading": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
       }
     },
-    "filename": "/components/base/Select/InlineSearch.js"
+    "filename": "/components/base/Select/SelectSearch.js"
   },
   {
     "description": "",
@@ -3079,5 +2875,209 @@
       }
     },
     "filename": "/components/base/Select/SelectSpinner.js"
+  },
+  {
+    "description": "",
+    "displayName": "Datepicker",
+    "methods": [
+      {
+        "name": "datesRenderer",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "globalOffset",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "date",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "toggleOpen",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleClickOut",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "setOffset",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "next",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "prev",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "apply",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "cancel",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "date",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "selectMonth",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "selection",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "setPreset",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "preset",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "() => {}",
+          "computed": false
+        }
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "months": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "1",
+          "computed": false
+        }
+      },
+      "initialSelection": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "firstDayOfWeek": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      }
+    },
+    "filename": "/components/base/Datepicker/Datepicker.js"
+  },
+  {
+    "description": "",
+    "displayName": "DatepickerHeader",
+    "methods": [],
+    "props": {
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selection": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Datepicker/DatepickerHeader.js"
   }
 ]
