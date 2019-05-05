@@ -188,6 +188,59 @@ const StyledLong = styled(Popup)`
           transform: rotate(90deg);
         }
       `};
+
+    ${({ position }) =>
+      position === 'TOP_RIGHT' &&
+      css`
+        bottom: calc(100% + 10px);
+        left: -12px;
+
+        &:after {
+          top: 100%;
+          left: 12px;
+          transform: translateX(50%);
+        }
+      `};
+
+    ${({ position }) =>
+      position === 'TOP_LEFT' &&
+      css`
+        bottom: calc(100% + 10px);
+        right: -12px;
+
+        &:after {
+          top: 100%;
+          right: 12px;
+          transform: translateX(-50%);
+        }
+      `};
+
+    ${({ position }) =>
+      position === 'BOTTOM_RIGHT' &&
+      css`
+      top: calc(100% + 10px);
+      left: -12px;
+        
+        &:after {
+          bottom: 100%;
+          left: 12px;
+          transform: translateX(100%) rotate(180deg);
+          margin-left: -6px;
+      `};
+
+    ${({ position }) =>
+      position === 'BOTTOM_LEFT' &&
+      css`
+        top: calc(100% + 10px);
+        right: -12px;
+
+        &:after {
+          bottom: 100%;
+          left: calc(100% - 12px);
+          transform: translateX(-100%) rotate(180deg);
+          margin-left: -6px;
+        }
+      `};
   }
 `;
 
