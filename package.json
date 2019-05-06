@@ -20,12 +20,11 @@
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.4.9",
     "babel-loader": "^8.0.5",
-    "bundlesize": "^0.17.1",
     "copy-webpack-plugin": "^5.0.0",
     "css-loader": "^1.0.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "husky": "^1.3.1",
-    "lint-staged": "^8.1.5",
+    "husky": "^2.2.0",
+    "lint-staged": "^8.1.6",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "postcss-flexbugs-fixes": "^4.1.0",
@@ -42,27 +41,19 @@
     "webpack-cli": "^3.2.3"
   },
   "scripts": {
-    "test": "bundlesize",
-    "test:once": "bundlesize",
     "heroku-prebuild": "cd app && npm install",
     "start": "cd app && npm start",
     "heroku-postbuild": "cd app && npm run build",
-    "lib:build": "rimraf dist && webpack && npm test && cd app && npm run generate:docs",
+    "lib:build": "rimraf dist && webpack && cd app && npm run generate:docs",
     "lib:watch": "rimraf dist && webpack -w"
   },
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
-  "bundlesize": [
-    {
-      "path": "./dist/index.js",
-      "maxSize": "60 kB"
-    }
-  ],
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test:once && lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
