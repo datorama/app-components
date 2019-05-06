@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import styled, { keyframes, css } from 'styled-components';
 import { throttle } from 'lodash/fp';
 
 // icons
@@ -16,20 +17,35 @@ export const withToast = Comp => props => (
   </Consumer>
 );
 
+export const withSnackbar = Comp => props => (
+  <Consumer>
+    {({ addSnackbar }) => <Comp {...props} addSnackbar={addSnackbar} />}
+  </Consumer>
+);
+
 class Toasts extends Component {
-  static propTypes = {};
+  static propTypes = {
+    timeout: PropTypes.number,
+    title: PropTypes.string,
+    subtitle: PropTypes.string,
+    top: PropTypes.number,
+    type: PropTypes.oneOf(['info', 'alert', 'warning', 'success'])
+  };
 
   state = {
     leaving: [],
     list: []
   };
 
+  addSnackbar = notif => this.addToast({ ...notif, isSnackbar: true });
+
   addToast = throttle(200, notif => {
     const id = Math.random();
+    const props = { ...notif, isSnackbar: notif.isSnackbar };
 
     this.setState(
       {
-        list: [...this.state.list, { id, ...notif }]
+        list: [...this.state.list, { id, ...props }]
       },
       () => {
         setTimeout(() => {
@@ -73,31 +89,67 @@ class Toasts extends Component {
     }
   };
 
+  renderToast = ({ id, title, subtitle, type, isSnackbar }, index) => {
+    const { leaving } = this.state;
+    const { className } = this.props;
+
+    return (
+      <Toast
+        key={`notif-${id}`}
+        top={index * 80}
+        leaving={leaving.includes(id)}
+        className={className}
+      >
+        <CloseIcon onClick={this.clearToast(id)} />
+        {this.icon(type)}
+        <Meta>
+          <Title>{title}</Title>
+          <Subtitle>{subtitle}</Subtitle>
+        </Meta>
+      </Toast>
+    );
+  };
+
+  renderSnackbar = (
+    { id, title, type, isSnackbar, top = 0, speed = 150 },
+    index
+  ) => {
+    const { leaving } = this.state;
+    const { className } = this.props;
+
+    return (
+      <Snackbar
+        key={`notif-${id}`}
+        top={top + index * 40}
+        speed={speed}
+        leaving={leaving.includes(id)}
+        className={className}
+      >
+        <CloseIcon onClick={this.clearToast(id)} />
+        {this.icon(type)}
+        <Meta>
+          <SnackbarTitle>{title}</SnackbarTitle>
+        </Meta>
+      </Snackbar>
+    );
+  };
+
   render() {
-    const { list, leaving } = this.state;
-    const { children, className } = this.props;
+    const { list } = this.state;
+    const { children } = this.props;
     const contextActions = {
-      addToast: this.addToast
+      addToast: this.addToast,
+      addSnackbar: this.addSnackbar
     };
 
     return (
       <Context.Provider value={contextActions}>
         <Fragment>
-          {list.map(({ id, title, subtitle, type }, index) => (
-            <Toast
-              key={`notif-${id}`}
-              top={index * 80}
-              leaving={leaving.includes(id)}
-              className={className}
-            >
-              <CloseIcon onClick={this.clearToast(id)} />
-              {this.icon(type)}
-              <Meta>
-                <Title>{title}</Title>
-                <Subtitle>{subtitle}</Subtitle>
-              </Meta>
-            </Toast>
-          ))}
+          {list.map((params, index) =>
+            params.isSnackbar
+              ? this.renderSnackbar(params, index)
+              : this.renderToast(params, index)
+          )}
           {children}
         </Fragment>
       </Context.Provider>
@@ -106,6 +158,28 @@ class Toasts extends Component {
 }
 
 export default Toasts;
+
+const fadeSlideInFromTop = keyframes`
+    from {
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(-50%, 0, 0);
+    }
+`;
+
+const fadeSlideOutToTop = keyframes`
+    from {
+      opacity: 1;
+      transform: translate3d(-50%, 0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(-50%, -50%, 0);
+    }
+`;
 
 const Toast = styled.div`
   position: fixed;
@@ -139,33 +213,35 @@ const Title = styled.div`
 
 const Subtitle = styled.div`
   ${({ theme }) => theme.text.smNote};
+  margin: 0 30px 0 0;
 `;
 
 const StyledInfoIcon = styled(InfoIcon)`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   margin-right: 4px;
+  margin-bottom: 1px;
 `;
 
 const StyledAlertIcon = styled(InfoIcon)`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   margin-right: 4px;
 `;
 
 const StyledWarningIcon = styled(WarningIcon)`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   margin-right: 4px;
 `;
 
 const StyledSuccessIcon = styled(SuccessIcon)`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   margin-right: 4px;
 `;
 
-const CloseIcon = styled.div`
+export const CloseIcon = styled.div`
   position: absolute;
   top: 15px;
   right: 15px;
@@ -206,4 +282,50 @@ const CloseIcon = styled.div`
   &::after {
     height: 1px;
   }
+`;
+
+const Snackbar = styled.div`
+  position: fixed;
+  left: 50%;
+  ${({ leaving, speed }) =>
+    css`
+      animation: ${leaving ? fadeSlideOutToTop : fadeSlideInFromTop} ${speed}ms
+        ease-out both;
+    `};
+  box-sizing: border-box;
+  padding: 5px;
+  transition: all 1000ms;
+  top: ${({ top }) => `${20 + top}px`};
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border-radius: 2px;
+  box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.2);
+  background-color: ${({ theme }) => theme.p400};
+
+  ${CloseIcon} {
+    top: 10px;
+    right: 10px;
+    color: #fff;
+
+    &::before,
+    &::after {
+      color: #fff;
+    }
+
+    &:hover {
+      &::before,
+      &::after {
+        color: #fff;
+      }
+    }
+  }
+`;
+
+const SnackbarTitle = styled.div`
+  font-size: 12px;
+  font-weight: 400;
+  color: ${({ theme }) => theme.p0};
+  margin: 0 30px 0 0;
 `;

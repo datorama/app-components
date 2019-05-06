@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { debounce } from 'lodash/fp';
 import Popup from './Popup';
 
 // icons
@@ -14,22 +15,75 @@ class Tooltip extends Component {
     onClickInfo: PropTypes.func,
     position: PropTypes.string,
     fixed: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    delay: PropTypes.number,
+    withClose: PropTypes.bool
+  };
+
+  static defaultProps = {
+    withClose: true
   };
 
   state = {
-    open: false
+    open: false,
+    offset: 0,
+    initOffset: null
   };
 
-  toggleOpen = origin => () => {
-    const { open } = this.state;
-    const { long } = this.props;
+  tooltipRef = React.createRef();
+  toggleOpenTimeoutId = null;
 
-    if (long && open && origin === 'icon') {
+  componentDidMount() {
+    this.setTooltipOffset();
+    window.addEventListener('resize', this.setTooltipOffset);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setTooltipOffset);
+  }
+
+  // TODO: support left side offsets
+  setTooltipOffset = debounce(1000, () => {
+    if (!this.tooltipRef.current) {
       return;
     }
 
-    this.setState({ open: !open });
+    const { x, width } = this.tooltipRef.current.getBoundingClientRect();
+    const windowWidth = window.innerWidth;
+
+    const offset = x + width - windowWidth;
+
+    if (!this.state.initOffset) {
+      this.setState({ initOffset: x + width });
+    }
+
+    if (windowWidth < this.state.initOffset) {
+      this.setState(prevState => ({
+        offset: Math.max(0, prevState.offset + offset + 20)
+      }));
+    }
+
+    if (windowWidth >= this.state.initOffset && this.state.offset) {
+      this.setState({ offset: 0 });
+    }
+  });
+
+  toggleOpen = origin => event => {
+    const { open } = this.state;
+    const { long, withClose, delay = 0 } = this.props;
+
+    if (long && open && origin === 'icon' && withClose) {
+      return;
+    }
+
+    if (!open && event.type === 'mouseleave' && this.toggleOpenTimeoutId) {
+      return clearTimeout(this.toggleOpenTimeoutId);
+    }
+
+    this.toggleOpenTimeoutId = setTimeout(
+      () => this.setState(prevState => ({ open: !prevState.open })),
+      open ? 0 : delay
+    );
   };
 
   title = () => {
@@ -54,7 +108,7 @@ class Tooltip extends Component {
       className,
       disabled
     } = this.props;
-    const { open } = this.state;
+    const { open, offset } = this.state;
 
     if (disabled) {
       return children;
@@ -67,6 +121,8 @@ class Tooltip extends Component {
         position={position}
         fixed={fixed}
         className={className}
+        menuRef={this.tooltipRef}
+        offset={offset}
       >
         <Container
           onMouseEnter={this.toggleOpen('content')}
@@ -79,19 +135,24 @@ class Tooltip extends Component {
   }
 
   longTooltip() {
-    const { position = 'TOP', className } = this.props;
-    const { open } = this.state;
+    const { position = 'TOP', className, withClose } = this.props;
+    const { open, offset } = this.state;
 
     return (
       <StyledLong
         open={open}
         contentRenderer={this.title}
         position={position}
-        withClose
+        withClose={withClose}
         toggleOpen={this.toggleOpen('close-icon')}
         className={className}
+        menuRef={this.tooltipRef}
+        offset={offset}
       >
-        <Container onMouseEnter={this.toggleOpen('icon')}>
+        <Container
+          onMouseEnter={this.toggleOpen('icon')}
+          onMouseLeave={this.toggleOpen('icon')}
+        >
           <StyledTip />
         </Container>
       </StyledLong>
@@ -100,7 +161,6 @@ class Tooltip extends Component {
 
   render() {
     const { long } = this.props;
-
     if (long) {
       return this.longTooltip();
     }
@@ -144,6 +204,7 @@ const StyledLong = styled(Popup)`
       pointer-events: none;
       border-top-color: ${({ theme }) => theme.p0};
       border-width: 6px;
+      transition: all 300ms;
     }
 
     ${({ position }) =>
@@ -178,14 +239,67 @@ const StyledLong = styled(Popup)`
         }
       `};
 
-    ${({ position }) =>
+    ${({ position, offset }) =>
       position === 'RIGHT' &&
       css`
         &:after {
           top: 50%;
-          right: 100%;
+          right: calc(100% - ${offset}px);
           margin-top: -6px;
           transform: rotate(90deg);
+        }
+      `};
+
+    ${({ position, offset }) =>
+      position === 'TOP_RIGHT' &&
+      css`
+        bottom: calc(100% + 10px);
+        left: calc(-12px - ${offset}px);
+
+        &:after {
+          top: 100%;
+          left: calc(12px + ${offset}px);
+          transform: translateX(50%);
+        }
+      `};
+
+    ${({ position }) =>
+      position === 'TOP_LEFT' &&
+      css`
+        bottom: calc(100% + 10px);
+        right: -12px;
+
+        &:after {
+          top: 100%;
+          right: 12px;
+          transform: translateX(-50%);
+        }
+      `};
+
+    ${({ position, offset }) =>
+      position === 'BOTTOM_RIGHT' &&
+      css`
+      top: calc(100% + 10px);
+      left: calc(-12px - ${offset}px);
+        
+        &:after {
+          bottom: 100%;
+          left: 12px;
+          transform: translateX(100%) rotate(180deg);
+          margin-left: -6px;
+      `};
+
+    ${({ position }) =>
+      position === 'BOTTOM_LEFT' &&
+      css`
+        top: calc(100% + 10px);
+        right: -12px;
+
+        &:after {
+          bottom: 100%;
+          left: calc(100% - 12px);
+          transform: translateX(-100%) rotate(180deg);
+          margin-left: -6px;
         }
       `};
   }

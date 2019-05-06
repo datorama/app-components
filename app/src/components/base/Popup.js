@@ -9,10 +9,10 @@ const BOTTOM = 'BOTTOM';
 const TOP = 'TOP';
 const LEFT = 'LEFT';
 const RIGHT = 'RIGHT';
-// const BOTTOM_LEFT = 'BOTTOM_LEFT';
-// const BOTTOM_RIGHT = 'BOTTOM_RIGHT';
-// const TOP_LEFT = 'TOP_LEFT';
-// const TOP_RIGHT = 'TOP_RIGHT';
+const BOTTOM_LEFT = 'BOTTOM_LEFT';
+const BOTTOM_RIGHT = 'BOTTOM_RIGHT';
+const TOP_LEFT = 'TOP_LEFT';
+const TOP_RIGHT = 'TOP_RIGHT';
 
 export default class Popup extends Component {
   static propTypes = {
@@ -23,7 +23,8 @@ export default class Popup extends Component {
     position: PropTypes.string,
     withClose: PropTypes.bool,
     toggleOpen: PropTypes.func,
-    fixed: PropTypes.bool
+    fixed: PropTypes.bool,
+    menuRef: PropTypes.shape({})
   };
 
   static defaultProps = { position: BOTTOM };
@@ -58,7 +59,8 @@ export default class Popup extends Component {
       contentRenderer,
       withClose,
       toggleOpen,
-      fixed
+      fixed,
+      menuRef
     } = this.props;
     const { x, y } = this.state;
 
@@ -70,6 +72,7 @@ export default class Popup extends Component {
         fixed={fixed}
         x={x}
         y={y}
+        ref={menuRef}
       >
         {contentRenderer()}
         {withClose && <CloseIcon onClick={toggleOpen} />}
