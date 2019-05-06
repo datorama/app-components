@@ -17,7 +17,7 @@
     "react-highlight.js": "^1.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5",
+    "react-scripts": "3.0.0",
     "recharts": "^1.5.0",
     "serve": "^10.1.2",
     "styled-components": "^4.1.3"
