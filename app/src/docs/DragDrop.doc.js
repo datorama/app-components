@@ -54,8 +54,8 @@ class DragDropDoc extends React.Component {
   };
 
   render() {
-    const title = 'draggable';
-    const description = 'Draggable component';
+    const title = 'Drag and Drop';
+    const description = 'Drag and drop components.';
     const { message } = this.state;
     const { theme } = this.props;
 
