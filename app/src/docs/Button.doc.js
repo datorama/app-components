@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // components
 import Snippet from './Snippet';
 import Base from './Base';
-import {Row, Col, Button, SegmentedButton} from '../components/index';
+import { Row, Col, Button, SegmentedButton } from '../components/index';
 
 const defaultButton = `
 import { Button } from 'app-components';
@@ -103,7 +103,7 @@ class ButtonDoc extends Component {
       <Base title={title} description={description} name="Button">
         <Row>
           <Col>
-            <Snippet snippet={defaultButton}/>
+            <Snippet snippet={defaultButton} />
           </Col>
           <Col>
             <Box>
@@ -114,7 +114,7 @@ class ButtonDoc extends Component {
 
         <Row align="stretch">
           <Col>
-            <Snippet snippet={segmentedButton}/>
+            <Snippet snippet={segmentedButton} />
           </Col>
           <Col>
             <Box>
@@ -133,7 +133,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Snippet snippet={disabled}/>
+            <Snippet snippet={disabled} />
           </Col>
           <Col>
             <Box>
@@ -146,7 +146,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Snippet snippet={small}/>
+            <Snippet snippet={small} />
           </Col>
           <Col>
             <Box>
@@ -159,7 +159,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Snippet snippet={secondary}/>
+            <Snippet snippet={secondary} />
           </Col>
           <Col>
             <Box>
@@ -172,7 +172,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Snippet snippet={smallSecondary}/>
+            <Snippet snippet={smallSecondary} />
           </Col>
           <Col>
             <Box>
@@ -185,7 +185,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Snippet snippet={round}/>
+            <Snippet snippet={round} />
           </Col>
           <Col>
             <Box>
@@ -198,7 +198,7 @@ class ButtonDoc extends Component {
 
         <Row>
           <Col>
-            <Snippet snippet={secondarySmallRound}/>
+            <Snippet snippet={secondarySmallRound} />
           </Col>
           <Col>
             <Box>

@@ -1,25 +1,27 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
+import { withContext } from './DragDropProvider';
 import PropTypes from 'prop-types';
 
-export default class Draggable extends React.Component {
+class Draggable extends React.Component {
   static propTypes = {
-    onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
-    onDragEnd: PropTypes.func,
-    children: PropTypes.node,
-    className: PropTypes.string
+    id: PropTypes.string.isRequired,
+    setDrag: PropTypes.func.isRequired,
+    children: PropTypes.node
   };
 
   state = {
     isDragging: false,
-    clientX: 0,
-    clientY: 0,
 
     originalX: 0,
     originalY: 0,
 
     translateX: 0,
-    translateY: 0
+    translateY: 0,
+
+    lastTranslateX: 0,
+    lastTranslateY: 0
   };
 
   componentWillUnmount() {
@@ -31,29 +33,40 @@ export default class Draggable extends React.Component {
     window.addEventListener('mousemove', this.handleMouseMove);
     window.addEventListener('mouseup', this.handleMouseUp);
 
-    if (this.props.onDragStart) {
-      this.props.onDragStart();
-    }
-
-    this.setState({
-      originalX: clientX,
-      originalY: clientY,
-      isDragging: true
-    });
+    this.setState(
+      {
+        originalX: clientX,
+        originalY: clientY,
+        isDragging: true
+      },
+      () => {
+        this.props.setDrag(this.props.id);
+      }
+    );
   };
 
   handleMouseMove = ({ clientX, clientY }) => {
-    const { originalX, originalY, isDragging } = this.state;
+    const { isDragging } = this.state;
     const { onDrag } = this.props;
 
     if (!isDragging) {
       return;
     }
 
-    onDrag({
-      translateX: clientX - originalX,
-      translateY: clientY - originalY
-    });
+    this.setState(
+      prevState => ({
+        translateX: clientX - prevState.originalX,
+        translateY: clientY - prevState.originalY
+      }),
+      () => {
+        if (onDrag) {
+          onDrag({
+            translateX: this.state.translateX,
+            translateY: this.state.translateY
+          });
+        }
+      }
+    );
   };
 
   handleMouseUp = () => {
@@ -62,32 +75,48 @@ export default class Draggable extends React.Component {
 
     this.setState(
       {
-        clientX: 0,
-        clientY: 0,
-
         originalX: 0,
         originalY: 0,
-
         translateX: 0,
         translateY: 0,
-
         isDragging: false
       },
       () => {
-        if (this.props.onDragEnd) {
-          this.props.onDragEnd();
-        }
+        this.props.setDrag(null);
       }
     );
   };
 
   render() {
-    const { children, className } = this.props;
+    const { children } = this.props;
+    const { translateX, translateY, isDragging } = this.state;
 
     return (
-      <div onMouseDown={this.handleMouseDown} className={className}>
+      <Container
+        onMouseDown={this.handleMouseDown}
+        x={translateX}
+        y={translateY}
+        isDragging={isDragging}
+      >
         {children}
-      </div>
+      </Container>
     );
   }
 }
+
+export default withContext(Draggable);
+
+const Container = styled.div.attrs(({ x, y }) => ({
+  style: { transform: `translate(${x}px, ${y}px)` }
+}))`
+  cursor: grab;
+  user-select: none;
+
+  ${({ isDragging }) =>
+    isDragging &&
+    css`
+      opacity: 0.8;
+      pointer-events: none;
+      cursor: grabbing;
+    `};
+`;

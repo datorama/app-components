@@ -32,7 +32,7 @@ import Carousel from './docs/Carousel.doc';
 import Spinner from './docs/Spinner.doc';
 import Pagination from './docs/Pagination.doc';
 import TextInput from './docs/TextInput.doc';
-import Draggable from './docs/Draggable.doc';
+import DragDrop from './docs/DragDrop.doc';
 import Tag from './docs/Tags.doc';
 import Range from './docs/Range.doc';
 import Toast from './docs/Toast.doc';
@@ -162,8 +162,7 @@ class App extends Component {
 
       { key: 'utils', label: 'utils', type: 'title' },
       { key: 'click-out', label: 'click out', path: 'click-out' },
-      { key: 'draggable', label: 'draggable', path: 'draggable' },
-      { key: 'droppable', label: 'droppable' }
+      { key: 'drag-drop', label: 'drag and drop', path: 'drag-drop' }
     ];
 
     return (
@@ -232,7 +231,7 @@ class App extends Component {
                 <Route exact path="/error-page" component={ErrorPage} />
 
                 <Route exact path="/click-out" component={ClickOut} />
-                <Route exact path="/draggable" component={Draggable} />
+                <Route exact path="/drag-drop" component={DragDrop} />
               </Content>
             </Container>
           </ToastsProvider>
