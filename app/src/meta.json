@@ -426,6 +426,53 @@
   },
   {
     "description": "",
+    "displayName": "DragDropProvider",
+    "methods": [
+      {
+        "name": "setDrag",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "dragging",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "hovering",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onDrop": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/DragDropProvider.js"
+  },
+  {
+    "description": "",
     "displayName": "Draggable",
     "methods": [
       {
@@ -461,13 +508,6 @@
       }
     ],
     "props": {
-      "onDragStart": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
       "onDrag": {
         "type": {
           "name": "func"
@@ -475,13 +515,48 @@
         "required": false,
         "description": ""
       },
-      "onDragEnd": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": ""
+      },
+      "setDrag": {
         "type": {
           "name": "func"
         },
-        "required": false,
+        "required": true,
         "description": ""
       },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Draggable.js"
+  },
+  {
+    "description": "",
+    "displayName": "Droppable",
+    "methods": [
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "hovering",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
       "children": {
         "type": {
           "name": "node"
@@ -495,9 +570,23 @@
         },
         "required": false,
         "description": ""
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": ""
+      },
+      "setHover": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
       }
     },
-    "filename": "/components/base/Draggable.js"
+    "filename": "/components/base/Droppable.js"
   },
   {
     "description": "",
@@ -552,6 +641,28 @@
       }
     },
     "filename": "/components/base/ErrorPage.js"
+  },
+  {
+    "description": "",
+    "displayName": "LinearProgress",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/LinearProgress.js"
   },
   {
     "description": "",
@@ -643,28 +754,6 @@
       }
     },
     "filename": "/components/base/Modal.js"
-  },
-  {
-    "description": "",
-    "displayName": "LinearProgress",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/LinearProgress.js"
   },
   {
     "description": "",
@@ -827,49 +916,6 @@
   },
   {
     "description": "",
-    "displayName": "Progress",
-    "methods": [],
-    "props": {
-      "label": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "percentage": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Progress.js"
-  },
-  {
-    "description": "",
     "displayName": "Popup",
     "methods": [
       {
@@ -958,7 +1004,7 @@
   },
   {
     "description": "",
-    "displayName": "RadialProgress",
+    "displayName": "Progress",
     "methods": [],
     "props": {
       "label": {
@@ -989,13 +1035,6 @@
         "required": false,
         "description": ""
       },
-      "radius": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
       "className": {
         "type": {
           "name": "string"
@@ -1004,7 +1043,7 @@
         "description": ""
       }
     },
-    "filename": "/components/base/RadialProgress.js"
+    "filename": "/components/base/Progress.js"
   },
   {
     "description": "",
@@ -1080,6 +1119,56 @@
       }
     },
     "filename": "/components/base/Range.js"
+  },
+  {
+    "description": "",
+    "displayName": "RadialProgress",
+    "methods": [],
+    "props": {
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "percentage": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "radius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/RadialProgress.js"
   },
   {
     "description": "",
@@ -1876,36 +1965,6 @@
   },
   {
     "description": "",
-    "displayName": "DatepickerPresets",
-    "methods": [
-      {
-        "name": "setPresets",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selectedPreset": {
-        "type": {
-          "name": "array"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Datepicker/DatepickerPresets.js"
-  },
-  {
-    "description": "",
     "displayName": "InlineSearch",
     "methods": [
       {
@@ -2390,6 +2449,123 @@
   },
   {
     "description": "",
+    "displayName": "DatepickerPresets",
+    "methods": [
+      {
+        "name": "setPresets",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectedPreset": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Datepicker/DatepickerPresets.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectHeader",
+    "methods": [],
+    "props": {
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "headerRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "toggleOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholderRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "error": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "small": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "large": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectHeader.js"
+  },
+  {
+    "description": "",
     "displayName": "SelectMenu",
     "methods": [],
     "props": {
@@ -2519,153 +2695,6 @@
   },
   {
     "description": "",
-    "displayName": "SelectHeader",
-    "methods": [],
-    "props": {
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "options": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "headerRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "toggleOpen": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholderRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "loading": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "error": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "small": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "large": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectHeader.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectMultiHeader",
-    "methods": [],
-    "props": {
-      "selectAll": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "options": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "multi": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "total": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectMultiHeader.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectNoResults",
-    "methods": [],
-    "props": {
-      "theme": {
-        "type": {
-          "name": "object"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectNoResults.js"
-  },
-  {
-    "description": "",
     "displayName": "SelectOptions",
     "methods": [],
     "props": {
@@ -2750,6 +2779,66 @@
       }
     },
     "filename": "/components/base/Select/SelectOptions.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectMultiHeader",
+    "methods": [],
+    "props": {
+      "selectAll": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "multi": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "total": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectMultiHeader.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectNoResults",
+    "methods": [],
+    "props": {
+      "theme": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectNoResults.js"
   },
   {
     "description": "",

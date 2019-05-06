@@ -20,6 +20,8 @@ export { default as ClickOut } from './base/ClickOut';
 export { default as Collapse } from './base/Collapse';
 export { default as Collapsible } from './base/Collapsible';
 export { default as Draggable } from './base/Draggable';
+export { default as Droppable } from './base/Droppable';
+export { default as DragDropProvider } from './base/DragDropProvider';
 export { default as LinearProgress } from './base/LinearProgress';
 export { default as Modal } from './base/Modal';
 export { default as Select } from './base/Select/Select';
