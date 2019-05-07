@@ -6,10 +6,12 @@ import PropTypes from 'prop-types';
 import Calendar from '../../icons/Calendar.icon';
 import ArrowDown from '../../icons/ArrowDown.icon';
 
-const DatepickerHeader = ({ open, selection, onClick }) => (
+const DatepickerHeader = ({ open, selection, onClick, renderer }) => (
   <Container onClick={onClick}>
     <StyledCalendar />
-    {`${selection[0] || 'start date'} - ${selection[1] || 'end date'}`}
+    {renderer
+      ? renderer(selection)
+      : `${selection[0] || 'start date'} - ${selection[1] || 'end date'}`}
     <Arrow rotation={open ? '180deg' : '0deg'} />
   </Container>
 );
@@ -17,7 +19,8 @@ const DatepickerHeader = ({ open, selection, onClick }) => (
 DatepickerHeader.propTypes = {
   onClick: PropTypes.func,
   selection: PropTypes.arrayOf(PropTypes.string),
-  open: PropTypes.bool
+  open: PropTypes.bool,
+  renderer: PropTypes.func
 };
 
 export default DatepickerHeader;
