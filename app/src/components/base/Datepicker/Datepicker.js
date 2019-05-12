@@ -254,7 +254,7 @@ class Datepicker extends Component {
           onClick={this.toggleOpen}
           selection={committedSelection}
           open={open}
-          renderer={headerRenderer}
+          headerRenderer={headerRenderer}
         />
 
         <Container visible={open} className={className} total={months}>
