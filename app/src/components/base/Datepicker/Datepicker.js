@@ -20,7 +20,8 @@ class Datepicker extends Component {
     className: PropTypes.string,
     months: PropTypes.number,
     initialSelection: PropTypes.arrayOf(PropTypes.string),
-    firstDayOfWeek: PropTypes.number
+    firstDayOfWeek: PropTypes.number,
+    headerRenderer: PropTypes.func
   };
 
   static defaultProps = {
@@ -240,7 +241,7 @@ class Datepicker extends Component {
 
   render() {
     const { open, committedSelection, selectedPreset } = this.state;
-    const { className, months, firstDayOfWeek } = this.props;
+    const { className, months, firstDayOfWeek, headerRenderer } = this.props;
     const monthsElement = [];
 
     for (let i = 0; i < months; i++) {
@@ -253,6 +254,7 @@ class Datepicker extends Component {
           onClick={this.toggleOpen}
           selection={committedSelection}
           open={open}
+          headerRenderer={headerRenderer}
         />
 
         <Container visible={open} className={className} total={months}>
