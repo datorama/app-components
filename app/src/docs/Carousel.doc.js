@@ -7,26 +7,39 @@ import { Row, Col, Carousel } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
+import React from 'react';
 import { Carousel } from 'app-components';
 
-const MyComp = ({ renderer }) => (
-  <div>
-    ...
-    <Carousel
-    	controls
-        bulletSize={'20px'}
-        bulletBg={'gray'}
-        bulletActiveBg={'darkgray'}
-        bulletHoverBg={'lightblue'}
-        total={5}
-        slideRenderer={this.slideRenderer}
-        prevControl={<Control>{'<'}</Control>}
-        nextControl={<Control>{'>'}</Control>}
-        loading={loading}
-        minHeight={360}
-    />
-  </div>
-);
+class MyComp extends React.Component => {
+
+  renderSlides = () => {
+    return [1, 2, 3, 4].map((slide, index) => (
+      <Slide key={index} odd={index % 2}>
+        Slide {index}
+      </Slide>
+    ));
+  };
+
+  render() {
+    return (
+      <div>
+        ...
+        <Carousel
+          controls
+            bulletSize={'20px'}
+            bulletBg={'gray'}
+            bulletActiveBg={'darkgray'}
+            bulletHoverBg={'lightblue'}
+            slides={this.renderSlides()}
+            prevControl={<Control>{'<'}</Control>}
+            nextControl={<Control>{'>'}</Control>}
+            loading={loading}
+            minHeight={360}
+        />
+      </div>    
+    );
+  }
+};
 `;
 
 export default class CarouselDoc extends React.Component {
@@ -38,7 +51,13 @@ export default class CarouselDoc extends React.Component {
     }, 1000);
   }
 
-  slideRenderer = id => <Slide odd={id % 2}>Slide {id}</Slide>;
+  renderSlides = () => {
+    return [1, 2, 3, 4].map((slide, index) => (
+      <Slide key={index} odd={index % 2}>
+        Slide {index}
+      </Slide>
+    ));
+  };
 
   render() {
     const { loading } = this.state;
@@ -61,8 +80,7 @@ export default class CarouselDoc extends React.Component {
               bulletBg={'gray'}
               bulletActiveBg={'darkgray'}
               bulletHoverBg={'lightblue'}
-              total={5}
-              slideRenderer={this.slideRenderer}
+              slides={this.renderSlides()}
               prevControl={<Control>{'<'}</Control>}
               nextControl={<Control>{'>'}</Control>}
               loading={loading}
