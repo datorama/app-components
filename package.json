@@ -39,7 +39,8 @@
     "styled-components": "4.1.1",
     "terser-webpack-plugin": "1.1.0",
     "webpack": "4.29.6",
-    "webpack-cli": "^3.2.2"
+    "webpack-cli": "^3.2.2",
+    "typescript": "^3.4.5"
   },
   "scripts": {
     "heroku-prebuild": "cd app && npm install",
