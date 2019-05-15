@@ -21,14 +21,15 @@ class Datepicker extends Component {
     months: PropTypes.number,
     initialSelection: PropTypes.arrayOf(PropTypes.string),
     firstDayOfWeek: PropTypes.number,
-    headerRenderer: PropTypes.func
+    dateFormat: PropTypes.string
   };
 
   static defaultProps = {
     months: 1,
     onChange: () => {},
     initialSelection: [],
-    firstDayOfWeek: 0
+    firstDayOfWeek: 0,
+    dateFormat: DATE_FORMAT
   };
 
   state = {
@@ -241,7 +242,7 @@ class Datepicker extends Component {
 
   render() {
     const { open, committedSelection, selectedPreset } = this.state;
-    const { className, months, firstDayOfWeek, headerRenderer } = this.props;
+    const { className, months, firstDayOfWeek, dateFormat } = this.props;
     const monthsElement = [];
 
     for (let i = 0; i < months; i++) {
@@ -254,7 +255,7 @@ class Datepicker extends Component {
           onClick={this.toggleOpen}
           selection={committedSelection}
           open={open}
-          headerRenderer={headerRenderer}
+          dateFormat={dateFormat}
         />
 
         <Container visible={open} className={className} total={months}>

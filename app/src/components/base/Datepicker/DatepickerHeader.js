@@ -5,16 +5,24 @@ import PropTypes from 'prop-types';
 // icons
 import Calendar from '../../icons/Calendar.icon';
 import ArrowDown from '../../icons/ArrowDown.icon';
+import moment from 'moment';
 
-const DatepickerHeader = ({ open, selection, onClick, headerRenderer }) => (
-  <Container onClick={onClick}>
-    <StyledCalendar />
-    {headerRenderer
-      ? headerRenderer(selection)
-      : `${selection[0] || 'start date'} - ${selection[1] || 'end date'}`}
-    <Arrow rotation={open ? '180deg' : '0deg'} />
-  </Container>
-);
+const DatepickerHeader = ({ open, selection, onClick, dateFormat }) => {
+  let [startDate, endDate] = selection;
+
+  startDate = startDate
+    ? moment(selection[0]).format(dateFormat)
+    : 'start date';
+  endDate = endDate ? moment(selection[1]).format(dateFormat) : 'end date';
+
+  return (
+    <Container onClick={onClick}>
+      <StyledCalendar />
+      {`${startDate} - ${endDate}`}
+      <Arrow rotation={open ? '180deg' : '0deg'} />
+    </Container>
+  );
+};
 
 DatepickerHeader.propTypes = {
   onClick: PropTypes.func,
