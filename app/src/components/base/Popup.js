@@ -95,14 +95,9 @@ export default class Popup extends Component {
   }
 }
 
-const StyledMenu = styled.div.attrs({
-  style: ({ fixed, x, y }) => {
-    if (fixed) {
-      return { top: y, left: x };
-    }
-    return {};
-  }
-})`
+const StyledMenu = styled.div.attrs(({ fixed, x, y }) => ({
+  style: fixed ? { top: y, left: x } : {}
+}))`
   position: absolute;
   z-index: 999;
   padding: 6px 12px;

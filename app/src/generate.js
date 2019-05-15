@@ -12,17 +12,17 @@ const componentJsonPath = './src/meta.json';
 const componentDataArray = [];
 
 function pushComponent(component) {
-	componentDataArray.push(component)
+  componentDataArray.push(component);
 }
 
 function createComponentFile() {
-	const componentJsonArray = JSON.stringify(componentDataArray, null, 2);
-	fs.writeFile(componentJsonPath, componentJsonArray, 'utf8', (err, data) => {
-		if (err) {
-			throw err
-		}
-		console.log('Created component file')
-	})
+  const componentJsonArray = JSON.stringify(componentDataArray, null, 2);
+  fs.writeFile(componentJsonPath, componentJsonArray, 'utf8', (err, data) => {
+    if (err) {
+      throw err;
+    }
+    console.log('Created component file');
+  });
 }
 
 /**
@@ -33,13 +33,17 @@ function createComponentFile() {
  * @param {String} filename
  */
 function parseComponent(component, filename) {
-	const componentInfo = reactDocs.parse(component);
-	const splitIndex = filename.indexOf('/src/');
-	const shortname = filename.substring(splitIndex + 4);
-	
-	componentInfo.filename = shortname;
-	
-	pushComponent(componentInfo)
+  const componentInfo = reactDocs.parse(component, null, null, {
+    parserOptions: {
+      plugins: ['typescript', 'jsx', 'classProperties', 'objectRestSpread']
+    }
+  });
+  const splitIndex = filename.indexOf('/src/');
+  const shortname = filename.substring(splitIndex + 4);
+
+  componentInfo.filename = shortname;
+
+  pushComponent(componentInfo);
 }
 
 /**
@@ -48,14 +52,14 @@ function parseComponent(component, filename) {
  * @param {Promise} resolve
  */
 function loadComponent(file, resolve) {
-	fs.readFile(file, (err, data) => {
-		if (err) {
-			throw err
-		}
-		
-		// Parse the component into JS object
-		resolve(parseComponent(data, file))
-	})
+  fs.readFile(file, (err, data) => {
+    if (err) {
+      throw err;
+    }
+
+    // Parse the component into JS object
+    resolve(parseComponent(data, file));
+  });
 }
 
 /**
@@ -66,57 +70,57 @@ function loadComponent(file, resolve) {
  * @param {Function} done
  */
 function filewalker(dir, done) {
-	let results = [];
-	
-	fs.readdir(dir, async (err, list) => {
-		if (err) return done(err);
-		
-		let pending = list.length;
-		
-		if (!pending) return done(null, results);
-		
-		list.forEach(file => {
-			file = path.resolve(dir, file);
-			
-			fs.stat(file, async (err, stat) => {
-				// If directory, execute a recursive call
-				if (stat && stat.isDirectory()) {
-					filewalker(file, (err, res) => {
-						results = results.concat(res);
-						if (!--pending) done(null, results)
-					})
-				} else {
-					// Check if is a Javascript file
-					// And not a story or test
-					let valid = true;
-					for (let i = 0; i < excludes.length; i++) {
-						if (file.includes(excludes[i])) {
-							valid = false
-						}
-					}
-					if (
-						valid &&
-						file.endsWith('.js') &&
-						!file.endsWith('.story.js') &&
-						!file.endsWith('.test.js') &&
-						!file.endsWith('.types.js')
-					) {
-						await new Promise(resolve => {
-							loadComponent(file, resolve)
-						});
-						await results.push(file)
-					}
-					if (!--pending) done(null, results)
-				}
-			})
-		})
-	})
+  let results = [];
+
+  fs.readdir(dir, async (err, list) => {
+    if (err) return done(err);
+
+    let pending = list.length;
+
+    if (!pending) return done(null, results);
+
+    list.forEach(file => {
+      file = path.resolve(dir, file);
+
+      fs.stat(file, async (err, stat) => {
+        // If directory, execute a recursive call
+        if (stat && stat.isDirectory()) {
+          filewalker(file, (err, res) => {
+            results = results.concat(res);
+            if (!--pending) done(null, results);
+          });
+        } else {
+          // Check if is a Javascript file
+          // And not a story or test
+          let valid = true;
+          for (let i = 0; i < excludes.length; i++) {
+            if (file.includes(excludes[i])) {
+              valid = false;
+            }
+          }
+          if (
+            valid &&
+            (file.endsWith('.js') || file.endsWith('.tsx')) &&
+            !file.endsWith('.story.js') &&
+            !file.endsWith('.test.js') &&
+            !file.endsWith('.types.js')
+          ) {
+            await new Promise(resolve => {
+              loadComponent(file, resolve);
+            });
+            await results.push(file);
+          }
+          if (!--pending) done(null, results);
+        }
+      });
+    });
+  });
 }
 
 filewalker(componentFolder, (err, data) => {
-	if (err) {
-		throw err
-	}
-	
-	createComponentFile()
+  if (err) {
+    throw err;
+  }
+
+  createComponentFile();
 });

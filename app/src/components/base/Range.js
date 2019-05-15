@@ -132,11 +132,9 @@ const Inner = styled.div`
 	transition: all 100ms;
 `;
 
-const Thumb = styled.div.attrs({
-  style: ({ left }) => ({
-    left: `calc(${left}% - 6px)`
-  })
-})`
+const Thumb = styled.div.attrs(({ left }) => ({
+  style: { left: `calc(${left}% - 6px)` }
+}))`
   width: 12px;
   height: 12px;
   cursor: pointer;
@@ -182,11 +180,9 @@ const Label = styled.div`
   color: ${({ theme }) => theme.p300};
 `;
 
-const Value = styled.div.attrs({
-  style: ({ left }) => ({
-    left: `${left}%`
-  })
-})`
+const Value = styled.div.attrs(({ left }) => ({
+  style: { left: `${left}%` }
+}))`
   padding: 2px 6px;
   ${({ theme }) => theme.text.sm};
   color: ${({ theme }) => theme.p0};

@@ -14,6 +14,9 @@ module.exports = {
     publicPath: path.resolve(__dirname, 'dist'),
     umdNamedDefine: true
   },
+  resolve: {
+    extensions: ['.js', '.ts', '.tsx', '.json']
+  },
   optimization: {
     minimizer: [
       new TerserPlugin({
@@ -74,6 +77,20 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-react'],
+            plugins: [
+              '@babel/plugin-proposal-object-rest-spread',
+              '@babel/plugin-proposal-class-properties'
+            ]
+          }
+        }
+      },
+      {
+        test: /\.tsx?$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-react', '@babel/preset-typescript'],
             plugins: [
               '@babel/plugin-proposal-object-rest-spread',
               '@babel/plugin-proposal-class-properties'

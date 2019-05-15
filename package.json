@@ -18,6 +18,7 @@
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.3.3",
     "autoprefixer": "^9.4.9",
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^5.0.0",
@@ -58,7 +59,7 @@
   },
   "lint-staged": {
     "linters": {
-      "app/src/**/*.{js,jsx,json,css,scss}": [
+      "app/src/**/*.{js,jsx,tsx,json,css,scss}": [
         "prettier --single-quote --write",
         "git add"
       ]

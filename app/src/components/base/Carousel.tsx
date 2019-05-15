@@ -1,14 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode, Fragment } from 'react';
 import styled, { css } from 'styled-components';
-import { each, range } from 'lodash/fp';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 
-class Carousel extends Component {
+type Props = {
+  slides: ReactNode[];
+  loading?: boolean;
+  className?: string;
+  minHeight?: number;
+  prevControl?: ReactNode;
+  nextControl?: ReactNode;
+  controls?: boolean;
+  bulletSize?: string;
+  bulletBg?: string;
+  bulletActiveBg?: string;
+  bulletHoverBg?: string;
+};
+
+type State = {
+  current: number;
+};
+
+class Carousel extends Component<Props, State> {
   static propTypes = {
+    slides: PropTypes.arrayOf(PropTypes.node).isRequired,
     loading: PropTypes.bool,
-    total: PropTypes.number.isRequired,
-    slideRenderer: PropTypes.func.isRequired,
     className: PropTypes.string,
     minHeight: PropTypes.number,
     prevControl: PropTypes.node,
@@ -20,13 +36,23 @@ class Carousel extends Component {
     bulletHoverBg: PropTypes.string
   };
 
-  state = {
+  state: State = {
     current: 0
+  };
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    if (prevProps.slides !== this.props.slides) {
+      this.setState({ current: 0 });
+    }
+  }
+
+  getTotal = () => {
+    return this.props.slides.length;
   };
 
   next = () => {
     const { current } = this.state;
-    const { total } = this.props;
+    const total = this.getTotal();
 
     // Last slide - go to first slide
     if (current === total - 1) {
@@ -37,9 +63,8 @@ class Carousel extends Component {
   };
 
   prev = () => {
-    console.log('gpg testing');
     const { current } = this.state;
-    const { total } = this.props;
+    const total = this.getTotal();
 
     // First slide - go to last slide
     if (current === 0) {
@@ -49,55 +74,59 @@ class Carousel extends Component {
     }
   };
 
-  setSlide = current => this.setState({ current });
+  setSlide = (current: number) => this.setState({ current });
 
-  render() {
-    const { current } = this.state;
-    const {
-      total,
-      slideRenderer,
-      className,
-      loading,
-      minHeight,
-      controls,
-      nextControl,
-      prevControl,
-      bulletSize,
-      bulletBg,
-      bulletActiveBg,
-      bulletHoverBg
-    } = this.props;
-    const ids = range(0, total);
-    const slides = [];
-    const bullets = [];
+  renderSlides = () => {
+    const { slides, minHeight, loading } = this.props;
+    const total = slides.length;
 
-    each(id => {
-      slides.push(
-        <Slide key={`slide-${id}`} total={total} active={current === id}>
+    return slides.map((slide, index) => {
+      return (
+        <Slide key={`slide-${index}`} total={total}>
           <SlideInner>
             {loading ? (
               <SpinnerContainer minHeight={minHeight}>
                 <Spinner />
               </SpinnerContainer>
             ) : (
-              slideRenderer(id)
+              <Fragment>{slide}</Fragment>
             )}
           </SlideInner>
         </Slide>
       );
+    });
+  };
 
-      bullets.push(
+  renderBullets = () => {
+    const { current } = this.state;
+    const {
+      slides,
+      bulletSize,
+      bulletBg,
+      bulletActiveBg,
+      bulletHoverBg
+    } = this.props;
+
+    return slides.map((slide, index) => {
+      return (
         <Bullet
           size={bulletSize}
           background={bulletBg}
           activeBackground={bulletActiveBg}
           hoverBackground={bulletHoverBg}
-          key={`bullet-${id}`}
-          onClick={() => this.setSlide(id)}
-          selected={current === id}
+          key={`bullet-${index}`}
+          onClick={() => this.setSlide(index)}
+          selected={current === index}
         />
       );
-    }, ids);
+    });
+  };
+
+  render() {
+    const { current } = this.state;
+    const { className, controls, nextControl, prevControl } = this.props;
+
+    const total = this.getTotal();
 
     return (
       <Container className={className}>
@@ -109,7 +138,7 @@ class Carousel extends Component {
           )}
           <SlidesContainer>
             <Slides total={total} translate={-1 * current * (100 / total)}>
-              {slides}
+              {this.renderSlides()}
             </Slides>
           </SlidesContainer>
           {controls && (
@@ -118,7 +147,7 @@ class Carousel extends Component {
             </Control>
           )}
         </SlidesAndControls>
-        <Bullets>{bullets}</Bullets>
+        <Bullets>{this.renderBullets()}</Bullets>
       </Container>
     );
   }
@@ -143,7 +172,7 @@ const SlidesContainer = styled.div`
   overflow: hidden;
 `;
 
-const Slides = styled.div`
+const Slides = styled.div<{ total: number; translate: number }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -158,7 +187,7 @@ const Control = styled.div`
   cursor: pointer;
 `;
 
-const Slide = styled.div`
+const Slide = styled.div<{ total: number }>`
   width: ${({ total }) => `${100 / total}%`};
   min-height: 100px;
   box-sizing: border-box;
@@ -183,9 +212,15 @@ const Bullets = styled.div`
   margin-top: 20px;
 `;
 
-const Bullet = styled.div`
-  width: ${({ size }) => size || '8px'};
-  height: ${({ size }) => size || '8px'};
+const Bullet = styled.div<{
+  size: string | undefined;
+  background: string | undefined;
+  selected: boolean;
+  activeBackground: string | undefined;
+  hoverBackground: string | undefined;
+}>`
+  width: ${({ size }) => size};
+  height: ${({ size }) => size};
   background: ${({ theme, background }) => background || theme.p200};
   border-radius: 50%;
   margin: 0 4px;
@@ -204,7 +239,7 @@ const Bullet = styled.div`
   }
 `;
 
-const SpinnerContainer = styled.div`
+const SpinnerContainer = styled.div<{ minHeight: number | undefined }>`
   width: 100%;
   min-height: ${({ minHeight }) => minHeight}px;
   display: flex;
