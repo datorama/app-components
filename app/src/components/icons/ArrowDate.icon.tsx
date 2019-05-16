@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ArrowDate = ({ className }) => (
+const ArrowDate = ({ className }: { className?: string }) => (
   <svg className={className} width="100px" height="72px" viewBox="0 0 100 72">
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="arrow_2094738" fill="#000000" fillRule="nonzero">

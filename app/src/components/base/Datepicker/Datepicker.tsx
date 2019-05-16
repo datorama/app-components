@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import moment from 'moment';
-import PropTypes from 'prop-types';
+import moment, { Moment } from 'moment';
+import PropTypes, { string } from 'prop-types';
 
 // icons
 import Arrow from '../../icons/ArrowDate.icon';
@@ -14,7 +14,41 @@ import DatepickerPresets from './DatepickerPresets';
 const DATE_FORMAT = 'YYYY-MM-DD';
 const TITLES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 
-class Datepicker extends Component {
+type Selection = [string?, string?];
+
+// TODO: type should come from DatepickerPresets
+type Preset = { value: string; label: string; selection: Selection }[];
+
+type Props = {
+  onChange?: (selection: Selection) => [string, string];
+  initialSelection?: Selection;
+  className?: string;
+  months?: number;
+  firstDayOfWeek?: number;
+  dateFormat?: string;
+};
+
+type DefaultProps = {
+  months: number;
+  initialSelection: Selection;
+  firstDayOfWeek: number;
+  dateFormat: string;
+  onChange: () => void;
+};
+
+type State = {
+  today: Moment;
+  offset: number;
+  open: boolean;
+  selection: Selection;
+  committedSelection: Selection;
+  tmpStart: string;
+  selecting: boolean;
+  hoveredDate: string;
+  selectedPreset: Preset;
+};
+
+class Datepicker extends Component<Props & DefaultProps, State> {
   static propTypes = {
     onChange: PropTypes.func,
     className: PropTypes.string,
@@ -24,26 +58,24 @@ class Datepicker extends Component {
     dateFormat: PropTypes.string
   };
 
-  static defaultProps = {
+  static defaultProps: DefaultProps = {
     months: 1,
-    onChange: () => {},
     initialSelection: [],
     firstDayOfWeek: 0,
-    dateFormat: DATE_FORMAT
+    dateFormat: DATE_FORMAT,
+    onChange: () => {}
   };
 
-  state = {
+  state: State = {
     today: moment(),
     offset: 0,
     open: false,
-
     selection: this.props.initialSelection,
     committedSelection: this.props.initialSelection,
-    tmpStart: null,
     selecting: false,
-    hoveredDate: null,
-
-    selectedPreset: []
+    selectedPreset: [],
+    tmpStart: '',
+    hoveredDate: ''
   };
 
   datesRenderer = (globalOffset = 0) => {
@@ -69,12 +101,17 @@ class Datepicker extends Component {
 
     for (let i = 1; i <= total; i++) {
       const current = thisMonth.clone().set('date', i);
-      let selected = current.isBetween(selection[0], selection[1], null, '[]');
+      let selected = current.isBetween(
+        selection[0],
+        selection[1],
+        undefined,
+        '[]'
+      );
 
       // check selected while selecting
       if (
         selecting &&
-        current.isBetween(selection[0], hoveredDate, null, '[]')
+        current.isBetween(selection[0], hoveredDate, undefined, '[]')
       ) {
         selected = true;
       }
@@ -125,7 +162,7 @@ class Datepicker extends Component {
     );
   };
 
-  setHover = (date = null) => {
+  setHover = (date = '') => {
     const { selecting, tmpStart } = this.state;
 
     let extra = {};
@@ -150,7 +187,7 @@ class Datepicker extends Component {
             this.setState({
               offset: 0,
               selecting: false,
-              hoveredDate: null
+              hoveredDate: ''
             });
           }, 300);
         } else {
@@ -199,7 +236,7 @@ class Datepicker extends Component {
     });
   };
 
-  handleClick = date => {
+  handleClick = (date: string) => {
     const { selecting, tmpStart } = this.state;
 
     if (selecting) {
@@ -207,7 +244,7 @@ class Datepicker extends Component {
         this.setState({
           selecting: false,
           selection: [date, tmpStart],
-          tmpStart: null
+          tmpStart: ''
         });
         return;
       }
@@ -215,22 +252,22 @@ class Datepicker extends Component {
       this.setState({
         selecting: false,
         selection: [tmpStart, date],
-        tmpStart: null
+        tmpStart: ''
       });
     } else {
       this.setState({
         selecting: true,
-        selection: [date, null],
+        selection: [date, ''],
         tmpStart: date,
         selectedPreset: []
       });
     }
   };
 
-  selectMonth = selection => () =>
+  selectMonth = (selection: Selection) => () =>
     this.setState({ selection, selecting: false });
 
-  setPreset = preset => {
+  setPreset = (preset: Preset) => {
     this.setState(
       { selection: preset[0].selection, selectedPreset: preset },
       () => {
@@ -293,7 +330,10 @@ class Datepicker extends Component {
 
 export default Datepicker;
 
-const Container = styled.div`
+const Container = styled.div<{
+  visible: boolean;
+  total: number;
+}>`
   user-select: none;
   width: ${({ total }) => total * (182 + 20) + 32 + 20}px;
   padding: 0 20px;
@@ -366,7 +406,14 @@ const DatesContainer = styled.div`
   height: 100%;
 `;
 
-const DateContainer = styled.div`
+const DateContainer = styled.div<{
+  type?: 'title';
+  disabled?: boolean;
+  selected?: boolean;
+  isStart?: boolean;
+  isEnd?: boolean;
+  sameDay?: boolean;
+}>`
   box-sizing: border-box;
   width: 26px;
   height: 26px;
@@ -410,7 +457,10 @@ const DateContainer = styled.div`
     `};
 `;
 
-const DateIcon = styled.div`
+const DateIcon = styled.div<{
+  type?: 'title' | 'edge' | 'normal';
+  today?: boolean;
+}>`
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -448,7 +498,7 @@ const Dates = styled.div`
   display: flex;
 `;
 
-const Divider = styled.div`
+const Divider = styled.div<{ margin?: string }>`
   width: 100%;
   height: 1px;
   background: ${({ theme }) => theme.p100};
@@ -463,7 +513,7 @@ const Buttons = styled.div`
   justify-content: flex-end;
 `;
 
-const InlineButton = styled.div`
+const InlineButton = styled.div<{ primary?: boolean }>`
   margin-left: 20px;
   ${({ theme }) => theme.text.pLink};
   line-height: 14px;
@@ -500,7 +550,7 @@ const ArrowHolder = styled.div`
   }
 `;
 
-const StyledArrow = styled(Arrow)`
+const StyledArrow = styled(Arrow)<{ rotation: string }>`
   width: 14px;
   height: 14px;
   transform: rotate(${({ rotation }) => rotation});

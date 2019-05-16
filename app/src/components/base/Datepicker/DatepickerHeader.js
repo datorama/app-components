@@ -24,12 +24,12 @@ const DatepickerHeader = ({ open, selection, onClick, dateFormat }) => {
   );
 };
 
-DatepickerHeader.propTypes = {
-  onClick: PropTypes.func,
-  selection: PropTypes.arrayOf(PropTypes.string),
-  open: PropTypes.bool,
-  headerRenderer: PropTypes.func
-};
+// DatepickerHeader.propTypes = {
+//   onClick: PropTypes.func,
+//   selection: PropTypes.arrayOf(PropTypes.string),
+//   open: PropTypes.bool,
+//   headerRenderer: PropTypes.func
+// };
 
 export default DatepickerHeader;
 
