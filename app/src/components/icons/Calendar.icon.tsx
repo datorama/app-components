@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconComponent } from './icons.types';
 
-const CalendarIcon = ({ className }) => (
+const CalendarIcon: IconComponent = ({ className }) => (
   <svg className={className} width="16" height="16" viewBox="0 0 16 16">
     <g fill="#67696F" fillRule="nonzero">
       <path d="M0 7h16V6H0zM6 3h4V2H6z" />

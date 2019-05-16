@@ -1,6 +1,7 @@
 import React from 'react';
+import { IconComponent } from './icons.types';
 
-const ArrowDate = ({ className }: { className?: string }) => (
+const ArrowDate: IconComponent = ({ className }) => (
   <svg className={className} width="100px" height="72px" viewBox="0 0 100 72">
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="arrow_2094738" fill="#000000" fillRule="nonzero">

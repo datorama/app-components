@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import moment, { Moment } from 'moment';
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 
 // icons
 import Arrow from '../../icons/ArrowDate.icon';
@@ -10,14 +10,10 @@ import Arrow from '../../icons/ArrowDate.icon';
 import DatepickerHeader from './DatepickerHeader';
 import ClickOut from '../ClickOut';
 import DatepickerPresets from './DatepickerPresets';
+import { Preset, Selection } from './Datepicker.types';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 const TITLES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-
-type Selection = [string?, string?];
-
-// TODO: type should come from DatepickerPresets
-type Preset = { value: string; label: string; selection: Selection }[];
 
 type Props = {
   onChange?: (selection: Selection) => [string, string];

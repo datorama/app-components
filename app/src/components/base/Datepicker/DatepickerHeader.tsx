@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -6,8 +6,21 @@ import PropTypes from 'prop-types';
 import Calendar from '../../icons/Calendar.icon';
 import ArrowDown from '../../icons/ArrowDown.icon';
 import moment from 'moment';
+import { Selection } from './Datepicker.types';
 
-const DatepickerHeader = ({ open, selection, onClick, dateFormat }) => {
+type Props = {
+  open: boolean;
+  selection: Selection;
+  onClick: () => void;
+  dateFormat: string;
+};
+
+const DatepickerHeader: FunctionComponent<Props> = ({
+  open,
+  selection,
+  onClick,
+  dateFormat
+}) => {
   let [startDate, endDate] = selection;
 
   startDate = startDate
@@ -24,12 +37,12 @@ const DatepickerHeader = ({ open, selection, onClick, dateFormat }) => {
   );
 };
 
-// DatepickerHeader.propTypes = {
-//   onClick: PropTypes.func,
-//   selection: PropTypes.arrayOf(PropTypes.string),
-//   open: PropTypes.bool,
-//   headerRenderer: PropTypes.func
-// };
+DatepickerHeader.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  selection: PropTypes.any.isRequired,
+  open: PropTypes.bool.isRequired,
+  dateFormat: PropTypes.string.isRequired
+};
 
 export default DatepickerHeader;
 
@@ -63,7 +76,7 @@ const StyledCalendar = styled(Calendar)`
   }
 `;
 
-export const Arrow = styled(ArrowDown)`
+export const Arrow = styled(ArrowDown)<{ rotation: string }>`
   width: 8px;
   height: 8px;
   transform: rotate(${({ rotation }) => rotation});
