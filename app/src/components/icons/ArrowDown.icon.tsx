@@ -1,8 +1,14 @@
 import React from 'react';
 import { IconComponent } from './icons.types';
 
-const ArrowDownIcon: IconComponent = ({ className }) => (
-  <svg className={className} width="10px" height="6px" viewBox="0 0 10 6">
+const ArrowDownIcon: IconComponent = ({ className, onClick }) => (
+  <svg
+    onClick={onClick}
+    className={className}
+    width="10px"
+    height="6px"
+    viewBox="0 0 10 6"
+  >
     <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g
         id="arrow-left"

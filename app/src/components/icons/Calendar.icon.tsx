@@ -1,8 +1,14 @@
 import React from 'react';
 import { IconComponent } from './icons.types';
 
-const CalendarIcon: IconComponent = ({ className }) => (
-  <svg className={className} width="16" height="16" viewBox="0 0 16 16">
+const CalendarIcon: IconComponent = ({ className, onClick }) => (
+  <svg
+    onClick={onClick}
+    className={className}
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+  >
     <g fill="#67696F" fillRule="nonzero">
       <path d="M0 7h16V6H0zM6 3h4V2H6z" />
       <path d="M3 2v1h-.994C1.446 3 1 3.447 1 4.006v9.988A1 1 0 0 0 1.994 15h12.012c.547 0 .994-.45.994-1.006V4.006C15 3.449 14.552 3 13.999 3H13V2h.999C15.104 2 16 2.897 16 4.006v9.988A2.001 2.001 0 0 1 14.006 16H1.994A2 2 0 0 1 0 13.994V4.006C0 2.898.89 2 2.006 2H3zm3 0h4.034H6z" />

@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import moment, { Moment } from 'moment';
 import PropTypes from 'prop-types';
+import { set } from 'lodash/fp';
 
 // icons
 import Arrow from '../../icons/ArrowDate.icon';
+import ArrowDown from '../../icons/ArrowDown.icon';
+import Calendar from '../../icons/Calendar.icon';
 
 // components
-import DatepickerHeader from './DatepickerHeader';
 import ClickOut from '../ClickOut';
 import DatepickerPresets from './DatepickerPresets';
 import { Preset, Selection } from './Datepicker.types';
+import DatePickerInput from './DatepickerInput';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 const TITLES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
@@ -181,7 +184,6 @@ class Datepicker extends Component<Props & DefaultProps, State> {
         if (!this.state.open) {
           setTimeout(() => {
             this.setState({
-              offset: 0,
               selecting: false,
               hoveredDate: ''
             });
@@ -191,6 +193,11 @@ class Datepicker extends Component<Props & DefaultProps, State> {
         }
       }
     );
+
+  openPopup = () => {
+    this.setOffset();
+    this.setState({ open: true });
+  };
 
   handleClickOut = () => {
     const { open } = this.state;
@@ -273,10 +280,29 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     );
   };
 
+  onChangeDate = (id: number, value: string) => {
+    const { dateFormat } = this.props;
+    const parsed = moment(value, dateFormat);
+
+    if (parsed.isValid()) {
+      this.setState(prevState => {
+        const { selection } = prevState;
+        const newSelection = set(
+          [id],
+          moment(value, dateFormat).format(DATE_FORMAT),
+          selection
+        );
+
+        return { selection: newSelection };
+      });
+    }
+  };
+
   render() {
     const { open, committedSelection, selectedPreset } = this.state;
     const { className, months, firstDayOfWeek, dateFormat } = this.props;
     const monthsElement = [];
+    const [startDate, endDate] = committedSelection;
 
     for (let i = 0; i < months; i++) {
       monthsElement.push(this.datesRenderer(i));
@@ -284,12 +310,28 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
     return (
       <ClickOut onClick={this.handleClickOut}>
-        <DatepickerHeader
-          onClick={this.toggleOpen}
-          selection={committedSelection}
-          open={open}
-          dateFormat={dateFormat}
-        />
+        <DatepickerHeaderRow>
+          <StyledCalendar onClick={this.toggleOpen} />
+          <DatePickerInput
+            date={startDate}
+            dateFormat={dateFormat}
+            initialValue="start date"
+            onClick={this.openPopup}
+            onChange={value => this.onChangeDate(0, value)}
+          />
+          <Separator>-</Separator>
+          <DatePickerInput
+            date={endDate}
+            dateFormat={dateFormat}
+            initialValue="end date"
+            onClick={this.openPopup}
+            onChange={value => this.onChangeDate(1, value)}
+          />
+          <StyledArrowDown
+            rotation={open ? '180deg' : '0deg'}
+            onClick={this.toggleOpen}
+          />
+        </DatepickerHeaderRow>
 
         <Container visible={open} className={className} total={months}>
           <DatepickerPresets
@@ -324,7 +366,51 @@ class Datepicker extends Component<Props & DefaultProps, State> {
   }
 }
 
-export default Datepicker;
+const DatepickerHeaderRow = styled.div`
+  min-width: 210px;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 300ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${({ theme }) => theme.text.p};
+  line-height: 14px;
+  font-weight: 600;
+
+  &:hover {
+    background: ${({ theme }) => theme.p50};
+  }
+`;
+
+const StyledCalendar = styled(Calendar)`
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+
+  path {
+    fill: ${({ theme }) => theme.p600};
+  }
+`;
+
+const Separator = styled.span`
+  margin: 0 10px;
+`;
+
+const StyledArrowDown = styled(ArrowDown)<{ rotation: string }>`
+  width: 8px;
+  height: 8px;
+  transform: rotate(${({ rotation }) => rotation});
+  transition: all 300ms;
+  margin-left: 10px;
+
+  * {
+    fill: ${({ theme }) => theme.p600};
+  }
+`;
 
 const Container = styled.div<{
   visible: boolean;
@@ -555,3 +641,5 @@ const StyledArrow = styled(Arrow)<{ rotation: string }>`
     fill: ${({ theme }) => theme.p600};
   }
 `;
+
+export default Datepicker;
