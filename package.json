@@ -1,10 +1,11 @@
 {
-  "name": "app-components",
+  "name": "@datorama/app-components",
   "version": "0.1.4",
-  "description": "Datorama React components lib",
+  "description": "Datorama React components library",
   "author": "Shay Keinan",
   "repository": "https://github.com/datorama/app-components",
-  "private": true,
+  "homepage": "https://app-components.herokuapp.com",
+  "license": "MIT",
   "peerDependencies": {
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
@@ -52,6 +53,9 @@
     "heroku-postbuild": "cd app && npm run build",
     "lib:build": "rimraf dist && webpack && cd app && npm run generate:docs",
     "lib:watch": "rimraf dist && webpack -w"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "main": "dist/index.js",
   "files": [
