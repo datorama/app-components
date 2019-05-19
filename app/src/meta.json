@@ -248,6 +248,60 @@
   },
   {
     "description": "",
+    "displayName": "ClickOut",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": true,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/ClickOut.js"
+  },
+  {
+    "description": "",
     "displayName": "Checkbox",
     "methods": [],
     "props": {
@@ -302,60 +356,6 @@
       }
     },
     "filename": "/components/base/Checkbox.js"
-  },
-  {
-    "description": "",
-    "displayName": "ClickOut",
-    "methods": [
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": true,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/ClickOut.js"
   },
   {
     "description": "",
@@ -1440,7 +1440,20 @@
   {
     "description": "",
     "displayName": "Tabs",
-    "methods": [],
+    "methods": [
+      {
+        "name": "handleTabRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
       "className": {
         "type": {
@@ -2077,36 +2090,6 @@
   },
   {
     "description": "",
-    "displayName": "DatepickerPresets",
-    "methods": [
-      {
-        "name": "setPresets",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selectedPreset": {
-        "type": {
-          "name": "array"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Datepicker/DatepickerPresets.js"
-  },
-  {
-    "description": "",
     "displayName": "DatePickerInput",
     "methods": [
       {
@@ -2162,6 +2145,36 @@
       }
     },
     "filename": "/components/base/Datepicker/DatepickerInput.tsx"
+  },
+  {
+    "description": "",
+    "displayName": "DatepickerPresets",
+    "methods": [
+      {
+        "name": "setPresets",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectedPreset": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Datepicker/DatepickerPresets.js"
   },
   {
     "description": "",
@@ -2381,6 +2394,195 @@
       }
     },
     "filename": "/components/base/Select/SelectHeader.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectMenu",
+    "methods": [],
+    "props": {
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onSearch": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "multi": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectAll": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "optionRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onSelect": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchTerm": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "total": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxItems": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchPlaceholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "optionLabelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "small": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "large": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "inlineSearch": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectMenu.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectMultiHeader",
+    "methods": [],
+    "props": {
+      "selectAll": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "multi": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "total": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectMultiHeader.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectNoResults",
+    "methods": [],
+    "props": {
+      "theme": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectNoResults.js"
   },
   {
     "description": "",
@@ -2733,195 +2935,6 @@
       }
     },
     "filename": "/components/base/Select/Select.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectNoResults",
-    "methods": [],
-    "props": {
-      "theme": {
-        "type": {
-          "name": "object"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectNoResults.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectMultiHeader",
-    "methods": [],
-    "props": {
-      "selectAll": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "options": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "multi": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "total": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectMultiHeader.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectMenu",
-    "methods": [],
-    "props": {
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchable": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onSearch": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "options": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "multi": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selectAll": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "optionRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onSelect": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchTerm": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "total": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "maxItems": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchPlaceholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "optionLabelRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "small": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "large": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "inlineSearch": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectMenu.js"
   },
   {
     "description": "",
