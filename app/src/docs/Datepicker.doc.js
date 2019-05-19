@@ -31,17 +31,15 @@ const MyComponent = ({ onChange }) => (
 );
 `;
 
-const withHeaderRenderer = `
+const withCustomDateFormat = `
 import { Datepicker } from 'app-components';
 
 const MyComponent = ({ onChange }) => (
-  <Datepicker onChange={onChange} months={1} headerRenderer={selection => {
-  	let [startDate, endDate] = selection;
-  	startDate = startDate ? moment(startDate).format('DD/MM/YYYY') : 'Start Date';
-  	endDate = endDate ? moment(endDate).format('DD/MM/YYYY') : 'End Date';
-  	
-  	return <div>{startDate} - {endDate}</div>;
-  }} />
+  <Datepicker 
+    onChange={onChange}
+    months={1}
+    dateFormat="DD/MM/YYYY"
+  />
 );
 `;
 
@@ -51,17 +49,27 @@ const DatePickerDoc = () => {
 
   return (
     <Base title={title} description={description} name="Datepicker">
+      <Row>
+        <Col>
+          <SectionTitle>Default</SectionTitle>
+        </Col>
+      </Row>
       <Row align="stretch">
         <Col>
           <Snippet snippet={snippet} />
         </Col>
         <Col>
           <Box>
-            <StyledDatepicker months={1} />
+            <StyledDatepicker months={1} dateFormat={'DD/MM/YYYY'} />
           </Box>
         </Col>
       </Row>
 
+      <Row>
+        <Col>
+          <SectionTitle>2 months</SectionTitle>
+        </Col>
+      </Row>
       <Row align="stretch">
         <Col>
           <Snippet snippet={double} />
@@ -73,6 +81,11 @@ const DatePickerDoc = () => {
         </Col>
       </Row>
 
+      <Row>
+        <Col>
+          <SectionTitle>3 months</SectionTitle>
+        </Col>
+      </Row>
       <Row align="stretch">
         <Col>
           <Snippet snippet={multi} />
@@ -84,30 +97,18 @@ const DatePickerDoc = () => {
         </Col>
       </Row>
 
+      <Row>
+        <Col>
+          <SectionTitle>Custom date format</SectionTitle>
+        </Col>
+      </Row>
       <Row align="stretch">
         <Col>
-          <Snippet snippet={withHeaderRenderer} />
+          <Snippet snippet={withCustomDateFormat} />
         </Col>
         <Col>
           <Box>
-            <StyledDatepicker
-              months={1}
-              headerRenderer={selection => {
-                let [startDate, endDate] = selection;
-                startDate = startDate
-                  ? moment(startDate).format('DD/MM/YYYY')
-                  : 'Start Date';
-                endDate = endDate
-                  ? moment(endDate).format('DD/MM/YYYY')
-                  : 'End Date';
-
-                return (
-                  <div>
-                    {startDate} - {endDate}
-                  </div>
-                );
-              }}
-            />
+            <StyledDatepicker months={1} dateFormat="DD/MM/YYYY" />
           </Box>
         </Col>
       </Row>
@@ -116,6 +117,10 @@ const DatePickerDoc = () => {
 };
 
 export default DatePickerDoc;
+
+const SectionTitle = styled.div`
+  ${({ theme }) => theme.text.subHeadline};
+`;
 
 const Box = styled.div`
   width: 100%;
