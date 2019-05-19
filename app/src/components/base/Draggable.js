@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 class Draggable extends React.Component {
   static propTypes = {
     onDrag: PropTypes.func,
-    id: PropTypes.string.isRequired,
-    setDrag: PropTypes.func.isRequired,
+    id: PropTypes.string,
+    setDrag: PropTypes.func,
     children: PropTypes.node
   };
 
@@ -40,7 +40,8 @@ class Draggable extends React.Component {
         isDragging: true
       },
       () => {
-        this.props.setDrag(this.props.id);
+        this.props.onDragStart && this.props.onDragStart();
+        this.props.setDrag && this.props.setDrag(this.props.id);
       }
     );
   };
@@ -59,12 +60,11 @@ class Draggable extends React.Component {
         translateY: clientY - prevState.originalY
       }),
       () => {
-        if (onDrag) {
+        onDrag &&
           onDrag({
             translateX: this.state.translateX,
             translateY: this.state.translateY
           });
-        }
       }
     );
   };
@@ -82,13 +82,14 @@ class Draggable extends React.Component {
         isDragging: false
       },
       () => {
-        this.props.setDrag(null);
+        this.props.onDragEnd && this.props.onDragEnd();
+        this.props.setDrag && this.props.setDrag(null);
       }
     );
   };
 
   render() {
-    const { children } = this.props;
+    const { children, controlled } = this.props;
     const { translateX, translateY, isDragging } = this.state;
 
     return (
@@ -97,6 +98,7 @@ class Draggable extends React.Component {
         x={translateX}
         y={translateY}
         isDragging={isDragging}
+        type={controlled ? 'controlled' : 'default'}
       >
         {children}
       </Container>
@@ -106,8 +108,10 @@ class Draggable extends React.Component {
 
 export default withContext(Draggable);
 
-const Container = styled.div.attrs(({ x, y }) => ({
-  style: { transform: `translate(${x}px, ${y}px)` }
+const Container = styled.div.attrs(({ x, y, type }) => ({
+  style: {
+    transform: type !== 'controlled' ? `translate(${x}px, ${y}px)` : 'none'
+  }
 }))`
   cursor: grab;
   user-select: none;
