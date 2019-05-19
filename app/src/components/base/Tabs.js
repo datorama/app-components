@@ -3,12 +3,35 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 class Tabs extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    tabWidths: [],
+    prevWidth: []
+  };
 
-    this.tabRef = props.tabs.map(React.createRef);
-    this.tabsHeader = React.createRef();
-  }
+  localWidths = [];
+
+  handleTabRef = el => {
+    if (el) {
+      const { width } = el.getBoundingClientRect();
+
+      this.localWidths.push(width);
+
+      if (this.localWidths.length === this.props.tabs.length) {
+        const { tabs } = this.props;
+
+        let total = 0;
+        const prevWidth = [0];
+
+        for (let i = 0; i < tabs.length; i++) {
+          total += this.localWidths[i];
+
+          prevWidth.push(total);
+        }
+
+        this.setState({ tabWidths: this.localWidths, prevWidth });
+      }
+    }
+  };
 
   render() {
     const {
@@ -21,15 +44,13 @@ class Tabs extends Component {
       justify,
       className
     } = this.props;
-
-    const selectedTabRef = this.tabRef[selectedIndex].current;
-    const tabHeaderRef = this.tabsHeader.current;
+    const { tabWidths, prevWidth } = this.state;
 
     return (
       <Container className={className}>
-        <Header ref={this.tabsHeader} justify={justify}>
+        <Header justify={justify}>
           <InnerHeader>
-            {tabs.map((tab, index) => {
+            {tabs.map(tab => {
               const key = `tab-${tab.id}`;
               const handleClick = () => onSelect(tab.id);
               const selected = tab.id === selectedIndex;
@@ -38,7 +59,7 @@ class Tabs extends Component {
                 <Tab
                   gap={gap / 2}
                   className={`tab-${tab.id}`}
-                  ref={this.tabRef[index]}
+                  ref={this.handleTabRef}
                   key={key}
                   onClick={tab.disabled ? null : handleClick}
                 >
@@ -53,16 +74,9 @@ class Tabs extends Component {
               );
             })}
             <Line
-              left={
-                selectedTabRef && selectedTabRef.getBoundingClientRect().left
-              }
+              left={prevWidth[selectedIndex]}
               gap={gap / 2}
-              headerWidth={
-                tabHeaderRef && tabHeaderRef.getBoundingClientRect().width
-              }
-              width={
-                selectedTabRef && selectedTabRef.getBoundingClientRect().width
-              }
+              width={tabWidths[selectedIndex]}
             />
           </InnerHeader>
         </Header>
@@ -147,7 +161,8 @@ const Line = styled.div`
   position: absolute;
   bottom: -2px;
   height: 2px;
-  left: ${({ left, headerWidth, gap }) => `${left - gap - headerWidth / 2}px`};
+  left: 0;
+  transform: ${({ left }) => `translateX(${left}px)`};
   width: ${({ width }) => width}px;
   transition: all 300ms;
   background: ${({ theme }) => theme.a400};
