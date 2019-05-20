@@ -20,6 +20,10 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.3.3",
+    "@types/lodash": "^4.14.126",
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "^16.8.4",
+    "@types/styled-components": "^4.1.14",
     "autoprefixer": "^9.4.9",
     "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^5.0.0",
@@ -35,24 +39,22 @@
     "prop-types": "^15.7.2",
     "react": "16.6.3",
     "react-dom": "16.6.3",
+    "replace": "^1.1.0",
     "rimraf": "2.6.2",
     "style-loader": "^0.23.1",
     "styled-components": "4.1.1",
     "terser-webpack-plugin": "1.1.0",
+    "typescript": "^3.4.5",
     "webpack": "4.29.6",
-    "webpack-cli": "^3.2.2",
-    "@types/lodash": "^4.14.126",
-    "@types/react": "^16.8.17",
-    "@types/react-dom": "^16.8.4",
-    "@types/styled-components": "^4.1.14",
-    "typescript": "^3.4.5"
+    "webpack-cli": "^3.2.2"
   },
   "scripts": {
     "heroku-prebuild": "cd app && npm install",
     "start": "cd app && npm start",
     "heroku-postbuild": "cd app && npm run build",
     "lib:build": "rimraf dist && webpack && cd app && npm run generate:docs",
-    "lib:watch": "rimraf dist && webpack -w"
+    "lib:watch": "rimraf dist && webpack -w",
+    "lib:version": "replace '<Version>.+<\/Version>' '<Version>'$npm_package_version'</Version>' ./app/src/App.js"
   },
   "publishConfig": {
     "access": "public"
