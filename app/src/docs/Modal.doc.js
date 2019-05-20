@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, Modal, Button} from '../components/index';
+import { Row, Col, Modal, Button } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Modal } from 'app-components';
+import { Modal } from '@datorama/app-components';
 
 const MyComp = ({ modalOpen, toggleOpen }) => (
   <div>

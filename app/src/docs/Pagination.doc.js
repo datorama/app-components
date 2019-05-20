@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, hexToRgba, Pagination} from '../components/index';
+import { Row, Col, hexToRgba, Pagination } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Pagination } from 'app-components';
+import { Pagination } from '@datorama/app-components';
 
 const MyComp = ({ fetchData }) => (
   <div>
@@ -21,7 +21,7 @@ const MyComp = ({ fetchData }) => (
 `;
 
 const snippetSmall = `
-import { Pagination } from 'app-components';
+import { Pagination } from '@datorama/app-components';
 
 const MyComp = ({ fetchData }) => (
   <div>
@@ -35,36 +35,36 @@ const MyComp = ({ fetchData }) => (
 `;
 
 export default class PaginationDoc extends React.Component {
-	render() {
-		const title = 'pagination';
-		const description = 'pagination.';
-		
-		return (
-			<Base title={title} description={description} name="Pagination">
-				<Row align="stretch">
-					<Col>
-						<Snippet snippet={snippet}/>
-					</Col>
-					<Col>
-						<Box>
-							<Pagination total={256} max={4} onChange={e => console.log(e)}/>
-						</Box>
-					</Col>
-				</Row>
-				
-				<Row align="stretch">
-					<Col>
-						<Snippet snippet={snippetSmall}/>
-					</Col>
-					<Col>
-						<Box>
-							<Pagination total={6} max={10} onChange={e => console.log(e)}/>
-						</Box>
-					</Col>
-				</Row>
-			</Base>
-		);
-	}
+  render() {
+    const title = 'pagination';
+    const description = 'pagination.';
+
+    return (
+      <Base title={title} description={description} name="Pagination">
+        <Row align="stretch">
+          <Col>
+            <Snippet snippet={snippet} />
+          </Col>
+          <Col>
+            <Box>
+              <Pagination total={256} max={4} onChange={e => console.log(e)} />
+            </Box>
+          </Col>
+        </Row>
+
+        <Row align="stretch">
+          <Col>
+            <Snippet snippet={snippetSmall} />
+          </Col>
+          <Col>
+            <Box>
+              <Pagination total={6} max={10} onChange={e => console.log(e)} />
+            </Box>
+          </Col>
+        </Row>
+      </Base>
+    );
+  }
 }
 
 const Box = styled.div`
@@ -74,5 +74,5 @@ const Box = styled.div`
   align-items: center;
   border-radius: 4px;
   justify-content: center;
-  background: ${({theme}) => hexToRgba(theme.p50, 30)};
+  background: ${({ theme }) => hexToRgba(theme.p50, 30)};
 `;

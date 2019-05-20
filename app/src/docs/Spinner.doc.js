@@ -3,11 +3,11 @@ import styled, { withTheme } from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, Spinner, LinearProgress} from '../components/index';
+import { Row, Col, Spinner, LinearProgress } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Spinner } from 'app-components';
+import { Spinner } from '@datorama/app-components';
 
 const MyComp = () => (
   <div>
@@ -17,7 +17,7 @@ const MyComp = () => (
 `;
 
 const colored = `
-import { Spinner } from 'app-components';
+import { Spinner } from '@datorama/app-components';
 
 const MyComp = () => (
   <div>
@@ -27,7 +27,7 @@ const MyComp = () => (
 `;
 
 const linear = `
-import { LinearProgress } from 'app-components';
+import { LinearProgress } from '@datorama/app-components';
 
 const MyComp = () => (
   <div>
@@ -45,7 +45,7 @@ const SpinnerDoc = props => {
     <Base title={title} description={description} name="Spinner">
       <Row align="stretch">
         <Col>
-          <Snippet snippet={snippet}/>
+          <Snippet snippet={snippet} />
         </Col>
         <Col>
           <Box>
@@ -56,7 +56,7 @@ const SpinnerDoc = props => {
 
       <Row align="stretch">
         <Col>
-          <Snippet snippet={colored}/>
+          <Snippet snippet={colored} />
         </Col>
         <Col>
           <Box>
@@ -67,7 +67,7 @@ const SpinnerDoc = props => {
 
       <Row align="stretch">
         <Col>
-          <Snippet snippet={linear}/>
+          <Snippet snippet={linear} />
         </Col>
         <Col>
           <Box>

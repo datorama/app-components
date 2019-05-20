@@ -8,7 +8,7 @@ import Snippet from './Snippet';
 
 const snippet = `
 
-import { ToastsProvider, withToast } from 'app-components';
+import { ToastsProvider, withToast } from '@datorama/app-components';
 
 const App = () => (
   <ToastsProvider>
@@ -25,7 +25,7 @@ export const withToast(NestedComp);
 `;
 
 const snippetSnackbar = `
-import { ToastsProvider, withSnackbar } from 'app-components';
+import { ToastsProvider, withSnackbar } from '@datorama/app-components';
 
 const App = () => (
   <ToastsProvider>

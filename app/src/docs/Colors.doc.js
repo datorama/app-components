@@ -3,7 +3,18 @@ import styled from 'styled-components';
 import { keys } from 'lodash/fp';
 
 // components
-import {Row, Col, lightPrimary, lightAccent, darkPrimary, darkAccent, reds, greens, yellows, oranges} from '../components/index';
+import {
+  Row,
+  Col,
+  lightPrimary,
+  lightAccent,
+  darkPrimary,
+  darkAccent,
+  reds,
+  greens,
+  yellows,
+  oranges
+} from '../components/index';
 import Base from './Base';
 import Snippet from './Snippet';
 

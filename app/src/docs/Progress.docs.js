@@ -15,7 +15,7 @@ import Snippet from './Snippet';
 import * as PropTypes from 'prop-types';
 
 const snippet = `
-import { Progress } from 'app-components';
+import { Progress } from '@datorama/app-components';
 
 const MyComp = () => (
   <div>
@@ -25,7 +25,7 @@ const MyComp = () => (
 `;
 
 const multiSnippet = `
-import { MultiProgress } from 'app-components';
+import { MultiProgress } from '@datorama/app-components';
 
 const MyComp = () => (
   <div>
@@ -42,7 +42,7 @@ const MyComp = () => (
 `;
 
 const radialSnippet = `
-import { RadialProgress } from 'app-components';
+import { RadialProgress } from '@datorama/app-components';
 
 const MyComp = () => (
   <div>

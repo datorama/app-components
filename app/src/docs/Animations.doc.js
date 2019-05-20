@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col} from '../components/index';
+import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
@@ -46,8 +46,7 @@ class AnimatedCard extends React.Component {
 
 const AnimationsDoc = () => {
   const title = 'animations';
-  const description =
-    'Animations helps make a UI expressive and easy to use';
+  const description = 'Animations helps make a UI expressive and easy to use';
 
   return (
     <Base title={title} description={description}>

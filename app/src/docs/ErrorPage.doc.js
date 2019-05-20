@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, ErrorPage} from '../components/index';
+import { Row, Col, ErrorPage } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { ErrorPage } from 'app-components';
+import { ErrorPage } from '@datorama/app-components';
 
 const MyComp = ({ renderer }) => (
   <div>
@@ -37,11 +37,11 @@ export default class ErrorPageDoc extends React.Component {
         <Row>
           <Col>
             <StyledErrorPage
-                title="Oops…Something went wrong"
-                subtitle="A problem was encountered while installing App Name"
-                buttonLabel="Back to Market"
-                fixed={false}
-                onClick={() => undefined}
+              title="Oops…Something went wrong"
+              subtitle="A problem was encountered while installing App Name"
+              buttonLabel="Back to Market"
+              fixed={false}
+              onClick={() => undefined}
             />
           </Col>
         </Row>

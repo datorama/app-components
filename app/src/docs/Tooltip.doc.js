@@ -7,7 +7,7 @@ import { Tooltip, Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Tooltip } from 'app-components';
+import { Tooltip } from '@datorama/app-components';
 
 const MyComp = () => (
   <Tooltip title="tooltip content">
@@ -17,7 +17,7 @@ const MyComp = () => (
 `;
 
 const snippetLeft = `
-import { Tooltip } from 'app-components';
+import { Tooltip } from '@datorama/app-components';
 
 const MyComp = () => (
   <Tooltip title="tooltip content" position="LEFT">
@@ -27,7 +27,7 @@ const MyComp = () => (
 `;
 
 const snippetLong = `
-import { Tooltip } from 'app-components';
+import { Tooltip } from '@datorama/app-components';
 
 const MyComp = ({ navigate }) => (
   <div>
@@ -43,7 +43,7 @@ const MyComp = ({ navigate }) => (
 `;
 
 const snippetFixed = `
-import { Tooltip } from 'app-components';
+import { Tooltip } from '@datorama/app-components';
 
 const MyComp = () => (
   <div>
