@@ -73,6 +73,7 @@ class Range extends Component {
           onDragStart={this.handleDragStart}
           onDrag={this.handleDrag}
           onDragEnd={this.handleDragEnd}
+          controlled
         >
           <Thumb
             className="thumb"
