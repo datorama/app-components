@@ -8,7 +8,7 @@ import Snippet from './Snippet';
 import PropTable from './PropTable';
 
 const snippet = `
-import { Sticky } from 'app-components';
+import { Sticky } from '@datorama/app-components';
 
 const MyComp = () => (
   <Sticky>

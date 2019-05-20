@@ -7,7 +7,7 @@ import Base from './Base';
 import { Row, Col, Button, SegmentedButton } from '../components/index';
 
 const defaultButton = `
-import { Button } from 'app-components';
+import { Button } from '@datorama/app-components';
 
 const MyComponent = ({ onClick }) => (
   <Button onClick={onClick}>

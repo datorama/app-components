@@ -14,7 +14,7 @@ import {
 } from '../components/index';
 
 const snippet = `
-import { DragDropProvider, Draggable, Droppable } from 'app-components';
+import { DragDropProvider, Draggable, Droppable } from '@datorama/app-components';
 
 const MyComp = ({ handleDrop }) => (
   <DragDropProvider onDrop={handleDrop}>

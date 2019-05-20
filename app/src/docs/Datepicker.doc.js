@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import moment from 'moment';
 
 // components
 import Base from './Base';
@@ -8,7 +7,7 @@ import { Row, Col, Datepicker, hexToRgba } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Datepicker } from 'app-components';
+import { Datepicker } from '@datorama/app-components';
 
 const MyComponent = ({ onChange }) => (
   <Datepicker onChange={onChange} />
@@ -16,7 +15,7 @@ const MyComponent = ({ onChange }) => (
 `;
 
 const double = `
-import { Datepicker } from 'app-components';
+import { Datepicker } from '@datorama/app-components';
 
 const MyComponent = ({ onChange }) => (
   <Datepicker onChange={onChange} months={2} />
@@ -24,7 +23,7 @@ const MyComponent = ({ onChange }) => (
 `;
 
 const multi = `
-import { Datepicker } from 'app-components';
+import { Datepicker } from '@datorama/app-components';
 
 const MyComponent = ({ onChange }) => (
   <Datepicker onChange={onChange} months={3} />
@@ -32,10 +31,10 @@ const MyComponent = ({ onChange }) => (
 `;
 
 const withCustomDateFormat = `
-import { Datepicker } from 'app-components';
+import { Datepicker } from '@datorama/app-components';
 
 const MyComponent = ({ onChange }) => (
-  <Datepicker 
+  <Datepicker
     onChange={onChange}
     months={1}
     dateFormat="DD/MM/YYYY"

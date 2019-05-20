@@ -8,7 +8,7 @@ import Snippet from './Snippet';
 
 const snippet = `
 import React from 'react';
-import { Carousel } from 'app-components';
+import { Carousel } from '@datorama/app-components';
 
 class MyComp extends React.Component => {
 
@@ -26,17 +26,17 @@ class MyComp extends React.Component => {
         ...
         <Carousel
           controls
-            bulletSize={'20px'}
-            bulletBg={'gray'}
-            bulletActiveBg={'darkgray'}
-            bulletHoverBg={'lightblue'}
+            bulletSize={10}
+            bulletBg="gray"
+            bulletActiveBg="darkgray"
+            bulletHoverBg="lightblue"
             slides={this.renderSlides()}
-            prevControl={<Control>{'<'}</Control>}
-            nextControl={<Control>{'>'}</Control>}
+            prevControl={Comp}
+            nextControl={Comp}
             loading={loading}
             minHeight={360}
         />
-      </div>    
+      </div>
     );
   }
 };
@@ -76,13 +76,13 @@ export default class CarouselDoc extends React.Component {
           <Col>
             <StyledCarousel
               controls
-              bulletSize={'20px'}
-              bulletBg={'gray'}
-              bulletActiveBg={'darkgray'}
-              bulletHoverBg={'lightblue'}
+              bulletSize={10}
+              bulletBg="gray"
+              bulletActiveBg="darkgray"
+              bulletHoverBg="lightblue"
               slides={this.renderSlides()}
-              prevControl={<Control>{'<'}</Control>}
-              nextControl={<Control>{'>'}</Control>}
+              prevControl={() => <Control>-</Control>}
+              nextControl={() => <Control>+</Control>}
               loading={loading}
               minHeight={360}
             />
@@ -107,7 +107,20 @@ const Slide = styled.div`
 
 const Control = styled.div`
   font-size: 20px;
-  padding: 20px;
+  color: ${({ theme }) => theme.p300};
+  background: ${({ theme }) => theme.p100};
+  height: 360px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 300ms;
+  border-radius: 4px;
+  margin: 0 5px;
+
+  &:hover {
+    opacity: 0.7;
+  }
 `;
 
 const StyledCarousel = styled(Carousel)`

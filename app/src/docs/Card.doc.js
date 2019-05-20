@@ -3,19 +3,19 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, Card} from '../components/index';
+import { Row, Col, Card } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
 // inside a component
-import { Card } from 'app-components';
+import { Card } from '@datorama/app-components';
 
 const MyComp = () => (<Card>...</Card>);
 `;
 
 const clickable = `
 // inside a component
-import { Card } from 'app-components';
+import { Card } from '@datorama/app-components';
 
 const MyComp = () => (<Card clickable onClick={handleClick}>...</Card>);
 `;

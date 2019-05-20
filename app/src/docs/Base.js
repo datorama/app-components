@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // components
 import PropTable from './PropTable';
-import {Row, Col, Container} from '../components/index';
+import { Row, Col, Container } from '../components/index';
 
 const Base = ({ children, title, description, name }) => {
   return (

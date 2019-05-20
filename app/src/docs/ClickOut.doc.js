@@ -3,11 +3,11 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col, ClickOut} from '../components/index';
+import { Row, Col, ClickOut } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { ClickOut } from 'app-components';
+import { ClickOut } from '@datorama/app-components';
 
 const MyComponent = ({ onClick }) => (
   <ClickOut onClick={onClick}>
