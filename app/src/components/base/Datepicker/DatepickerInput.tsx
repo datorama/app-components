@@ -1,14 +1,15 @@
-import React, { ChangeEvent } from 'react';
-import { func, string } from 'prop-types';
-import moment from 'moment';
+import React from 'react';
+import { func, string, object } from 'prop-types';
+import { Moment } from 'moment';
 import styled from 'styled-components';
 
 type Props = {
-  date?: string;
+  date?: Moment;
   onChange: (value: string) => void;
   onClick?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   dateFormat: string;
-  initialValue: string;
+  placeholder: string;
 };
 
 type State = {
@@ -18,18 +19,19 @@ type State = {
 
 class DatePickerInput extends React.Component<Props, State> {
   static propTypes = {
-    date: string,
-    initialValue: string,
+    date: object,
+    placeholder: string,
     onChange: func.isRequired,
-    onClick: func
+    onClick: func,
+    onKeyDown: func
   };
 
   state = {
     editMode: false,
-    value: this.props.initialValue
+    value: this.props.placeholder
   };
 
-  onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       editMode: true,
       value: e.target.value
@@ -44,17 +46,16 @@ class DatePickerInput extends React.Component<Props, State> {
   };
 
   render() {
-    const { date, onClick, dateFormat } = this.props;
+    const { date, onClick, dateFormat, onKeyDown } = this.props;
 
     const value =
-      !this.state.editMode && date
-        ? moment(date).format(dateFormat)
-        : this.state.value;
+      !this.state.editMode && date ? date.format(dateFormat) : this.state.value;
 
     return (
       <Input
         onChange={this.onChange}
         onBlur={this.onBlur}
+        onKeyDown={onKeyDown}
         onClick={onClick}
         value={value}
       />

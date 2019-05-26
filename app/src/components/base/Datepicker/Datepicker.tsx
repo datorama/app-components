@@ -23,8 +23,13 @@ const convertToMomentRange = (dateRange: DateRange): MomentRange => ({
   endDate: moment(dateRange.endDate)
 });
 
+const convertToDateRange = (momentRange: MomentRange): DateRange => ({
+  startDate: momentRange.startDate.toDate(),
+  endDate: momentRange.endDate.toDate()
+});
+
 type Props = {
-  onChange?: (selection: MomentRange) => DateRange;
+  onChange?: (dateRange: DateRange) => DateRange;
   initialSelection?: DateRange;
   className?: string;
   months?: number;
@@ -37,7 +42,7 @@ type DefaultProps = {
   initialSelection: DateRange;
   firstDayOfWeek: number;
   dateFormat: string;
-  onChange: () => void;
+  onChange: (dateRange: DateRange) => void;
 };
 
 type State = {
@@ -234,7 +239,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
   apply = () =>
     this.setState({ committedSelection: this.state.selection }, () => {
       this.toggleOpen();
-      this.props.onChange(this.state.committedSelection);
+      this.props.onChange(convertToDateRange(this.state.committedSelection));
     });
 
   cancel = () => {
@@ -278,26 +283,35 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       { selection: preset[0].selection, selectedPreset: preset },
       () => {
         this.setOffset();
-        this.props.onChange(preset[0].selection);
+        this.props.onChange(convertToDateRange(preset[0].selection));
       }
     );
   };
 
-  onChangeDate = (id: number, value: string) => {
+  onChangeDate = (type: 'startDate' | 'endDate', value: string) => {
     const { dateFormat } = this.props;
     const parsed = moment(value, dateFormat);
 
     if (parsed.isValid()) {
       this.setState(prevState => {
         const { selection } = prevState;
-        const newSelection = set(
-          [id],
-          moment(value, dateFormat).format(DATE_FORMAT),
-          selection
-        );
+        const newSelection = set([type], moment(value, dateFormat), selection);
 
         return { selection: newSelection };
       });
+    }
+  };
+
+  onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { keyCode } = e;
+
+    // Enter
+    if (keyCode === 13) {
+      this.toggleOpen();
+    }
+    // Esc
+    else if (keyCode === 27) {
+      this.handleClickOut();
     }
   };
 
@@ -316,19 +330,21 @@ class Datepicker extends Component<Props & DefaultProps, State> {
         <DatepickerHeaderRow>
           <StyledCalendar onClick={this.toggleOpen} />
           <DatePickerInput
-            date={startDate.format()}
-            dateFormat={DATE_FORMAT}
-            initialValue="start date"
+            date={startDate}
+            dateFormat={dateFormat}
+            placeholder="start date"
             onClick={this.openPopup}
-            onChange={value => this.onChangeDate(0, value)}
+            onKeyDown={this.onKeyDown}
+            onChange={value => this.onChangeDate('startDate', value)}
           />
           <Separator>-</Separator>
           <DatePickerInput
-            date={endDate.format()}
-            dateFormat={DATE_FORMAT}
-            initialValue="end date"
+            date={endDate}
+            dateFormat={dateFormat}
+            placeholder="end date"
             onClick={this.openPopup}
-            onChange={value => this.onChangeDate(1, value)}
+            onKeyDown={this.onKeyDown}
+            onChange={value => this.onChangeDate('endDate', value)}
           />
           <StyledArrowDown
             rotation={open ? '180deg' : '0deg'}

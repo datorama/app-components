@@ -69,6 +69,7 @@ const DatePickerDoc = () => {
                   .add(1, 'week')
                   .toDate()
               }}
+              onChange={selection => console.log(selection)}
             />
           </Box>
         </Col>
