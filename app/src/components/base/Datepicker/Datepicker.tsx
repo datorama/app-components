@@ -16,7 +16,6 @@ import { Preset, MomentRange, DateRange } from './Datepicker.types';
 import DatePickerInput from './DatepickerInput';
 
 const DATE_FORMAT = 'YYYY-MM-DD';
-const TITLES = moment.weekdaysMin();
 
 const convertToMomentRange = (dateRange: DateRange): MomentRange => ({
   startDate: moment(dateRange.startDate),
@@ -54,10 +53,12 @@ type State = {
   tmpStart: Moment;
   selecting: boolean;
   hoveredDate: Moment;
-  selectedPreset: Preset;
+  selectedPreset: Preset[];
 };
 
 class Datepicker extends Component<Props & DefaultProps, State> {
+  private weekdays: string[] = [];
+
   static propTypes = {
     onChange: PropTypes.func,
     className: PropTypes.string,
@@ -81,20 +82,34 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     onChange: () => {}
   };
 
-  state: State = {
-    today: moment(),
-    offset: 0,
-    open: false,
-    selection: convertToMomentRange(this.props.initialSelection),
-    committedSelection: convertToMomentRange(this.props.initialSelection),
-    selecting: false,
-    selectedPreset: [],
-    tmpStart: moment(this.props.initialSelection.startDate),
-    hoveredDate: moment()
-  };
+  constructor(props: Props & DefaultProps) {
+    super(props);
+
+    moment.updateLocale('en', {
+      week: {
+        dow: this.props.firstDayOfWeek,
+        doy: this.props.firstDayOfWeek === 0 ? 6 : 4
+      }
+    });
+
+    this.state = {
+      today: moment(),
+      offset: 0,
+      open: false,
+      selection: convertToMomentRange(this.props.initialSelection),
+      committedSelection: convertToMomentRange(this.props.initialSelection),
+      selecting: false,
+      selectedPreset: [],
+      tmpStart: moment(this.props.initialSelection.startDate),
+      hoveredDate: moment()
+    };
+
+    this.weekdays = moment.weekdaysMin(true);
+  }
 
   datesRenderer = (globalOffset = 0) => {
     const { offset, today, selection, selecting, hoveredDate } = this.state;
+    const { firstDayOfWeek } = this.props;
     const { startDate, endDate } = selection;
     const dates = [];
     const monthStart = today.clone().startOf('month');
@@ -102,16 +117,16 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     const total = thisMonth.daysInMonth();
     const label = thisMonth.format('MMMM YYYY');
 
-    for (let i = 0; i < TITLES.length; i++) {
+    this.weekdays.forEach((day, index) => {
       dates.push(
-        <DateContainer key={`date-${TITLES[i]}-${i}`} type="title">
-          <DateIcon type="title">{TITLES[i]}</DateIcon>
+        <DateContainer key={`date-${day}-${index}`} type="title">
+          <DateIcon type="title">{day}</DateIcon>
         </DateContainer>
       );
-    }
+    });
 
     // previews disabled dates
-    for (let i = monthStart.day(); i > 0; i--) {
+    for (let i = monthStart.day(); i > firstDayOfWeek; i--) {
       dates.push(<DateContainer key={`date-placeholder-${i}`} disabled />);
     }
 
@@ -278,7 +293,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
   selectMonth = (selection: MomentRange) => () =>
     this.setState({ selection, selecting: false });
 
-  setPreset = (preset: Preset) => {
+  setPreset = (preset: Preset[]) => {
     this.setState(
       { selection: preset[0].selection, selectedPreset: preset },
       () => {
