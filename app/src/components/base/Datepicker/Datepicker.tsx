@@ -57,7 +57,7 @@ type State = {
 };
 
 class Datepicker extends Component<Props & DefaultProps, State> {
-  private weekdays: string[] = [];
+  weekdays: string[] = [];
 
   static propTypes = {
     onChange: PropTypes.func,
@@ -132,19 +132,16 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
     for (let i = 1; i <= total; i++) {
       const current = thisMonth.clone().set('date', i);
-      let selected = current.isBetween(startDate, endDate, undefined, '[]');
+      let selected = current.isBetween(startDate, endDate, 'day', '[]');
 
       // check selected while selecting
-      if (
-        selecting &&
-        current.isBetween(startDate, hoveredDate, undefined, '[]')
-      ) {
+      if (selecting && current.isBetween(startDate, hoveredDate, 'day', '[]')) {
         selected = true;
       }
 
       const isStart = current.isSame(startDate, 'day');
       const isEnd = current.isSame(endDate, 'day');
-      const sameDay = startDate.isSame(endDate) || !endDate;
+      const sameDay = startDate.isSame(endDate, 'day') || !endDate;
 
       dates.push(
         <DateContainer
@@ -157,7 +154,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
           isEnd={isEnd}
         >
           <DateIcon
-            today={current.format(DATE_FORMAT) === today.format(DATE_FORMAT)}
+            today={current.isSame(today, 'day')}
             type={isStart || isEnd ? 'edge' : 'normal'}
           >
             {i}
@@ -193,7 +190,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     let extra = {};
 
     if (selecting) {
-      if (hoveredDate.isBefore(tmpStart)) {
+      if (hoveredDate.isBefore(tmpStart, 'day')) {
         extra = { selection: { startDate: hoveredDate, endDate: tmpStart } };
       } else {
         extra = { selection: { startDate: tmpStart, endDate: hoveredDate } };
@@ -220,8 +217,12 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     );
 
   openPopup = () => {
-    this.setOffset();
-    this.setState({ open: true });
+    const { open } = this.state;
+
+    if (!open) {
+      this.setOffset();
+      this.setState({ open: true });
+    }
   };
 
   handleClickOut = () => {
@@ -251,17 +252,27 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   prev = () => this.setState(prevState => ({ offset: prevState.offset - 1 }));
 
-  apply = () =>
-    this.setState({ committedSelection: this.state.selection }, () => {
-      this.toggleOpen();
-      this.props.onChange(convertToDateRange(this.state.committedSelection));
-    });
+  apply = () => {
+    if (this.validateSelection()) {
+      this.setState(
+        {
+          committedSelection: this.state.selection,
+          selecting: false,
+          open: false
+        },
+        () =>
+          this.props.onChange(convertToDateRange(this.state.committedSelection))
+      );
+    } else {
+      this.cancel();
+    }
+  };
 
   cancel = () => {
-    this.setState({ open: false, selecting: false }, () => {
-      setTimeout(() => {
-        this.setState({ selection: this.state.committedSelection });
-      }, 300);
+    this.setState({
+      open: false,
+      selecting: false,
+      selection: this.state.committedSelection
     });
   };
 
@@ -269,7 +280,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     const { selecting, tmpStart } = this.state;
 
     if (selecting) {
-      if (selectedDate.isBefore(tmpStart)) {
+      if (selectedDate.isBefore(tmpStart, 'day')) {
         this.setState({
           selecting: false,
           selection: { startDate: selectedDate, endDate: tmpStart }
@@ -298,7 +309,6 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       { selection: preset[0].selection, selectedPreset: preset },
       () => {
         this.setOffset();
-        this.props.onChange(convertToDateRange(preset[0].selection));
       }
     );
   };
@@ -317,12 +327,18 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     }
   };
 
+  validateSelection = () => {
+    const { selection } = this.state;
+
+    return selection.startDate.isSameOrBefore(selection.endDate, 'day');
+  };
+
   onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const { keyCode } = e;
 
     // Enter
     if (keyCode === 13) {
-      this.toggleOpen();
+      this.apply();
     }
     // Esc
     else if (keyCode === 27) {
@@ -331,10 +347,10 @@ class Datepicker extends Component<Props & DefaultProps, State> {
   };
 
   render() {
-    const { open, committedSelection, selectedPreset } = this.state;
+    const { open, selectedPreset, selection } = this.state;
     const { className, months, firstDayOfWeek, dateFormat } = this.props;
     const monthsElement = [];
-    const { startDate, endDate } = committedSelection;
+    const { startDate, endDate } = selection;
 
     for (let i = 0; i < months; i++) {
       monthsElement.push(this.datesRenderer(i));

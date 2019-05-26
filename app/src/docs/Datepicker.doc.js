@@ -63,10 +63,11 @@ const DatePickerDoc = () => {
             <StyledDatepicker
               months={1}
               dateFormat={'DD/MM/YYYY'}
+              firstDayOfWeek={1}
               initialSelection={{
                 startDate: moment().toDate(),
                 endDate: moment()
-                  .add(1, 'week')
+                  .add(3, 'days')
                   .toDate()
               }}
               onChange={selection => console.log(selection)}

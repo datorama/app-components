@@ -18,6 +18,8 @@ type State = {
 };
 
 class DatePickerInput extends React.Component<Props, State> {
+  inputRef = React.createRef<HTMLInputElement>();
+
   static propTypes = {
     date: object,
     placeholder: string,
@@ -45,17 +47,26 @@ class DatePickerInput extends React.Component<Props, State> {
     });
   };
 
+  onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 27 || e.keyCode === 13) {
+      this.inputRef.current && this.inputRef.current.blur();
+    }
+
+    this.props.onKeyDown && this.props.onKeyDown(e);
+  };
+
   render() {
-    const { date, onClick, dateFormat, onKeyDown } = this.props;
+    const { date, onClick, dateFormat } = this.props;
 
     const value =
       !this.state.editMode && date ? date.format(dateFormat) : this.state.value;
 
     return (
       <Input
+        ref={this.inputRef}
         onChange={this.onChange}
         onBlur={this.onBlur}
-        onKeyDown={onKeyDown}
+        onKeyDown={this.onKeyDown}
         onClick={onClick}
         value={value}
       />
