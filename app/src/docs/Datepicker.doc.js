@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Base from './Base';
 import { Row, Col, Datepicker, hexToRgba } from '../components/index';
 import Snippet from './Snippet';
+import moment from 'moment';
 
 const snippet = `
 import { Datepicker } from '@datorama/app-components';
@@ -59,58 +60,67 @@ const DatePickerDoc = () => {
         </Col>
         <Col>
           <Box>
-            <StyledDatepicker months={1} dateFormat={'DD/MM/YYYY'} />
+            <StyledDatepicker
+              months={1}
+              dateFormat={'DD/MM/YYYY'}
+              initialSelection={{
+                startDate: moment().toDate(),
+                endDate: moment()
+                  .add(1, 'week')
+                  .toDate()
+              }}
+            />
           </Box>
         </Col>
       </Row>
 
-      <Row>
-        <Col>
-          <SectionTitle>2 months</SectionTitle>
-        </Col>
-      </Row>
-      <Row align="stretch">
-        <Col>
-          <Snippet snippet={double} />
-        </Col>
-        <Col>
-          <Box>
-            <StyledDatepicker months={2} />
-          </Box>
-        </Col>
-      </Row>
+      {/*<Row>*/}
+      {/*  <Col>*/}
+      {/*    <SectionTitle>2 months</SectionTitle>*/}
+      {/*  </Col>*/}
+      {/*</Row>*/}
+      {/*<Row align="stretch">*/}
+      {/*  <Col>*/}
+      {/*    <Snippet snippet={double} />*/}
+      {/*  </Col>*/}
+      {/*  <Col>*/}
+      {/*    <Box>*/}
+      {/*      <StyledDatepicker months={2} />*/}
+      {/*    </Box>*/}
+      {/*  </Col>*/}
+      {/*</Row>*/}
 
-      <Row>
-        <Col>
-          <SectionTitle>3 months</SectionTitle>
-        </Col>
-      </Row>
-      <Row align="stretch">
-        <Col>
-          <Snippet snippet={multi} />
-        </Col>
-        <Col>
-          <Box>
-            <StyledDatepicker months={3} />
-          </Box>
-        </Col>
-      </Row>
+      {/*<Row>*/}
+      {/*  <Col>*/}
+      {/*    <SectionTitle>3 months</SectionTitle>*/}
+      {/*  </Col>*/}
+      {/*</Row>*/}
+      {/*<Row align="stretch">*/}
+      {/*  <Col>*/}
+      {/*    <Snippet snippet={multi} />*/}
+      {/*  </Col>*/}
+      {/*  <Col>*/}
+      {/*    <Box>*/}
+      {/*      <StyledDatepicker months={3} />*/}
+      {/*    </Box>*/}
+      {/*  </Col>*/}
+      {/*</Row>*/}
 
-      <Row>
-        <Col>
-          <SectionTitle>Custom date format</SectionTitle>
-        </Col>
-      </Row>
-      <Row align="stretch">
-        <Col>
-          <Snippet snippet={withCustomDateFormat} />
-        </Col>
-        <Col>
-          <Box>
-            <StyledDatepicker months={1} dateFormat="DD/MM/YYYY" />
-          </Box>
-        </Col>
-      </Row>
+      {/*<Row>*/}
+      {/*  <Col>*/}
+      {/*    <SectionTitle>Custom date format</SectionTitle>*/}
+      {/*  </Col>*/}
+      {/*</Row>*/}
+      {/*<Row align="stretch">*/}
+      {/*  <Col>*/}
+      {/*    <Snippet snippet={withCustomDateFormat} />*/}
+      {/*  </Col>*/}
+      {/*  <Col>*/}
+      {/*    <Box>*/}
+      {/*      <StyledDatepicker months={1} dateFormat="DD/MM/YYYY" />*/}
+      {/*    </Box>*/}
+      {/*  </Col>*/}
+      {/*</Row>*/}
     </Base>
   );
 };
