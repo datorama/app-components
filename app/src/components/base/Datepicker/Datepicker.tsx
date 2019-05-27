@@ -212,6 +212,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
           }, 300);
         } else {
           this.setOffset();
+          console.log('gpg test');
         }
       }
     );
