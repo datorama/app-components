@@ -356,9 +356,9 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     const { startDate, endDate } = selection;
 
     return (
-      <div>
+      <Ellipsis>
         {label} ({startDate.format(dateFormat)} - {endDate.format(dateFormat)})
-      </div>
+      </Ellipsis>
     );
   };
 
@@ -452,6 +452,12 @@ const DatepickerHeaderRow = styled.div`
   &:hover {
     background: ${({ theme }) => theme.p50};
   }
+`;
+
+const Ellipsis = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const StyledCalendar = styled(Calendar)`
