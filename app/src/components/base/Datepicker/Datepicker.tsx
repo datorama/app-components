@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import moment, { Moment } from 'moment';
 import PropTypes from 'prop-types';
-import { set } from 'lodash/fp';
+import { set, isEmpty } from 'lodash/fp';
 
 // icons
 import Arrow from '../../icons/ArrowDate.icon';
@@ -54,6 +54,7 @@ type State = {
   selecting: boolean;
   hoveredDate: Moment;
   selectedPreset: Preset[];
+  committedSelectedPreset: Preset[];
 };
 
 class Datepicker extends Component<Props & DefaultProps, State> {
@@ -100,6 +101,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       committedSelection: convertToMomentRange(this.props.initialSelection),
       selecting: false,
       selectedPreset: [],
+      committedSelectedPreset: [],
       tmpStart: moment(this.props.initialSelection.startDate),
       hoveredDate: moment()
     };
@@ -206,13 +208,10 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       () => {
         if (!this.state.open) {
           setTimeout(() => {
-            this.setState({
-              selecting: false
-            });
+            this.cancel();
           }, 300);
         } else {
           this.setOffset();
-          console.log('gpg test');
         }
       }
     );
@@ -258,6 +257,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       this.setState(
         {
           committedSelection: this.state.selection,
+          committedSelectedPreset: this.state.selectedPreset,
           selecting: false,
           open: false
         },
@@ -273,7 +273,8 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     this.setState({
       open: false,
       selecting: false,
-      selection: this.state.committedSelection
+      selection: this.state.committedSelection,
+      selectedPreset: this.state.committedSelectedPreset
     });
   };
 
@@ -307,7 +308,10 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   setPreset = (preset: Preset[]) => {
     this.setState(
-      { selection: preset[0].selection, selectedPreset: preset },
+      {
+        selection: preset[0].selection,
+        selectedPreset: preset
+      },
       () => {
         this.setOffset();
       }
@@ -347,6 +351,18 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     }
   };
 
+  renderPreset = () => {
+    const { dateFormat } = this.props;
+    const { label, selection } = this.state.selectedPreset[0];
+    const { startDate, endDate } = selection;
+
+    return (
+      <div>
+        {label} ({startDate.format(dateFormat)} - {endDate.format(dateFormat)})
+      </div>
+    );
+  };
+
   render() {
     const { open, selectedPreset, selection } = this.state;
     const { className, months, firstDayOfWeek, dateFormat } = this.props;
@@ -359,29 +375,32 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
     return (
       <ClickOut onClick={this.handleClickOut}>
-        <DatepickerHeaderRow>
-          <StyledCalendar onClick={this.toggleOpen} />
-          <DatePickerInput
-            date={startDate}
-            dateFormat={dateFormat}
-            placeholder="start date"
-            onClick={this.openPopup}
-            onKeyDown={this.onKeyDown}
-            onChange={value => this.onChangeDate('startDate', value)}
-          />
-          <Separator>-</Separator>
-          <DatePickerInput
-            date={endDate}
-            dateFormat={dateFormat}
-            placeholder="end date"
-            onClick={this.openPopup}
-            onKeyDown={this.onKeyDown}
-            onChange={value => this.onChangeDate('endDate', value)}
-          />
-          <StyledArrowDown
-            rotation={open ? '180deg' : '0deg'}
-            onClick={this.toggleOpen}
-          />
+        <DatepickerHeaderRow onClick={this.toggleOpen}>
+          <StyledCalendar />
+          {isEmpty(selectedPreset) ? (
+            <>
+              <DatePickerInput
+                date={startDate}
+                dateFormat={dateFormat}
+                placeholder="start date"
+                onClick={this.openPopup}
+                onKeyDown={this.onKeyDown}
+                onChange={value => this.onChangeDate('startDate', value)}
+              />
+              <Separator>-</Separator>
+              <DatePickerInput
+                date={endDate}
+                dateFormat={dateFormat}
+                placeholder="end date"
+                onClick={this.openPopup}
+                onKeyDown={this.onKeyDown}
+                onChange={value => this.onChangeDate('endDate', value)}
+              />
+            </>
+          ) : (
+            this.renderPreset()
+          )}
+          <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
         </DatepickerHeaderRow>
 
         <Container visible={open} className={className} total={months}>

@@ -55,8 +55,13 @@ class DatePickerInput extends React.Component<Props, State> {
     this.props.onKeyDown && this.props.onKeyDown(e);
   };
 
+  onClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    this.props.onClick && this.props.onClick();
+  };
+
   render() {
-    const { date, onClick, dateFormat } = this.props;
+    const { date, dateFormat } = this.props;
 
     const value =
       !this.state.editMode && date ? date.format(dateFormat) : this.state.value;
@@ -67,7 +72,7 @@ class DatePickerInput extends React.Component<Props, State> {
         onChange={this.onChange}
         onBlur={this.onBlur}
         onKeyDown={this.onKeyDown}
-        onClick={onClick}
+        onClick={this.onClick}
         value={value}
       />
     );
