@@ -10,8 +10,13 @@ import moment from 'moment';
 const snippet = `
 import { Datepicker } from '@datorama/app-components';
 
+const dateRange = {
+  startDate: moment().toDate(),
+  endDate: moment().add(3, 'days').toDate()
+};
+
 const MyComponent = ({ onChange }) => (
-  <Datepicker onChange={onChange} />
+  <Datepicker dateRange={dateRange} />
 );
 `;
 
@@ -23,11 +28,11 @@ const MyComponent = ({ onChange }) => (
 );
 `;
 
-const multi = `
+const firstDayOfWeek = `
 import { Datepicker } from '@datorama/app-components';
 
 const MyComponent = ({ onChange }) => (
-  <Datepicker onChange={onChange} months={3} />
+  <Datepicker firstDayOfWeek={1} />
 );
 `;
 
@@ -35,17 +40,20 @@ const withCustomDateFormat = `
 import { Datepicker } from '@datorama/app-components';
 
 const MyComponent = ({ onChange }) => (
-  <Datepicker
-    onChange={onChange}
-    months={1}
-    dateFormat="DD/MM/YYYY"
-  />
+  <Datepicker dateFormat="MMM DD, YYYY" />
 );
 `;
 
 const DatePickerDoc = () => {
   const title = 'datepicker';
   const description = 'Default date picker';
+
+  const dateRange = {
+    startDate: moment().toDate(),
+    endDate: moment()
+      .add(3, 'days')
+      .toDate()
+  };
 
   return (
     <Base title={title} description={description} name="Datepicker">
@@ -60,69 +68,58 @@ const DatePickerDoc = () => {
         </Col>
         <Col>
           <Box>
-            <StyledDatepicker
-              months={1}
-              dateFormat={'DD/MM/YYYY'}
-              firstDayOfWeek={1}
-              initialSelection={{
-                startDate: moment().toDate(),
-                endDate: moment()
-                  .add(3, 'days')
-                  .toDate()
-              }}
-              onChange={selection => console.log(selection)}
-            />
+            <StyledDatepicker dateRange={dateRange} />
           </Box>
         </Col>
       </Row>
 
-      {/*<Row>*/}
-      {/*  <Col>*/}
-      {/*    <SectionTitle>2 months</SectionTitle>*/}
-      {/*  </Col>*/}
-      {/*</Row>*/}
-      {/*<Row align="stretch">*/}
-      {/*  <Col>*/}
-      {/*    <Snippet snippet={double} />*/}
-      {/*  </Col>*/}
-      {/*  <Col>*/}
-      {/*    <Box>*/}
-      {/*      <StyledDatepicker months={2} />*/}
-      {/*    </Box>*/}
-      {/*  </Col>*/}
-      {/*</Row>*/}
+      <Row>
+        <Col>
+          <SectionTitle>2 months</SectionTitle>
+        </Col>
+      </Row>
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={double} />
+        </Col>
+        <Col>
+          <Box>
+            <StyledDatepicker months={2} />
+          </Box>
+        </Col>
+      </Row>
 
-      {/*<Row>*/}
-      {/*  <Col>*/}
-      {/*    <SectionTitle>3 months</SectionTitle>*/}
-      {/*  </Col>*/}
-      {/*</Row>*/}
-      {/*<Row align="stretch">*/}
-      {/*  <Col>*/}
-      {/*    <Snippet snippet={multi} />*/}
-      {/*  </Col>*/}
-      {/*  <Col>*/}
-      {/*    <Box>*/}
-      {/*      <StyledDatepicker months={3} />*/}
-      {/*    </Box>*/}
-      {/*  </Col>*/}
-      {/*</Row>*/}
+      <Row>
+        <Col>
+          <SectionTitle>Week starts on Monday</SectionTitle>
+        </Col>
+      </Row>
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={firstDayOfWeek} />
+        </Col>
+        <Col>
+          <Box>
+            <StyledDatepicker firstDayOfWeek={1} />
+          </Box>
+        </Col>
+      </Row>
 
-      {/*<Row>*/}
-      {/*  <Col>*/}
-      {/*    <SectionTitle>Custom date format</SectionTitle>*/}
-      {/*  </Col>*/}
-      {/*</Row>*/}
-      {/*<Row align="stretch">*/}
-      {/*  <Col>*/}
-      {/*    <Snippet snippet={withCustomDateFormat} />*/}
-      {/*  </Col>*/}
-      {/*  <Col>*/}
-      {/*    <Box>*/}
-      {/*      <StyledDatepicker months={1} dateFormat="DD/MM/YYYY" />*/}
-      {/*    </Box>*/}
-      {/*  </Col>*/}
-      {/*</Row>*/}
+      <Row>
+        <Col>
+          <SectionTitle>Custom date format</SectionTitle>
+        </Col>
+      </Row>
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={withCustomDateFormat} />
+        </Col>
+        <Col>
+          <Box>
+            <StyledDatepicker dateFormat="MMM DD, YYYY" />
+          </Box>
+        </Col>
+      </Row>
     </Base>
   );
 };

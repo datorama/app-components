@@ -15,8 +15,6 @@ import DatepickerPresets from './DatepickerPresets';
 import { Preset, MomentRange, DateRange } from './Datepicker.types';
 import DatePickerInput from './DatepickerInput';
 
-const DATE_FORMAT = 'YYYY-MM-DD';
-
 const convertToMomentRange = (dateRange: DateRange): MomentRange => ({
   startDate: moment(dateRange.startDate),
   endDate: moment(dateRange.endDate)
@@ -29,7 +27,7 @@ const convertToDateRange = (momentRange: MomentRange): DateRange => ({
 
 type Props = {
   onChange?: (dateRange: DateRange) => DateRange;
-  initialSelection?: DateRange;
+  dateRange?: DateRange;
   className?: string;
   months?: number;
   firstDayOfWeek?: number;
@@ -38,7 +36,7 @@ type Props = {
 
 type DefaultProps = {
   months: number;
-  initialSelection: DateRange;
+  dateRange: DateRange;
   firstDayOfWeek: number;
   dateFormat: string;
   onChange: (dateRange: DateRange) => void;
@@ -64,7 +62,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     onChange: PropTypes.func,
     className: PropTypes.string,
     months: PropTypes.number,
-    initialSelection: PropTypes.shape({
+    dateRange: PropTypes.shape({
       startDate: PropTypes.instanceOf(Date),
       endDate: PropTypes.instanceOf(Date)
     }),
@@ -74,12 +72,12 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   static defaultProps: DefaultProps = {
     months: 1,
-    initialSelection: {
+    dateRange: {
       startDate: new Date(),
       endDate: new Date()
     },
     firstDayOfWeek: 0,
-    dateFormat: DATE_FORMAT,
+    dateFormat: 'MM-DD-YYYY',
     onChange: () => {}
   };
 
@@ -97,12 +95,12 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       today: moment(),
       offset: 0,
       open: false,
-      selection: convertToMomentRange(this.props.initialSelection),
-      committedSelection: convertToMomentRange(this.props.initialSelection),
+      selection: convertToMomentRange(this.props.dateRange),
+      committedSelection: convertToMomentRange(this.props.dateRange),
       selecting: false,
       selectedPreset: [],
       committedSelectedPreset: [],
-      tmpStart: moment(this.props.initialSelection.startDate),
+      tmpStart: moment(this.props.dateRange.startDate),
       hoveredDate: moment()
     };
 
