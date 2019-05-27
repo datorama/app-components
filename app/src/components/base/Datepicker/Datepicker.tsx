@@ -302,11 +302,12 @@ class Datepicker extends Component<Props & DefaultProps, State> {
   };
 
   selectMonth = (selection: MomentRange) => () =>
-    this.setState({ selection, selecting: false });
+    this.setState({ selection, selecting: false, selectedPreset: [] });
 
   setPreset = (preset: Preset[]) => {
     this.setState(
       {
+        selecting: false,
         selection: preset[0].selection,
         selectedPreset: preset
       },
