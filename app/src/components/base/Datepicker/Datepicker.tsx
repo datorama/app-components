@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import moment, { Moment } from 'moment';
 import PropTypes from 'prop-types';
-import { set } from 'lodash/fp';
+import { set, isEmpty } from 'lodash/fp';
 
 // icons
 import Arrow from '../../icons/ArrowDate.icon';
@@ -12,15 +12,22 @@ import Calendar from '../../icons/Calendar.icon';
 // components
 import ClickOut from '../ClickOut';
 import DatepickerPresets from './DatepickerPresets';
-import { Preset, Selection } from './Datepicker.types';
+import { Preset, MomentRange, DateRange } from './Datepicker.types';
 import DatePickerInput from './DatepickerInput';
 
-const DATE_FORMAT = 'YYYY-MM-DD';
-const TITLES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+const convertToMomentRange = (dateRange: DateRange): MomentRange => ({
+  startDate: moment(dateRange.startDate),
+  endDate: moment(dateRange.endDate)
+});
+
+const convertToDateRange = (momentRange: MomentRange): DateRange => ({
+  startDate: momentRange.startDate.toDate(),
+  endDate: momentRange.endDate.toDate()
+});
 
 type Props = {
-  onChange?: (selection: Selection) => [string, string];
-  initialSelection?: Selection;
+  onChange?: (dateRange: DateRange) => DateRange;
+  dateRange?: DateRange;
   className?: string;
   months?: number;
   firstDayOfWeek?: number;
@@ -29,107 +36,125 @@ type Props = {
 
 type DefaultProps = {
   months: number;
-  initialSelection: Selection;
+  dateRange: DateRange;
   firstDayOfWeek: number;
   dateFormat: string;
-  onChange: () => void;
+  onChange: (dateRange: DateRange) => void;
 };
 
 type State = {
   today: Moment;
   offset: number;
   open: boolean;
-  selection: Selection;
-  committedSelection: Selection;
-  tmpStart: string;
+  selection: MomentRange;
+  committedSelection: MomentRange;
+  tmpStart: Moment;
   selecting: boolean;
-  hoveredDate: string;
-  selectedPreset: Preset;
+  hoveredDate: Moment;
+  selectedPreset: Preset[];
+  committedSelectedPreset: Preset[];
 };
 
 class Datepicker extends Component<Props & DefaultProps, State> {
+  weekdays: string[] = [];
+
   static propTypes = {
     onChange: PropTypes.func,
     className: PropTypes.string,
     months: PropTypes.number,
-    initialSelection: PropTypes.arrayOf(PropTypes.string),
+    dateRange: PropTypes.shape({
+      startDate: PropTypes.instanceOf(Date),
+      endDate: PropTypes.instanceOf(Date)
+    }),
     firstDayOfWeek: PropTypes.number,
     dateFormat: PropTypes.string
   };
 
   static defaultProps: DefaultProps = {
     months: 1,
-    initialSelection: [],
+    dateRange: {
+      startDate: new Date(),
+      endDate: new Date()
+    },
     firstDayOfWeek: 0,
-    dateFormat: DATE_FORMAT,
+    dateFormat: 'MM-DD-YYYY',
     onChange: () => {}
   };
 
-  state: State = {
-    today: moment(),
-    offset: 0,
-    open: false,
-    selection: this.props.initialSelection,
-    committedSelection: this.props.initialSelection,
-    selecting: false,
-    selectedPreset: [],
-    tmpStart: '',
-    hoveredDate: ''
-  };
+  constructor(props: Props & DefaultProps) {
+    super(props);
+
+    moment.updateLocale('en', {
+      week: {
+        dow: this.props.firstDayOfWeek,
+        doy: this.props.firstDayOfWeek === 0 ? 6 : 4
+      }
+    });
+
+    this.state = {
+      today: moment(),
+      offset: 0,
+      open: false,
+      selection: convertToMomentRange(this.props.dateRange),
+      committedSelection: convertToMomentRange(this.props.dateRange),
+      selecting: false,
+      selectedPreset: [],
+      committedSelectedPreset: [],
+      tmpStart: moment(this.props.dateRange.startDate),
+      hoveredDate: moment()
+    };
+
+    this.weekdays = moment.weekdaysMin(true);
+  }
 
   datesRenderer = (globalOffset = 0) => {
     const { offset, today, selection, selecting, hoveredDate } = this.state;
+    const { firstDayOfWeek } = this.props;
+    const { startDate, endDate } = selection;
     const dates = [];
     const monthStart = today.clone().startOf('month');
     const thisMonth = monthStart.add(globalOffset + offset, 'month');
     const total = thisMonth.daysInMonth();
     const label = thisMonth.format('MMMM YYYY');
 
-    for (let i = 0; i < TITLES.length; i++) {
+    this.weekdays.forEach((day, index) => {
       dates.push(
-        <DateContainer key={`date-${TITLES[i]}-${i}`} type="title">
-          <DateIcon type="title">{TITLES[i]}</DateIcon>
+        <DateContainer key={`date-${day}-${index}`} type="title">
+          <DateIcon type="title">{day}</DateIcon>
         </DateContainer>
       );
-    }
+    });
 
     // previews disabled dates
-    for (let i = monthStart.day(); i > 0; i--) {
+    for (let i = monthStart.day(); i > firstDayOfWeek; i--) {
       dates.push(<DateContainer key={`date-placeholder-${i}`} disabled />);
     }
 
     for (let i = 1; i <= total; i++) {
       const current = thisMonth.clone().set('date', i);
-      let selected = current.isBetween(
-        selection[0],
-        selection[1],
-        undefined,
-        '[]'
-      );
+      let selected = current.isBetween(startDate, endDate, 'day', '[]');
 
       // check selected while selecting
-      if (
-        selecting &&
-        current.isBetween(selection[0], hoveredDate, undefined, '[]')
-      ) {
+      if (selecting && current.isBetween(startDate, hoveredDate, 'day', '[]')) {
         selected = true;
       }
 
-      const isStart = current.format(DATE_FORMAT) === selection[0];
-      const isEnd = current.format(DATE_FORMAT) === selection[1];
+      const isStart = current.isSame(startDate, 'day');
+      const isEnd = current.isSame(endDate, 'day');
+      const sameDay = startDate.isSame(endDate, 'day') || !endDate;
 
       dates.push(
         <DateContainer
           key={`date-${i}`}
-          onClick={() => this.handleClick(current.format(DATE_FORMAT))}
-          onMouseEnter={() => this.setHover(current.format(DATE_FORMAT))}
+          onClick={() => this.handleClick(current)}
+          onMouseEnter={() => this.setHover(current)}
           selected={selected}
-          sameDay={selection[0] === selection[1] || !selection[1]}
+          sameDay={sameDay}
           isStart={isStart}
           isEnd={isEnd}
         >
           <DateIcon
-            today={current.format(DATE_FORMAT) === today.format(DATE_FORMAT)}
+            today={current.isSame(today, 'day')}
             type={isStart || isEnd ? 'edge' : 'normal'}
           >
             {i}
@@ -141,18 +166,16 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     return (
       <DatesContainer key={`month-${globalOffset}`}>
         <MonthTitle
-          onClick={this.selectMonth([
-            today
+          onClick={this.selectMonth({
+            startDate: today
               .clone()
               .add(globalOffset + offset, 'month')
-              .startOf('month')
-              .format(DATE_FORMAT),
-            today
+              .startOf('month'),
+            endDate: today
               .clone()
               .add(globalOffset + offset, 'month')
               .endOf('month')
-              .format(DATE_FORMAT)
-          ])}
+          })}
         >
           {label}
         </MonthTitle>
@@ -161,20 +184,20 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     );
   };
 
-  setHover = (date = '') => {
+  setHover = (hoveredDate: Moment) => {
     const { selecting, tmpStart } = this.state;
 
     let extra = {};
 
     if (selecting) {
-      if (moment(date).isBefore(tmpStart)) {
-        extra = { selection: [date, tmpStart] };
+      if (hoveredDate.isBefore(tmpStart, 'day')) {
+        extra = { selection: { startDate: hoveredDate, endDate: tmpStart } };
       } else {
-        extra = { selection: [tmpStart, date] };
+        extra = { selection: { startDate: tmpStart, endDate: hoveredDate } };
       }
     }
 
-    this.setState({ hoveredDate: date, ...extra });
+    this.setState({ hoveredDate: hoveredDate, ...extra });
   };
 
   toggleOpen = () =>
@@ -183,10 +206,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       () => {
         if (!this.state.open) {
           setTimeout(() => {
-            this.setState({
-              selecting: false,
-              hoveredDate: ''
-            });
+            this.cancel();
           }, 300);
         } else {
           this.setOffset();
@@ -195,8 +215,12 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     );
 
   openPopup = () => {
-    this.setOffset();
-    this.setState({ open: true });
+    const { open } = this.state;
+
+    if (!open) {
+      this.setOffset();
+      this.setState({ open: true });
+    }
   };
 
   handleClickOut = () => {
@@ -209,9 +233,10 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   setOffset = () => {
     const { today, selection } = this.state;
+    const { startDate } = selection;
 
-    if (selection[0]) {
-      const selectionMonthStart = moment(selection[0]).startOf('month');
+    if (startDate) {
+      const selectionMonthStart = startDate.clone().startOf('month');
       let offset = selectionMonthStart.diff(
         today.clone().startOf('month'),
         'months'
@@ -225,84 +250,123 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   prev = () => this.setState(prevState => ({ offset: prevState.offset - 1 }));
 
-  apply = () =>
-    this.setState({ committedSelection: this.state.selection }, () => {
-      this.toggleOpen();
-      this.props.onChange(this.state.committedSelection);
-    });
+  apply = () => {
+    if (this.validateSelection()) {
+      this.setState(
+        {
+          committedSelection: this.state.selection,
+          committedSelectedPreset: this.state.selectedPreset,
+          selecting: false,
+          open: false
+        },
+        () =>
+          this.props.onChange(convertToDateRange(this.state.committedSelection))
+      );
+    } else {
+      this.cancel();
+    }
+  };
 
   cancel = () => {
-    this.setState({ open: false, selecting: false }, () => {
-      setTimeout(() => {
-        this.setState({ selection: this.state.committedSelection });
-      }, 300);
+    this.setState({
+      open: false,
+      selecting: false,
+      selection: this.state.committedSelection,
+      selectedPreset: this.state.committedSelectedPreset
     });
   };
 
-  handleClick = (date: string) => {
+  handleClick = (selectedDate: Moment) => {
     const { selecting, tmpStart } = this.state;
 
     if (selecting) {
-      if (moment(date).isBefore(tmpStart)) {
+      if (selectedDate.isBefore(tmpStart, 'day')) {
         this.setState({
           selecting: false,
-          selection: [date, tmpStart],
-          tmpStart: ''
+          selection: { startDate: selectedDate, endDate: tmpStart }
         });
-        return;
+      } else {
+        this.setState({
+          selecting: false,
+          selection: { startDate: tmpStart, endDate: selectedDate }
+        });
       }
-
-      this.setState({
-        selecting: false,
-        selection: [tmpStart, date],
-        tmpStart: ''
-      });
     } else {
       this.setState({
         selecting: true,
-        selection: [date, ''],
-        tmpStart: date,
+        selection: { startDate: selectedDate, endDate: selectedDate },
+        tmpStart: selectedDate,
         selectedPreset: []
       });
     }
   };
 
-  selectMonth = (selection: Selection) => () =>
-    this.setState({ selection, selecting: false });
+  selectMonth = (selection: MomentRange) => () =>
+    this.setState({ selection, selecting: false, selectedPreset: [] });
 
-  setPreset = (preset: Preset) => {
+  setPreset = (preset: Preset[]) => {
     this.setState(
-      { selection: preset[0].selection, selectedPreset: preset },
+      {
+        selecting: false,
+        selection: preset[0].selection,
+        selectedPreset: preset
+      },
       () => {
         this.setOffset();
-        this.props.onChange(preset[0].selection);
       }
     );
   };
 
-  onChangeDate = (id: number, value: string) => {
+  onChangeDate = (type: 'startDate' | 'endDate', value: string) => {
     const { dateFormat } = this.props;
     const parsed = moment(value, dateFormat);
 
     if (parsed.isValid()) {
       this.setState(prevState => {
         const { selection } = prevState;
-        const newSelection = set(
-          [id],
-          moment(value, dateFormat).format(DATE_FORMAT),
-          selection
-        );
+        const newSelection = set([type], moment(value, dateFormat), selection);
 
         return { selection: newSelection };
       });
     }
   };
 
+  validateSelection = () => {
+    const { selection } = this.state;
+
+    return selection.startDate.isSameOrBefore(selection.endDate, 'day');
+  };
+
+  onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const { keyCode } = e;
+
+    // Enter
+    if (keyCode === 13) {
+      this.apply();
+    }
+    // Esc
+    else if (keyCode === 27) {
+      this.handleClickOut();
+    }
+  };
+
+  renderPreset = () => {
+    const { dateFormat } = this.props;
+    const { label, selection } = this.state.selectedPreset[0];
+    const { startDate, endDate } = selection;
+
+    return (
+      <Ellipsis>
+        {label} ({startDate.format(dateFormat)} - {endDate.format(dateFormat)})
+      </Ellipsis>
+    );
+  };
+
   render() {
-    const { open, committedSelection, selectedPreset } = this.state;
+    const { open, selectedPreset, selection } = this.state;
     const { className, months, firstDayOfWeek, dateFormat } = this.props;
     const monthsElement = [];
-    const [startDate, endDate] = committedSelection;
+    const { startDate, endDate } = selection;
 
     for (let i = 0; i < months; i++) {
       monthsElement.push(this.datesRenderer(i));
@@ -310,27 +374,32 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
     return (
       <ClickOut onClick={this.handleClickOut}>
-        <DatepickerHeaderRow>
-          <StyledCalendar onClick={this.toggleOpen} />
-          <DatePickerInput
-            date={startDate}
-            dateFormat={dateFormat}
-            initialValue="start date"
-            onClick={this.openPopup}
-            onChange={value => this.onChangeDate(0, value)}
-          />
-          <Separator>-</Separator>
-          <DatePickerInput
-            date={endDate}
-            dateFormat={dateFormat}
-            initialValue="end date"
-            onClick={this.openPopup}
-            onChange={value => this.onChangeDate(1, value)}
-          />
-          <StyledArrowDown
-            rotation={open ? '180deg' : '0deg'}
-            onClick={this.toggleOpen}
-          />
+        <DatepickerHeaderRow onClick={this.toggleOpen}>
+          <StyledCalendar />
+          {isEmpty(selectedPreset) ? (
+            <>
+              <DatePickerInput
+                date={startDate}
+                dateFormat={dateFormat}
+                placeholder="start date"
+                onClick={this.openPopup}
+                onKeyDown={this.onKeyDown}
+                onChange={value => this.onChangeDate('startDate', value)}
+              />
+              <Separator>-</Separator>
+              <DatePickerInput
+                date={endDate}
+                dateFormat={dateFormat}
+                placeholder="end date"
+                onClick={this.openPopup}
+                onKeyDown={this.onKeyDown}
+                onChange={value => this.onChangeDate('endDate', value)}
+              />
+            </>
+          ) : (
+            this.renderPreset()
+          )}
+          <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
         </DatepickerHeaderRow>
 
         <Container visible={open} className={className} total={months}>
@@ -383,6 +452,12 @@ const DatepickerHeaderRow = styled.div`
   &:hover {
     background: ${({ theme }) => theme.p50};
   }
+`;
+
+const Ellipsis = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const StyledCalendar = styled(Calendar)`

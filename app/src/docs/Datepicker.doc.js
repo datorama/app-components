@@ -5,12 +5,18 @@ import styled from 'styled-components';
 import Base from './Base';
 import { Row, Col, Datepicker, hexToRgba } from '../components/index';
 import Snippet from './Snippet';
+import moment from 'moment';
 
 const snippet = `
 import { Datepicker } from '@datorama/app-components';
 
+const dateRange = {
+  startDate: moment().toDate(),
+  endDate: moment().add(3, 'days').toDate()
+};
+
 const MyComponent = ({ onChange }) => (
-  <Datepicker onChange={onChange} />
+  <Datepicker dateRange={dateRange} />
 );
 `;
 
@@ -22,11 +28,11 @@ const MyComponent = ({ onChange }) => (
 );
 `;
 
-const multi = `
+const firstDayOfWeek = `
 import { Datepicker } from '@datorama/app-components';
 
 const MyComponent = ({ onChange }) => (
-  <Datepicker onChange={onChange} months={3} />
+  <Datepicker firstDayOfWeek={1} />
 );
 `;
 
@@ -34,17 +40,20 @@ const withCustomDateFormat = `
 import { Datepicker } from '@datorama/app-components';
 
 const MyComponent = ({ onChange }) => (
-  <Datepicker
-    onChange={onChange}
-    months={1}
-    dateFormat="DD/MM/YYYY"
-  />
+  <Datepicker dateFormat="MMM DD, YYYY" />
 );
 `;
 
 const DatePickerDoc = () => {
   const title = 'datepicker';
   const description = 'Default date picker';
+
+  const dateRange = {
+    startDate: moment().toDate(),
+    endDate: moment()
+      .add(3, 'days')
+      .toDate()
+  };
 
   return (
     <Base title={title} description={description} name="Datepicker">
@@ -59,7 +68,7 @@ const DatePickerDoc = () => {
         </Col>
         <Col>
           <Box>
-            <StyledDatepicker months={1} dateFormat={'DD/MM/YYYY'} />
+            <StyledDatepicker dateRange={dateRange} />
           </Box>
         </Col>
       </Row>
@@ -82,16 +91,16 @@ const DatePickerDoc = () => {
 
       <Row>
         <Col>
-          <SectionTitle>3 months</SectionTitle>
+          <SectionTitle>Week starts on Monday</SectionTitle>
         </Col>
       </Row>
       <Row align="stretch">
         <Col>
-          <Snippet snippet={multi} />
+          <Snippet snippet={firstDayOfWeek} />
         </Col>
         <Col>
           <Box>
-            <StyledDatepicker months={3} />
+            <StyledDatepicker firstDayOfWeek={1} />
           </Box>
         </Col>
       </Row>
@@ -107,7 +116,7 @@ const DatePickerDoc = () => {
         </Col>
         <Col>
           <Box>
-            <StyledDatepicker months={1} dateFormat="DD/MM/YYYY" />
+            <StyledDatepicker dateFormat="MMM DD, YYYY" />
           </Box>
         </Col>
       </Row>
