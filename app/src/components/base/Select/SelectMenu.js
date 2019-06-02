@@ -65,7 +65,7 @@ const SelectMenu = props => {
         value={searchTerm}
       />
 
-      {!options.length && <SelectNoResults />}
+      {!total && <SelectNoResults />}
 
       <SelectOptions
         options={options}

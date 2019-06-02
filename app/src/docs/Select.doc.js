@@ -137,7 +137,7 @@ export default class SelectDoc extends React.Component {
       <Base title={title} description={description} name="Select">
         <Row>
           <Col>
-            <SectionTitle>group select</SectionTitle>
+            <SectionTitle>Group select</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
@@ -149,6 +149,9 @@ export default class SelectDoc extends React.Component {
               <Select
                 placeholder="select colors / fruits"
                 searchable
+                inlineSearch
+                multi
+                maxTags={2}
                 values={values0}
                 options={[
                   {

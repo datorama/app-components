@@ -1,7 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, orderBy, debounce, get, map, set } from 'lodash/fp';
+import { find, orderBy, debounce, map, set } from 'lodash/fp';
+import { getOptionsSize, getOptionsValues, hasGroups } from './select.utils';
 
 // components
 import ClickOut from '../ClickOut';
@@ -70,9 +71,7 @@ export default class Select extends React.Component {
   filterOptions() {
     const { options } = this.props;
 
-    const hasGroups = get([0, 'options'], options) || false;
-
-    if (hasGroups) {
+    if (hasGroups(options)) {
       return this.filterGroupedOptions();
     }
 
@@ -196,8 +195,8 @@ export default class Select extends React.Component {
     const { localValues } = this.state;
 
     let result = [];
-    if (!localValues.length || localValues.length > options.length) {
-      result = [...options];
+    if (!localValues.length || localValues.length > getOptionsSize(options)) {
+      result = getOptionsValues(options);
     }
 
     this.applyChanges(result);
@@ -287,7 +286,7 @@ export default class Select extends React.Component {
             searchable={searchable}
             onSearch={this.onSearch}
             options={filteredOptions}
-            total={options.length}
+            total={getOptionsSize(options)}
             values={localValues}
             multi={multi}
             selectAll={this.selectAll}

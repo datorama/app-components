@@ -32,13 +32,19 @@ const SelectOptions = props => {
     if (option.options) {
       return (
         <SelectOptionsGroup
-          key={`group-${option.label}`}
+          key={`group-options group-options-${option.label}`}
           options={option.options}
           values={values}
+          multi={multi}
+          inlineSearch={inlineSearch}
           handleClick={handleClick}
           groupLabel={option.label}
           small={small}
           large={large}
+          optionRenderer={optionRenderer}
+          maxItems={maxItems}
+          searchable={searchable}
+          optionLabelRenderer={optionLabelRenderer}
         />
       );
     }
