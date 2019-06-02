@@ -40,8 +40,22 @@ export const Label = styled.div`
   width: 100%;
   text-align: ${({ textAlign }) => textAlign || 'left'};
   font-size: 14px;
-  
-  ${({ small }) => small && css`
-		font-size: 12px;
-	`};
+
+  ${({ small }) =>
+    small &&
+    css`
+      font-size: 12px;
+    `};
+`;
+
+export const GroupLabel = styled(Label)`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: ${({ theme }) => theme.size.MEDIUM};
+  padding: 0 10px;
+  font-weight: 600;
+  box-sizing: border-box;
+  color: ${({ color, theme }) => color || theme.p300};
+  pointer-events: none;
 `;

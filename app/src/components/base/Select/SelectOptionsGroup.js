@@ -7,9 +7,9 @@ import { find, isEmpty } from 'lodash/fp';
 import Checkbox from '../Checkbox';
 import { Option, Label } from './Select.common';
 import { optionsType } from './Select.types';
-import SelectOptionsGroup from './SelectOptionsGroup';
+import { GroupLabel } from './Select.common';
 
-const SelectOptions = props => {
+const SelectOptionsGroup = props => {
   const {
     options,
     values,
@@ -21,7 +21,8 @@ const SelectOptions = props => {
     optionLabelRenderer,
     small,
     large,
-    inlineSearch
+    inlineSearch,
+    groupLabel
   } = props;
 
   if (isEmpty(options)) {
@@ -29,20 +30,6 @@ const SelectOptions = props => {
   }
 
   const items = options.map(option => {
-    if (option.options) {
-      return (
-        <SelectOptionsGroup
-          key={`group-${option.label}`}
-          options={option.options}
-          values={values}
-          handleClick={handleClick}
-          groupLabel={option.label}
-          small={small}
-          large={large}
-        />
-      );
-    }
-
     const selected = find(op => op.value === option.value, values);
 
     if (optionRenderer) {
@@ -78,12 +65,17 @@ const SelectOptions = props => {
       small={small}
       large={large}
     >
-      <Inner>{items}</Inner>
+      <Inner>
+        <GroupLabel small={small} large={large}>
+          {groupLabel}
+        </GroupLabel>
+        {items}
+      </Inner>
     </Container>
   );
 };
 
-SelectOptions.propTypes = {
+SelectOptionsGroup.propTypes = {
   options: optionsType,
   values: optionsType,
   optionRenderer: PropTypes.func,
@@ -96,8 +88,6 @@ SelectOptions.propTypes = {
   large: PropTypes.bool,
   inlineSearch: PropTypes.bool
 };
-
-export default SelectOptions;
 
 const Container = styled.div`
   margin-top: ${({ marginTop }) => marginTop};
@@ -127,3 +117,5 @@ const Inner = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export default SelectOptionsGroup;

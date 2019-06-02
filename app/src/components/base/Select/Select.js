@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, orderBy, debounce } from 'lodash/fp';
+import { find, orderBy, debounce, get, map, set } from 'lodash/fp';
 
 // components
 import ClickOut from '../ClickOut';
@@ -68,15 +68,49 @@ export default class Select extends React.Component {
       .includes(searchTerm.toLowerCase());
 
   filterOptions() {
-    const { searchTerm } = this.state;
-    const { searchBy, options, sortable, sortDirection, sortBy } = this.props;
+    const { options } = this.props;
 
-    let sorted = sortable ? orderBy(sortDirection, sortBy, options) : options;
+    const hasGroups = get([0, 'options'], options) || false;
+
+    if (hasGroups) {
+      return this.filterGroupedOptions();
+    }
+
+    const { searchTerm } = this.state;
+    const { searchBy, sortable, sortDirection, sortBy } = this.props;
+
+    let sorted = sortable
+      ? orderBy([sortBy], [sortDirection], options)
+      : options;
 
     return sorted.filter(option =>
       searchBy.some(key => this.checkString(searchTerm, option[key]))
     );
   }
+
+  filterGroupedOptions = () => {
+    const { searchTerm } = this.state;
+    const { searchBy, options, sortable, sortDirection, sortBy } = this.props;
+
+    const filtered = map(option => {
+      const filteredInnerOption = option.options.filter(op =>
+        searchBy.some(key => this.checkString(searchTerm, op[key]))
+      );
+
+      return set('options', filteredInnerOption, option);
+    }, options);
+
+    return sortable
+      ? this.sortGroupedOptions(filtered, sortBy, sortDirection)
+      : filtered;
+  };
+
+  sortGroupedOptions = (options, sortBy, sortDirection) => {
+    return map(option => {
+      const ordered = orderBy([sortBy], [sortDirection], option.options);
+      return set('options', ordered, option);
+    }, options);
+  };
 
   toggleOpen = () => {
     const { keepOpen, inlineSearch } = this.props;

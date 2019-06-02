@@ -148,6 +148,7 @@ export default class SelectDoc extends React.Component {
             <Box>
               <Select
                 placeholder="select colors / fruits"
+                searchable
                 values={values0}
                 options={[
                   {
