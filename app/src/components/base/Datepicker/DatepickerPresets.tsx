@@ -9,7 +9,7 @@ import ArrowDown from '../../icons/ArrowDown.icon';
 
 // components
 import Select from '../Select/Select';
-import { Preset, PresetsMap } from './Datepicker.types';
+import { Preset, PresetOption, PresetsMap } from './Datepicker.types';
 
 type CustomHeaderProps = {
   open: boolean;
@@ -32,8 +32,8 @@ const CustomHeader: FunctionComponent<CustomHeaderProps> = ({
 
 type Props = {
   firstDayOfWeek: number;
-  onChange: (preset: Preset[]) => void;
-  selectedPreset: Preset[];
+  onChange: (preset: PresetOption[]) => void;
+  selectedPreset: PresetOption[];
 };
 
 class DatepickerPresets extends Component<Props> {
@@ -165,92 +165,109 @@ class DatepickerPresets extends Component<Props> {
 
     this.presetsOptions = [
       {
-        value: 'this-week',
-        label: 'This week',
-        selection: this.presetsMap.thisWeek
+        label: 'This',
+        options: [
+          {
+            value: 'this-week',
+            label: 'This week',
+            selection: this.presetsMap.thisWeek
+          },
+          {
+            value: 'this-month',
+            label: 'This month',
+            selection: this.presetsMap.thisMonth
+          },
+          {
+            value: 'this-quarter',
+            label: 'This quarter',
+            selection: this.presetsMap.thisQuarter
+          },
+          {
+            value: 'this-year',
+            label: 'This year',
+            selection: this.presetsMap.thisYear
+          }
+        ]
       },
       {
-        value: 'this-month',
-        label: 'This month',
-        selection: this.presetsMap.thisMonth
+        label: 'Last',
+        options: [
+          {
+            value: 'last-7',
+            label: 'Last 7 days',
+            selection: this.presetsMap.last7days
+          },
+          {
+            value: 'last-14',
+            label: 'Last 14 days',
+            selection: this.presetsMap.last14days
+          },
+          {
+            value: 'last-30',
+            label: 'Last 30 days',
+            selection: this.presetsMap.last30days
+          },
+          {
+            value: 'last-90',
+            label: 'Last 90 days',
+            selection: this.presetsMap.last90days
+          }
+        ]
       },
       {
-        value: 'this-quarter',
-        label: 'This quarter',
-        selection: this.presetsMap.thisQuarter
+        label: 'To Date',
+        options: [
+          {
+            value: 'yesterday',
+            label: 'Yesterday',
+            selection: this.presetsMap.yesterday
+          },
+          {
+            value: 'week-to-date',
+            label: 'Week to date',
+            selection: this.presetsMap.weekToDate
+          },
+          {
+            value: 'month-to-date',
+            label: 'Month to date',
+            selection: this.presetsMap.monthToDate
+          },
+          {
+            value: 'quarter-to-date',
+            label: 'Quarter to date',
+            selection: this.presetsMap.quarterToDate
+          },
+          {
+            value: 'year-to-date',
+            label: 'Year to date',
+            selection: this.presetsMap.yearToDate
+          }
+        ]
       },
       {
-        value: 'this-year',
-        label: 'This year',
-        selection: this.presetsMap.thisYear
-      },
-
-      {
-        value: 'last-7',
-        label: 'Last 7 days',
-        selection: this.presetsMap.last7days
-      },
-      {
-        value: 'last-14',
-        label: 'Last 14 days',
-        selection: this.presetsMap.last14days
-      },
-      {
-        value: 'last-30',
-        label: 'Last 30 days',
-        selection: this.presetsMap.last30days
-      },
-      {
-        value: 'last-90',
-        label: 'Last 90 days',
-        selection: this.presetsMap.last90days
-      },
-
-      {
-        value: 'yesterday',
-        label: 'Yesterday',
-        selection: this.presetsMap.yesterday
-      },
-      {
-        value: 'week-to-date',
-        label: 'Week to date',
-        selection: this.presetsMap.weekToDate
-      },
-      {
-        value: 'month-to-date',
-        label: 'Month to date',
-        selection: this.presetsMap.monthToDate
-      },
-      {
-        value: 'quarter-to-date',
-        label: 'Quarter to date',
-        selection: this.presetsMap.quarterToDate
-      },
-      {
-        value: 'year-to-date',
-        label: 'Year to date',
-        selection: this.presetsMap.yearToDate
-      },
-
-      {
-        value: 'prev-week',
-        label: 'Previous week',
-        selection: this.presetsMap.prevWeek
-      },
-      {
-        value: 'prev-month',
-        label: 'Previous month',
-        selection: this.presetsMap.prevMonth
-      },
-      {
-        value: 'prev-quarter',
-        label: 'Previous quarter',
-        selection: this.presetsMap.prevQuarter
-      },
-      {
-        value: 'prev-year',
-        label: 'Previous year',
-        selection: this.presetsMap.prevYear
+        label: 'Previous',
+        options: [
+          {
+            value: 'prev-week',
+            label: 'Previous week',
+            selection: this.presetsMap.prevWeek
+          },
+          {
+            value: 'prev-month',
+            label: 'Previous month',
+            selection: this.presetsMap.prevMonth
+          },
+          {
+            value: 'prev-quarter',
+            label: 'Previous quarter',
+            selection: this.presetsMap.prevQuarter
+          },
+          {
+            value: 'prev-year',
+            label: 'Previous year',
+            selection: this.presetsMap.prevYear
+          }
+        ]
       }
     ];
   }

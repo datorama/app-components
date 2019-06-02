@@ -12,7 +12,7 @@ import Calendar from '../../icons/Calendar.icon';
 // components
 import ClickOut from '../ClickOut';
 import DatepickerPresets from './DatepickerPresets';
-import { Preset, MomentRange, DateRange } from './Datepicker.types';
+import { MomentRange, DateRange, PresetOption } from './Datepicker.types';
 import DatePickerInput from './DatepickerInput';
 
 const convertToMomentRange = (dateRange: DateRange): MomentRange => ({
@@ -51,8 +51,8 @@ type State = {
   tmpStart: Moment;
   selecting: boolean;
   hoveredDate: Moment;
-  selectedPreset: Preset[];
-  committedSelectedPreset: Preset[];
+  selectedPreset: PresetOption[];
+  committedSelectedPreset: PresetOption[];
 };
 
 class Datepicker extends Component<Props & DefaultProps, State> {
@@ -304,7 +304,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
   selectMonth = (selection: MomentRange) => () =>
     this.setState({ selection, selecting: false, selectedPreset: [] });
 
-  setPreset = (preset: Preset[]) => {
+  setPreset = (preset: PresetOption[]) => {
     this.setState(
       {
         selecting: false,
