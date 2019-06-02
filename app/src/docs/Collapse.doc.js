@@ -8,7 +8,7 @@ import { Row, Col, Collapse, Collapsible, Button } from '../components/index';
 import PropTable from './PropTable';
 
 const snippet = `
-import { Collapse } from 'app-components';
+import { Collapse } from '@datorama/app-components';
 
 const MyComp = () => (
   <Collapse label="My label">
@@ -18,7 +18,7 @@ const MyComp = () => (
 `;
 
 const collapsibleSnippet = `
-import { Collapsible } from 'app-components';
+import { Collapsible } from '@datorama/app-components';
 
 const MyComp = ({ open, toggleOpen ) => (
   <Collapsible open={open} toggleOpen={toggleOpen}>

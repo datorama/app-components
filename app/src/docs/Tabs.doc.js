@@ -7,7 +7,7 @@ import { Row, Col, Tabs } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Tabs } from 'app-components';
+import { Tabs } from '@datorama/app-components';
 
 const MyComp = ({ selected, handleSelect, contentRenderer, tabs }) => (
   <Tabs
@@ -20,7 +20,7 @@ const MyComp = ({ selected, handleSelect, contentRenderer, tabs }) => (
 `;
 
 const customSnippet = `
-import { Tabs } from 'app-components';
+import { Tabs } from '@datorama/app-components';
 
 // custom label using label renderer
 const MyComp = ({ selected, handleSelect, contentRenderer, tabs, labelRenderer }) => (

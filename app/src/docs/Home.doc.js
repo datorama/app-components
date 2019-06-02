@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // components
-import {Row, Col} from '../components/index';
+import { Row, Col } from '../components/index';
 
 // icons
 import rightHero from './assets/right.svg';
@@ -25,8 +25,8 @@ const Home = () => {
             <Col>
               <SectionTitle>Getting started</SectionTitle>
               <SectionSubtitle>
-                Onboarding for designers and developers who are using the system
-                for the first time
+                On-boarding for designers and developers who are using the
+                system for the first time
               </SectionSubtitle>
             </Col>
           </Col>

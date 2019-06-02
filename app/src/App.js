@@ -48,6 +48,7 @@ const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
     <Header>
       <Title onClick={() => history.push('/')}>Apps design system</Title>
+      <Version>0.1.5</Version>
     </Header>
     <Menu>
       {list.map(({ key, label, type, path }) => (
@@ -427,4 +428,10 @@ const GlobalStyle = createGlobalStyle`
 
 const ColorsButton = styled(ThemeButton)`
   right: 70px;
+`;
+
+const Version = styled.div`
+  font-size: 12px;
+  color: ${({ theme }) => theme.p300};
+  font-weight: 600;
 `;

@@ -8,10 +8,10 @@ type Props = {
   loading?: boolean;
   className?: string;
   minHeight?: number;
-  prevControl?: ReactNode;
-  nextControl?: ReactNode;
+  prevControl?: () => ReactNode;
+  nextControl?: () => ReactNode;
   controls?: boolean;
-  bulletSize?: string;
+  bulletSize?: number;
   bulletBg?: string;
   bulletActiveBg?: string;
   bulletHoverBg?: string;
@@ -27,10 +27,10 @@ class Carousel extends Component<Props, State> {
     loading: PropTypes.bool,
     className: PropTypes.string,
     minHeight: PropTypes.number,
-    prevControl: PropTypes.node,
-    nextControl: PropTypes.node,
+    prevControl: PropTypes.func,
+    nextControl: PropTypes.func,
     controls: PropTypes.bool,
-    bulletSize: PropTypes.string,
+    bulletSize: PropTypes.number,
     bulletBg: PropTypes.string,
     bulletActiveBg: PropTypes.string,
     bulletHoverBg: PropTypes.string
@@ -133,7 +133,7 @@ class Carousel extends Component<Props, State> {
         <SlidesAndControls>
           {controls && (
             <Control onClick={this.prev}>
-              {prevControl ? prevControl : 'Prev'}
+              {prevControl ? prevControl() : 'Prev'}
             </Control>
           )}
           <SlidesContainer>
@@ -143,7 +143,7 @@ class Carousel extends Component<Props, State> {
           </SlidesContainer>
           {controls && (
             <Control onClick={this.next}>
-              {nextControl ? nextControl : 'Next'}
+              {nextControl ? nextControl() : 'Next'}
             </Control>
           )}
         </SlidesAndControls>
@@ -213,14 +213,14 @@ const Bullets = styled.div`
 `;
 
 const Bullet = styled.div<{
-  size: string | undefined;
+  size: number | undefined;
   background: string | undefined;
   selected: boolean;
   activeBackground: string | undefined;
   hoverBackground: string | undefined;
 }>`
-  width: ${({ size }) => size};
-  height: ${({ size }) => size};
+  width: ${({ size }) => size}px;
+  height: ${({ size }) => size}px;
   background: ${({ theme, background }) => background || theme.p200};
   border-radius: 50%;
   margin: 0 4px;

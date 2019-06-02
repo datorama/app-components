@@ -7,7 +7,7 @@ import { Row, Col, Select } from '../components/index';
 import Snippet from './Snippet';
 
 const single = `
-import { Select } from 'app-components';
+import { Select } from '@datorama/app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -21,7 +21,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const sizesSnippet = `
-import { Select } from 'app-components';
+import { Select } from '@datorama/app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -37,7 +37,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const searchable = `
-import { Select } from 'app-components';
+import { Select } from '@datorama/app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -52,7 +52,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const inlineSearch = `
-import { Select } from 'app-components';
+import { Select } from '@datorama/app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -70,7 +70,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const multi = `
-import { Select } from 'app-components';
+import { Select } from '@datorama/app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>
@@ -86,7 +86,7 @@ const MyComp = ({ selected }) => (
 `;
 
 const loading = `
-import { Select } from 'app-components';
+import { Select } from '@datorama/app-components';
 
 const MyComp = ({ selected }) => (
   <Fragment>

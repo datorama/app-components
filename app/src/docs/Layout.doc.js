@@ -7,7 +7,7 @@ import { Row, Col, hexToRgba, Container } from '../components/index';
 import Snippet from './Snippet';
 
 const auto = `
-import { Container, Row, Col } from 'app-components';
+import { Container, Row, Col } from '@datorama/app-components';
 
 // auto column size
 const MyComp = () => (
@@ -21,7 +21,7 @@ const MyComp = () => (
 `;
 
 const nested = `
-import { Container, Row, Col } from 'app-components';
+import { Container, Row, Col } from '@datorama/app-components';
 
 // nested rows
 const MyComp = () => (
@@ -40,7 +40,7 @@ const MyComp = () => (
 `;
 
 const withSize = `
-import { Container, Row, Col } from 'app-components';
+import { Container, Row, Col } from '@datorama/app-components';
 
 // with column size
 const MyComp = () => (
@@ -54,7 +54,7 @@ const MyComp = () => (
 `;
 
 const withOffset = `
-import { Container, Row, Col } from 'app-components';
+import { Container, Row, Col } from '@datorama/app-components';
 
 // column offset
 const MyComp = () => (
@@ -68,7 +68,7 @@ const MyComp = () => (
 `;
 
 const dist = `
-import { Container, Row, Col } from 'app-components';
+import { Container, Row, Col } from '@datorama/app-components';
 
 /* column distribution
 *  flex-start, center, flex-end, space-between, space-evenly and space-around
@@ -84,7 +84,7 @@ const MyComp = () => (
 `;
 
 const breakpoint = `
-import { Container, Row, Col } from 'app-components';
+import { Container, Row, Col } from '@datorama/app-components';
 
 /*
   the default break points are

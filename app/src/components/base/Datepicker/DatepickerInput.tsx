@@ -1,14 +1,15 @@
-import React, { ChangeEvent } from 'react';
-import { func, string } from 'prop-types';
-import moment from 'moment';
+import React from 'react';
+import { func, string, object } from 'prop-types';
+import { Moment } from 'moment';
 import styled from 'styled-components';
 
 type Props = {
-  date?: string;
+  date?: Moment;
   onChange: (value: string) => void;
   onClick?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   dateFormat: string;
-  initialValue: string;
+  placeholder: string;
 };
 
 type State = {
@@ -17,19 +18,22 @@ type State = {
 };
 
 class DatePickerInput extends React.Component<Props, State> {
+  inputRef = React.createRef<HTMLInputElement>();
+
   static propTypes = {
-    date: string,
-    initialValue: string,
+    date: object,
+    placeholder: string,
     onChange: func.isRequired,
-    onClick: func
+    onClick: func,
+    onKeyDown: func
   };
 
   state = {
     editMode: false,
-    value: this.props.initialValue
+    value: this.props.placeholder
   };
 
-  onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       editMode: true,
       value: e.target.value
@@ -43,19 +47,32 @@ class DatePickerInput extends React.Component<Props, State> {
     });
   };
 
+  onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 27 || e.keyCode === 13) {
+      this.inputRef.current && this.inputRef.current.blur();
+    }
+
+    this.props.onKeyDown && this.props.onKeyDown(e);
+  };
+
+  onClick = (e: React.MouseEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    this.props.onClick && this.props.onClick();
+  };
+
   render() {
-    const { date, onClick, dateFormat } = this.props;
+    const { date, dateFormat } = this.props;
 
     const value =
-      !this.state.editMode && date
-        ? moment(date).format(dateFormat)
-        : this.state.value;
+      !this.state.editMode && date ? date.format(dateFormat) : this.state.value;
 
     return (
       <Input
+        ref={this.inputRef}
         onChange={this.onChange}
         onBlur={this.onBlur}
-        onClick={onClick}
+        onKeyDown={this.onKeyDown}
+        onClick={this.onClick}
         value={value}
       />
     );

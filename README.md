@@ -9,12 +9,12 @@
 
 ## Install
 ```bash
-npm install --save git+ssh://git@github.com/datorama/app-components.git
+npm install --save @datorama/app-components
 ```
 
 #### Set up global theme
 ```jsx
-import { AppTheme, lightTheme } from 'app-components';
+import { AppTheme, lightTheme } from '@datorama/app-components';
 import { ThemeProvider } from 'styled-components';
     
 const App = () => (
@@ -24,5 +24,7 @@ const App = () => (
 );
 
 // CSS
-// @import '~app-components/dist/index.css';
+// @import '~@datorama/app-components/dist/index.css';
 ```
+
+#### Documentation

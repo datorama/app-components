@@ -3,10 +3,10 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import {Row, Col} from '../components/index';
+import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
-const snippet = `npm i --save git+ssh://git@github.com/datorama/app-components.git`;
+const snippet = `npm i --save @datorama/app-components`;
 
 const theme = `
   import { AppTheme, lightTheme } from 'app-components';
@@ -20,7 +20,7 @@ const theme = `
 `;
 
 const components = `
-  import { Button } from 'app-components';
+  import { Button } from '@datorama/app-components';
   
   const MyComp = ({ handleClick }) => (
     <div>
@@ -32,7 +32,7 @@ const components = `
 
 const styling = `
   // add to your css file -
-  // @import '~app-components/dist/index.css';
+  // @import '~@datorama/app-components/dist/index.css';
 
   const MyComp = styled.div'
     // typography
@@ -47,58 +47,58 @@ const styling = `
 `;
 
 const GettingStarted = () => {
-	const title = 'Getting started';
-	const description = '';
-	
-	return (
-		<Base title={title} description={description}>
-			<Row align="stretch">
-				<Col>
-					<Title>Setup</Title>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Snippet snippet={snippet}/>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Snippet snippet={theme}/>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Title>Components example</Title>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Snippet snippet={components}/>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Title>Styling example</Title>
-				</Col>
-			</Row>
-			
-			<Row align="stretch">
-				<Col>
-					<Snippet snippet={styling}/>
-				</Col>
-			</Row>
-		</Base>
-	);
+  const title = 'Getting started';
+  const description = '';
+
+  return (
+    <Base title={title} description={description}>
+      <Row align="stretch">
+        <Col>
+          <Title>Setup</Title>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={snippet} />
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={theme} />
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Title>Components example</Title>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={components} />
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Title>Styling example</Title>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={styling} />
+        </Col>
+      </Row>
+    </Base>
+  );
 };
 
 export default GettingStarted;
 
 const Title = styled.div`
-  ${({theme}) => theme.text.subHeadline};
+  ${({ theme }) => theme.text.subHeadline};
 `;
