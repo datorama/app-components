@@ -20,6 +20,46 @@ const MyComp = ({ selected }) => (
 );
 `;
 
+const group = `
+import { Select } from '@datorama/app-components';
+
+const options = [ 
+  {
+    label: 'Colors',
+    options: [
+      { value: '1', label: 'orange' },
+      { value: '2', label: 'purple' },
+      { value: '3', label: 'black' },
+      { value: '4', label: 'green' },
+      { value: '5', label: 'yellow' },
+      { value: '6', label: 'white' }
+    ]
+  },
+  {
+    label: 'Fruits',
+    options: [
+      { value: '7', label: 'apple' },
+      { value: '8', label: 'orange' },
+      { value: '9', label: 'pear' },
+      { value: '10', label: 'melon' }
+    ]
+  }
+]
+
+const MyComp = ({ selected }) => (
+  <Fragment>
+    <Select
+      placeholder="Select colors / fruits"
+      searchable
+      inlineSearch
+      multi
+      maxTags={2}
+      options={options}
+    />
+  </Fragment>
+);
+`;
+
 const sizesSnippet = `
 import { Select } from '@datorama/app-components';
 
@@ -137,12 +177,40 @@ export default class SelectDoc extends React.Component {
       <Base title={title} description={description} name="Select">
         <Row>
           <Col>
-            <SectionTitle>Group select</SectionTitle>
+            <SectionTitle>single select</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
           <Col>
             <Snippet snippet={single} />
+          </Col>
+          <Col>
+            <Box>
+              <Select
+                placeholder="select colors"
+                values={values1}
+                options={[
+                  { value: '1', label: 'orange' },
+                  { value: '2', label: 'purple' },
+                  { value: '3', label: 'black' },
+                  { value: '4', label: 'green' },
+                  { value: '5', label: 'yellow' },
+                  { value: '6', label: 'white' }
+                ]}
+                onChange={values1 => this.setState({ values1 })}
+              />
+            </Box>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionTitle>Group select</SectionTitle>
+          </Col>
+        </Row>
+        <Row align="stretch">
+          <Col>
+            <Snippet snippet={group} />
           </Col>
           <Col>
             <Box>
@@ -176,33 +244,6 @@ export default class SelectDoc extends React.Component {
                   }
                 ]}
                 onChange={values0 => this.setState({ values0 })}
-              />
-            </Box>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <SectionTitle>single select</SectionTitle>
-          </Col>
-        </Row>
-        <Row align="stretch">
-          <Col>
-            <Snippet snippet={single} />
-          </Col>
-          <Col>
-            <Box>
-              <Select
-                placeholder="select colors"
-                values={values1}
-                options={[
-                  { value: '1', label: 'orange' },
-                  { value: '2', label: 'purple' },
-                  { value: '3', label: 'black' },
-                  { value: '4', label: 'green' },
-                  { value: '5', label: 'yellow' },
-                  { value: '6', label: 'white' }
-                ]}
-                onChange={values1 => this.setState({ values1 })}
               />
             </Box>
           </Col>
