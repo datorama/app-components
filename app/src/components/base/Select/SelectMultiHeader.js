@@ -8,9 +8,9 @@ import { optionsType } from './Select.types';
 import Checkbox from '../Checkbox';
 
 const SelectMultiHeader = props => {
-  const { options, values, multi, selectAll, total } = props;
+  const { values, multi, selectAll, total } = props;
 
-  if (!multi || !options.length) {
+  if (!multi || !total) {
     return null;
   }
 
@@ -47,7 +47,6 @@ const SelectMultiHeader = props => {
 
 SelectMultiHeader.propTypes = {
   selectAll: PropTypes.func,
-  options: optionsType,
   values: optionsType,
   multi: PropTypes.bool,
   total: PropTypes.number

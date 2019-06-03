@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import { isEmpty } from 'lodash/fp';
 import PropTypes from 'prop-types';
+import { getOptionsSize } from './select.utils';
 
 // components
 import { Label } from './Select.common';
@@ -31,8 +32,9 @@ const SelectHeader = props => {
   }
 
   let label = placeholder;
+  const optionsSize = getOptionsSize(options);
 
-  if (values.length <= options.length) {
+  if (values.length <= optionsSize) {
     label = `${values.length} selected`;
   }
 
@@ -42,8 +44,8 @@ const SelectHeader = props => {
     label = option.label;
   }
 
-  if (options.length === values.length && values.length > 1) {
-    label = `Select all (${options.length})`;
+  if (optionsSize === values.length && values.length > 1) {
+    label = `Select all (${optionsSize})`;
   }
 
   if (!values.length) {
@@ -53,9 +55,9 @@ const SelectHeader = props => {
   if (placeholderRenderer) {
     const customLabel = placeholderRenderer({
       label,
-      allSelected: options.length === values.length && values.length > 1,
+      allSelected: optionsSize === values.length && values.length > 1,
       selected: values.length,
-      total: options.length
+      total: optionsSize
     });
 
     if (!isEmpty(customLabel)) {
@@ -75,10 +77,7 @@ const SelectHeader = props => {
       disabled={loading}
     >
       <LabelWrapper>
-        <Label
-          small={small}
-          large={large}
-        >
+        <Label small={small} large={large}>
           {label}
         </Label>
       </LabelWrapper>
@@ -123,11 +122,13 @@ const Container = styled.div`
   position: relative;
   transition: all 300ms;
   user-select: none;
-  
-  ${({disabled}) => disabled && css`
-    pointer-events: none;
-    opacity: 0.8;
-  `};
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      pointer-events: none;
+      opacity: 0.8;
+    `};
 
   ${({ open, theme, error }) =>
     open &&

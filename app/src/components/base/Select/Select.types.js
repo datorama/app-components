@@ -1,8 +1,16 @@
 import PropTypes from 'prop-types';
 
-export const optionsType = PropTypes.arrayOf(
-  PropTypes.shape({
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    label: PropTypes.string
-  }).isRequired
-);
+export const optionShape = PropTypes.shape({
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  label: PropTypes.string.isRequired
+});
+
+export const groupOptionShape = PropTypes.shape({
+  label: PropTypes.string.isRequired,
+  options: PropTypes.arrayOf(optionShape)
+});
+
+export const optionsType = PropTypes.oneOfType([
+  PropTypes.arrayOf(optionShape),
+  PropTypes.arrayOf(groupOptionShape)
+]);

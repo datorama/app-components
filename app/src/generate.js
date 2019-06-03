@@ -4,7 +4,7 @@ const reactDocs = require('react-docgen');
 
 // The React components to load
 const componentFolder = './src/components/base';
-const excludes = ['Select.common.js'];
+const excludes = ['Select.common.js', 'select.utils'];
 
 // Where the JSON file ends up
 const componentJsonPath = './src/meta.json';
