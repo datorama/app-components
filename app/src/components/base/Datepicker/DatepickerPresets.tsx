@@ -278,6 +278,7 @@ class DatepickerPresets extends Component<Props> {
     return (
       <Container>
         <Select
+          sortable={false}
           placeholder="Presets"
           options={this.presetsOptions}
           values={selectedPreset}
