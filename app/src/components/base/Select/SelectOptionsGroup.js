@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { find, isEmpty } from 'lodash/fp';
 
@@ -16,12 +16,9 @@ const SelectOptionsGroup = props => {
     optionRenderer,
     multi,
     handleClick,
-    maxItems,
-    searchable,
     optionLabelRenderer,
     small,
     large,
-    inlineSearch,
     groupLabel
   } = props;
 
@@ -59,18 +56,11 @@ const SelectOptionsGroup = props => {
   });
 
   return (
-    <Container
-      maxItems={maxItems}
-      marginTop={multi || (searchable && !inlineSearch) ? '5px' : 0}
-      small={small}
-      large={large}
-    >
-      <Inner>
-        <GroupLabel small={small} large={large}>
-          {groupLabel}
-        </GroupLabel>
-        {items}
-      </Inner>
+    <Container>
+      <GroupLabel small={small} large={large}>
+        {groupLabel}
+      </GroupLabel>
+      {items}
     </Container>
   );
 };
@@ -89,33 +79,10 @@ SelectOptionsGroup.propTypes = {
   inlineSearch: PropTypes.bool
 };
 
-const Container = styled.div`
-  margin-top: ${({ marginTop }) => marginTop};
-  width: 100%;
-  max-height: ${({ maxItems, theme }) =>
-    `calc(${maxItems} * ${theme.size.MEDIUM})`};
-  overflow: auto;
-
-  ${({ theme, small, maxItems }) =>
-    small &&
-    css`
-      max-height: calc(${maxItems} * ${theme.size.SMALL});
-    `};
-
-  ${({ theme, large, maxItems }) =>
-    large &&
-    css`
-      max-height: calc(${maxItems} * ${theme.size.LARGE});
-    `};
-`;
+const Container = styled.div``;
 
 const StyledCheckbox = styled(Checkbox)`
   margin-right: 10px;
-`;
-
-const Inner = styled.div`
-  display: flex;
-  flex-direction: column;
 `;
 
 export default SelectOptionsGroup;
