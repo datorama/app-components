@@ -1,6 +1,6 @@
 {
   "name": "@datorama/app-components",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Datorama React components library",
   "author": "Shay Keinan",
   "repository": "https://github.com/datorama/app-components",
@@ -54,7 +54,7 @@
     "heroku-postbuild": "cd app && npm run build",
     "lib:build": "rimraf dist && webpack && cd app && npm run generate:docs",
     "lib:watch": "rimraf dist && webpack -w",
-    "lib:version": "replace '<Version>.+<\/Version>' '<Version>'$npm_package_version'</Version>' ./app/src/App.js"
+    "lib:version": "replace '<Version>.+</Version>' '<Version>'$npm_package_version'</Version>' ./app/src/App.js"
   },
   "publishConfig": {
     "access": "public"
