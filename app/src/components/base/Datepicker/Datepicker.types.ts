@@ -11,8 +11,13 @@ export type DateRange = {
 };
 
 export type Preset = {
-  value: string | number;
   label: string;
+  options: PresetOption[];
+};
+
+export type PresetOption = {
+  label: string;
+  value: string;
   selection: MomentRange;
 };
 
