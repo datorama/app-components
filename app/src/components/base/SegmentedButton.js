@@ -35,9 +35,9 @@ SegmentedButton.propTypes = {
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      label: PropTypes.string,
+      label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
       className: PropTypes.string,
-      disabled: PropTypes.boolean
+      disabled: PropTypes.bool
     })
   ),
   selected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
