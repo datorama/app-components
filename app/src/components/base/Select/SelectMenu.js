@@ -8,6 +8,7 @@ import SelectSearch from './SelectSearch';
 import SelectMultiHeader from './SelectMultiHeader';
 import SelectNoResults from './SelectNoResults';
 import SelectOptions from './SelectOptions';
+import { SelectMeuContext } from '../../contexts';
 
 const SelectMenu = props => {
   const {
@@ -44,43 +45,53 @@ const SelectMenu = props => {
   }
 
   return (
-    <Container visible={open} className="menu" maxheight={`${maxHeight}px`}>
-      {!inlineSearch && searchable && (
-        <SelectSearch
-          onChange={onSearch}
-          value={searchTerm}
-          searchPlaceholder={searchPlaceholder}
-          small={small}
-          large={large}
-        />
+    <SelectMeuContext.Consumer>
+      {({ onMenuEnter, onMenuLeave }) => (
+        <Container
+          visible={open}
+          className="menu"
+          maxheight={`${maxHeight}px`}
+          onMouseEnter={onMenuEnter}
+          onMouseLeave={onMenuLeave}
+        >
+          {!inlineSearch && searchable && (
+            <SelectSearch
+              onChange={onSearch}
+              value={searchTerm}
+              searchPlaceholder={searchPlaceholder}
+              small={small}
+              large={large}
+            />
+          )}
+
+          <SelectMultiHeader
+            options={options}
+            values={values}
+            multi={multi}
+            selectAll={selectAll}
+            total={total}
+            onChange={onSearch}
+            value={searchTerm}
+          />
+
+          {!total && <SelectNoResults />}
+
+          <SelectOptions
+            options={options}
+            values={values}
+            optionRenderer={optionRenderer}
+            multi={multi}
+            handleClick={onSelect}
+            maxItems={maxItems}
+            searchable={searchable}
+            optionLabelRenderer={optionLabelRenderer}
+            small={small}
+            large={large}
+            inlineSearch={inlineSearch}
+          />
+        </Container>
       )}
-
-      <SelectMultiHeader
-        options={options}
-        values={values}
-        multi={multi}
-        selectAll={selectAll}
-        total={total}
-        onChange={onSearch}
-        value={searchTerm}
-      />
-
-      {!total && <SelectNoResults />}
-
-      <SelectOptions
-        options={options}
-        values={values}
-        optionRenderer={optionRenderer}
-        multi={multi}
-        handleClick={onSelect}
-        maxItems={maxItems}
-        searchable={searchable}
-        optionLabelRenderer={optionLabelRenderer}
-        small={small}
-        large={large}
-        inlineSearch={inlineSearch}
-      />
-    </Container>
+    </SelectMeuContext.Consumer>
   );
 };
 
@@ -90,6 +101,8 @@ SelectMenu.propTypes = {
   open: PropTypes.bool,
   searchable: PropTypes.bool,
   onSearch: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
   options: optionsType,
   values: optionsType,
   multi: PropTypes.bool,

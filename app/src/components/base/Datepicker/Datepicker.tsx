@@ -14,6 +14,7 @@ import ClickOut from '../ClickOut';
 import DatepickerPresets from './DatepickerPresets';
 import { MomentRange, DateRange, PresetOption } from './Datepicker.types';
 import DatePickerInput from './DatepickerInput';
+import { SelectMeuContext } from '../../contexts';
 
 const convertToMomentRange = (dateRange: DateRange): MomentRange => ({
   startDate: moment(dateRange.startDate),
@@ -27,6 +28,8 @@ const convertToDateRange = (momentRange: MomentRange): DateRange => ({
 
 type Props = {
   onChange?: (dateRange: DateRange) => DateRange;
+  onPresetsMenuEnter?: () => void;
+  onPresetsMenuLeave?: () => void;
   dateRange?: DateRange;
   className?: string;
   months?: number;
@@ -40,6 +43,8 @@ type DefaultProps = {
   firstDayOfWeek: number;
   dateFormat: string;
   onChange: (dateRange: DateRange) => void;
+  onPresetsMenuEnter: () => void;
+  onPresetsMenuLeave: () => void;
 };
 
 type State = {
@@ -60,6 +65,8 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   static propTypes = {
     onChange: PropTypes.func,
+    onPresetsMenuEnter: PropTypes.func,
+    onPresetsMenuLeave: PropTypes.func,
     className: PropTypes.string,
     months: PropTypes.number,
     dateRange: PropTypes.shape({
@@ -78,7 +85,9 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     },
     firstDayOfWeek: 0,
     dateFormat: 'MM-DD-YYYY',
-    onChange: () => {}
+    onChange: () => {},
+    onPresetsMenuEnter: () => {},
+    onPresetsMenuLeave: () => {}
   };
 
   constructor(props: Props & DefaultProps) {
@@ -364,7 +373,14 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   render() {
     const { open, selectedPreset, selection } = this.state;
-    const { className, months, firstDayOfWeek, dateFormat } = this.props;
+    const {
+      className,
+      months,
+      firstDayOfWeek,
+      dateFormat,
+      onPresetsMenuEnter,
+      onPresetsMenuLeave
+    } = this.props;
     const monthsElement = [];
     const { startDate, endDate } = selection;
 
@@ -374,62 +390,69 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
     return (
       <ClickOut onClick={this.handleClickOut}>
-        <DatepickerHeaderRow onClick={this.toggleOpen}>
-          <StyledCalendar />
-          {isEmpty(selectedPreset) ? (
-            <>
-              <DatePickerInput
-                date={startDate}
-                dateFormat={dateFormat}
-                placeholder="start date"
-                onClick={this.openPopup}
-                onKeyDown={this.onKeyDown}
-                onChange={value => this.onChangeDate('startDate', value)}
-              />
-              <Separator>-</Separator>
-              <DatePickerInput
-                date={endDate}
-                dateFormat={dateFormat}
-                placeholder="end date"
-                onClick={this.openPopup}
-                onKeyDown={this.onKeyDown}
-                onChange={value => this.onChangeDate('endDate', value)}
-              />
-            </>
-          ) : (
-            this.renderPreset()
-          )}
-          <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
-        </DatepickerHeaderRow>
+        <SelectMeuContext.Provider
+          value={{
+            onMenuEnter: onPresetsMenuEnter,
+            onMenuLeave: onPresetsMenuLeave
+          }}
+        >
+          <DatepickerHeaderRow onClick={this.toggleOpen}>
+            <StyledCalendar />
+            {isEmpty(selectedPreset) ? (
+              <>
+                <DatePickerInput
+                  date={startDate}
+                  dateFormat={dateFormat}
+                  placeholder="start date"
+                  onClick={this.openPopup}
+                  onKeyDown={this.onKeyDown}
+                  onChange={value => this.onChangeDate('startDate', value)}
+                />
+                <Separator>-</Separator>
+                <DatePickerInput
+                  date={endDate}
+                  dateFormat={dateFormat}
+                  placeholder="end date"
+                  onClick={this.openPopup}
+                  onKeyDown={this.onKeyDown}
+                  onChange={value => this.onChangeDate('endDate', value)}
+                />
+              </>
+            ) : (
+              this.renderPreset()
+            )}
+            <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
+          </DatepickerHeaderRow>
 
-        <Container visible={open} className={className} total={months}>
-          <DatepickerPresets
-            onChange={this.setPreset}
-            selectedPreset={selectedPreset}
-            firstDayOfWeek={firstDayOfWeek}
-          />
-          <Divider margin="0" />
+          <Container visible={open} className={className} total={months}>
+            <DatepickerPresets
+              onChange={this.setPreset}
+              selectedPreset={selectedPreset}
+              firstDayOfWeek={firstDayOfWeek}
+            />
+            <Divider margin="0" />
 
-          <Header>
-            <ArrowHolder onClick={this.prev}>
-              <StyledArrow rotation="-180deg" />
-            </ArrowHolder>
-            <ArrowHolder onClick={this.next}>
-              <StyledArrow rotation="0deg" />
-            </ArrowHolder>
-          </Header>
+            <Header>
+              <ArrowHolder onClick={this.prev}>
+                <StyledArrow rotation="-180deg" />
+              </ArrowHolder>
+              <ArrowHolder onClick={this.next}>
+                <StyledArrow rotation="0deg" />
+              </ArrowHolder>
+            </Header>
 
-          <Dates>{monthsElement}</Dates>
+            <Dates>{monthsElement}</Dates>
 
-          <Divider />
+            <Divider />
 
-          <Buttons>
-            <InlineButton onClick={this.cancel}>Cancel</InlineButton>
-            <InlineButton primary onClick={this.apply}>
-              Apply
-            </InlineButton>
-          </Buttons>
-        </Container>
+            <Buttons>
+              <InlineButton onClick={this.cancel}>Cancel</InlineButton>
+              <InlineButton primary onClick={this.apply}>
+                Apply
+              </InlineButton>
+            </Buttons>
+          </Container>
+        </SelectMeuContext.Provider>
       </ClickOut>
     );
   }
