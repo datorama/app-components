@@ -14,7 +14,7 @@ import ClickOut from '../ClickOut';
 import DatepickerPresets from './DatepickerPresets';
 import { MomentRange, DateRange, PresetOption } from './Datepicker.types';
 import DatePickerInput from './DatepickerInput';
-import { SelectMeuContext } from '../../contexts';
+import { SelectMenuContext } from '../../contexts';
 
 const convertToMomentRange = (dateRange: DateRange): MomentRange => ({
   startDate: moment(dateRange.startDate),
@@ -28,8 +28,8 @@ const convertToDateRange = (momentRange: MomentRange): DateRange => ({
 
 type Props = {
   onChange?: (dateRange: DateRange) => DateRange;
-  onPresetsMenuEnter?: () => void;
-  onPresetsMenuLeave?: () => void;
+  onMenuEnter?: () => void;
+  onMenuLeave?: () => void;
   dateRange?: DateRange;
   className?: string;
   months?: number;
@@ -43,8 +43,8 @@ type DefaultProps = {
   firstDayOfWeek: number;
   dateFormat: string;
   onChange: (dateRange: DateRange) => void;
-  onPresetsMenuEnter: () => void;
-  onPresetsMenuLeave: () => void;
+  onMenuEnter: () => void;
+  onMenuLeave: () => void;
 };
 
 type State = {
@@ -65,8 +65,8 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   static propTypes = {
     onChange: PropTypes.func,
-    onPresetsMenuEnter: PropTypes.func,
-    onPresetsMenuLeave: PropTypes.func,
+    onMenuEnter: PropTypes.func,
+    onMenuLeave: PropTypes.func,
     className: PropTypes.string,
     months: PropTypes.number,
     dateRange: PropTypes.shape({
@@ -86,8 +86,8 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     firstDayOfWeek: 0,
     dateFormat: 'MM-DD-YYYY',
     onChange: () => {},
-    onPresetsMenuEnter: () => {},
-    onPresetsMenuLeave: () => {}
+    onMenuEnter: () => {},
+    onMenuLeave: () => {}
   };
 
   constructor(props: Props & DefaultProps) {
@@ -378,8 +378,8 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       months,
       firstDayOfWeek,
       dateFormat,
-      onPresetsMenuEnter,
-      onPresetsMenuLeave
+      onMenuEnter,
+      onMenuLeave
     } = this.props;
     const monthsElement = [];
     const { startDate, endDate } = selection;
@@ -390,12 +390,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
     return (
       <ClickOut onClick={this.handleClickOut}>
-        <SelectMeuContext.Provider
-          value={{
-            onMenuEnter: onPresetsMenuEnter,
-            onMenuLeave: onPresetsMenuLeave
-          }}
-        >
+        <SelectMenuContext.Provider value={{ onMenuEnter, onMenuLeave }}>
           <DatepickerHeaderRow onClick={this.toggleOpen}>
             <StyledCalendar />
             {isEmpty(selectedPreset) ? (
@@ -452,7 +447,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
               </InlineButton>
             </Buttons>
           </Container>
-        </SelectMeuContext.Provider>
+        </SelectMenuContext.Provider>
       </ClickOut>
     );
   }

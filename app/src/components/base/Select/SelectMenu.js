@@ -8,7 +8,7 @@ import SelectSearch from './SelectSearch';
 import SelectMultiHeader from './SelectMultiHeader';
 import SelectNoResults from './SelectNoResults';
 import SelectOptions from './SelectOptions';
-import { SelectMeuContext } from '../../contexts';
+import { SelectMenuContext } from '../../contexts';
 
 const SelectMenu = props => {
   const {
@@ -45,7 +45,7 @@ const SelectMenu = props => {
   }
 
   return (
-    <SelectMeuContext.Consumer>
+    <SelectMenuContext.Consumer>
       {({ onMenuEnter, onMenuLeave }) => (
         <Container
           visible={open}
@@ -91,7 +91,7 @@ const SelectMenu = props => {
           />
         </Container>
       )}
-    </SelectMeuContext.Consumer>
+    </SelectMenuContext.Consumer>
   );
 };
 
@@ -101,8 +101,8 @@ SelectMenu.propTypes = {
   open: PropTypes.bool,
   searchable: PropTypes.bool,
   onSearch: PropTypes.func,
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func,
+  onMenuEnter: PropTypes.func,
+  onMenuLeave: PropTypes.func,
   options: optionsType,
   values: optionsType,
   multi: PropTypes.bool,
