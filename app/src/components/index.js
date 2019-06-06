@@ -34,6 +34,7 @@ export { default as Tabs } from './base/Tabs';
 export { default as Tag } from './base/Tag';
 export { default as TagGroup } from './base/TagGroup';
 export { default as TextInput } from './base/TextInput';
+export { default as ColorPicker } from './base/ColorPicker';
 export {
   withToast,
   withSnackbar,

@@ -43,6 +43,7 @@ import Collapse from './docs/Collapse.doc';
 import Widget from './docs/Widget.doc';
 import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
+import ColorPicker from './docs/ColorPicker.doc';
 
 const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
@@ -157,6 +158,7 @@ class App extends Component {
       { key: 'widget', label: 'widget', path: 'widget' },
       { key: 'sticky', label: 'sticky', path: 'sticky' },
       { key: 'table', label: 'table' },
+      { key: 'color-picker', label: 'color picker', path: 'color-picker' },
 
       { key: 'pages', label: 'pages', type: 'title' },
       { key: 'error-page', label: 'error page', path: 'error-page' },
@@ -230,6 +232,7 @@ class App extends Component {
                 <Route exact path="/widget" component={Widget} />
                 <Route exact path="/sticky" component={Sticky} />
                 <Route exact path="/error-page" component={ErrorPage} />
+                <Route exact path="/color-picker" component={ColorPicker} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/drag-drop" component={DragDrop} />
