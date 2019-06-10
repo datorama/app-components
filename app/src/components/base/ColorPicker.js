@@ -8,9 +8,10 @@ import ClickOut from './ClickOut';
 
 // utils
 import { rgbToHex, hexToRgb, rgbToHsv, hsvToRgb } from '../utils';
+import { debounce } from 'lodash/fp';
 
 class ColorPicker extends Component {
-  propTypes = {
+  static propTypes = {
     onChange: PropTypes.func,
     color: PropTypes.oneOfType([
       PropTypes.string,
@@ -33,7 +34,8 @@ class ColorPicker extends Component {
     left: 240,
     top: 0,
     dragging: false,
-    delta: false
+    delta: false,
+    init: false
   };
 
   colors = [
@@ -51,30 +53,63 @@ class ColorPicker extends Component {
   componentDidMount() {
     const { color } = this.props;
 
+    this.populate();
+
     if (color) {
       if (typeof color === 'string') {
         // hex
+        const rgb = hexToRgb(color);
+
+        this.setState({
+          hex: color,
+          r: rgb.r,
+          g: rgb.g,
+          b: rgb.b,
+          init: true
+        });
+        this.fillGradient(color);
+        this.setOpacity(rgb);
       } else {
         // r,g,b
+        const hex = rgbToHex(color);
+
+        this.setState({
+          hex,
+          r: color.r,
+          g: color.g,
+          b: color.b,
+          init: true
+        });
+        this.fillGradient(hex);
+        this.setOpacity(color);
       }
+    } else {
+      this.setState({ init: true });
     }
-    this.populate();
   }
 
   componentDidUpdate(_, prevState) {
-    const { r, g, b, a, hex } = this.state;
+    const { r, g, b, a, init } = this.state;
 
     if (
-      r !== prevState.r ||
-      g !== prevState.g ||
-      b !== prevState.b ||
-      a !== prevState.a
+      init &&
+      prevState.init &&
+      (r !== prevState.r ||
+        g !== prevState.g ||
+        b !== prevState.b ||
+        a !== prevState.a)
     ) {
       if (this.props.onChange) {
-        this.props.onChange({ r, g, b, a, hex });
+        this.updateParent();
       }
     }
   }
+
+  updateParent = debounce(500, () => {
+    const { r, g, b, a, hex } = this.state;
+
+    this.props.onChange({ r, g, b, a, hex });
+  });
 
   toggleOpen = () => this.setState(prevState => ({ open: !prevState.open }));
 
@@ -115,8 +150,12 @@ class ColorPicker extends Component {
 
   triggerClick = e => {
     const rect = this.canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    let x = Math.max(0, e.clientX - rect.left);
+    let y = Math.max(0, e.clientY - rect.top);
+
+    x = Math.min(x, 240);
+    y = Math.min(y, 180);
+
     const imageData = this.blockCtx.getImageData(x, y, 1, 1).data;
 
     this.setState(
@@ -525,7 +564,6 @@ const Strip = styled.canvas`
   height: 10px;
   background: #000;
   cursor: crosshair;
-  margin-top: 5px;
 `;
 
 const Opacity = styled.canvas`
@@ -533,7 +571,6 @@ const Opacity = styled.canvas`
   height: 10px;
   background: #000;
   cursor: crosshair;
-  margin-top: 5px;
 `;
 
 const Inputs = styled.div`
@@ -558,11 +595,10 @@ const StyledInput = styled(TextInput)`
 const Handle = styled.div`
   left: ${({ left }) => left}px;
   position: absolute;
-  top: 0;
+  top: 2px;
   width: 6px;
-  height: 17px;
+  height: 18px;
   background: #fff;
-  margin-top: 3px;
   border-radius: 2px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   pointer-events: none;

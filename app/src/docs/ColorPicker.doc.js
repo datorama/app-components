@@ -9,13 +9,14 @@ import Snippet from './Snippet';
 const snippet = `
 import { ColorPicker } from '@datorama/app-components';
 
+// color: hex or {r, g, b}
 const MyComp = ({ color, onChange }) => (
   <div>
     <ColorPicker
-    	value={color}
-    	onChange={onChange}
+      onChange={onChange}
+      color="#09A0FF"
     />
-  </div>
+</div>
 );
 `;
 
@@ -32,7 +33,10 @@ export default class PaginationDoc extends React.Component {
           </Col>
           <Col>
             <Box>
-              <ColorPicker />
+              <ColorPicker
+                color="#09A0FF"
+                onChange={color => console.log(color)}
+              />
             </Box>
           </Col>
         </Row>
