@@ -671,6 +671,7 @@ const DateIcon = styled.div<{
 
 const Dates = styled.div`
   display: flex;
+  width: 100%; // IE11 fix so that flex-wrap would work
 `;
 
 const Divider = styled.div<{ margin?: string }>`
