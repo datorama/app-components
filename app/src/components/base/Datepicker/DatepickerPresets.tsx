@@ -312,7 +312,7 @@ const Header = styled.div`
 `;
 
 const Container = styled.div`
-  width: 100px;
+  width: 100%;
   height: 60px;
   display: flex;
   align-items: center;
