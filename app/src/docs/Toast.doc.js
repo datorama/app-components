@@ -3,45 +3,37 @@ import styled, { withTheme } from 'styled-components';
 
 // components
 import Base from './Base';
-import { Row, Col, withToast, Button, withSnackbar } from '../components/index';
+import { Row, Col, Button } from '../components/index';
+import { useToast } from '../components/base/Notifications/Toasts';
+import { useSnackbar } from '../components/base/Notifications/Snackbars';
 import Snippet from './Snippet';
 
 const snippet = `
 
-import { ToastsProvider, withToast } from '@datorama/app-components';
+import { NotificationsProvider, useToast, useSnackbar } from '@datorama/app-components';
 
 const App = () => (
-  <ToastsProvider>
+  <NotificationsProvider>
     ... wrap your entire app
-  </ToastsProvider>
+  </NotificationsProvider>
 );
 
-const NestedComp = ({ addToast }) => ();
-
-export const withToast(NestedComp);
+const NestedComp = () => {
+    const { addToast } = useToast();
+    const { addSnackbar } = useSnackbar(); 
+};
 
 // toast object. types - info (default), success, warning and alert
 // { title: '',  subtitle: '', type: 'alert', timeout: 3000 }
-`;
-
-const snippetSnackbar = `
-import { ToastsProvider, withSnackbar } from '@datorama/app-components';
-
-const App = () => (
-  <ToastsProvider>
-    ... wrap your entire app
-  </ToastsProvider>
-);
-
-const NestedComp = ({ addSnackbar }) => ();
-
-export const withSnackbar(NestedComp);
 
 // toast object. types - info (default), success, warning and alert
 // { title: '', type: 'alert', timeout: 3000, top: 0 }
 `;
 
-const ToastDoc = props => {
+const ToastDoc = () => {
+  const { addToast } = useToast();
+  const { addSnackbar } = useSnackbar();
+
   const title = 'toasts';
   const description = 'toasts & snackbars';
 
@@ -56,40 +48,36 @@ const ToastDoc = props => {
 
   return (
     <Base title={title} description={description}>
-      <Row>
-        <Col>
-          <SectionTitle>Toasts</SectionTitle>
-        </Col>
-      </Row>
-
       <Row align="stretch">
         <Col>
           <Snippet snippet={snippet} />
         </Col>
       </Row>
+
+      <Row>
+        <Col>
+          <SectionTitle>Toasts</SectionTitle>
+        </Col>
+      </Row>
       <Row>
         <Col>
           <Box>
-            <StyledButton
-              onClick={() => props.addToast({ ...notif, type: 'info' })}
-            >
+            <StyledButton onClick={() => addToast({ ...notif, type: 'info' })}>
               Info toast
             </StyledButton>
 
-            <StyledButton
-              onClick={() => props.addToast({ ...notif, type: 'alert' })}
-            >
+            <StyledButton onClick={() => addToast({ ...notif, type: 'alert' })}>
               Alert toast
             </StyledButton>
 
             <StyledButton
-              onClick={() => props.addToast({ ...notif, type: 'success' })}
+              onClick={() => addToast({ ...notif, type: 'success' })}
             >
               Success toast
             </StyledButton>
 
             <StyledButton
-              onClick={() => props.addToast({ ...notif, type: 'warning' })}
+              onClick={() => addToast({ ...notif, type: 'warning' })}
             >
               Warning toast
             </StyledButton>
@@ -102,38 +90,26 @@ const ToastDoc = props => {
           <SectionTitle>Snackbar</SectionTitle>
         </Col>
       </Row>
-
-      <Row align="stretch">
-        <Col>
-          <Snippet snippet={snippetSnackbar} />
-        </Col>
-      </Row>
       <Row>
         <Col>
           <Box>
             <StyledButton
-              onClick={() => props.addSnackbar({ ...snackNotif, type: 'info' })}
+              onClick={() => addSnackbar({ ...snackNotif, type: 'info' })}
             >
               Info Snackbar
             </StyledButton>
             <StyledButton
-              onClick={() =>
-                props.addSnackbar({ ...snackNotif, type: 'alert' })
-              }
+              onClick={() => addSnackbar({ ...snackNotif, type: 'alert' })}
             >
               Alert Snackbar
             </StyledButton>
             <StyledButton
-              onClick={() =>
-                props.addSnackbar({ ...snackNotif, type: 'success' })
-              }
+              onClick={() => addSnackbar({ ...snackNotif, type: 'success' })}
             >
               Success Snackbar
             </StyledButton>
             <StyledButton
-              onClick={() =>
-                props.addSnackbar({ ...snackNotif, type: 'warning' })
-              }
+              onClick={() => addSnackbar({ ...snackNotif, type: 'warning' })}
             >
               Warning Snackbar
             </StyledButton>
@@ -144,7 +120,7 @@ const ToastDoc = props => {
   );
 };
 
-export default withToast(withSnackbar(withTheme(ToastDoc)));
+export default withTheme(ToastDoc);
 
 const Box = styled.div`
   width: 100%;
