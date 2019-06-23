@@ -9,7 +9,6 @@ import { useSnackbar } from '../components/base/Notifications/Snackbars';
 import Snippet from './Snippet';
 
 const snippet = `
-
 import { NotificationsProvider, useToast, useSnackbar } from '@datorama/app-components';
 
 const App = () => (
@@ -25,7 +24,6 @@ const NestedComp = () => {
 
 // toast object. types - info (default), success, warning and alert
 // { title: '',  subtitle: '', type: 'alert', timeout: 3000 }
-
 // toast object. types - info (default), success, warning and alert
 // { title: '', type: 'alert', timeout: 3000, top: 0 }
 `;
