@@ -6,7 +6,7 @@ export const optionShape = PropTypes.shape({
 });
 
 export const groupOptionShape = PropTypes.shape({
-  label: PropTypes.string.isRequired,
+  label: PropTypes.node.isRequired,
   options: PropTypes.arrayOf(optionShape)
 });
 
