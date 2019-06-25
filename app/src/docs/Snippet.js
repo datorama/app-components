@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Highlight from 'react-highlight.js';
 import styled from 'styled-components';
 import { ReactComponent as Copy } from './assets/copy.svg';
-import { withToast } from '../components/base/Toasts';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import { useToast } from '../components/base/Notifications/Toasts';
+
 const Snippet = props => {
+  const { addToast } = useToast();
   const { snippet } = props;
+
+  const highlight = useMemo(
+    () => <Highlight language="javascript">{snippet}</Highlight>,
+    [snippet]
+  );
 
   return (
     <Relative>
       <CopyToClipboard
         text={snippet}
         onCopy={() =>
-          props.addToast({
+          addToast({
             title: 'Copied successfully!',
             subtitle: 'Snippet copies to clipboard',
             type: 'success'
@@ -24,12 +31,13 @@ const Snippet = props => {
           <StyledCopy />
         </CopyBtn>
       </CopyToClipboard>
-      <Highlight language="javascript">{snippet}</Highlight>
+
+      {highlight}
     </Relative>
   );
 };
 
-export default withToast(Snippet);
+export default Snippet;
 
 const Relative = styled.div`
   position: relative;
