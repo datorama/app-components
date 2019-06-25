@@ -10,7 +10,8 @@ import { withRouter } from 'react-router';
 import CustomColor from './generators/CustomColor';
 
 // notifications
-import { ToastsProvider, lightTheme, darkTheme } from './components/index';
+import { lightTheme, darkTheme } from './components/index';
+import { NotificationsProvider } from './components/base/Notifications';
 
 // docs
 import Home from './docs/Home.doc';
@@ -169,7 +170,7 @@ class App extends Component {
     return (
       <Router>
         <ThemeProvider theme={theme}>
-          <ToastsProvider>
+          <NotificationsProvider>
             <CustomColor
               open={colorsOpen}
               theme={theme}
@@ -235,7 +236,7 @@ class App extends Component {
                 <Route exact path="/drag-drop" component={DragDrop} />
               </Content>
             </Container>
-          </ToastsProvider>
+          </NotificationsProvider>
         </ThemeProvider>
       </Router>
     );

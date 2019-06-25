@@ -39,6 +39,11 @@ export {
   withSnackbar,
   default as ToastsProvider
 } from './base/Toasts';
+export {
+  useSnackbar,
+  useToast,
+  NotificationsProvider
+} from './base/Notifications';
 export { default as Toggle } from './base/Toggle';
 export { default as Tooltip } from './base/Tooltip';
 export { default as Widget } from './base/Widget';
