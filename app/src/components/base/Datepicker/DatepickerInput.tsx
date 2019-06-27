@@ -68,6 +68,7 @@ class DatePickerInput extends React.Component<Props, State> {
 
     return (
       <Input
+        className="datepicker-input"
         ref={this.inputRef}
         onChange={this.onChange}
         onBlur={this.onBlur}
@@ -82,12 +83,19 @@ class DatePickerInput extends React.Component<Props, State> {
 const Input = styled.input`
   background-color: transparent;
   border: none;
-  width: 90px;
+  max-width: 90px;
   outline: none;
   font-size: 100%;
   font-weight: inherit;
   color: ${({ theme }) => theme.p600};
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:focus {
+    text-overflow: clip;
+  }
 `;
 
 export default DatePickerInput;
