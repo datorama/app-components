@@ -359,15 +359,26 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     }
   };
 
-  renderPreset = () => {
+  getPresetTitle = (preset: PresetOption) => {
     const { dateFormat } = this.props;
-    const { label, selection } = this.state.selectedPreset[0];
+    const { label, selection } = preset;
     const { startDate, endDate } = selection;
-    const content = `${label} (${startDate.format(
+    return `${label} (${startDate.format(dateFormat)} - ${endDate.format(
       dateFormat
-    )} - ${endDate.format(dateFormat)})`;
+    )})`;
+  };
 
-    return <Ellipsis title={content}>{content}</Ellipsis>;
+  computeTooltipTitle = () => {
+    const { selectedPreset, selection } = this.state;
+    const { dateFormat } = this.props;
+
+    if (!isEmpty(selectedPreset)) {
+      return this.getPresetTitle(selectedPreset[0]);
+    }
+
+    const { startDate, endDate } = selection;
+
+    return `${startDate.format(dateFormat)} - ${endDate.format(dateFormat)}`;
   };
 
   render() {
@@ -390,7 +401,10 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     return (
       <ClickOut onClick={this.handleClickOut}>
         <SelectMenuContext.Provider value={{ onMenuEnter, onMenuLeave }}>
-          <DatepickerHeaderRow onClick={this.toggleOpen}>
+          <DatepickerHeaderRow
+            title={this.computeTooltipTitle()}
+            onClick={this.toggleOpen}
+          >
             <div>
               <StyledCalendar />
             </div>
@@ -415,7 +429,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
                 />
               </>
             ) : (
-              this.renderPreset()
+              <Ellipsis>{this.getPresetTitle(selectedPreset[0])}</Ellipsis>
             )}
             <div>
               <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
