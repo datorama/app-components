@@ -359,16 +359,26 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     }
   };
 
-  renderPreset = () => {
+  getPresetTitle = (preset: PresetOption) => {
     const { dateFormat } = this.props;
-    const { label, selection } = this.state.selectedPreset[0];
+    const { label, selection } = preset;
+    const { startDate, endDate } = selection;
+    return `${label} (${startDate.format(dateFormat)} - ${endDate.format(
+      dateFormat
+    )})`;
+  };
+
+  computeTooltipTitle = () => {
+    const { selectedPreset, selection } = this.state;
+    const { dateFormat } = this.props;
+
+    if (!isEmpty(selectedPreset)) {
+      return this.getPresetTitle(selectedPreset[0]);
+    }
+
     const { startDate, endDate } = selection;
 
-    return (
-      <Ellipsis>
-        {label} ({startDate.format(dateFormat)} - {endDate.format(dateFormat)})
-      </Ellipsis>
-    );
+    return `${startDate.format(dateFormat)} - ${endDate.format(dateFormat)}`;
   };
 
   render() {
@@ -391,8 +401,13 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     return (
       <ClickOut onClick={this.handleClickOut}>
         <SelectMenuContext.Provider value={{ onMenuEnter, onMenuLeave }}>
-          <DatepickerHeaderRow onClick={this.toggleOpen}>
-            <StyledCalendar />
+          <DatepickerHeaderRow
+            title={this.computeTooltipTitle()}
+            onClick={this.toggleOpen}
+          >
+            <div>
+              <StyledCalendar />
+            </div>
             {isEmpty(selectedPreset) ? (
               <>
                 <DatePickerInput
@@ -414,9 +429,11 @@ class Datepicker extends Component<Props & DefaultProps, State> {
                 />
               </>
             ) : (
-              this.renderPreset()
+              <Ellipsis>{this.getPresetTitle(selectedPreset[0])}</Ellipsis>
             )}
-            <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
+            <div>
+              <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
+            </div>
           </DatepickerHeaderRow>
 
           <Container visible={open} className={className} total={months}>
@@ -454,7 +471,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 }
 
 const DatepickerHeaderRow = styled.div`
-  min-width: 210px;
+  width: 100%;
   padding: 4px 8px;
   box-sizing: border-box;
   border-radius: 4px;
@@ -464,7 +481,7 @@ const DatepickerHeaderRow = styled.div`
   align-items: center;
   justify-content: center;
   ${({ theme }) => theme.text.p};
-  line-height: 14px;
+  line-height: 1;
   font-weight: 600;
 
   &:hover {
