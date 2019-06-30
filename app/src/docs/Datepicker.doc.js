@@ -44,6 +44,44 @@ const MyComponent = ({ onChange }) => (
 );
 `;
 
+const withCustomPresets = `
+import { Datepicker } from '@datorama/app-components';
+
+const customPresets = [
+  {
+    value: 'last2Days',
+    label: 'Last 2 days',
+    dateRange: {
+      startDate: moment()
+        .subtract(2, 'days')
+        .toDate(),
+      endDate: moment()
+        .subtract(1, 'days')
+        .toDate()
+    }
+  },
+  {
+    value: 'previous2Months',
+    label: 'Previous 2 months',
+    dateRange: {
+      startDate: moment()
+        .startOf('month')
+        .subtract(2, 'months')
+        .toDate(),
+      endDate: moment()
+        .startOf('month')
+        .subtract(1, 'month')
+        .endOf('month')
+        .toDate()
+    }
+  }
+];
+
+const MyComponent = ({ onChange }) => (
+  <Datepicker customPresets={customPresets} />
+);
+`;
+
 const DatePickerDoc = () => {
   const title = 'datepicker';
   const description = 'Default date picker';
@@ -54,6 +92,36 @@ const DatePickerDoc = () => {
       .add(3, 'days')
       .toDate()
   };
+
+  const customPresets = [
+    {
+      value: 'last2Days',
+      label: 'Last 2 days',
+      dateRange: {
+        startDate: moment()
+          .subtract(2, 'days')
+          .toDate(),
+        endDate: moment()
+          .subtract(1, 'days')
+          .toDate()
+      }
+    },
+    {
+      value: 'previous2Months',
+      label: 'Previous 2 months',
+      dateRange: {
+        startDate: moment()
+          .startOf('month')
+          .subtract(2, 'months')
+          .toDate(),
+        endDate: moment()
+          .startOf('month')
+          .subtract(1, 'month')
+          .endOf('month')
+          .toDate()
+      }
+    }
+  ];
 
   return (
     <Base title={title} description={description} name="Datepicker">
@@ -117,6 +185,22 @@ const DatePickerDoc = () => {
         <Col>
           <Box>
             <StyledDatepicker dateFormat="MMM DD, YYYY" />
+          </Box>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <SectionTitle>Custom presets</SectionTitle>
+        </Col>
+      </Row>
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={withCustomPresets} />
+        </Col>
+        <Col>
+          <Box>
+            <StyledDatepicker customPresets={customPresets} />
           </Box>
         </Col>
       </Row>
