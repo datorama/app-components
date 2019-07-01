@@ -17,6 +17,12 @@ export const Option = styled.div`
     background: ${({ theme }) => theme.a100};
   }
 
+  ${({ hovered }) =>
+    hovered &&
+    css`
+      background: ${({ theme }) => theme.a100};
+    `}
+
   ${({ theme, small }) =>
     small &&
     css`

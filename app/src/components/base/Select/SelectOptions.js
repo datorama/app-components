@@ -21,7 +21,8 @@ const SelectOptions = props => {
     optionLabelRenderer,
     small,
     large,
-    inlineSearch
+    inlineSearch,
+    currentHoveredOptionValue
   } = props;
 
   if (isEmpty(options)) {
@@ -45,6 +46,7 @@ const SelectOptions = props => {
           maxItems={maxItems}
           searchable={searchable}
           optionLabelRenderer={optionLabelRenderer}
+          currentHoveredOptionValue={currentHoveredOptionValue}
         />
       );
     }
@@ -59,8 +61,9 @@ const SelectOptions = props => {
       <Option
         className="option"
         key={option.value}
-        onClick={handleClick(option)}
+        onClick={() => handleClick(option)}
         selected={selected && !multi}
+        hovered={currentHoveredOptionValue === option.value}
         title={option.label}
         small={small}
         large={large}
@@ -100,7 +103,11 @@ SelectOptions.propTypes = {
   optionLabelRenderer: PropTypes.func,
   small: PropTypes.bool,
   large: PropTypes.bool,
-  inlineSearch: PropTypes.bool
+  inlineSearch: PropTypes.bool,
+  currentHoveredOptionValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
 
 export default SelectOptions;

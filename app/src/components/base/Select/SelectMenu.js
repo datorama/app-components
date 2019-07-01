@@ -29,7 +29,8 @@ const SelectMenu = props => {
     optionLabelRenderer,
     small,
     large,
-    inlineSearch
+    inlineSearch,
+    currentHoveredOptionValue
   } = props;
 
   if (menuRenderer) {
@@ -88,6 +89,7 @@ const SelectMenu = props => {
             small={small}
             large={large}
             inlineSearch={inlineSearch}
+            currentHoveredOptionValue={currentHoveredOptionValue}
           />
         </Container>
       )}

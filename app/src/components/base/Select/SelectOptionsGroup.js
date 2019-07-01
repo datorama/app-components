@@ -19,7 +19,8 @@ const SelectOptionsGroup = props => {
     optionLabelRenderer,
     small,
     large,
-    groupLabel
+    groupLabel,
+    currentHoveredOptionValue
   } = props;
 
   if (isEmpty(options)) {
@@ -37,8 +38,9 @@ const SelectOptionsGroup = props => {
       <Option
         className="option"
         key={option.value}
-        onClick={handleClick(option)}
+        onClick={() => handleClick(option)}
         selected={selected && !multi}
+        hovered={currentHoveredOptionValue === option.value}
         title={option.label}
         small={small}
         large={large}
@@ -76,7 +78,11 @@ SelectOptionsGroup.propTypes = {
   optionLabelRenderer: PropTypes.func,
   small: PropTypes.bool,
   large: PropTypes.bool,
-  inlineSearch: PropTypes.bool
+  inlineSearch: PropTypes.bool,
+  currentHoveredOptionValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
 
 const Container = styled.div``;

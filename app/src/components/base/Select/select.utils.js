@@ -10,10 +10,17 @@ export const getOptionsSize = options => {
   }
 };
 
-export const getOptionsValues = options => {
+/**
+ * @param options An array of Option or GroupOption
+ * @returns {...*[]|*} Array of flattened options
+ */
+export const getAllOptions = options => {
   if (hasGroups(options)) {
     return flatMap('options', options);
   } else {
     return [...options];
   }
 };
+
+export const getOptionByValue = (options, value) =>
+  getAllOptions(options).find(option => option.value === value);
