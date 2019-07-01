@@ -9,22 +9,19 @@ import Arrow from '../../icons/ArrowDate.icon';
 import ArrowDown from '../../icons/ArrowDown.icon';
 import Calendar from '../../icons/Calendar.icon';
 
+import {
+  MomentRange,
+  DateRange,
+  PresetOption,
+  CustomPreset
+} from './Datepicker.types';
+import DatePickerInput from './DatepickerInput';
+import { SelectMenuContext } from '../../contexts';
+import { convertToDateRange, convertToMomentRange } from './date.utils';
+
 // components
 import ClickOut from '../ClickOut';
 import DatepickerPresets from './DatepickerPresets';
-import { MomentRange, DateRange, PresetOption } from './Datepicker.types';
-import DatePickerInput from './DatepickerInput';
-import { SelectMenuContext } from '../../contexts';
-
-const convertToMomentRange = (dateRange: DateRange): MomentRange => ({
-  startDate: moment(dateRange.startDate),
-  endDate: moment(dateRange.endDate)
-});
-
-const convertToDateRange = (momentRange: MomentRange): DateRange => ({
-  startDate: momentRange.startDate.toDate(),
-  endDate: momentRange.endDate.toDate()
-});
 
 type Props = {
   onChange?: (dateRange: DateRange) => DateRange;
@@ -35,6 +32,7 @@ type Props = {
   months?: number;
   firstDayOfWeek?: number;
   dateFormat?: string;
+  customPresets?: CustomPreset[];
 };
 
 type DefaultProps = {
@@ -74,7 +72,17 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       endDate: PropTypes.instanceOf(Date)
     }),
     firstDayOfWeek: PropTypes.number,
-    dateFormat: PropTypes.string
+    dateFormat: PropTypes.string,
+    customPresets: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+        dateRange: PropTypes.shape({
+          startDate: PropTypes.instanceOf(Date),
+          endDate: PropTypes.instanceOf(Date)
+        })
+      })
+    )
   };
 
   static defaultProps: DefaultProps = {
@@ -317,7 +325,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     this.setState(
       {
         selecting: false,
-        selection: preset[0].selection,
+        selection: preset[0].dateRange,
         selectedPreset: preset
       },
       () => {
@@ -361,8 +369,8 @@ class Datepicker extends Component<Props & DefaultProps, State> {
 
   getPresetTitle = (preset: PresetOption) => {
     const { dateFormat } = this.props;
-    const { label, selection } = preset;
-    const { startDate, endDate } = selection;
+    const { label, dateRange } = preset;
+    const { startDate, endDate } = dateRange;
     return `${label} (${startDate.format(dateFormat)} - ${endDate.format(
       dateFormat
     )})`;
@@ -389,7 +397,8 @@ class Datepicker extends Component<Props & DefaultProps, State> {
       firstDayOfWeek,
       dateFormat,
       onMenuEnter,
-      onMenuLeave
+      onMenuLeave,
+      customPresets
     } = this.props;
     const monthsElement = [];
     const { startDate, endDate } = selection;
@@ -441,6 +450,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
               onChange={this.setPreset}
               selectedPreset={selectedPreset}
               firstDayOfWeek={firstDayOfWeek}
+              customPresets={customPresets}
             />
             <Divider margin="0" />
 
