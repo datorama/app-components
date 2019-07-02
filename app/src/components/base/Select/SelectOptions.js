@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, isEmpty } from 'lodash/fp';
+import { find, isEmpty, get } from 'lodash/fp';
 
 // components
 import Checkbox from '../Checkbox';
 import { Option, Label } from './Select.common';
 import { optionsType } from './Select.types';
 import SelectOptionsGroup from './SelectOptionsGroup';
+import { calcScrollTop } from './select.utils';
 
 const SelectOptions = props => {
   const {
@@ -24,6 +25,9 @@ const SelectOptions = props => {
     inlineSearch,
     currentHoveredOptionValue
   } = props;
+
+  const containerRef = useRef(null);
+  const itemsRef = useRef({});
 
   if (isEmpty(options)) {
     return null;
@@ -47,6 +51,7 @@ const SelectOptions = props => {
           searchable={searchable}
           optionLabelRenderer={optionLabelRenderer}
           currentHoveredOptionValue={currentHoveredOptionValue}
+          containerRef={containerRef}
         />
       );
     }
@@ -57,8 +62,16 @@ const SelectOptions = props => {
       return optionRenderer({ option, selected });
     }
 
+    if (currentHoveredOptionValue === option.value) {
+      containerRef.current.scrollTop = calcScrollTop(
+        get(['current', option.value], itemsRef),
+        containerRef.current
+      );
+    }
+
     return (
       <Option
+        ref={el => (itemsRef.current[option.value] = el)}
         className="option"
         key={option.value}
         onClick={() => handleClick(option)}
@@ -82,6 +95,7 @@ const SelectOptions = props => {
 
   return (
     <Container
+      ref={containerRef}
       maxItems={maxItems}
       marginTop={multi || (searchable && !inlineSearch) ? '5px' : 0}
       small={small}
@@ -113,6 +127,7 @@ SelectOptions.propTypes = {
 export default SelectOptions;
 
 const Container = styled.div`
+  position: relative;
   margin-top: ${({ marginTop }) => marginTop};
   width: 100%;
   max-height: ${({ maxItems, theme }) =>

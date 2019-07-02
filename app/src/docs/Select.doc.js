@@ -195,7 +195,10 @@ export default class SelectDoc extends React.Component {
                   { value: '3', label: 'black' },
                   { value: '4', label: 'green' },
                   { value: '5', label: 'yellow' },
-                  { value: '6', label: 'white' }
+                  { value: '6', label: 'white' },
+                  { value: '7', label: 'blue' },
+                  { value: '8', label: 'pink' },
+                  { value: '9', label: 'gray' }
                 ]}
                 onChange={values1 => this.setState({ values1 })}
               />

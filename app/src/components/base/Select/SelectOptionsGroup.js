@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, isEmpty } from 'lodash/fp';
+import { find, get, isEmpty } from 'lodash/fp';
 
 // components
 import Checkbox from '../Checkbox';
 import { Option, Label } from './Select.common';
 import { optionsType } from './Select.types';
 import { GroupLabel } from './Select.common';
+import { calcScrollTop } from './select.utils';
 
 const SelectOptionsGroup = props => {
   const {
@@ -20,8 +21,12 @@ const SelectOptionsGroup = props => {
     small,
     large,
     groupLabel,
-    currentHoveredOptionValue
+    currentHoveredOptionValue,
+    containerRef
   } = props;
+
+  const itemsRef = useRef({});
+  const groupLabelsRef = useRef({});
 
   if (isEmpty(options)) {
     return null;
@@ -34,8 +39,17 @@ const SelectOptionsGroup = props => {
       return optionRenderer({ option, selected });
     }
 
+    if (currentHoveredOptionValue === option.value) {
+      containerRef.current.scrollTop = calcScrollTop(
+        get(['current', option.value], itemsRef),
+        containerRef.current,
+        groupLabelsRef.current[groupLabel].clientHeight
+      );
+    }
+
     return (
       <Option
+        ref={el => (itemsRef.current[option.value] = el)}
         className="option"
         key={option.value}
         onClick={() => handleClick(option)}
@@ -59,7 +73,11 @@ const SelectOptionsGroup = props => {
 
   return (
     <Container>
-      <GroupLabel small={small} large={large}>
+      <GroupLabel
+        ref={el => (groupLabelsRef.current[groupLabel] = el)}
+        small={small}
+        large={large}
+      >
         {groupLabel}
       </GroupLabel>
       {items}

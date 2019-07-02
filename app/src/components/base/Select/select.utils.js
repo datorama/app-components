@@ -24,3 +24,22 @@ export const getAllOptions = options => {
 
 export const getOptionByValue = (options, value) =>
   getAllOptions(options).find(option => option.value === value);
+
+export const calcScrollTop = (optionElement, containerElement, offset = 0) => {
+  if (optionElement.offsetTop === offset) {
+    return 0;
+  } else if (
+    optionElement.offsetTop + optionElement.clientHeight >
+    containerElement.clientHeight + containerElement.scrollTop
+  ) {
+    return (
+      optionElement.offsetTop +
+      optionElement.clientHeight -
+      containerElement.clientHeight
+    );
+  } else if (optionElement.offsetTop < containerElement.scrollTop) {
+    return containerElement.scrollTop - optionElement.clientHeight;
+  }
+
+  return containerElement.scrollTop;
+};
