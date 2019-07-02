@@ -180,7 +180,7 @@ export default class Select extends React.Component {
           this.filteredOptions,
           this.state.currentHoveredOptionValue
         );
-        this.onSelect(option);
+        option && this.onSelect(option);
         break;
 
       default:
@@ -214,7 +214,9 @@ export default class Select extends React.Component {
 
   setNextOptionValue = ({ allOptions, currentIndex }) => {
     if (currentIndex === -1) {
-      this.setState({ currentHoveredOptionValue: allOptions[0].value });
+      this.setState({
+        currentHoveredOptionValue: get([0, 'value'], allOptions) || null
+      });
     } else {
       this.setState({
         currentHoveredOptionValue: get(
@@ -263,7 +265,7 @@ export default class Select extends React.Component {
       }
     }
 
-    this.setState({ currentHoveredOptionValue: option.value });
+    this.setState({ currentHoveredOptionValue: option.value, searchTerm: '' });
     this.applyChanges(result);
   };
 

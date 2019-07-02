@@ -43,7 +43,7 @@ const SelectOptionsGroup = props => {
       containerRef.current.scrollTop = calcScrollTop(
         get(['current', option.value], itemsRef),
         containerRef.current,
-        groupLabelsRef.current[groupLabel].clientHeight
+        get(['current', groupLabel, 'clientHeight'], groupLabelsRef)
       );
     }
 
