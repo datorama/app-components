@@ -43,7 +43,7 @@ const SnailChart = ({ theme, linecap = 'none', data = [], dividers = 5 }) => {
     elements.push(
       <Path
         key={`arc-${i}`}
-        d={describeArc(center.x, center.y, 50 + barWidth * i, 0, center.x + 20)}
+        d={describeArc(center.x, center.y, 50 + barWidth * i, 0, 270)}
       />
     );
   }
@@ -69,7 +69,7 @@ const SnailChart = ({ theme, linecap = 'none', data = [], dividers = 5 }) => {
       />,
       <Label
         key={`label-${i}`}
-        x={center.x - barWidth}
+        x={center.x - 30}
         y={center.y - 50 - i * barWidth - barWidth / 2}
       >
         {item.label || 'untitled'}
