@@ -263,6 +263,7 @@ export default class Select extends React.Component {
       }
     }
 
+    this.setState({ currentHoveredOptionValue: option.value });
     this.applyChanges(result);
   };
 

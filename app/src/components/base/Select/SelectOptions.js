@@ -33,6 +33,13 @@ const SelectOptions = props => {
     return null;
   }
 
+  if (
+    currentHoveredOptionValue === null &&
+    get('current.scrollTop', containerRef)
+  ) {
+    containerRef.current.scrollTop = 0;
+  }
+
   const items = options.map(option => {
     if (option.options) {
       return (
