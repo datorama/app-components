@@ -27,7 +27,7 @@ export const Col = styled.div`
   align-items: ${({ align }) => align || 'flex-start'};
   justify-content: ${({ justify }) => justify || 'center'};
   flex: ${({ size }) => size || 1};
-  max-width: ${({ size }) => `calc(100% / 12 * ${size})` || '100%'};
+  max-width: ${({ size }) => `calc(100% * ${size / 12})` || '100%'};
   padding: ${({ padding }) => padding || gutter}px;
   min-height: 40px;
   box-sizing: border-box;
@@ -35,7 +35,7 @@ export const Col = styled.div`
   ${({ offset }) =>
     offset &&
     css`
-      margin-left: ${({ offset }) => `calc(100% / 12 * ${offset})`};
+      margin-left: ${({ offset }) => `calc(100% * ${offset / 12})`};
     `};
 
   ${({ noPadding }) =>

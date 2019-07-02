@@ -43,6 +43,7 @@ const Relative = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
+  user-select: text;
 `;
 
 const CopyBtn = styled.div`
