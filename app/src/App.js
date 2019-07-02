@@ -50,7 +50,7 @@ const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
     <Header>
       <Title onClick={() => history.push('/')}>Apps design system</Title>
-      <Version>0.6.0</Version>
+      <Version>0.7.0</Version>
     </Header>
     <Menu>
       {list.map(({ key, label, type, path }) => (
