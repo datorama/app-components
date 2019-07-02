@@ -44,6 +44,7 @@ import Collapse from './docs/Collapse.doc';
 import Widget from './docs/Widget.doc';
 import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
+import SnailChart from './docs/SnailChart.doc';
 
 const Navigation = ({ list, history, location, onClick }) => (
   <Fragment>
@@ -159,6 +160,9 @@ class App extends Component {
       { key: 'sticky', label: 'sticky', path: 'sticky' },
       { key: 'table', label: 'table' },
 
+      { key: 'charts', label: 'charts', type: 'title' },
+      { key: 'snail-chart', label: 'snail chart', path: 'snail-chart' },
+
       { key: 'pages', label: 'pages', type: 'title' },
       { key: 'error-page', label: 'error page', path: 'error-page' },
 
@@ -231,6 +235,7 @@ class App extends Component {
                 <Route exact path="/widget" component={Widget} />
                 <Route exact path="/sticky" component={Sticky} />
                 <Route exact path="/error-page" component={ErrorPage} />
+                <Route exact path="/snail-chart" component={SnailChart} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/drag-drop" component={DragDrop} />
