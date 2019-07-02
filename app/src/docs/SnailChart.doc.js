@@ -20,7 +20,7 @@ const MyComp = () => (
   <div>
     <SnailChart
     	linecap="none" // round
-    	dividers={8}
+    	dividers={5}
     	data={data}
     />
   </div>
@@ -41,7 +41,7 @@ const MyComp = () => (
   <div>
     <SnailChart
     	linecap="round"
-    	dividers={8}
+    	dividers={10}
     	data={data}
     />
   </div>
