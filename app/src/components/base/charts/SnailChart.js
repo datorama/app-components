@@ -28,7 +28,13 @@ const describeArc = (x, y, radius, startAngle, endAngle) => {
   ].join(' ');
 };
 
-const SnailChart = ({ theme, linecap = 'none', data = [], dividers = 5 }) => {
+const SnailChart = ({
+  theme,
+  linecap = 'none',
+  data = [],
+  dividers = 5,
+  className
+}) => {
   // local center
   const center = { x: 250, y: 250 };
   const amount = data.length;
@@ -111,6 +117,7 @@ const SnailChart = ({ theme, linecap = 'none', data = [], dividers = 5 }) => {
 
   return (
     <Container
+      className={className}
       viewBox={`${center.x - elementsRadius} ${center.y - elementsRadius} ${2 *
         elementsRadius} ${2 * elementsRadius}`}
     >
@@ -120,6 +127,7 @@ const SnailChart = ({ theme, linecap = 'none', data = [], dividers = 5 }) => {
 };
 
 SnailChart.propTypes = {
+  className: PropTypes.string,
   linecap: PropTypes.string,
   dividers: PropTypes.number,
   data: PropTypes.arrayOf(
