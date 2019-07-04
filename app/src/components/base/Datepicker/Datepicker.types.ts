@@ -18,7 +18,7 @@ export type Preset = {
 export type PresetOption = {
   label: string;
   value: string;
-  selection: MomentRange;
+  dateRange: MomentRange;
 };
 
 export type PresetsMap = {
@@ -39,4 +39,10 @@ export type PresetsMap = {
   prevMonth: MomentRange;
   prevYear: MomentRange;
   prevQuarter: MomentRange;
+};
+
+export type CustomPreset = {
+  label: string;
+  value: string;
+  dateRange: DateRange;
 };

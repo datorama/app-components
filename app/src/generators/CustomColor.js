@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { SketchPicker } from 'react-color';
 
 // components and utils
-import {ClickOut, lightTheme, shadeColor} from '../components/index';
+import { ClickOut, lightTheme, shadeColor } from '../components/index';
 
 const Color = ({ label, color, onClick, small }) => (
   <ColorCard onClick={onClick} small={small}>
@@ -107,7 +107,7 @@ const Strip = styled.div`
 `;
 
 const ColorContainer = styled.div`
-  width: calc(100vw / 9 - 30px);
+  width: calc(${window.innerWidth / 9 - 30}px);
   display: flex;
   justify-content: center;
   align-items: center;

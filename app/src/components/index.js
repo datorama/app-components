@@ -52,6 +52,7 @@ export { default as Datepicker } from './base/Datepicker/Datepicker';
 export { default as MultiProgress } from './base/MultiProgress';
 export { default as ErrorPage } from './base/ErrorPage';
 export { default as Sticky } from './base/Sticky';
+export { default as SnailChart } from './base/charts/SnailChart';
 
 export const AppTheme = ({ provider: Provider, theme, children }) => (
   <Provider theme={theme}>

@@ -1,7 +1,7 @@
 import React, { Component, FunctionComponent } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { get } from 'lodash/fp';
+import { get, isEmpty } from 'lodash/fp';
 import moment, { Moment } from 'moment';
 
 // icons
@@ -9,7 +9,13 @@ import ArrowDown from '../../icons/ArrowDown.icon';
 
 // components
 import Select from '../Select/Select';
-import { Preset, PresetOption, PresetsMap } from './Datepicker.types';
+import {
+  CustomPreset,
+  Preset,
+  PresetOption,
+  PresetsMap
+} from './Datepicker.types';
+import { convertToMomentRange } from './date.utils';
 
 type CustomHeaderProps = {
   open: boolean;
@@ -34,6 +40,7 @@ type Props = {
   firstDayOfWeek: number;
   onChange: (preset: PresetOption[]) => void;
   selectedPreset: PresetOption[];
+  customPresets?: CustomPreset[];
 };
 
 class DatepickerPresets extends Component<Props> {
@@ -44,7 +51,17 @@ class DatepickerPresets extends Component<Props> {
       PropTypes.shape({
         label: PropTypes.string,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        selection: PropTypes.object
+        dateRange: PropTypes.object
+      })
+    ),
+    customPresets: PropTypes.arrayOf(
+      PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string,
+        dateRange: PropTypes.shape({
+          startDate: PropTypes.instanceOf(Date),
+          endDate: PropTypes.instanceOf(Date)
+        })
       })
     )
   };
@@ -67,6 +84,8 @@ class DatepickerPresets extends Component<Props> {
   }
 
   setPresets() {
+    const { customPresets } = this.props;
+
     this.today = moment().startOf('day');
     this.presetsMap = {
       thisWeek: {
@@ -170,22 +189,22 @@ class DatepickerPresets extends Component<Props> {
           {
             value: 'this-week',
             label: 'This week',
-            selection: this.presetsMap.thisWeek
+            dateRange: this.presetsMap.thisWeek
           },
           {
             value: 'this-month',
             label: 'This month',
-            selection: this.presetsMap.thisMonth
+            dateRange: this.presetsMap.thisMonth
           },
           {
             value: 'this-quarter',
             label: 'This quarter',
-            selection: this.presetsMap.thisQuarter
+            dateRange: this.presetsMap.thisQuarter
           },
           {
             value: 'this-year',
             label: 'This year',
-            selection: this.presetsMap.thisYear
+            dateRange: this.presetsMap.thisYear
           }
         ]
       },
@@ -195,22 +214,22 @@ class DatepickerPresets extends Component<Props> {
           {
             value: 'last-7',
             label: 'Last 7 days',
-            selection: this.presetsMap.last7days
+            dateRange: this.presetsMap.last7days
           },
           {
             value: 'last-14',
             label: 'Last 14 days',
-            selection: this.presetsMap.last14days
+            dateRange: this.presetsMap.last14days
           },
           {
             value: 'last-30',
             label: 'Last 30 days',
-            selection: this.presetsMap.last30days
+            dateRange: this.presetsMap.last30days
           },
           {
             value: 'last-90',
             label: 'Last 90 days',
-            selection: this.presetsMap.last90days
+            dateRange: this.presetsMap.last90days
           }
         ]
       },
@@ -220,27 +239,27 @@ class DatepickerPresets extends Component<Props> {
           {
             value: 'yesterday',
             label: 'Yesterday',
-            selection: this.presetsMap.yesterday
+            dateRange: this.presetsMap.yesterday
           },
           {
             value: 'week-to-date',
             label: 'Week to date',
-            selection: this.presetsMap.weekToDate
+            dateRange: this.presetsMap.weekToDate
           },
           {
             value: 'month-to-date',
             label: 'Month to date',
-            selection: this.presetsMap.monthToDate
+            dateRange: this.presetsMap.monthToDate
           },
           {
             value: 'quarter-to-date',
             label: 'Quarter to date',
-            selection: this.presetsMap.quarterToDate
+            dateRange: this.presetsMap.quarterToDate
           },
           {
             value: 'year-to-date',
             label: 'Year to date',
-            selection: this.presetsMap.yearToDate
+            dateRange: this.presetsMap.yearToDate
           }
         ]
       },
@@ -250,26 +269,40 @@ class DatepickerPresets extends Component<Props> {
           {
             value: 'prev-week',
             label: 'Previous week',
-            selection: this.presetsMap.prevWeek
+            dateRange: this.presetsMap.prevWeek
           },
           {
             value: 'prev-month',
             label: 'Previous month',
-            selection: this.presetsMap.prevMonth
+            dateRange: this.presetsMap.prevMonth
           },
           {
             value: 'prev-quarter',
             label: 'Previous quarter',
-            selection: this.presetsMap.prevQuarter
+            dateRange: this.presetsMap.prevQuarter
           },
           {
             value: 'prev-year',
             label: 'Previous year',
-            selection: this.presetsMap.prevYear
+            dateRange: this.presetsMap.prevYear
           }
         ]
       }
     ];
+
+    if (!isEmpty(customPresets)) {
+      const options: PresetOption[] = customPresets!.map(
+        (customPreset: CustomPreset) => ({
+          ...customPreset,
+          dateRange: convertToMomentRange(customPreset.dateRange)
+        })
+      );
+
+      this.presetsOptions.push({
+        label: 'Custom',
+        options
+      });
+    }
   }
 
   render() {
