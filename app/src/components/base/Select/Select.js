@@ -172,7 +172,7 @@ export default class Select extends React.Component {
       case 'ArrowDown':
       case 'ArrowUp':
         event.preventDefault();
-        this.handleArrowsClick(key);
+        this.handleVerticalArrowsClick(key);
         break;
 
       case 'Enter':
@@ -188,7 +188,7 @@ export default class Select extends React.Component {
     }
   };
 
-  handleArrowsClick = key => {
+  handleVerticalArrowsClick = key => {
     const { currentHoveredOptionValue } = this.state;
 
     const allOptions = getAllOptions(this.filteredOptions);
