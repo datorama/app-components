@@ -281,7 +281,11 @@ export default class Select extends React.Component {
     this.applyChanges(result);
   };
 
-  onSearch = e => this.setState({ searchTerm: e.target.value });
+  onSearch = e =>
+    this.setState({
+      searchTerm: e.target.value,
+      currentHoveredOptionValue: null
+    });
 
   debouncedOnChange = debounce(this.props.debounce, values =>
     this.props.onChange(values)
