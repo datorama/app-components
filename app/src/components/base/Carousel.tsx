@@ -125,7 +125,6 @@ class Carousel extends Component<Props, State> {
   render() {
     const { current } = this.state;
     const { className, controls, nextControl, prevControl } = this.props;
-
     const total = this.getTotal();
 
     return (
