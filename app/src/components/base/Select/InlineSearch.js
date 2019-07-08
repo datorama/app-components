@@ -21,7 +21,8 @@ class InlineSearch extends Component {
     onSearch: PropTypes.func,
     maxTags: PropTypes.number,
     onSelect: PropTypes.func,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    toggleFocus: PropTypes.func
   };
 
   componentDidUpdate(prevProps) {
@@ -65,7 +66,7 @@ class InlineSearch extends Component {
         tags.push(
           <SmallTag key={`small-tag-${option.value}`} title={option.label}>
             <SmallTagLabel small={small}>{option.label}</SmallTagLabel>
-            <CloseIcon onClick={this.props.onSelect(option)} />
+            <CloseIcon onClick={() => this.props.onSelect(option)} />
           </SmallTag>
         );
       }
@@ -99,9 +100,13 @@ class InlineSearch extends Component {
             placeholder={this.props.placeholder || 'Search'}
             ref={this.handleRef}
             small={this.props.small}
+            onFocus={this.props.toggleFocus}
+            onBlur={this.props.toggleFocus}
           />
         </Inner>
-        {!loading && <StyledArrow rotation={this.props.open ? '180deg' : '0deg'} />}
+        {!loading && (
+          <StyledArrow rotation={this.props.open ? '180deg' : '0deg'} />
+        )}
         {loading && <StyledSelectSpinner />}
       </Container>
     );
@@ -143,11 +148,13 @@ const Container = styled.div`
     css`
       height: ${theme.size.LARGE};
     `};
-  
-  ${({ disabled }) => disabled && css`
-    pointer-events: none;
-    opacity: 0.8;
-  `};
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      pointer-events: none;
+      opacity: 0.8;
+    `};
 `;
 
 const Inner = styled.div`
@@ -191,10 +198,12 @@ const SmallTagLabel = styled.div`
   text-overflow: ellipsis;
   max-width: 60px;
   padding: 2px;
-  
-  ${({ small }) => small && css`
-    font-size: 12px;
-  `};
+
+  ${({ small }) =>
+    small &&
+    css`
+      font-size: 12px;
+    `};
 `;
 
 const CloseIcon = styled.div`
@@ -243,11 +252,13 @@ const SmallInput = styled.input`
   flex: 1;
   box-sizing: border-box;
   padding: 0 4px;
-  
-  ${({ small }) => small && css`
-    font-size: 12px;
-  `};
-  
+
+  ${({ small }) =>
+    small &&
+    css`
+      font-size: 12px;
+    `};
+
   &::placeholder {
     color: ${({ theme }) => theme.p300};
   }

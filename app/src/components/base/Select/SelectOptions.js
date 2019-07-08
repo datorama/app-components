@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, isEmpty } from 'lodash/fp';
+import { find, isEmpty, get } from 'lodash/fp';
 
 // components
 import Checkbox from '../Checkbox';
 import { Option, Label } from './Select.common';
 import { optionsType } from './Select.types';
 import SelectOptionsGroup from './SelectOptionsGroup';
+import { calcScrollTop } from './select.utils';
 
 const SelectOptions = props => {
   const {
@@ -21,11 +22,22 @@ const SelectOptions = props => {
     optionLabelRenderer,
     small,
     large,
-    inlineSearch
+    inlineSearch,
+    currentHoveredOptionValue
   } = props;
+
+  const containerRef = useRef(null);
+  const itemsRef = useRef({});
 
   if (isEmpty(options)) {
     return null;
+  }
+
+  if (
+    currentHoveredOptionValue === null &&
+    get('current.scrollTop', containerRef)
+  ) {
+    containerRef.current.scrollTop = 0;
   }
 
   const items = options.map(option => {
@@ -45,6 +57,8 @@ const SelectOptions = props => {
           maxItems={maxItems}
           searchable={searchable}
           optionLabelRenderer={optionLabelRenderer}
+          currentHoveredOptionValue={currentHoveredOptionValue}
+          containerRef={containerRef}
         />
       );
     }
@@ -55,12 +69,21 @@ const SelectOptions = props => {
       return optionRenderer({ option, selected });
     }
 
+    if (currentHoveredOptionValue === option.value) {
+      containerRef.current.scrollTop = calcScrollTop(
+        get(['current', option.value], itemsRef),
+        containerRef.current
+      );
+    }
+
     return (
       <Option
+        ref={el => (itemsRef.current[option.value] = el)}
         className="option"
         key={option.value}
-        onClick={handleClick(option)}
+        onClick={() => handleClick(option)}
         selected={selected && !multi}
+        hovered={currentHoveredOptionValue === option.value}
         title={option.label}
         small={small}
         large={large}
@@ -79,6 +102,7 @@ const SelectOptions = props => {
 
   return (
     <Container
+      ref={containerRef}
       maxItems={maxItems}
       marginTop={multi || (searchable && !inlineSearch) ? '5px' : 0}
       small={small}
@@ -100,12 +124,17 @@ SelectOptions.propTypes = {
   optionLabelRenderer: PropTypes.func,
   small: PropTypes.bool,
   large: PropTypes.bool,
-  inlineSearch: PropTypes.bool
+  inlineSearch: PropTypes.bool,
+  currentHoveredOptionValue: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
 };
 
 export default SelectOptions;
 
 const Container = styled.div`
+  position: relative;
   margin-top: ${({ marginTop }) => marginTop};
   width: 100%;
   max-height: ${({ maxItems, theme }) =>

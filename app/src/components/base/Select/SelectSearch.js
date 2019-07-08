@@ -13,6 +13,8 @@ const SelectSearch = props => (
       value={props.value}
       small={props.small}
       large={props.large}
+      onFocus={props.toggleFocus}
+      onBlur={props.toggleFocus}
     />
     <StyledSearchIcon />
   </Container>
@@ -23,7 +25,8 @@ SelectSearch.propTypes = {
   value: PropTypes.string,
   searchPlaceholder: PropTypes.string,
   small: PropTypes.bool,
-  large: PropTypes.bool
+  large: PropTypes.bool,
+  toggleFocus: PropTypes.func
 };
 
 export default SelectSearch;

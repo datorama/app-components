@@ -1,8 +1,13 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, orderBy, debounce, map, set } from 'lodash/fp';
-import { getOptionsSize, getOptionsValues, hasGroups } from './select.utils';
+import { find, orderBy, debounce, map, set, get } from 'lodash/fp';
+import {
+  getOptionByValue,
+  getOptionsSize,
+  getAllOptions,
+  hasGroups
+} from './select.utils';
 
 // components
 import ClickOut from '../ClickOut';
@@ -46,8 +51,12 @@ export default class Select extends React.Component {
   state = {
     open: false,
     searchTerm: '',
-    localValues: this.props.values
+    localValues: this.props.values,
+    currentHoveredOptionValue: null,
+    inputFocused: false
   };
+
+  filteredOptions = [];
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -122,7 +131,8 @@ export default class Select extends React.Component {
     this.setState(
       prevState => ({
         open: !prevState.open,
-        searchTerm: !prevState.open ? '' : prevState.searchTerm
+        searchTerm: !prevState.open ? '' : prevState.searchTerm,
+        currentHoveredOptionValue: null
       }),
       () => {
         const { open } = this.state;
@@ -153,14 +163,100 @@ export default class Select extends React.Component {
     );
   };
 
-  handleKeyDown = ({ key }) => {
+  handleKeyDown = event => {
+    const { key } = event;
+    const { multi, searchable } = this.props;
+    const { searchTerm, inputFocused, localValues } = this.state;
+
     switch (key) {
       case 'Escape':
-        this.toggleOpen();
+        return this.toggleOpen();
+
+      case 'ArrowDown':
+      case 'ArrowUp':
+        event.preventDefault();
+        this.handleVerticalArrowsClick(key);
+        break;
+
+      case 'Enter':
+        const option = getOptionByValue(
+          this.filteredOptions,
+          this.state.currentHoveredOptionValue
+        );
+        option && this.onSelect(option);
+        break;
+
+      case 'Backspace':
+        if (
+          searchTerm === '' &&
+          searchable &&
+          multi &&
+          inputFocused &&
+          localValues.length
+        ) {
+          const filtered = [...localValues];
+
+          filtered.pop();
+          this.applyChanges(filtered);
+        }
         break;
 
       default:
         break;
+    }
+  };
+
+  handleVerticalArrowsClick = key => {
+    const { currentHoveredOptionValue } = this.state;
+
+    const allOptions = getAllOptions(this.filteredOptions);
+
+    const currentIndex = allOptions.findIndex(
+      option => option.value === currentHoveredOptionValue
+    );
+
+    if (key === 'ArrowDown') {
+      this.setNextOptionValue({
+        allOptions,
+        currentIndex
+      });
+    }
+    // ArrowUp
+    else {
+      this.setPrevOptionValue({
+        allOptions,
+        currentIndex
+      });
+    }
+  };
+
+  setNextOptionValue = ({ allOptions, currentIndex }) => {
+    if (currentIndex === -1) {
+      this.setState({
+        currentHoveredOptionValue: get([0, 'value'], allOptions) || null
+      });
+    } else {
+      this.setState({
+        currentHoveredOptionValue: get(
+          [(currentIndex + 1) % allOptions.length, 'value'],
+          allOptions
+        )
+      });
+    }
+  };
+
+  setPrevOptionValue = ({ allOptions, currentIndex }) => {
+    if (currentIndex > 0) {
+      this.setState({
+        currentHoveredOptionValue: get([currentIndex - 1, 'value'], allOptions)
+      });
+    } else {
+      this.setState({
+        currentHoveredOptionValue: get(
+          [allOptions.length - 1, 'value'],
+          allOptions
+        )
+      });
     }
   };
 
@@ -172,7 +268,7 @@ export default class Select extends React.Component {
     }
   };
 
-  onSelect = option => () => {
+  onSelect = option => {
     const { multi } = this.props;
     const { localValues } = this.state;
 
@@ -187,6 +283,7 @@ export default class Select extends React.Component {
       }
     }
 
+    this.setState({ currentHoveredOptionValue: option.value, searchTerm: '' });
     this.applyChanges(result);
   };
 
@@ -196,13 +293,17 @@ export default class Select extends React.Component {
 
     let result = [];
     if (!localValues.length || localValues.length > getOptionsSize(options)) {
-      result = getOptionsValues(options);
+      result = getAllOptions(options);
     }
 
     this.applyChanges(result);
   };
 
-  onSearch = e => this.setState({ searchTerm: e.target.value });
+  onSearch = e =>
+    this.setState({
+      searchTerm: e.target.value,
+      currentHoveredOptionValue: null
+    });
 
   debouncedOnChange = debounce(this.props.debounce, values =>
     this.props.onChange(values)
@@ -219,6 +320,9 @@ export default class Select extends React.Component {
       }
     });
   }
+
+  toggleFocus = () =>
+    this.setState(prevState => ({ inputFocused: !prevState.inputFocused }));
 
   render() {
     const {
@@ -243,7 +347,7 @@ export default class Select extends React.Component {
       maxTags
     } = this.props;
     const { open, searchTerm, localValues } = this.state;
-    const filteredOptions = this.filterOptions();
+    this.filteredOptions = this.filterOptions();
 
     return (
       <ClickOut onClick={this.handleClickOut} className={className}>
@@ -278,6 +382,7 @@ export default class Select extends React.Component {
               maxTags={maxTags}
               onSelect={this.onSelect}
               loading={loading}
+              toggleFocus={this.toggleFocus}
             />
           )}
 
@@ -285,7 +390,7 @@ export default class Select extends React.Component {
             open={open}
             searchable={searchable}
             onSearch={this.onSearch}
-            options={filteredOptions}
+            options={this.filteredOptions}
             total={getOptionsSize(options)}
             values={localValues}
             multi={multi}
@@ -300,6 +405,8 @@ export default class Select extends React.Component {
             small={small}
             large={large}
             inlineSearch={inlineSearch}
+            currentHoveredOptionValue={this.state.currentHoveredOptionValue}
+            toggleFocus={this.toggleFocus}
           />
         </Container>
       </ClickOut>
