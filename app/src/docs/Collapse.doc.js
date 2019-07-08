@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
@@ -118,7 +118,7 @@ class CollapseDoc extends Component {
   }
 }
 
-export default withTheme(CollapseDoc);
+export default CollapseDoc;
 
 const Box = styled.div`
   width: 100%;

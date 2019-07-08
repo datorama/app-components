@@ -1,10 +1,11 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
 import { Row, Col, Spinner, LinearProgress } from '../components/index';
 import Snippet from './Snippet';
+import { useTheme } from '../hooks/theme.hooks';
 
 const snippet = `
 import { Spinner } from '@datorama/app-components';
@@ -36,7 +37,8 @@ const MyComp = () => (
 );
 `;
 
-const SpinnerDoc = props => {
+const SpinnerDoc = () => {
+  const theme = useTheme();
   const title = 'spinner';
   const description =
     'Progress indicators inform users about the status of ongoing processes, such as loading an app, submitting a form, or saving updates. They communicate an app’s state and indicate available actions, such as whether users can navigate away from the current screen.';
@@ -60,7 +62,7 @@ const SpinnerDoc = props => {
         </Col>
         <Col>
           <Box>
-            <Spinner color={props.theme.g400} />
+            <Spinner color={theme.g400} />
           </Box>
         </Col>
       </Row>
@@ -79,7 +81,7 @@ const SpinnerDoc = props => {
   );
 };
 
-export default withTheme(SpinnerDoc);
+export default SpinnerDoc;
 
 const Box = styled.div`
   width: 100%;

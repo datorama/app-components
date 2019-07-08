@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import styled, { withTheme } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
@@ -191,7 +191,7 @@ const WidgetDoc = ({ theme }) => {
   );
 };
 
-export default withTheme(WidgetDoc);
+export default WidgetDoc;
 
 const Box = styled.div`
   width: 100%;

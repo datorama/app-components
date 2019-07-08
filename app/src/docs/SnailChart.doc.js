@@ -1,10 +1,11 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
 import { Row, Col, SnailChart, Card } from '../components/index';
 import Snippet from './Snippet';
+import { useTheme } from '../hooks/theme.hooks';
 
 const snippet = `
 // inside a component
@@ -48,7 +49,8 @@ const MyComp = () => (
 );
 `;
 
-const CardDoc = ({ theme }) => {
+const SnailChartDoc = () => {
+  const theme = useTheme();
   const title = 'Snail Chart';
   const description = '';
 
@@ -134,7 +136,7 @@ const CardDoc = ({ theme }) => {
   );
 };
 
-export default withTheme(CardDoc);
+export default SnailChartDoc;
 
 const StyledCard = styled(Card)`
   align-items: center;

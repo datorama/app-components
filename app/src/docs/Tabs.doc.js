@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
@@ -110,7 +110,7 @@ class TabsDoc extends Component {
   }
 }
 
-export default withTheme(TabsDoc);
+export default TabsDoc;
 
 const Box = styled.div`
   width: 100%;

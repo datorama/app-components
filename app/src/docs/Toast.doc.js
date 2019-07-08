@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
@@ -19,7 +19,7 @@ const App = () => (
 
 const NestedComp = () => {
     const { addToast } = useToast();
-    const { addSnackbar } = useSnackbar(); 
+    const { addSnackbar } = useSnackbar();
 };
 
 // toast object. types - info (default), success, warning and alert
@@ -118,7 +118,7 @@ const ToastDoc = () => {
   );
 };
 
-export default withTheme(ToastDoc);
+export default ToastDoc;
 
 const Box = styled.div`
   width: 100%;

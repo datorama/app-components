@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
@@ -122,7 +122,7 @@ const TooltipDoc = () => {
   );
 };
 
-export default withTheme(TooltipDoc);
+export default TooltipDoc;
 
 const Box = styled.div`
   width: 100%;

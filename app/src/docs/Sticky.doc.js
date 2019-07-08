@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
@@ -57,7 +57,7 @@ class StickyDoc extends Component {
   }
 }
 
-export default withTheme(StickyDoc);
+export default StickyDoc;
 
 const StyledSticky = styled(Sticky)`
   width: 500px;

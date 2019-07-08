@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
@@ -55,7 +55,7 @@ class StepperDoc extends Component {
   }
 }
 
-export default withTheme(StepperDoc);
+export default StepperDoc;
 
 const Box = styled.div`
   width: 100%;
