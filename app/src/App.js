@@ -1,9 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import styled, {
-  css,
-  ThemeProvider,
-  createGlobalStyle
-} from 'styled-components';
+import styled, { css, ThemeProvider } from 'styled-components';
 import { isEmpty } from 'lodash/fp';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
@@ -182,8 +178,6 @@ class App extends Component {
               updateTheme={this.updateTheme}
             />
             <Container>
-              <GlobalStyle light={light} />
-
               <Sidebar light={light}>
                 <ConnectedNavigation list={list} onClick={this.afterNavigate} />
               </Sidebar>
@@ -403,33 +397,6 @@ const ContrastIcon = styled.div`
   height: 22px;
   background: url(${require('./docs/assets/dark-light.svg')}) no-repeat;
   background-size: contain;
-`;
-
-const GlobalStyle = createGlobalStyle`
-	pre {
-		margin: 0 !important;
-		width: 100%;
-		height: 100%;
-	}
-	
-	code {
-	  height: 100%;
-	}
-
-	.hljs {
-		background: ${({ theme }) => theme.p50} !important;
-		border-radius: 4px;
-		box-sizing: border-box;
-		padding: 20px !important;
-	}
-
-	@import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.5/styles/atom-one-light.min.css');
-	
-	${({ light }) =>
-    !light &&
-    css`
-      @import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.5/styles/atom-one-dark.min.css');
-    `};
 `;
 
 const ColorsButton = styled(ThemeButton)`

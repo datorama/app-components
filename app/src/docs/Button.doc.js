@@ -6,28 +6,23 @@ import Snippet from './Snippet';
 import Base from './Base';
 import { Row, Col, Button, SegmentedButton } from '../components/index';
 
-const defaultButton = `
-import { Button } from '@datorama/app-components';
-
-const MyComponent = ({ onClick }) => (
+const defaultButton = `({ onClick }) => (
   <Button onClick={onClick}>
-    Click Me
+    Default Button
   </Button>
-);
-`;
+);`;
 
-const segmentedButton = `
-import { SegmentedButton } from 'app-components';
-
-// section = {id: 0, label: 'section label'}
-const MyComponent = ({ onClick, selected, sections }) => (
+const segmentedButton = `({ onClick, selected, sections }) => (
   <SegmentedButton
     onClick={onClick}
-    selected={selected}
-    sections={sections}
+    selected={0}
+    sections={[
+      {id: 0, label: 'Yes'},
+      {id: 1, label: 'No'},
+      {id: 2, label: 'Maybe'},
+    ]}
   />
-);
-`;
+);`;
 
 const disabled = `
 import { Button } from 'app-components';
@@ -105,29 +100,11 @@ class ButtonDoc extends Component {
           <Col>
             <Snippet snippet={defaultButton} />
           </Col>
-          <Col>
-            <Box>
-              <Button onClick={() => null}>Default</Button>
-            </Box>
-          </Col>
         </Row>
 
         <Row align="stretch">
           <Col>
             <Snippet snippet={segmentedButton} />
-          </Col>
-          <Col>
-            <Box>
-              <SegmentedButton
-                sections={[
-                  { id: 0, label: 'Small' },
-                  { id: 1, label: 'Medium' },
-                  { id: 2, label: 'Large' }
-                ]}
-                selected={this.state.selected}
-                onClick={selected => this.setState({ selected })}
-              />
-            </Box>
           </Col>
         </Row>
 
