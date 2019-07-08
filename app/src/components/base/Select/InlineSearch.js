@@ -21,7 +21,8 @@ class InlineSearch extends Component {
     onSearch: PropTypes.func,
     maxTags: PropTypes.number,
     onSelect: PropTypes.func,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    toggleFocus: PropTypes.func
   };
 
   componentDidUpdate(prevProps) {
@@ -99,6 +100,8 @@ class InlineSearch extends Component {
             placeholder={this.props.placeholder || 'Search'}
             ref={this.handleRef}
             small={this.props.small}
+            onFocus={this.props.toggleFocus}
+            onBlur={this.props.toggleFocus}
           />
         </Inner>
         {!loading && (

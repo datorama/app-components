@@ -52,7 +52,8 @@ export default class Select extends React.Component {
     open: false,
     searchTerm: '',
     localValues: this.props.values,
-    currentHoveredOptionValue: null
+    currentHoveredOptionValue: null,
+    inputFocused: false
   };
 
   filteredOptions = [];
@@ -164,6 +165,8 @@ export default class Select extends React.Component {
 
   handleKeyDown = event => {
     const { key } = event;
+    const { multi, searchable } = this.props;
+    const { searchTerm, inputFocused, localValues } = this.state;
 
     switch (key) {
       case 'Escape':
@@ -181,6 +184,21 @@ export default class Select extends React.Component {
           this.state.currentHoveredOptionValue
         );
         option && this.onSelect(option);
+        break;
+
+      case 'Backspace':
+        if (
+          searchTerm === '' &&
+          searchable &&
+          multi &&
+          inputFocused &&
+          localValues.length
+        ) {
+          const filtered = [...localValues];
+
+          filtered.pop();
+          this.applyChanges(filtered);
+        }
         break;
 
       default:
@@ -303,6 +321,9 @@ export default class Select extends React.Component {
     });
   }
 
+  toggleFocus = () =>
+    this.setState(prevState => ({ inputFocused: !prevState.inputFocused }));
+
   render() {
     const {
       options,
@@ -361,6 +382,7 @@ export default class Select extends React.Component {
               maxTags={maxTags}
               onSelect={this.onSelect}
               loading={loading}
+              toggleFocus={this.toggleFocus}
             />
           )}
 
@@ -384,6 +406,7 @@ export default class Select extends React.Component {
             large={large}
             inlineSearch={inlineSearch}
             currentHoveredOptionValue={this.state.currentHoveredOptionValue}
+            toggleFocus={this.toggleFocus}
           />
         </Container>
       </ClickOut>
