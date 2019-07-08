@@ -15,7 +15,6 @@ class Range extends Component {
   };
 
   state = {
-    width: 0,
     percentage: 0,
     lastPercentage: 0,
     dragging: false,
@@ -23,7 +22,8 @@ class Range extends Component {
   };
 
   handleDrag = ({ translateX }) => {
-    const { lastPercentage, width } = this.state;
+    const { width } = this.el.getBoundingClientRect();
+    const { lastPercentage } = this.state;
     const { min, max, onChange } = this.props;
     const calcPercentage = Math.min(
       100,
@@ -52,21 +52,13 @@ class Range extends Component {
       dragging: false
     });
 
-  handleRef = el => {
-    if (el) {
-      const { width } = el.getBoundingClientRect();
-
-      this.setState({ width });
-    }
-  };
-
   render() {
     const { percentage, dragging, value } = this.state;
     const { min, max, disabled, className } = this.props;
 
     return (
       <Container disabled={disabled} className={className}>
-        <Outer ref={this.handleRef} className="outer" disabled={disabled}>
+        <Outer ref={el => (this.el = el)} className="outer" disabled={disabled}>
           <Inner width={percentage} className="inner" />
         </Outer>
         <Draggable
@@ -123,14 +115,15 @@ const Outer = styled.div`
   overflow: hidden;
 `;
 
-const Inner = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 2px;
-	width: ${({ width }) => `${width}%`}
-	background: ${({ theme }) => theme.a400};
-	transition: all 100ms;
+const Inner = styled.div.attrs(({ width }) => ({
+  style: { width: `${width}%` }
+}))`
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: ${({ theme }) => theme.a400};
+  transition: all 100ms;
 `;
 
 const Thumb = styled.div.attrs(({ left }) => ({
