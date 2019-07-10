@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import { set } from 'lodash/fp';
+import moment from 'moment';
 
 import * as components from '../components/index';
 import { hexToRgba } from '../components/index';
@@ -207,6 +208,7 @@ const Snippet = props => {
     ...components,
     useState,
     useCallback,
+    moment,
 
     // components (for demo)
     Box,

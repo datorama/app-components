@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import { Row, Col, Select } from '../components/index';
+import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
 const single = `
 () => {
-const [selected, setSelected] = useState(0);
+const [selected, setSelected] = useState([]);
 const options = [ 
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
@@ -31,7 +31,7 @@ return (
 
 const group = `
 () => {
-const [selected, setSelected] = useState(0);
+const [selected, setSelected] = useState([]);
 const options = [ 
   {
     label: 'Colors',
@@ -53,18 +53,18 @@ const options = [
       { value: '10', label: 'melon' }
     ]
   }
-];   
+];
 
 return (
   <Select
-    placeholder="Select colors / fruits"
-    searchable
-    inlineSearch
-    multi
-    maxTags={2}
-    onChange={setSelected}
-    values={selected}
-    options={options}
+      placeholder="Select colors / fruits"
+      searchable
+      inlineSearch
+      multi
+      maxTags={2}
+      options={options}
+      values={selected}
+      onChange={setSelected}
     />
   );
 }
@@ -72,7 +72,7 @@ return (
 
 const sizesSnippet = `
 () => {
-const [selected, setSelected] = useState(0);
+const [selected, setSelected] = useState([]);
 const options = [ 
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
@@ -96,7 +96,7 @@ return (
 
 const searchable = `
 () => {
-const [selected, setSelected] = useState(0);
+const [selected, setSelected] = useState([]);
 const options = [ 
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
@@ -120,7 +120,7 @@ return (
 
 const inlineSearch = `
 () => {
-const [selected, setSelected] = useState(0);
+const [selected, setSelected] = useState([]);
 const options = [ 
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
@@ -147,7 +147,7 @@ return (
 
 const multi = `
 () => {
-const [selected, setSelected] = useState(0);
+const [selected, setSelected] = useState([]);
 const options = [ 
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
@@ -172,7 +172,7 @@ return (
 
 const loading = `
 () => {
-const [selected, setSelected] = useState(0);
+const [selected, setSelected] = useState([]);
 const options = [ 
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
