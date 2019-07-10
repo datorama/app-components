@@ -39,7 +39,7 @@ const PropTable = ({ compKey }) => {
 export default PropTable;
 
 const Container = styled.div`
-  width: calc(100% - 30px);
+  width: calc(100% - 10px);
   display: flex;
   flex-direction: column;
 `;

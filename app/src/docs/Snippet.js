@@ -13,7 +13,7 @@ const darkTheme = {
     color: '#9CDCFE',
     backgroundColor: '#1E1E1E',
     fontSize: 13,
-    width: 'calc(100% - 20px)',
+    width: '100%',
     height: 'auto'
   },
   styles: [
@@ -120,7 +120,7 @@ const lightTheme = {
     color: '#393A34',
     backgroundColor: '#f6f8fa',
     fontSize: 13,
-    width: 'calc(100% - 20px)',
+    width: '100%',
     height: 'auto'
   },
   styles: [
@@ -210,7 +210,8 @@ const Snippet = props => {
 
     // components (for demo)
     Box,
-    CardInner
+    CardInner,
+    LayoutLabel
   };
 
   if (props.plain) {
@@ -282,6 +283,7 @@ const Relative = styled.div`
 
 const Sections = styled.div`
   display: flex;
+  flex-direction: ${({ direction }) => direction};
 `;
 
 const Section = styled.div`
@@ -340,7 +342,7 @@ const ErrorContainer = styled.div`
   top: 100%;
   left: 0;
   z-index: 10;
-  width: calc(100% - 20px);
+  width: 100%;
 `;
 
 const CardInner = styled.div`
@@ -351,4 +353,9 @@ const CardInner = styled.div`
   height: 53px;
   background: ${({ theme }) => theme.p100};
   ${({ theme }) => theme.text.p};
+`;
+
+const LayoutLabel = styled.div`
+  ${({ theme }) => theme.text.sm};
+  margin-bottom: 10px;
 `;

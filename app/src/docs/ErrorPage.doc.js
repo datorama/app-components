@@ -25,7 +25,7 @@ const ErrorPageDoc = () => {
     <Base title={title} description={description} name="ErrorPage">
       <Row>
         <Col>
-          <Snippet snippet={snippet} direction="column" stretch />
+          <Snippet snippet={snippet} stretch />
         </Col>
       </Row>
     </Base>
