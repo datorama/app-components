@@ -61,6 +61,24 @@ const GettingStarted = () => {
 
   return (
     <Base title={title} description={description}>
+      <Row>
+        <Col>
+          <Paragraph>
+            App-Components is a toolkit for developing applications with
+            ReactJS.
+            <br />
+            <br />
+            Quickly prototype your ideas or build your entire app with our
+            responsive grid system, extensive prebuilt components, and powerful
+            utilities built on ReactJS.
+            <br />
+            <br />
+            Develop a single underlying system that unifies the user experience
+            across platforms, devices, and input methods.
+          </Paragraph>
+        </Col>
+      </Row>
+
       <Row align="stretch">
         <Col>
           <Title>Setup</Title>
@@ -116,4 +134,11 @@ export default GettingStarted;
 
 const Title = styled.div`
   ${({ theme }) => theme.text.subHeadline};
+`;
+
+const Paragraph = styled.div`
+  ${({ theme }) => theme.text.p};
+  width: 100%;
+  max-width: 700px;
+  line-height: 24px;
 `;
