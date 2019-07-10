@@ -1,59 +1,42 @@
 import React from 'react';
-import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import { Tooltip, Row, Col } from '../components/index';
+import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Tooltip } from '@datorama/app-components';
-
-const MyComp = () => (
+() => (
   <Tooltip title="tooltip content">
-    ...content
+    <div style={{ color: theme.p600, fontSize: 12 }}>hover me</div>
   </Tooltip>
 );
 `;
 
 const snippetLeft = `
-import { Tooltip } from '@datorama/app-components';
-
-const MyComp = () => (
+() => (
   <Tooltip title="tooltip content" position="LEFT">
-    ...content
+    <div style={{ color: theme.p600, fontSize: 12 }}>hover me</div>
   </Tooltip>
 );
 `;
 
 const snippetLong = `
-import { Tooltip } from '@datorama/app-components';
-
-const MyComp = ({ navigate }) => (
-  <div>
-    <Tooltip
-      title="tooltip content"
-      long
-      onClickInfo={navigate}
-    >
-      ...content
-    </Tooltip>
-  </div>
+() => (
+  <Tooltip
+    long
+    position="TOP"
+    onClickInfo={console.log}
+    title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam debitis eos harum."
+  />
 );
 `;
 
 const snippetFixed = `
-import { Tooltip } from '@datorama/app-components';
-
-const MyComp = () => (
-  <div>
-    <Tooltip
-      title="tooltip content"
-      fixed
-    >
-      ...content
-    </Tooltip>
-  </div>
+() => (
+  <Tooltip title="Lorem ipsum dolor sit amet" fixed>
+    <div style={{ width: 100, height: 100, background: theme.p100 }} />
+  </Tooltip>
 );
 `;
 
@@ -68,25 +51,11 @@ const TooltipDoc = () => {
         <Col>
           <Snippet snippet={snippet} />
         </Col>
-        <Col>
-          <Box>
-            <Tooltip title="tooltip content">
-              <Demo>hover me</Demo>
-            </Tooltip>
-          </Box>
-        </Col>
       </Row>
 
       <Row align="stretch">
         <Col>
           <Snippet snippet={snippetLeft} />
-        </Col>
-        <Col>
-          <Box>
-            <Tooltip title="tooltip content" position="LEFT">
-              <Demo>hover me</Demo>
-            </Tooltip>
-          </Box>
         </Col>
       </Row>
 
@@ -94,28 +63,11 @@ const TooltipDoc = () => {
         <Col>
           <Snippet snippet={snippetLong} />
         </Col>
-        <Col>
-          <Box>
-            <Tooltip
-              title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aperiam debitis eos harum non, odio placeat porro rem reprehenderit voluptatum"
-              long
-              position="TOP"
-              onClickInfo={() => console.log('clicked!')}
-            />
-          </Box>
-        </Col>
       </Row>
 
       <Row align="stretch">
         <Col>
-          <Snippet snippet={snippetFixed} />
-        </Col>
-        <Col>
-          <Box>
-            <Tooltip title="Lorem ipsum dolor sit amet" fixed>
-              <Rect />
-            </Tooltip>
-          </Box>
+          <Snippet stretch snippet={snippetFixed} />
         </Col>
       </Row>
     </Base>
@@ -123,23 +75,3 @@ const TooltipDoc = () => {
 };
 
 export default TooltipDoc;
-
-const Box = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  justify-content: center;
-  background: ${({ theme }) => theme.p50};
-`;
-
-const Demo = styled.div`
-  ${({ theme }) => theme.text.p};
-`;
-
-const Rect = styled.div`
-  width: 100px;
-  height: 100px;
-  background: ${({ theme }) => theme.p200};
-`;
