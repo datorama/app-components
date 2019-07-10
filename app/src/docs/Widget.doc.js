@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Base from './Base';
 import { Widget, Row, Col, TagGroup, MultiProgress } from '../components/index';
 import Snippet from './Snippet';
-import { useTheme } from '../hooks/theme.hooks';
+import { useTheme } from '../components/hooks/theme.hooks';
 
 const regular = `
 import { Widget } from '@datorama/app-components';

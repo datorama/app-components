@@ -12,7 +12,7 @@ import {
   Droppable,
   Row
 } from '../components/index';
-import { useTheme } from '../hooks/theme.hooks';
+import { useTheme } from '../components/hooks/theme.hooks';
 
 const snippet = `
 import { DragDropProvider, Draggable, Droppable } from '@datorama/app-components';

@@ -6,44 +6,53 @@ import Base from './Base';
 import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
-const snippet = `npm i --save @datorama/app-components`;
+const snippet = `
+// NPM
+npm i --save @datorama/app-components
+
+// Yarn
+yarn add @datorama/app-components
+`;
 
 const theme = `
-  import { AppTheme, lightTheme } from 'app-components';
-  import {ThemeProvider} from 'styled-components';
-  
-  const App = () => (
-    <AppTheme theme={lightTheme} provider={ThemeProvider}>
-     ...app main
-    </AppTheme>
-  );
+import { AppTheme, lightTheme } from '@datorama/app-components';
+import { ThemeProvider } from 'styled-components';
+
+const App = () => (
+  <AppTheme theme={lightTheme} provider={ThemeProvider}>
+   { /* your app goes here*/ }
+  </AppTheme>
+);
 `;
 
 const components = `
-  import { Button } from '@datorama/app-components';
-  
-  const MyComp = ({ handleClick }) => (
-    <div>
-     ...your comp
-     <Button onClick={handleClick}>click here</Button>
-    <div>
-  );
+import { Button } from '@datorama/app-components';
+
+const MyComp = ({ handleClick }) => (
+  <div>
+   ...
+   <Button onClick={handleClick}>click here</Button>
+  <div>
+);
+`;
+
+const cssStyle = `
+// add to the main css file
+@import '~@datorama/app-components/dist/index.css';
 `;
 
 const styling = `
-  // add to your css file -
-  // @import '~@datorama/app-components/dist/index.css';
-
-  const MyComp = styled.div'
-    // typography
-    $\{({ theme }) => theme.text.smLink};
-    
-    // animations
-    $\{({ theme }) => theme.animation.fadeLeft};
-    
-    // colors
-    color: $\{({ theme }) => theme.p400};
-  ';
+// styled component example
+const MyComp = styled.div'
+  // typography
+  $\{({ theme }) => theme.text.smLink};
+  
+  // animations
+  $\{({ theme }) => theme.animation.fadeLeft};
+  
+  // colors
+  color: $\{({ theme }) => theme.p400};
+';
 `;
 
 const GettingStarted = () => {
@@ -60,13 +69,19 @@ const GettingStarted = () => {
 
       <Row align="stretch">
         <Col>
-          <Snippet snippet={snippet} />
+          <Snippet snippet={snippet} plain language="bash" />
         </Col>
       </Row>
 
       <Row align="stretch">
         <Col>
-          <Snippet snippet={theme} />
+          <Snippet snippet={theme} plain />
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={cssStyle} plain language="css" />
         </Col>
       </Row>
 
@@ -78,19 +93,19 @@ const GettingStarted = () => {
 
       <Row align="stretch">
         <Col>
-          <Snippet snippet={components} />
+          <Snippet snippet={components} plain />
         </Col>
       </Row>
 
       <Row align="stretch">
         <Col>
-          <Title>Styling example</Title>
+          <Title>Styling</Title>
         </Col>
       </Row>
 
       <Row align="stretch">
         <Col>
-          <Snippet snippet={styling} />
+          <Snippet snippet={styling} plain language="javascript" />
         </Col>
       </Row>
     </Base>

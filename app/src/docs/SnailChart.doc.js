@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Base from './Base';
 import { Row, Col, SnailChart, Card } from '../components/index';
 import Snippet from './Snippet';
-import { useTheme } from '../hooks/theme.hooks';
+import { useTheme } from '../components/hooks/theme.hooks';
 
 const snippet = `
 // inside a component

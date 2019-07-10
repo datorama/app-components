@@ -7,16 +7,34 @@ import { Row, Col, hexToRgba, Container } from '../components/index';
 import Snippet from './Snippet';
 
 const auto = `
-import { Container, Row, Col } from '@datorama/app-components';
-
 // auto column size
-const MyComp = () => (
-  <Container>
-    <Row>
-      <Col>...</Col>
-      <Col>...</Col>
-    </Row>
-  </Container>
+() => (
+  <Row>
+        <Col>
+          <Container>
+            <Row>
+              <Col>
+                <Box />
+              </Col>
+              <Col>
+                <Box />
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <Box />
+              </Col>
+              <Col>
+                <Box />
+              </Col>
+              <Col>
+                <Box />
+              </Col>
+            </Row>
+          </Container>
+        </Col>
+      </Row>
 );
 `;
 

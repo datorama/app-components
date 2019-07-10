@@ -7,16 +7,27 @@ import { Row, Col, Tabs } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Tabs } from '@datorama/app-components';
-
-const MyComp = ({ selected, handleSelect, contentRenderer, tabs }) => (
-  <Tabs
-    onSelect={handleSelect}
-    selectedIndex={selected}
-    contentRenderer={contentRenderer}
-    tabs={tabs}
-  />
-);
+() => {
+  const [selected, setSelected] = useState(0);
+  
+  return (
+    <Tabs
+        justify="flex-start"
+        onSelect={setSelected}
+        tabs={[
+          { id: 0, label: 'Explore' },
+          { id: 1, label: 'Filters' },
+          { id: 2, label: 'Summary' }
+        ]}
+        selectedIndex={selected}
+        contentRenderer={tab => (
+          <div style={{ color: theme.p600 }}>
+            Content for tab {tab.label} - {tab.id}
+          </div>
+        )}
+    />
+  );
+};
 `;
 
 const customSnippet = `
@@ -58,25 +69,6 @@ class TabsDoc extends Component {
         <Row align="stretch">
           <Col>
             <Snippet snippet={snippet} />
-          </Col>
-          <Col>
-            <Box>
-              <Tabs
-                justify="flex-start"
-                onSelect={selected => this.setState({ selected })}
-                tabs={[
-                  { id: 0, label: 'Explore' },
-                  { id: 1, label: 'Filters' },
-                  { id: 2, label: 'Summary' }
-                ]}
-                selectedIndex={selected}
-                contentRenderer={tab => (
-                  <Content>
-                    Content for tab {tab.label} - {tab.id}
-                  </Content>
-                )}
-              />
-            </Box>
           </Col>
         </Row>
 

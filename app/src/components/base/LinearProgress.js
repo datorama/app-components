@@ -2,12 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { hexToRgba } from '../utils';
+import { useTheme } from '../hooks/theme.hooks';
 
-const LinearProgress = props => (
-  <Outer className={props.className}>
-    <Inner color={props.color} />
-  </Outer>
-);
+const LinearProgress = props => {
+  const theme = useTheme();
+
+  return (
+    <Outer className={props.className} color={props.color || theme.a300}>
+      <Inner color={props.color || theme.a400} />
+    </Outer>
+  );
+};
 
 LinearProgress.propTypes = {
   className: PropTypes.string,
@@ -20,7 +25,7 @@ const Outer = styled.div`
   position: relative;
   width: 100%;
   height: 2px;
-  background: ${({ theme }) => hexToRgba(theme.a300, 40)};
+  background: ${({ color }) => hexToRgba(color, 40)};
   overflow: hidden;
 `;
 
@@ -30,8 +35,7 @@ const Inner = styled.div`
   top: 0;
   left: 0;
   height: 2px;
-  background: ${({ theme }) =>
-    `linear-gradient(to right, ${theme.a400} , ${theme.a700})`};
+  background: ${({ color }) => color};
   animation: linearProgress 2s infinite ease-in-out;
 
   @keyframes linearProgress {

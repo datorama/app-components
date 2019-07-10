@@ -8,7 +8,7 @@ import Snippet from './Snippet';
 
 const snippet = `
 // using styled-components apply the styles from theme.
-({ theme }) => theme.headline
+({ theme }) => theme.text.headline
 `;
 
 const Typography = () => {
@@ -114,7 +114,7 @@ const Typography = () => {
     <Base title={title} description={description}>
       <Row>
         <Col>
-          <Snippet snippet={snippet} />
+          <Snippet snippet={snippet} plain />
         </Col>
       </Row>
 
