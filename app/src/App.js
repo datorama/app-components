@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash/fp';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import CustomColor from './generators/CustomColor';
+import Highlighter from 'react-highlight-words';
 
 // notifications
 import { lightTheme, darkTheme, TextInput } from './components/index';
@@ -42,14 +43,6 @@ import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
 import SnailChart from './docs/SnailChart.doc';
 
-const highlightText = (term, text) => (
-  <div
-    dangerouslySetInnerHTML={{
-      __html: text.split(term).join(`<span>${term}</span>`)
-    }}
-  />
-);
-
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
 
@@ -83,7 +76,15 @@ const Navigation = ({ list, history, location, onClick }) => {
               highlight={term && type !== 'title'}
             >
               <MenuLine visible={`/${path}` === location.pathname} />
-              {term && type !== 'title' ? highlightText(term, label) : label}
+              {term && type !== 'title' ? (
+                <Highlighter
+                  searchWords={[term]}
+                  autoEscape={true}
+                  textToHighlight={label}
+                />
+              ) : (
+                label
+              )}
             </MenuItem>
           ))}
       </Menu>
@@ -359,14 +360,6 @@ const MenuItem = styled.div`
       pointer-events: none;
       opacity: 0.5;
     `};
-
-  ${({ highlight, theme }) =>
-    highlight &&
-    `
-      span {
-        color: ${theme.a400};
-      }
-  `};
 `;
 
 const MenuLine = styled.div`

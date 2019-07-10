@@ -74,19 +74,19 @@ const round = `
 
 const SnailChartDoc = () => {
   const title = 'Snail Chart';
-  const description = '';
+  const description = 'A multi progress chart.';
 
   return (
     <Base title={title} description={description} name="SnailChart">
       <Row>
         <Col>
-          <Snippet snippet={snippet} />
+          <Snippet snippet={snippet} stretch />
         </Col>
       </Row>
 
       <Row>
         <Col>
-          <Snippet snippet={round} />
+          <Snippet snippet={round} stretch />
         </Col>
       </Row>
     </Base>

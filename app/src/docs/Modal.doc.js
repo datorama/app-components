@@ -21,7 +21,7 @@ const snippet = `
           { label: 'submit', onClick: null }
         ]}
       >
-        modal content
+        <div style={{ color: theme.p600 }}>modal content</div>
       </Modal>
       <Button onClick={toggleOpen}>Toggle Modal</Button>
     </div>

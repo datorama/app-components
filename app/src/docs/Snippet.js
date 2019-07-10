@@ -251,7 +251,9 @@ const Snippet = props => {
       <LiveProvider code={snippet.trim()} scope={scope}>
         <Sections direction={props.direction || 'row'}>
           <Section>
-            <LiveEditor onChange={setSnippet} theme={editorTheme} />
+            <EditorContainer>
+              <LiveEditor onChange={setSnippet} theme={editorTheme} />
+            </EditorContainer>
             <ErrorContainer>
               <LiveError />
             </ErrorContainer>
@@ -360,4 +362,10 @@ const CardInner = styled.div`
 const LayoutLabel = styled.div`
   ${({ theme }) => theme.text.sm};
   margin-bottom: 10px;
+`;
+
+const EditorContainer = styled.div`
+  overflow-y: auto;
+  max-height: 600px;
+  flex: 1;
 `;
