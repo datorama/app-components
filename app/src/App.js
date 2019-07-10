@@ -32,7 +32,7 @@ import TextInputDoc from './docs/TextInput.doc';
 import DragDrop from './docs/DragDrop.doc';
 import Tag from './docs/Tags.doc';
 import Range from './docs/Range.doc';
-import Toast from './docs/Toast.doc';
+import Notifications from './docs/Notifications.doc';
 import Tabs from './docs/Tabs.doc';
 import Tooltip from './docs/Tooltip.doc';
 import Stepper from './docs/Stepper.doc';
@@ -158,7 +158,7 @@ class App extends Component {
       { key: 'carousel', label: 'carousel', path: 'carousel' },
       { key: 'pagination', label: 'pagination', path: 'pagination' },
 
-      { key: 'toasts', label: 'toasts', path: 'toasts' },
+      { key: 'notifications', label: 'notifications', path: 'notifications' },
       { key: 'stepper', label: 'stepper', path: 'stepper' },
       { key: 'tooltip', label: 'tooltip', path: 'tooltip' },
       { key: 'range-input', label: 'range input', path: 'range' },
@@ -234,7 +234,7 @@ class App extends Component {
                 <Route exact path="/text-input" component={TextInputDoc} />
                 <Route exact path="/tag" component={Tag} />
                 <Route exact path="/range" component={Range} />
-                <Route exact path="/toasts" component={Toast} />
+                <Route exact path="/notifications" component={Notifications} />
                 <Route exact path="/tabs" component={Tabs} />
                 <Route exact path="/tooltip" component={Tooltip} />
                 <Route exact path="/stepper" component={Stepper} />
