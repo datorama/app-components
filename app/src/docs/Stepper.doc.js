@@ -1,68 +1,41 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
 // components
 import Base from './Base';
-import { Row, Col, Stepper } from '../components/index';
+import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { Stepper } from '@datorama/app-components';
-
-// step: { id: 0, label: '', touched: false, enabled: true }
-const MyComp = ({ steps, selected, selectStep }) => (
-  <div>
+() => {
+  const [selected, setSelected] = useState(0);
+  
+  return (
     <Stepper
-      steps={steps}
+      steps={[
+        { id: 0, label: 'My brand', enabled: true, touched: true },
+        { id: 1, label: 'Competitors', enabled: true },
+        { id: 2, label: 'Summary', enabled: false }
+      ]}
       currentStep={selected}
-      selectStep={selectStep}
+      selectStep={setSelected}
     />
-  </div>
-);
+  );
+};
 `;
 
-class StepperDoc extends Component {
-  state = {
-    selected: 1
-  };
+const StepperDoc = () => {
+  const title = 'stepper';
+  const description = 'stepper.';
 
-  render() {
-    const title = 'stepper';
-    const description = 'stepper.';
-
-    return (
-      <Base title={title} description={description} name="Stepper">
-        <Row align="stretch">
-          <Col>
-            <Snippet snippet={snippet} />
-          </Col>
-          <Col>
-            <Box>
-              <Stepper
-                steps={[
-                  { id: 0, label: 'My brand', enabled: true, touched: true },
-                  { id: 1, label: 'Competitors', enabled: true },
-                  { id: 2, label: 'Summary', enabled: false }
-                ]}
-                currentStep={this.state.selected}
-                selectStep={selected => this.setState({ selected })}
-              />
-            </Box>
-          </Col>
-        </Row>
-      </Base>
-    );
-  }
-}
+  return (
+    <Base title={title} description={description} name="Stepper">
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={snippet} />
+        </Col>
+      </Row>
+    </Base>
+  );
+};
 
 export default StepperDoc;
-
-const Box = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  justify-content: center;
-  background: ${({ theme }) => theme.p50};
-`;
