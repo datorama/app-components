@@ -295,7 +295,7 @@ const Section = styled.div`
 
 const PreviewSection = styled.div`
   flex: 1;
-  background: ${({ theme }) => hexToRgba(theme.p100, 50)};
+  background: ${({ theme }) => hexToRgba(theme.p100, 20)};
   box-sizing: border-box;
   padding: 20px;
 
