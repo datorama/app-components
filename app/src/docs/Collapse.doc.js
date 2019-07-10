@@ -1,30 +1,66 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
 // components
 import Base from './Base';
 import Snippet from './Snippet';
-import { Row, Col, Collapse, Collapsible, Button } from '../components/index';
+import { Row, Col } from '../components/index';
 import PropTable from './PropTable';
 
 const snippet = `
-import { Collapse } from '@datorama/app-components';
-
-const MyComp = () => (
-  <Collapse label="My label">
-    ...content
-  </Collapse>
-);
+() => {
+  const contentStyles = {
+    fontSize: 12,
+    color: theme.p600,
+    lineHeight: '24px'
+  };
+  
+  return (
+    <div>
+      <Collapse label="collapse label">
+        <div style={contentStyles}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Aliquam aspernatur consectetur culpa eius enim et,
+          facere iure labore magnam necessitatibus
+          nisi quibusdam quisquam quo recusandae reprehenderit
+          ullam veritatis voluptatem voluptatum.
+        </div>
+      </Collapse>
+    
+      <Collapse label="collapse label">
+        <div style={contentStyles}>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Animi cupiditate dolores exercitationem numquam perferendis.
+        </div>
+      </Collapse>
+    </div>
+  );
+};
 `;
 
 const collapsibleSnippet = `
-import { Collapsible } from '@datorama/app-components';
-
-const MyComp = ({ open, toggleOpen ) => (
-  <Collapsible open={open} toggleOpen={toggleOpen}>
-    ...content
-  </Collapsible>
-);
+// utility for collapsible content
+() => {
+  const [open, setOpen] = useState(false);
+  const toggleOpen = useCallback(
+    () => setOpen(!open),
+    [open]
+  );
+  
+  const styles = {
+  	width: '100%',
+  	height: 200,
+  	background: theme.p200
+  };
+	
+  return (
+    <div>
+      <Button onClick={toggleOpen}>Toggle content</Button>
+      <Collapsible open={open} toggleOpen={toggleOpen}>
+        <div style={styles} />
+      </Collapsible>
+    </div>
+  );
+};
 `;
 
 class CollapseDoc extends Component {
@@ -36,42 +72,13 @@ class CollapseDoc extends Component {
 
   render() {
     const title = 'collapse';
-    const description = 'collapse.';
+    const description = 'Collapse component and a collapsible utility.';
 
     return (
       <Base title={title} description={description}>
         <Row align="stretch">
           <Col>
             <Snippet snippet={snippet} />
-          </Col>
-          <Col>
-            <Box>
-              <StyledCollapse label="collapse label">
-                <Demo>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Animi cupiditate dolores exercitationem numquam perferendis
-                  rem. Aliquid aut cupiditate eligendi illo minima molestias
-                  nihil pariatur provident quibusdam reiciendis sequi, similique
-                  veniam vero. Aliquid aut corporis dignissimos doloremque, eum
-                  exercitationem expedita, fugit harum id incidunt laboriosam
-                  magni molestias nam neque obcaecati odio odit officia optio
-                  perferendis quae quaerat quas repellat rerum sequi suscipit
-                  temporibus, vero voluptates. Distinctio dolorum eligendi
-                  molestiae nihil nobis? Aliquam culpa dolor eligendi itaque
-                  omnis? Accusantium amet aperiam architecto at, beatae,
-                  blanditiis deleniti
-                </Demo>
-              </StyledCollapse>
-
-              <StyledCollapse label="collapse label">
-                <Demo>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Animi cupiditate dolores exercitationem numquam perferendis
-                  rem. Aliquid aut cupiditate eligendi illo minima molestias
-                  nihil
-                </Demo>
-              </StyledCollapse>
-            </Box>
           </Col>
         </Row>
 
@@ -84,27 +91,6 @@ class CollapseDoc extends Component {
         <Row align="stretch">
           <Col>
             <Snippet snippet={collapsibleSnippet} />
-          </Col>
-          <Col>
-            <Box>
-              <Button onClick={this.toggleOpen}>Toggle content</Button>
-              <Collapsible open={this.state.open} toggleOpen={this.toggleOpen}>
-                <Row>
-                  <Col>
-                    <SmallBox />
-                  </Col>
-                  <Col>
-                    <SmallBox />
-                  </Col>
-                  <Col>
-                    <SmallBox />
-                  </Col>
-                  <Col>
-                    <SmallBox />
-                  </Col>
-                </Row>
-              </Collapsible>
-            </Box>
           </Col>
         </Row>
 
@@ -119,31 +105,3 @@ class CollapseDoc extends Component {
 }
 
 export default CollapseDoc;
-
-const Box = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  justify-content: center;
-  background: ${({ theme }) => theme.p50};
-  box-sizing: border-box;
-  flex-direction: column;
-  padding: 40px;
-`;
-
-const StyledCollapse = styled(Collapse)`
-  margin-bottom: 5px;
-`;
-
-const Demo = styled.div`
-  ${({ theme }) => theme.text.sm};
-  line-height: 24px;
-`;
-
-const SmallBox = styled.div`
-  width: 100%;
-  height: 20px;
-  background: ${({ theme }) => theme.p200};
-`;
