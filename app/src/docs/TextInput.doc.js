@@ -1,68 +1,46 @@
 import React from 'react';
-import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import { Row, Col, TextInput } from '../components/index';
+import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-import { TextInput } from '@datorama/app-components';
-
-const MyComp = ({ value, onChange }) => (
+() => (
   <div>
-    <TextInput
-      value={value}
-      onChange={onChange}
-      placeholder="placeholder"
-      label="label"
-      required
-    />
+    <TextInput label="Label" placeholder="placeholder" />
   </div>
 );
 `;
 
 const sizesSnippet = `
-import { TextInput } from '@datorama/app-components';
-
-const MyComp = ({ value, onChange }) => (
+() => (
   <div>
-    <TextInput
-      value={value}
-      onChange={onChange}
-      placeholder="placeholder"
-      label="label"
-      required
-      large
-    />
+    <TextInput large label="Label" placeholder="placeholder" required />
   </div>
 );
 `;
 
 const valid = `
-import { TextInput } from '@datorama/app-components';
-
-const MyComp = ({ value, onChange }) => (
+() => (
   <div>
     <TextInput
-      value={value}
-      onChange={onChange}
+      // onChange={onChange}
       placeholder="placeholder"
       label="label"
       valid
+      validMessage="Valid input"
     />
   </div>
 );
 `;
 
 const error = `
-import { TextInput } from '@datorama/app-components';
-
-const MyComp = ({ value, onChange }) => (
+() => (
   <div>
     <TextInput
-      value={value}
-      onChange={onChange}
+      // value={value}
+      // onChange={onChange}
       placeholder="placeholder"
       label="label"
       error
@@ -73,17 +51,12 @@ const MyComp = ({ value, onChange }) => (
 `;
 
 const disabled = `
-import { TextInput } from '@datorama/app-components';
-
-const MyComp = ({ value, onChange }) => (
+() => (
   <div>
     <TextInput
-      value={value}
-      onChange={onChange}
       placeholder="placeholder"
       label="label"
       disabled
-      validMessage="Valid input"
     />
   </div>
 );
@@ -99,21 +72,11 @@ const TextInputDoc = () => {
         <Col>
           <Snippet snippet={snippet} />
         </Col>
-        <Col>
-          <Box>
-            <TextInput label="Label" placeholder="placeholder" required />
-          </Box>
-        </Col>
       </Row>
 
       <Row align="stretch">
         <Col>
           <Snippet snippet={sizesSnippet} />
-        </Col>
-        <Col>
-          <Box>
-            <TextInput large label="Label" placeholder="placeholder" required />
-          </Box>
         </Col>
       </Row>
 
@@ -121,27 +84,11 @@ const TextInputDoc = () => {
         <Col>
           <Snippet snippet={disabled} />
         </Col>
-        <Col>
-          <Box>
-            <TextInput label="Label" placeholder="placeholder" disabled />
-          </Box>
-        </Col>
       </Row>
 
       <Row align="stretch">
         <Col>
           <Snippet snippet={valid} />
-        </Col>
-        <Col>
-          <Box>
-            <TextInput
-              label="Label"
-              placeholder="placeholder"
-              required
-              valid
-              validMessage="Valid input"
-            />
-          </Box>
         </Col>
       </Row>
 
@@ -149,30 +96,9 @@ const TextInputDoc = () => {
         <Col>
           <Snippet snippet={error} />
         </Col>
-        <Col>
-          <Box>
-            <TextInput
-              label="Label"
-              placeholder="placeholder"
-              required
-              error
-              errorMessage="Not authorized"
-            />
-          </Box>
-        </Col>
       </Row>
     </Base>
   );
 };
 
 export default TextInputDoc;
-
-const Box = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  border-radius: 4px;
-  justify-content: center;
-  background: ${({ theme }) => theme.p50};
-`;

@@ -1,23 +1,24 @@
 import React from 'react';
-import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import { Row, Col, Card } from '../components/index';
+import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 
 const snippet = `
-// inside a component
-import { Card } from '@datorama/app-components';
-
-const MyComp = () => (<Card>...</Card>);
+() => (
+  <Card>
+    <CardInner />
+  </Card>
+);
 `;
 
 const clickable = `
-// inside a component
-import { Card } from '@datorama/app-components';
-
-const MyComp = () => (<Card clickable onClick={handleClick}>...</Card>);
+() => (
+  <Card clickable onClick={() => null}>
+      <CardInner />
+  </Card>
+);
 `;
 
 const CardDoc = () => {
@@ -29,23 +30,13 @@ const CardDoc = () => {
     <Base title={title} description={description} name="Card">
       <Row>
         <Col>
-          <Snippet snippet={snippet} />
-        </Col>
-        <Col>
-          <Card>
-            <Inner>sample card content</Inner>
-          </Card>
+          <Snippet snippet={snippet} stretch />
         </Col>
       </Row>
 
       <Row>
         <Col>
-          <Snippet snippet={clickable} />
-        </Col>
-        <Col>
-          <Card clickable>
-            <Inner>clickable card</Inner>
-          </Card>
+          <Snippet snippet={clickable} stretch />
         </Col>
       </Row>
     </Base>
@@ -53,13 +44,3 @@ const CardDoc = () => {
 };
 
 export default CardDoc;
-
-const Inner = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 53px;
-  background: ${({ theme }) => theme.p100};
-  ${({ theme }) => theme.text.p};
-`;

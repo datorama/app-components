@@ -6,6 +6,7 @@ import { find, keys, getOr, get } from 'lodash/fp';
 const PropTable = ({ compKey }) => {
   const data = find(({ displayName }) => displayName === compKey, meta);
   const { props } = data;
+
   return (
     <Container>
       <Row>
@@ -38,7 +39,7 @@ const PropTable = ({ compKey }) => {
 export default PropTable;
 
 const Container = styled.div`
-  width: 100%;
+  width: calc(100% - 10px);
   display: flex;
   flex-direction: column;
 `;

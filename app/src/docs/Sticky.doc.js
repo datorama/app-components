@@ -1,76 +1,47 @@
-import React, { Component } from 'react';
-import styled, { withTheme } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import { Row, Col, Sticky } from '../components/index';
+import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
-import PropTable from './PropTable';
 
 const snippet = `
-import { Sticky } from '@datorama/app-components';
-
-const MyComp = () => (
-  <Sticky>
-    ...content
-  </Sticky>
-);
-`;
-
-class StickyDoc extends Component {
-  state = {
-    fixed: false
+() => {
+  const [fixed, setFixed] = useState(false);
+  const styles = {
+    width: 400,
+    height: 40,
+    borderRadius: 4,
+    background: fixed ? theme.a400 : theme.p200
   };
-
-  render() {
-    const title = 'fixed bar';
-    const description = 'relative - fixed bar';
-    const { fixed } = this.state;
-
-    return (
-      <Base title={title} description={description}>
-        <Row align="stretch">
-          <Col>
-            <Snippet snippet={snippet} />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col>
-            <PropTable compKey="Sticky" />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col>
-            <StyledSticky
-              fixed={fixed}
-              onChange={({ fixed }) => this.setState({ fixed })}
-            >
-              Sticky bar
-            </StyledSticky>
-          </Col>
-        </Row>
-        <Spacer />
-      </Base>
-    );
-  }
-}
-
-export default withTheme(StickyDoc);
-
-const StyledSticky = styled(Sticky)`
-  width: 500px;
-  height: 50px;
-  background: ${({ theme }) => theme.p0};
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 0 20px;
-  ${({ theme }) => theme.text.sm};
+  
+  return (
+    <Sticky onChange={res => setFixed(res.fixed)}>
+      <div style={styles} />
+    </Sticky>
+  );
+};
 `;
+
+const StickyDoc = () => {
+  const title = 'Sticky';
+  const description =
+    'A sticky component. Behaves just like position - sticky.';
+
+  return (
+    <Base title={title} description={description} name="Sticky">
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={snippet} direction="column" />
+        </Col>
+      </Row>
+      <Spacer />
+    </Base>
+  );
+};
+
+export default StickyDoc;
 
 const Spacer = styled.div`
   width: 100%;

@@ -1,35 +1,27 @@
 import React from 'react';
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import Button from './Button';
 import GeneralError from '../icons/GeneralError.icon';
 import PropTypes from 'prop-types';
 
 const ErrorPage = props => (
-    <Container fixed={props.fixed} className={props.className}>
-        <StyledGeneralError />
-        <Title>
-            { props.title }
-        </Title>
-        <Subtitle>
-            { props.subtitle }
-        </Subtitle>
-        {
-            props.onClick && (
-                <Button onClick={props.onClick}>
-                    { props.buttonLabel }
-                </Button>
-            )
-        }
-    </Container>
+  <Container fixed={props.fixed} className={props.className}>
+    <StyledGeneralError />
+    <Title>{props.title}</Title>
+    <Subtitle>{props.subtitle}</Subtitle>
+    {props.onClick && (
+      <Button onClick={props.onClick}>{props.buttonLabel}</Button>
+    )}
+  </Container>
 );
 
 ErrorPage.propTypes = {
-    title:  PropTypes.string,
-    subtitle: PropTypes.string,
-    buttonLabel: PropTypes.string,
-    onClick: PropTypes.func,
-    className: PropTypes.string,
-    fixed: PropTypes.bool
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  buttonLabel: PropTypes.string,
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  fixed: PropTypes.bool
 };
 
 ErrorPage.defaultProps = {
@@ -41,20 +33,24 @@ export default ErrorPage;
 const Container = styled.div`
   background: ${({ theme }) => theme.p0};
   width: 100%;
-  height: 100%; 
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
-  ${({ fixed }) => fixed && css`
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;  
-  `};
+  box-sizing: border-box;
+  padding: 40px;
+
+  ${({ fixed }) =>
+    fixed &&
+    css`
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+    `};
 `;
 
 const StyledGeneralError = styled(GeneralError)`

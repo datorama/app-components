@@ -20,13 +20,9 @@ import Snippet from './Snippet';
 
 const snippet = `
 // inside a component
-import { withTheme } from 'styled-components';
-
 const MyComp = ({ theme }) => (
   <Button color={theme.a600}>click here</Button>
 );
-
-export default withTheme(MyComp);
 
 // using styled-components
 ({ theme }) => theme.p300
@@ -51,7 +47,7 @@ const Colors = () => {
     >
       <Row>
         <Col>
-          <Snippet snippet={snippet} />
+          <Snippet snippet={snippet} plain />
         </Col>
       </Row>
 

@@ -55,7 +55,7 @@ const Sections = styled.div`
 const Section = styled.div`
   height: ${({ theme }) => theme.size.LARGE};
   padding: 0 14px;
-  background: ${({ theme }) => hexToRgba(theme.p300, 15 / 100)};
+  background: ${({ theme }) => hexToRgba(theme.p300, 10)};
   color: ${({ theme }) => theme.p400};
 
   ${({ theme }) => theme.text.pLink};

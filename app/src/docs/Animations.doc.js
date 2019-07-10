@@ -52,7 +52,7 @@ const AnimationsDoc = () => {
     <Base title={title} description={description}>
       <Row>
         <Col>
-          <Snippet snippet={snippet} />
+          <Snippet snippet={snippet} plain />
         </Col>
       </Row>
 

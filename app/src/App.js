@@ -1,16 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import styled, {
-  css,
-  ThemeProvider,
-  createGlobalStyle
-} from 'styled-components';
+import React, { Component, Fragment, useState } from 'react';
+import styled, { css, ThemeProvider } from 'styled-components';
 import { isEmpty } from 'lodash/fp';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import CustomColor from './generators/CustomColor';
+import Highlighter from 'react-highlight-words';
 
 // notifications
-import { lightTheme, darkTheme } from './components/index';
+import { lightTheme, darkTheme, TextInput } from './components/index';
 import { NotificationsProvider } from './components/base/Notifications';
 
 // docs
@@ -32,11 +29,11 @@ import Progress from './docs/Progress.docs';
 import Carousel from './docs/Carousel.doc';
 import Spinner from './docs/Spinner.doc';
 import Pagination from './docs/Pagination.doc';
-import TextInput from './docs/TextInput.doc';
+import TextInputDoc from './docs/TextInput.doc';
 import DragDrop from './docs/DragDrop.doc';
 import Tag from './docs/Tags.doc';
 import Range from './docs/Range.doc';
-import Toast from './docs/Toast.doc';
+import Notifications from './docs/Notifications.doc';
 import Tabs from './docs/Tabs.doc';
 import Tooltip from './docs/Tooltip.doc';
 import Stepper from './docs/Stepper.doc';
@@ -46,37 +43,60 @@ import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
 import SnailChart from './docs/SnailChart.doc';
 
-const Navigation = ({ list, history, location, onClick }) => (
-  <Fragment>
-    <Header>
-      <Title onClick={() => history.push('/')}>Apps design system</Title>
-      <Version>0.8.0</Version>
-    </Header>
-    <Menu>
-      {list.map(({ key, label, type, path }) => (
-        <MenuItem
-          key={key}
-          type={type}
-          onClick={() => {
-            history.push(`/${path}`);
-            onClick();
-          }}
-          selected={`/${path}` === location.pathname}
-          disabled={!path}
-        >
-          <MenuLine visible={`/${path}` === location.pathname} />
-          {label}
-        </MenuItem>
-      ))}
-    </Menu>
-  </Fragment>
-);
+const Navigation = ({ list, history, location, onClick }) => {
+  const [term, setTerm] = useState('');
+
+  return (
+    <Fragment>
+      <Header>
+        <Title onClick={() => history.push('/')}>Apps design system</Title>
+        <Version>0.8.1</Version>
+        <StyledTextInput
+          placeholder="search..."
+          onChange={e => setTerm(e.target.value)}
+        />
+      </Header>
+
+      <Menu>
+        {list
+          .filter(
+            ({ label, type }) =>
+              label.toLowerCase().includes(term) || type === 'title'
+          )
+          .map(({ key, label, type, path }) => (
+            <MenuItem
+              key={key}
+              type={type}
+              onClick={() => {
+                history.push(`/${path}`);
+                onClick();
+              }}
+              selected={`/${path}` === location.pathname}
+              disabled={!path}
+              highlight={term && type !== 'title'}
+            >
+              <MenuLine visible={`/${path}` === location.pathname} />
+              {term && type !== 'title' ? (
+                <Highlighter
+                  searchWords={[term]}
+                  autoEscape={true}
+                  textToHighlight={label}
+                />
+              ) : (
+                label
+              )}
+            </MenuItem>
+          ))}
+      </Menu>
+    </Fragment>
+  );
+};
 
 const ConnectedNavigation = withRouter(Navigation);
 
 class App extends Component {
   state = {
-    light: true,
+    light: false,
     colorsOpen: false,
     customTheme: {}
   };
@@ -128,7 +148,6 @@ class App extends Component {
         label: 'getting started',
         path: 'getting-started'
       },
-      { key: 'guidelines', label: 'app guidelines' },
 
       { key: 'style', label: 'style', type: 'title' },
       { key: 'colors', label: 'colors', path: 'colors' },
@@ -149,7 +168,7 @@ class App extends Component {
       { key: 'carousel', label: 'carousel', path: 'carousel' },
       { key: 'pagination', label: 'pagination', path: 'pagination' },
 
-      { key: 'toasts', label: 'toasts', path: 'toasts' },
+      { key: 'notifications', label: 'notifications', path: 'notifications' },
       { key: 'stepper', label: 'stepper', path: 'stepper' },
       { key: 'tooltip', label: 'tooltip', path: 'tooltip' },
       { key: 'range-input', label: 'range input', path: 'range' },
@@ -182,8 +201,6 @@ class App extends Component {
               updateTheme={this.updateTheme}
             />
             <Container>
-              <GlobalStyle light={light} />
-
               <Sidebar light={light}>
                 <ConnectedNavigation list={list} onClick={this.afterNavigate} />
               </Sidebar>
@@ -224,10 +241,10 @@ class App extends Component {
                 <Route exact path="/carousel" component={Carousel} />
                 <Route exact path="/spinner" component={Spinner} />
                 <Route exact path="/pagination" component={Pagination} />
-                <Route exact path="/text-input" component={TextInput} />
+                <Route exact path="/text-input" component={TextInputDoc} />
                 <Route exact path="/tag" component={Tag} />
                 <Route exact path="/range" component={Range} />
-                <Route exact path="/toasts" component={Toast} />
+                <Route exact path="/notifications" component={Notifications} />
                 <Route exact path="/tabs" component={Tabs} />
                 <Route exact path="/tooltip" component={Tooltip} />
                 <Route exact path="/stepper" component={Stepper} />
@@ -315,7 +332,6 @@ const MenuItem = styled.div`
   font-weight: 400;
   color: ${({ theme }) => theme.p300};
   margin: 5px 0;
-  text-transform: capitalize;
   cursor: pointer;
 
   ${({ type }) =>
@@ -405,33 +421,6 @@ const ContrastIcon = styled.div`
   background-size: contain;
 `;
 
-const GlobalStyle = createGlobalStyle`
-	pre {
-		margin: 0 !important;
-		width: 100%;
-		height: 100%;
-	}
-	
-	code {
-	  height: 100%;
-	}
-
-	.hljs {
-		background: ${({ theme }) => theme.p50} !important;
-		border-radius: 4px;
-		box-sizing: border-box;
-		padding: 20px !important;
-	}
-
-	@import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.5/styles/atom-one-light.min.css');
-	
-	${({ light }) =>
-    !light &&
-    css`
-      @import url('https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.5/styles/atom-one-dark.min.css');
-    `};
-`;
-
 const ColorsButton = styled(ThemeButton)`
   right: 70px;
 `;
@@ -440,4 +429,9 @@ const Version = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.p300};
   font-weight: 600;
+`;
+
+const StyledTextInput = styled(TextInput)`
+  margin-top: 10px;
+  width: 100%;
 `;
