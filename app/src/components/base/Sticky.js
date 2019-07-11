@@ -17,6 +17,10 @@ class Sticky extends Component {
     window.addEventListener('scroll', this.handleScroll);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
   handleScroll = () => {
     if (this.el) {
       const { top } = this.el.getBoundingClientRect();
