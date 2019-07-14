@@ -1,3 +1,7 @@
+import { map } from 'lodash/fp';
+
+export const mapWithKeys = map.convert({ cap: false });
+
 export const hexToRgba = (hex, opacity) => {
   if (typeof hex !== 'string') {
     return hex;

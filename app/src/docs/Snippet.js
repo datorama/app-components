@@ -248,7 +248,11 @@ const Snippet = props => {
 
   return (
     <Relative>
-      <LiveProvider code={snippet.trim()} scope={scope}>
+      <LiveProvider
+        code={snippet.trim()}
+        scope={scope}
+        noInline={props.noInline}
+      >
         <Sections direction={props.direction || 'row'}>
           <Section>
             <EditorContainer>

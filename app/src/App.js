@@ -42,6 +42,7 @@ import Widget from './docs/Widget.doc';
 import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
 import SnailChart from './docs/SnailChart.doc';
+import Table from './docs/Table.doc';
 
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
@@ -166,6 +167,7 @@ class App extends Component {
       { key: 'tag', label: 'Tag', path: 'tag' },
       { key: 'select', label: 'Select', path: 'select' },
       { key: 'carousel', label: 'Carousel', path: 'carousel' },
+      { key: 'table', label: 'Table', path: 'table' },
       { key: 'pagination', label: 'Pagination', path: 'pagination' },
 
       { key: 'notifications', label: 'Notifications', path: 'notifications' },
@@ -240,6 +242,7 @@ class App extends Component {
                 <Route exact path="/progress" component={Progress} />
                 <Route exact path="/carousel" component={Carousel} />
                 <Route exact path="/spinner" component={Spinner} />
+                <Route exact path="/table" component={Table} />
                 <Route exact path="/pagination" component={Pagination} />
                 <Route exact path="/text-input" component={TextInputDoc} />
                 <Route exact path="/tag" component={Tag} />
