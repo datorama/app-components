@@ -26,6 +26,7 @@ const Table = ({ config, rowsData, className }) => {
               <Column
                 key={index}
                 justifyContent={columnDef.justifyContent}
+                width={columnDef.width}
                 className="table-column table-head-column"
               >
                 {content}
@@ -52,8 +53,10 @@ const Table = ({ config, rowsData, className }) => {
 
                 return (
                   <Column
-                    className="table-column table-body-column"
                     key={`${rowIndex}_${columnIndex}`}
+                    width={column.width}
+                    justifyContent={column.justifyContent}
+                    className="table-column table-body-column"
                   >
                     {content}
                   </Column>
@@ -82,25 +85,41 @@ const Row = styled.div`
   justify-content: space-between;
   align-items: center;
   flex: 1;
-  padding: 1em;
+  padding: 1em 0;
 `;
 
 const Column = styled.div`
   display: flex;
-  flex: 1;
+  padding: 0 1em;
   ${({ justifyContent }) =>
     justifyContent &&
     css`
       justify-content: ${justifyContent};
     `}
+
+  ${({ width }) => {
+    if (width) {
+      return css`
+        width: ${width};
+      `;
+    }
+    return css`
+      flex: 1;
+    `;
+  }}
 `;
 
 const TableHead = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${({ theme }) => theme.text.pBold};
+  ${({ theme }) => theme.text.pNote};
+  font-weight: 600;
   border-bottom: 1px solid ${({ theme }) => theme.p100};
+  
+  ${Column} + ${Column} {
+    border-left: 1px solid;
+  }
 `;
 
 const TableBody = styled.div`
@@ -108,8 +127,13 @@ const TableBody = styled.div`
   flex-direction: column;
   ${({ theme }) => theme.text.p};
 
-  ${Row}:nth-child(odd) {
-    background: ${({ theme }) => theme.a100};
+  ${Row} {
+    &:nth-child(odd) {
+      background-color: ${({ theme }) => theme.p50};
+    }
+    &:hover {
+      background-color: ${({ theme }) => theme.a300};
+    }
   }
 `;
 

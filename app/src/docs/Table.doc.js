@@ -32,7 +32,7 @@ const config = {
 const rowsData = [
   {
     id: 1,
-    name: 'Facebook'
+    name: 'Facebook',
   },
   {
     id: 2,
@@ -54,7 +54,7 @@ const TableDoc = () => {
   const description = 'Table component';
 
   return (
-    <Base title={title} description={description} name="Sticky">
+    <Base title={title} description={description} name="Table">
       <Row align="stretch">
         <Col>
           <Snippet snippet={snippet} direction="column" noInline={true} />

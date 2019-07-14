@@ -7,7 +7,7 @@ const componentFolder = './src/components/base';
 const excludes = [
   'Select.common.js',
   'select.utils',
-  'table.types',
+  'table.types.js',
   'notifications.styles.js',
   'notifications.utils.js',
   'date.utils'

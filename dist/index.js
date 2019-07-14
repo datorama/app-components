@@ -1399,7 +1399,7 @@
   ${({theme:e})=>e.text.sm};
   color: ${({theme:e,valid:t})=>t?e.g400:e.r400};
   margin-top: 5px;
-`,Fr=Object(X.shape)({stickyHeader:X.bool,rowClick:X.func}),Ir=Object(X.shape)({title:X.string,field:X.string,width:X.string,cellRenderer:X.func,headerCellRenderer:X.func,valueGetter:X.func,headerValueGetter:X.func}),Wr=Object(X.shape)({options:Fr,columnDefs:Object(X.arrayOf)(Ir)}),Br=({config:e,rowsData:t,className:n})=>{const{columnDefs:r}=e;return o.a.createElement(qr,{className:`table-container ${n}`},o.a.createElement(Vr,{className:"table-head"},o.a.createElement(Ur,{className:"table-row table-head-row"},r.map((e,t)=>{let n=null;return n=e.headerCellRenderer?e.headerCellRenderer(e):e.headerValueGetter?e.headerValueGetter(e):e.title,o.a.createElement(Hr,{key:t,justifyContent:e.justifyContent,className:"table-column table-head-column"},n)}))),o.a.createElement(Zr,{className:"table-body"},G((e,t)=>o.a.createElement(Ur,{className:"table-row table-body-row",key:t},r.map((n,r)=>{let a=null;return a=n.cellRenderer?n.cellRenderer(e):n.valueGetter?n.valueGetter(e,n):e[n.field],o.a.createElement(Hr,{className:"table-column table-body-column",key:`${t}_${r}`},a)})),t)))};Br.propTypes={config:Wr.isRequired,rowsData:Q.a.oneOfType([Q.a.array,Q.a.object]).isRequired};const qr=l.a.div`
+`,Fr=Object(X.shape)({stickyHeader:X.bool,rowClick:X.func}),Ir=Object(X.shape)({title:X.string,field:X.string,width:X.string,cellRenderer:X.func,headerCellRenderer:X.func,valueGetter:X.func,headerValueGetter:X.func}),Wr=Object(X.shape)({options:Fr,columnDefs:Object(X.arrayOf)(Ir)}),Br=({config:e,rowsData:t,className:n})=>{const{columnDefs:r}=e;return o.a.createElement(qr,{className:`table-container ${n}`},o.a.createElement(Vr,{className:"table-head"},o.a.createElement(Ur,{className:"table-row table-head-row"},r.map((e,t)=>{let n=null;return n=e.headerCellRenderer?e.headerCellRenderer(e):e.headerValueGetter?e.headerValueGetter(e):e.title,o.a.createElement(Hr,{key:t,justifyContent:e.justifyContent,width:e.width,className:"table-column table-head-column"},n)}))),o.a.createElement(Zr,{className:"table-body"},G((e,t)=>o.a.createElement(Ur,{className:"table-row table-body-row",key:t},r.map((n,r)=>{let a=null;return a=n.cellRenderer?n.cellRenderer(e):n.valueGetter?n.valueGetter(e,n):e[n.field],o.a.createElement(Hr,{key:`${t}_${r}`,width:n.width,justifyContent:n.justifyContent,className:"table-column table-body-column"},a)})),t)))};Br.propTypes={config:Wr.isRequired,rowsData:Q.a.oneOfType([Q.a.array,Q.a.object]).isRequired};const qr=l.a.div`
   display: flex;
   flex-direction: column;
 `,Ur=l.a.div`
@@ -1407,26 +1407,42 @@
   justify-content: space-between;
   align-items: center;
   flex: 1;
-  padding: 1em;
+  padding: 1em 0;
 `,Hr=l.a.div`
   display: flex;
-  flex: 1;
+  padding: 0 1em;
   ${({justifyContent:e})=>e&&s.css`
       justify-content: ${e};
+    `}
+
+  ${({width:e})=>e?s.css`
+        width: ${e};
+      `:s.css`
+      flex: 1;
     `}
 `,Vr=l.a.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  ${({theme:e})=>e.text.pBold};
+  ${({theme:e})=>e.text.pNote};
+  font-weight: 600;
   border-bottom: 1px solid ${({theme:e})=>e.p100};
+  
+  ${Hr} + ${Hr} {
+    border-left: 1px solid;
+  }
 `,Zr=l.a.div`
   display: flex;
   flex-direction: column;
   ${({theme:e})=>e.text.p};
 
-  ${Ur}:nth-child(odd) {
-    background: ${({theme:e})=>e.a100};
+  ${Ur} {
+    &:nth-child(odd) {
+      background-color: ${({theme:e})=>e.p50};
+    }
+    &:hover {
+      background-color: ${({theme:e})=>e.a300};
+    }
   }
 `;var Gr=Br;var Yr=({className:e})=>o.a.createElement("svg",{width:"24px",height:"24px",viewBox:"0 0 24 24",className:e},o.a.createElement("g",{id:"icons/info-line-yellow",stroke:"none",strokeWidth:"1",fill:"none",fillRule:"evenodd"},o.a.createElement("path",{d:"M12.9200001,13.4932477 C12.9200001,13.9388048 12.5604697,14.3000002 12.1100002,14.3000002 L12.1100002,14.3000002 C11.6626495,14.3000002 11.3000002,13.9344026 11.3000002,13.4932477 L11.3000002,8.30675247 C11.3000002,7.86119538 11.6595307,7.5 12.1100002,7.5 L12.1100002,7.5 C12.5573508,7.5 12.9200001,7.86559754 12.9200001,8.30675247 L12.9200001,13.4932477 Z M12.1100002,16.005 C11.6626496,16.005 11.3000002,16.3676494 11.3000002,16.815 C11.3000002,17.2623507 11.6626496,17.625 12.1100002,17.625 C12.5573509,17.625 12.9200003,17.2623507 12.9200003,16.815 C12.9200003,16.3676494 12.5573509,16.005 12.1100002,16.005 Z",id:"Combined-Shape-Copy",fill:"#FFBE03",transform:"translate(12.110000, 12.562500) scale(1, -1) translate(-12.110000, -12.562500) "}),o.a.createElement("path",{d:"M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C20.9933894,16.967822 16.967822,20.9933894 12,21 Z M12,4.2 C7.69217895,4.2 4.2,7.69217895 4.2,12 C4.2,16.307821 7.69217895,19.8 12,19.8 C16.307821,19.8 19.8,16.307821 19.8,12 C19.793392,7.69491903 16.305081,4.20660796 12,4.2 Z",fill:"#FFBE03"})));var Kr=({className:e})=>o.a.createElement("svg",{width:"24px",height:"24px",viewBox:"0 0 24 24",className:e},o.a.createElement("g",{id:"icons/warning-line-red",stroke:"none",strokeWidth:"1",fill:"none",fillRule:"evenodd"},o.a.createElement("path",{d:"M12.8172415,7.75512919 L12.8172415,13.8310777 C12.8172415,14.2405305 12.4775955,14.5862069 12.0586209,14.5862069 C11.6367252,14.5862069 11.3000002,14.2481241 11.3000002,13.8310777 L11.3000002,7.75512919 C11.3000002,7.34567644 11.6396462,7 12.0586209,7 C12.4805165,7 12.8172415,7.33808286 12.8172415,7.75512919 Z M12.0586209,16.4827587 C12.4775956,16.4827587 12.8172416,16.8224047 12.8172416,17.2413793 C12.8172416,17.660354 12.4775956,18 12.0586209,18 C11.6396463,18 11.3000002,17.660354 11.3000002,17.2413793 C11.3000002,16.8224047 11.6396463,16.4827587 12.0586209,16.4827587 Z",id:"Combined-Shape-Copy",fill:"#DE4B4C"}),o.a.createElement("path",{d:"M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C20.9933894,16.967822 16.967822,20.9933894 12,21 Z M12,4.2 C7.69217895,4.2 4.2,7.69217895 4.2,12 C4.2,16.307821 7.69217895,19.8 12,19.8 C16.307821,19.8 19.8,16.307821 19.8,12 C19.793392,7.69491903 16.305081,4.20660796 12,4.2 Z",id:"Shape",fill:"#DE4B4C"})));var Xr=({className:e})=>o.a.createElement("svg",{width:"24px",height:"24px",viewBox:"0 0 24 24",className:e},o.a.createElement("g",{id:"icons/success-line-green",stroke:"none",strokeWidth:"1",fill:"none",fillRule:"evenodd"},o.a.createElement("path",{d:"M14.9903806,9.19038059 C15.2442214,8.9365398 15.6557786,8.9365398 15.9096194,9.19038059 C16.1634602,9.44422138 16.1634602,9.85577862 15.9096194,10.1096194 L10.7096194,15.3096194 C10.4557786,15.5634602 10.0442214,15.5634602 9.79038059,15.3096194 L7.19038059,12.7096194 C6.9365398,12.4557786 6.9365398,12.0442214 7.19038059,11.7903806 C7.44422138,11.5365398 7.85577862,11.5365398 8.10961941,11.7903806 L10.25,13.9307612 L14.9903806,9.19038059 Z",id:"Path",fill:"#0DB864",fillRule:"nonzero"}),o.a.createElement("path",{d:"M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C20.9933894,16.967822 16.967822,20.9933894 12,21 Z M12,4.2 C7.69217895,4.2 4.2,7.69217895 4.2,12 C4.2,16.307821 7.69217895,19.8 12,19.8 C16.307821,19.8 19.8,16.307821 19.8,12 C19.793392,7.69491903 16.305081,4.20660796 12,4.2 Z",fill:"#0DB864"})));function Qr(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{},r=Object.keys(n);"function"===typeof Object.getOwnPropertySymbols&&(r=r.concat(Object.getOwnPropertySymbols(n).filter(function(e){return Object.getOwnPropertyDescriptor(n,e).enumerable}))),r.forEach(function(t){Jr(e,t,n[t])})}return e}function Jr(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function ea(){return(ea=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var n=arguments[t];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(e[r]=n[r])}return e}).apply(this,arguments)}const ta=o.a.createContext(),na=ta.Consumer,ra=e=>t=>o.a.createElement(na,null,({addToast:n})=>o.a.createElement(e,ea({},t,{addToast:n}))),aa=e=>t=>o.a.createElement(na,null,({addSnackbar:n})=>o.a.createElement(e,ea({},t,{addSnackbar:n})));class ia extends i.Component{constructor(...e){super(...e),Jr(this,"state",{leaving:[],list:[]}),Jr(this,"addSnackbar",e=>this.addToast(Qr({},e,{isSnackbar:!0}))),Jr(this,"addToast",Object(Z.throttle)(200,e=>{const t=Math.random(),n=Qr({},e,{isSnackbar:e.isSnackbar});this.setState({list:[...this.state.list,Qr({id:t},n)]},()=>{setTimeout(()=>{this.clearToast(t)()},e.timeout||5e3)})})),Jr(this,"clearToast",e=>()=>{this.setState({leaving:[e]},()=>{setTimeout(()=>{this.setState({list:this.state.list.filter(t=>t.id!==e)})},500)})}),Jr(this,"icon",e=>{switch(e){case"info":return o.a.createElement(fa,null);case"alert":return o.a.createElement(ha,null);case"success":return o.a.createElement(ga,null);case"warning":return o.a.createElement(ma,null);default:return null}}),Jr(this,"renderToast",({id:e,title:t,subtitle:n,type:r,isSnackbar:a},i)=>{const{leaving:s}=this.state,{className:l}=this.props;return o.a.createElement(ca,{key:`notif-${e}`,top:80*i,leaving:s.includes(e),className:l},o.a.createElement(ba,{onClick:this.clearToast(e)}),this.icon(r),o.a.createElement(ua,null,o.a.createElement(pa,null,t),o.a.createElement(da,null,n)))}),Jr(this,"renderSnackbar",({id:e,title:t,type:n,isSnackbar:r,top:a=0,speed:i=150},s)=>{const{leaving:l}=this.state,{className:c}=this.props;return o.a.createElement(va,{key:`notif-${e}`,top:a+40*s,speed:i,leaving:l.includes(e),className:c},o.a.createElement(ba,{onClick:this.clearToast(e)}),this.icon(n),o.a.createElement(ua,null,o.a.createElement(xa,null,t)))})}render(){const{list:e}=this.state,{children:t}=this.props,n={addToast:this.addToast,addSnackbar:this.addSnackbar};return o.a.createElement(ta.Provider,{value:n},o.a.createElement(i.Fragment,null,e.map((e,t)=>e.isSnackbar?this.renderSnackbar(e,t):this.renderToast(e,t)),t))}}Jr(ia,"propTypes",{timeout:Q.a.number,title:Q.a.string,subtitle:Q.a.string,top:Q.a.number,type:Q.a.oneOf(["info","alert","warning","success"])});var oa=ia;const sa=s.keyframes`
     from {
