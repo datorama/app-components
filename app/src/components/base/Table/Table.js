@@ -156,11 +156,14 @@ export const Row = styled.div`
   align-items: center;
   flex: 1;
   padding: 1em 0;
+  box-sizing: border-box;
 `;
 
 export const Column = styled.div`
   display: flex;
   padding: 0 1em;
+  box-sizing: border-box;
+
   ${({ justifyContent }) =>
     justifyContent &&
     css`
