@@ -9,22 +9,28 @@ import { Table } from '../components/index';
 const snippet = `
 const StyledTable = styled(Table)\`
   width: 100%;
-  height: 500px;
 \`
 
 const config = {
   options: {
-    stickyHeader: false
+    searchable: true,
+    searchByFields: ['name', 'id'],
+    rowClick: row => console.log(row)
   },
   columnDefs: [
     {
       title: 'ID',
-      field: 'id'
+      field: 'id',
+      valueGetter: (row, column) => '#' + row[column.field]
     },
     {
       title: 'Name',
-      field: 'name',
-      width: '200px'
+      field: 'name'
+    },
+    {
+      title: 'Number of Employees',
+      field: 'employees',
+      valueGetter: (row, column) => Number(row[column.field]).toLocaleString()
     }
   ]
 };
@@ -33,15 +39,33 @@ const rowsData = [
   {
     id: 1,
     name: 'Facebook',
+    employees: 200000
   },
   {
     id: 2,
-    name: 'Amazon'
+    name: 'Amazon',
+    employees: 500000
   },
   {
     id: 3,
-    name: 'Google'
-  }
+    name: 'Google',
+    employees: 1000000
+  },
+  {
+    id: 4,
+    name: 'Microsoft',
+    employees: 50000
+  },
+  {
+    id: 5,
+    name: 'Datorama',
+    employees: 400
+  },
+  {
+    id: 6,
+    name: '500tech',
+    employees: 30
+  },
 ];
 
 render (

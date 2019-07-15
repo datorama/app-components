@@ -1,70 +1,140 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import { merge, debounce, filter, get, includes, isEmpty } from 'lodash/fp';
 
 import { tableConfigShape } from './table.types';
 import { mapWithKeys } from '../../utils';
+import TableSearch from './TableSearch';
 
-const Table = ({ config, rowsData, className }) => {
-  const { columnDefs } = config;
+const defaultConfig = {
+  options: {
+    stickyHeader: false,
+    searchable: false,
+    searchByFields: [],
+    rowClick: () => {}
+  }
+};
+
+// TODO: loading, cache conditions
+const Table = ({ config, rowsData = [], className }) => {
+  const [filteredRowsData, setFilteredRowsData] = useState(rowsData);
+
+  const mergedConfig = merge(defaultConfig, config);
+  const { columnDefs, options } = mergedConfig;
+  const {
+    stickyHeader,
+    rowClick,
+    headerRowRenderer,
+    rowRenderer,
+    searchable,
+    searchByFields
+  } = options;
+
+  const onSearch = searchTerm => {
+    const lowerSearchTerm = searchTerm.toLowerCase();
+
+    const result = filter(row => {
+      return searchByFields.some(field => {
+        const fieldValue = get(field, row);
+
+        return includes(lowerSearchTerm, String(fieldValue).toLowerCase());
+      });
+    }, rowsData);
+
+    setFilteredRowsData(result);
+  };
+
+  const debouncedOnChange = debounce(500, onSearch);
+
   return (
     <Container className={`table-container ${className}`}>
-      <TableHead className="table-head">
-        <Row className="table-row table-head-row">
-          {columnDefs.map((columnDef, index) => {
-            let content = null;
+      {searchable && <TableSearch onChange={debouncedOnChange} />}
 
-            if (columnDef.headerCellRenderer) {
-              content = columnDef.headerCellRenderer(columnDef);
-            } else if (columnDef.headerValueGetter) {
-              content = columnDef.headerValueGetter(columnDef);
-            } else {
-              content = columnDef.title;
-            }
+      <TableHead sticky={stickyHeader} className="table-head">
+        {headerRowRenderer ? (
+          headerRowRenderer(columnDefs)
+        ) : (
+          <Row className="table-row table-head-row">
+            {columnDefs.map((columnDef, index) => {
+              const {
+                headerCellRenderer,
+                headerValueGetter,
+                title,
+                justifyContent,
+                width
+              } = columnDef;
 
-            return (
-              <Column
-                key={index}
-                justifyContent={columnDef.justifyContent}
-                width={columnDef.width}
-                className="table-column table-head-column"
-              >
-                {content}
-              </Column>
-            );
-          })}
-        </Row>
+              if (headerCellRenderer) {
+                return headerCellRenderer(columnDef, index);
+              }
+
+              const content = headerValueGetter
+                ? headerValueGetter(columnDef)
+                : title;
+
+              return (
+                <Column
+                  key={index}
+                  justifyContent={justifyContent}
+                  width={width}
+                  className="table-column table-head-column"
+                >
+                  {content}
+                </Column>
+              );
+            })}
+          </Row>
+        )}
       </TableHead>
 
       <TableBody className="table-body">
-        {mapWithKeys((row, rowIndex) => {
-          return (
-            <Row className="table-row table-body-row" key={rowIndex}>
-              {columnDefs.map((column, columnIndex) => {
-                let content = null;
+        {isEmpty(filteredRowsData) ? (
+          <Empty>Oops.. No data to display</Empty>
+        ) : (
+          mapWithKeys((row, rowIndex) => {
+            if (rowRenderer) {
+              return rowRenderer(row, rowIndex);
+            }
 
-                if (column.cellRenderer) {
-                  content = column.cellRenderer(row);
-                } else if (column.valueGetter) {
-                  content = column.valueGetter(row, column);
-                } else {
-                  content = row[column.field];
-                }
+            return (
+              <Row
+                key={rowIndex}
+                onClick={() => rowClick(row)}
+                className="table-row table-body-row"
+              >
+                {columnDefs.map((column, columnIndex) => {
+                  const {
+                    cellRenderer,
+                    valueGetter,
+                    field,
+                    width,
+                    justifyContent
+                  } = column;
 
-                return (
-                  <Column
-                    key={`${rowIndex}_${columnIndex}`}
-                    width={column.width}
-                    justifyContent={column.justifyContent}
-                    className="table-column table-body-column"
-                  >
-                    {content}
-                  </Column>
-                );
-              })}
-            </Row>
-          );
-        }, rowsData)}
+                  if (cellRenderer) {
+                    return cellRenderer({ row, rowIndex, column, columnIndex });
+                  }
+
+                  const content = valueGetter
+                    ? valueGetter(row, column)
+                    : row[field];
+
+                  return (
+                    <Column
+                      key={`${rowIndex}_${columnIndex}`}
+                      width={width}
+                      justifyContent={justifyContent}
+                      className="table-column table-body-column"
+                    >
+                      {content}
+                    </Column>
+                  );
+                })}
+              </Row>
+            );
+          }, filteredRowsData)
+        )}
       </TableBody>
     </Container>
   );
@@ -80,7 +150,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-const Row = styled.div`
+export const Row = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -88,7 +158,7 @@ const Row = styled.div`
   padding: 1em 0;
 `;
 
-const Column = styled.div`
+export const Column = styled.div`
   display: flex;
   padding: 0 1em;
   ${({ justifyContent }) =>
@@ -120,6 +190,13 @@ const TableHead = styled.div`
   ${Column} + ${Column} {
     border-left: 1px solid;
   }
+  
+  ${({ sticky }) =>
+    sticky &&
+    css`
+      position: sticky;
+      top: 0;
+    `};
 `;
 
 const TableBody = styled.div`
@@ -135,6 +212,12 @@ const TableBody = styled.div`
       background-color: ${({ theme }) => theme.a300};
     }
   }
+`;
+
+const Empty = styled.div`
+  padding: 2em 0;
+  text-align: center;
+  ${({ theme }) => theme.text.subHeadline}
 `;
 
 export default Table;

@@ -179,7 +179,6 @@ class App extends Component {
       { key: 'date-picker', label: 'Date Picker', path: 'datepicker' },
       { key: 'widget', label: 'Widget', path: 'widget' },
       { key: 'sticky', label: 'Sticky', path: 'sticky' },
-      { key: 'table', label: 'Table' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
       { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
