@@ -1,12 +1,16 @@
-import { shape, bool, func, string, arrayOf } from 'prop-types';
+import { shape, bool, func, string, arrayOf, number } from 'prop-types';
 
 export const tableOptionsShape = shape({
   rowRenderer: func,
   headerRowRenderer: func,
   stickyHeader: bool,
+  tableHeight: string,
   rowClick: func,
   searchable: bool,
-  searchByFields: arrayOf(string)
+  searchByFields: arrayOf(string),
+  pagination: bool,
+  paginationPageSize: number,
+  paginationMax: number
 });
 
 export const columnDefShape = shape({

@@ -13,6 +13,10 @@ const StyledTable = styled(Table)\`
 
 const config = {
   options: {
+    stickyHeader: true,
+    tableHeight: '300px',
+    pagination: true,
+    paginationPageSize: 5,
     searchable: true,
     searchByFields: ['name', 'id'],
     rowClick: row => console.log(row)
@@ -48,7 +52,7 @@ const config = {
     {
       title: 'Address',
       field: 'address',
-      cellRenderer: ({ row, rowIndex, column, columnIndex }) => <Column>{row[column.field].street}</Column>
+      cellRenderer: ({ row, rowIndex, column, columnIndex }) => <Column key={rowIndex + '_' + columnIndex}>{row[column.field].street}</Column>
     }
   ]
 };
