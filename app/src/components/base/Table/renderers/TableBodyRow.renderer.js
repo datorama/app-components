@@ -11,7 +11,7 @@ const TableBodyRowRenderer = ({
   columnDefs
 }) => {
   if (rowRenderer) {
-    return rowRenderer(row, rowIndex);
+    return rowRenderer(row, rowIndex, columnDefs);
   }
 
   return (

@@ -10,12 +10,31 @@ const StyledTable = styled(Table)\`
   width: 100%;
 \`;
 
+const Avatar = styled.img\`
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+\`;
+
 const config = {
   options: {
+    /* rowRenderer: (row, rowIndex, columnDefs) => (
+      <TableRow key={rowIndex}>
+        {columnDefs.map((column, columnIndex) => (
+          <Column key={rowIndex + '_' + columnIndex}>
+            {column.valueGetter
+              ? column.valueGetter(row, column)
+              : row[column.field]}
+          </Column>
+        ))}
+      </TableRow>
+    ), */
+    // headerRowRenderer: (columnDefs) => // replace the header row, 
     stickyHeader: true,
-    tableHeight: '300px',
+    tableHeight: '400px',
     pagination: true,
     paginationPageSize: 5,
+    paginationMax: 3,
     searchable: true,
     searchByFields: ['name', 'id'],
     rowClick: row => console.log(row),
@@ -26,7 +45,16 @@ const config = {
       title: 'ID',
       field: 'id',
       width: '70px',
-      valueGetter: (row, column) => '#' + row[column.field]
+      justifyContent: 'center',
+      valueGetter: (row, column) => '#' + row[column.field],
+      // headerCellRenderer: (column, columnIndex) => // replace this specific header cell,
+      // headerValueGetter: (column) => // manipulate this specific header cell value,
+    },
+    {
+      title: 'Photo',
+      field: 'photo',
+      width: '80px',
+      cellRenderer: ({ row, rowIndex, column, columnIndex }) => <Column width={column.width} key={rowIndex + '_' + columnIndex}><Avatar src={row[column.field]} /></Column>
     },
     {
       title: 'Name',
@@ -52,7 +80,7 @@ const config = {
     {
       title: 'Address',
       field: 'address',
-      cellRenderer: ({ row, rowIndex, column, columnIndex }) => <Column key={rowIndex + '_' + columnIndex}>{row[column.field].street}</Column>
+      valueGetter: (row, column) => row[column.field].street
     }
   ]
 };
@@ -63,6 +91,7 @@ const rowsData = [
     name: 'Leanne Graham',
     username: 'Bret',
     email: 'Sincere@april.biz',
+    photo: "https://randomuser.me/api/portraits/med/women/32.jpg",
     address: {
       street: 'Kulas Light',
       suite: 'Apt. 556',
@@ -86,6 +115,7 @@ const rowsData = [
     name: 'Ervin Howell',
     username: 'Antonette',
     email: 'Shanna@melissa.tv',
+    photo: "https://randomuser.me/api/portraits/med/men/41.jpg",
     address: {
       street: 'Victor Plains',
       suite: 'Suite 879',
@@ -109,6 +139,7 @@ const rowsData = [
     name: 'Clementine Bauch',
     username: 'Samantha',
     email: 'Nathan@yesenia.net',
+    photo: "https://randomuser.me/api/portraits/med/women/76.jpg",
     address: {
       street: 'Douglas Extension',
       suite: 'Suite 847',
@@ -132,6 +163,7 @@ const rowsData = [
     name: 'Patricia Lebsack',
     username: 'Karianne',
     email: 'Julianne.OConner@kory.org',
+    photo: "https://randomuser.me/api/portraits/med/women/0.jpg",
     address: {
       street: 'Hoeger Mall',
       suite: 'Apt. 692',
@@ -155,6 +187,7 @@ const rowsData = [
     name: 'Chelsey Dietrich',
     username: 'Kamren',
     email: 'Lucio_Hettinger@annie.ca',
+    photo: "https://randomuser.me/api/portraits/med/women/62.jpg",
     address: {
       street: 'Skiles Walks',
       suite: 'Suite 351',
@@ -178,6 +211,7 @@ const rowsData = [
     name: 'Mrs. Dennis Schulist',
     username: 'Leopoldo_Corkery',
     email: 'Karley_Dach@jasper.info',
+    photo: "https://randomuser.me/api/portraits/med/women/63.jpg",
     address: {
       street: 'Norberto Crossing',
       suite: 'Apt. 950',
@@ -201,6 +235,7 @@ const rowsData = [
     name: 'Kurtis Weissnat',
     username: 'Elwyn.Skiles',
     email: 'Telly.Hoeger@billy.biz',
+    photo: "https://randomuser.me/api/portraits/med/men/63.jpg",
     address: {
       street: 'Rex Trail',
       suite: 'Suite 280',
@@ -224,6 +259,7 @@ const rowsData = [
     name: 'Nicholas Runolfsdottir V',
     username: 'Maxime_Nienow',
     email: 'Sherwood@rosamond.me',
+    photo: "https://randomuser.me/api/portraits/med/men/64.jpg",
     address: {
       street: 'Ellsworth Summit',
       suite: 'Suite 729',
@@ -247,6 +283,7 @@ const rowsData = [
     name: 'Glenna Reichert',
     username: 'Delphine',
     email: 'Chaim_McDermott@dana.io',
+    photo: "https://randomuser.me/api/portraits/med/women/66.jpg",
     address: {
       street: 'Dayna Park',
       suite: 'Suite 449',
@@ -270,6 +307,7 @@ const rowsData = [
     name: 'Clementina DuBuque',
     username: 'Moriah.Stanton',
     email: 'Rey.Padberg@karina.biz',
+    photo: "https://randomuser.me/api/portraits/med/women/67.jpg",
     address: {
       street: 'Kattie Turnpike',
       suite: 'Suite 198',

@@ -44,6 +44,7 @@ const Table = ({ config, rowsData = [], className }) => {
     stickyHeader,
     tableHeight,
     rowClick,
+    rowRenderer,
     headerRowRenderer,
     emptyRenderer,
     searchable,
@@ -103,6 +104,7 @@ const Table = ({ config, rowsData = [], className }) => {
               (row, rowIndex) => (
                 <TableBodyRowRenderer
                   key={rowIndex}
+                  rowRenderer={rowRenderer}
                   row={row}
                   rowIndex={rowIndex}
                   rowClick={rowClick}
