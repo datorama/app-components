@@ -4,7 +4,6 @@ import React from 'react';
 import Base from './Base';
 import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
-import { Table, Column } from '../components/index';
 
 const snippet = `
 const StyledTable = styled(Table)\`
@@ -19,7 +18,8 @@ const config = {
     paginationPageSize: 5,
     searchable: true,
     searchByFields: ['name', 'id'],
-    rowClick: row => console.log(row)
+    rowClick: row => console.log(row),
+    emptyRenderer: () => <Empty>Custom empty message</Empty>
   },
   columnDefs: [
     {

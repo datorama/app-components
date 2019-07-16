@@ -3,6 +3,7 @@ import { shape, bool, func, string, arrayOf, number } from 'prop-types';
 export const tableOptionsShape = shape({
   rowRenderer: func,
   headerRowRenderer: func,
+  emptyRenderer: func,
   stickyHeader: bool,
   tableHeight: string,
   rowClick: func,

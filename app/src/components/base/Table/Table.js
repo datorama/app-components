@@ -13,8 +13,12 @@ import {
 
 import { tableConfigShape } from './table.types';
 import { mapWithKeys } from '../../utils';
+import { Row, Column } from './Table.common';
 import TableSearch from './TableSearch';
 import Pagination from '../Pagination';
+import TableHeaderRowRenderer from './renderers/TableHeaderRow.renderer';
+import TableBodyRowRenderer from './renderers/TableBodyRow.renderer';
+import TableEmptyRenderer from './renderers/TableEmpty.renderer';
 
 const INITIAL_PAGE_NUMBER = 1;
 const defaultConfig = {
@@ -41,7 +45,7 @@ const Table = ({ config, rowsData = [], className }) => {
     tableHeight,
     rowClick,
     headerRowRenderer,
-    rowRenderer,
+    emptyRenderer,
     searchable,
     searchByFields,
     pagination,
@@ -85,93 +89,28 @@ const Table = ({ config, rowsData = [], className }) => {
 
       <TableContainer height={tableHeight} className="table-container">
         <TableHead sticky={stickyHeader} className="table-head">
-          {headerRowRenderer ? (
-            headerRowRenderer(columnDefs)
-          ) : (
-            <Row className="table-row table-head-row">
-              {columnDefs.map((columnDef, index) => {
-                const {
-                  headerCellRenderer,
-                  headerValueGetter,
-                  title,
-                  justifyContent,
-                  width
-                } = columnDef;
-
-                if (headerCellRenderer) {
-                  return headerCellRenderer(columnDef, index);
-                }
-
-                const content = headerValueGetter
-                  ? headerValueGetter(columnDef)
-                  : title;
-
-                return (
-                  <Column
-                    key={index}
-                    justifyContent={justifyContent}
-                    width={width}
-                    className="table-column table-head-column"
-                  >
-                    {content}
-                  </Column>
-                );
-              })}
-            </Row>
-          )}
+          <TableHeaderRowRenderer
+            headerRowRenderer={headerRowRenderer}
+            columnDefs={columnDefs}
+          />
         </TableHead>
 
         <TableBody className="table-body">
           {isEmpty(displayedRowsData) ? (
-            <Empty className="table-empty">Oops.. No data to display</Empty>
+            <TableEmptyRenderer emptyRenderer={emptyRenderer} />
           ) : (
-            mapWithKeys((row, rowIndex) => {
-              if (rowRenderer) {
-                return rowRenderer(row, rowIndex);
-              }
-
-              return (
-                <Row
+            mapWithKeys(
+              (row, rowIndex) => (
+                <TableBodyRowRenderer
                   key={rowIndex}
-                  onClick={() => rowClick(row)}
-                  className="table-row table-body-row"
-                >
-                  {columnDefs.map((column, columnIndex) => {
-                    const {
-                      cellRenderer,
-                      valueGetter,
-                      field,
-                      width,
-                      justifyContent
-                    } = column;
-
-                    if (cellRenderer) {
-                      return cellRenderer({
-                        row,
-                        rowIndex,
-                        column,
-                        columnIndex
-                      });
-                    }
-
-                    const content = valueGetter
-                      ? valueGetter(row, column)
-                      : row[field];
-
-                    return (
-                      <Column
-                        key={`${rowIndex}_${columnIndex}`}
-                        width={width}
-                        justifyContent={justifyContent}
-                        className="table-column table-body-column"
-                      >
-                        {content}
-                      </Column>
-                    );
-                  })}
-                </Row>
-              );
-            }, displayedRowsData)
+                  row={row}
+                  rowIndex={rowIndex}
+                  rowClick={rowClick}
+                  columnDefs={columnDefs}
+                />
+              ),
+              displayedRowsData
+            )
           )}
         </TableBody>
       </TableContainer>
@@ -208,38 +147,6 @@ const TableContainer = styled.div`
     `}
 `;
 
-export const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1;
-  padding: 1em 0;
-  box-sizing: border-box;
-`;
-
-export const Column = styled.div`
-  display: flex;
-  padding: 0 1em;
-  box-sizing: border-box;
-
-  ${({ justifyContent }) =>
-    justifyContent &&
-    css`
-      justify-content: ${justifyContent};
-    `}
-
-  ${({ width }) => {
-    if (width) {
-      return css`
-        width: ${width};
-      `;
-    }
-    return css`
-      flex: 1;
-    `;
-  }}
-`;
-
 const TableHead = styled.div`
   display: flex;
   justify-content: space-between;
@@ -274,12 +181,6 @@ const TableBody = styled.div`
       background-color: ${({ theme }) => theme.a300};
     }
   }
-`;
-
-const Empty = styled.div`
-  padding: 2em 0;
-  text-align: center;
-  ${({ theme }) => theme.text.subHeadline}
 `;
 
 const StyledPagination = styled(Pagination)`

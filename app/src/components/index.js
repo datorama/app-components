@@ -35,7 +35,7 @@ export { default as Tag } from './base/Tag';
 export { default as TagGroup } from './base/TagGroup';
 export { default as TextInput } from './base/TextInput';
 export { default as Table } from './base/Table/Table';
-export { Column } from './base/Table/Table';
+export { Column, Row as TableRow, Empty } from './base/Table/Table.common';
 export {
   withToast,
   withSnackbar,
