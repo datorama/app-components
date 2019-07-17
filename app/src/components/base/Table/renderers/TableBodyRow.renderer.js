@@ -7,7 +7,7 @@ const TableBodyRowRenderer = ({
   rowRenderer,
   row,
   rowIndex,
-  rowClick,
+  onRowClick,
   columnDefs
 }) => {
   const memoizedColumns = useMemo(() => {
@@ -51,7 +51,7 @@ const TableBodyRowRenderer = ({
   return (
     <Row
       key={rowIndex}
-      onClick={() => rowClick(row)}
+      onClick={() => onRowClick(row)}
       className="table-row table-body-row"
     >
       {memoizedColumns}
@@ -63,7 +63,7 @@ TableBodyRowRenderer.propTypes = {
   row: PropTypes.object.isRequired,
   rowIndex: PropTypes.number.isRequired,
   columnDefs: PropTypes.arrayOf(columnDefShape),
-  rowClick: PropTypes.func.isRequired,
+  onRowClick: PropTypes.func.isRequired,
   rowRenderer: PropTypes.func
 };
 

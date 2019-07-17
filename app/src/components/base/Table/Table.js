@@ -30,12 +30,12 @@ const INITIAL_PAGE_NUMBER = 1;
 const defaultConfig = {
   options: {
     pagination: false,
-    paginationPageSize: 3,
-    paginationMax: 3,
+    paginationPageSize: 6,
+    paginationMax: 6,
     stickyHeader: false,
     searchable: false,
-    searchByFields: [],
-    rowClick: () => {}
+    searchFields: [],
+    onRowClick: () => {}
   }
 };
 
@@ -52,13 +52,13 @@ const Table = ({ config, rowsData = [], className }) => {
   const { columnDefs, options } = mergedConfig;
   const {
     stickyHeader,
-    tableHeight,
-    rowClick,
+    height,
+    onRowClick,
     rowRenderer,
     headerRowRenderer,
     emptyRenderer,
     searchable,
-    searchByFields,
+    searchFields,
     pagination,
     paginationPageSize,
     paginationMax
@@ -86,7 +86,7 @@ const Table = ({ config, rowsData = [], className }) => {
       const lowerSearchTerm = searchTerm.toLowerCase();
 
       const result = filter(row => {
-        return searchByFields.some(field => {
+        return searchFields.some(field => {
           const fieldValue = get(field, row);
 
           return includes(lowerSearchTerm, String(fieldValue).toLowerCase());
@@ -107,7 +107,7 @@ const Table = ({ config, rowsData = [], className }) => {
 
       <TableContainer
         ref={tableContainerRef}
-        height={tableHeight}
+        height={height}
         className="table-container"
       >
         <TableHead sticky={stickyHeader} className="table-head">
@@ -128,7 +128,7 @@ const Table = ({ config, rowsData = [], className }) => {
                   rowRenderer={rowRenderer}
                   row={row}
                   rowIndex={rowIndex}
-                  rowClick={rowClick}
+                  onRowClick={onRowClick}
                   columnDefs={columnDefs}
                 />
               ),
