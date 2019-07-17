@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback
+} from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import {
@@ -39,7 +45,10 @@ const Table = ({ config, rowsData = [], className }) => {
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE_NUMBER);
   const tableContainerRef = useRef(null);
 
-  const mergedConfig = defaultsDeep(defaultConfig, config);
+  const mergedConfig = useMemo(() => defaultsDeep(defaultConfig, config), [
+    config
+  ]);
+
   const { columnDefs, options } = mergedConfig;
   const {
     stickyHeader,
@@ -72,27 +81,28 @@ const Table = ({ config, rowsData = [], className }) => {
     }
   }, [currentPage, displayedRowsData]);
 
-  const onSearch = searchTerm => {
-    const lowerSearchTerm = searchTerm.toLowerCase();
+  const onSearch = useCallback(
+    debounce(500, searchTerm => {
+      const lowerSearchTerm = searchTerm.toLowerCase();
 
-    const result = filter(row => {
-      return searchByFields.some(field => {
-        const fieldValue = get(field, row);
+      const result = filter(row => {
+        return searchByFields.some(field => {
+          const fieldValue = get(field, row);
 
-        return includes(lowerSearchTerm, String(fieldValue).toLowerCase());
-      });
-    }, rowsData);
+          return includes(lowerSearchTerm, String(fieldValue).toLowerCase());
+        });
+      }, rowsData);
 
-    setCurrentPage(INITIAL_PAGE_NUMBER);
-    setFilteredRowsData(result);
-  };
-
-  const debouncedOnChange = debounce(500, onSearch);
+      setCurrentPage(INITIAL_PAGE_NUMBER);
+      setFilteredRowsData(result);
+    }),
+    []
+  );
 
   return (
     <Container className={`table-component-container ${className}`}>
       {searchable && (
-        <TableSearch className="table-search" onChange={debouncedOnChange} />
+        <TableSearch className="table-search" onChange={onSearch} />
       )}
 
       <TableContainer

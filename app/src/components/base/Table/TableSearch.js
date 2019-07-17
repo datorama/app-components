@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -8,10 +8,13 @@ import TextInput from '../TextInput';
 const TableSearch = ({ onChange }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const onChangeValue = value => {
-    setSearchTerm(value);
-    onChange(value);
-  };
+  const onChangeValue = useCallback(
+    value => {
+      setSearchTerm(value);
+      onChange(value);
+    },
+    [onChange]
+  );
 
   return (
     <StyledTextInput
