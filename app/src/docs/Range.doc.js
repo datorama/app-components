@@ -8,7 +8,7 @@ import Snippet from './Snippet';
 const snippet = `
 () => (
   <div style={{ width: '100%' }}>
-    <Range min={0} max={100} onChange={console.log} />
+    <Range min={0} max={100} initialValue={50} onChange={console.log} />
   </div>
 );
 `;

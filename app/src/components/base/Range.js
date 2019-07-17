@@ -10,15 +10,20 @@ class Range extends Component {
   static propTypes = {
     min: PropTypes.number,
     max: PropTypes.number,
+    initialValue: PropTypes.number,
     disabled: PropTypes.bool,
     className: PropTypes.string
   };
 
   state = {
-    percentage: 0,
+    percentage: this.props.initialValue
+      ? Math.round(
+          (this.props.initialValue / 100) * (this.props.max - this.props.min)
+        ) + this.props.min
+      : 0,
     lastPercentage: 0,
     dragging: false,
-    value: 0
+    value: this.props.initialValue || 0
   };
 
   handleDrag = ({ translateX }) => {
