@@ -15,16 +15,23 @@ class Range extends Component {
     className: PropTypes.string
   };
 
-  state = {
-    percentage: this.props.initialValue
-      ? Math.round(
-          (this.props.initialValue / 100) * (this.props.max - this.props.min)
-        ) + this.props.min
-      : 0,
-    lastPercentage: 0,
-    dragging: false,
-    value: this.props.initialValue || 0
-  };
+  constructor(props) {
+    super(props);
+
+    const { min, max, initialValue } = this.props;
+
+    const initialPercentage =
+      initialValue !== undefined
+        ? Math.round((initialValue / 100) * (max - min)) + min
+        : 0;
+
+    this.state = {
+      percentage: initialPercentage,
+      lastPercentage: initialPercentage,
+      dragging: false,
+      value: initialValue || 0
+    };
+  }
 
   handleDrag = ({ translateX }) => {
     const { width } = this.el.getBoundingClientRect();
