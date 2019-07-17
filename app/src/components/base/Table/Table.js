@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import {
@@ -37,6 +37,7 @@ const Table = ({ config, rowsData = [], className }) => {
   const [filteredRowsData, setFilteredRowsData] = useState(rowsData);
   const [displayedRowsData, setDisplayedRowsData] = useState(rowsData);
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE_NUMBER);
+  const tableContainerRef = useRef(null);
 
   const mergedConfig = defaultsDeep(defaultConfig, config);
   const { columnDefs, options } = mergedConfig;
@@ -65,6 +66,12 @@ const Table = ({ config, rowsData = [], className }) => {
     setDisplayedRowsData(slice(start, end, filteredRowsData));
   }, [currentPage, filteredRowsData, pagination, paginationPageSize]);
 
+  useEffect(() => {
+    if (tableContainerRef.current) {
+      tableContainerRef.current.scrollTop = 0;
+    }
+  }, [currentPage, displayedRowsData]);
+
   const onSearch = searchTerm => {
     const lowerSearchTerm = searchTerm.toLowerCase();
 
@@ -88,7 +95,11 @@ const Table = ({ config, rowsData = [], className }) => {
         <TableSearch className="table-search" onChange={debouncedOnChange} />
       )}
 
-      <TableContainer height={tableHeight} className="table-container">
+      <TableContainer
+        ref={tableContainerRef}
+        height={tableHeight}
+        className="table-container"
+      >
         <TableHead sticky={stickyHeader} className="table-head">
           <TableHeaderRowRenderer
             headerRowRenderer={headerRowRenderer}
