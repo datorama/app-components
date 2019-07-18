@@ -29,14 +29,14 @@ const describeArc = (x, y, radius, startAngle, endAngle) => {
 };
 
 const SnailChart = ({
-                      theme,
-                      linecap = 'none',
-                      data = [],
-                      dividers = 5,
-                      className,
-                      mouseEnter,
-                      mouseLeave
-                    }) => {
+  theme,
+  linecap = 'none',
+  data = [],
+  dividers = 5,
+  className,
+  mouseEnter,
+  mouseLeave
+}) => {
   // local center
   const center = { x: 250, y: 250 };
   const amount = data.length;
@@ -52,10 +52,10 @@ const SnailChart = ({
   // inner circles
   for (let i = 0; i < amount + 1; i++) {
     elements.push(
-        <Path
-            key={`arc-${i}`}
-            d={describeArc(center.x, center.y, 50 + barWidth * i, 0, 270)}
-        />
+      <Path
+          key={`arc-${i}`}
+          d={describeArc(center.x, center.y, 50 + barWidth * i, 0, 270)}
+      />
     );
   }
 
@@ -63,30 +63,30 @@ const SnailChart = ({
     const item = data[i];
 
     elements.push(
-        <FilledPath
-            linecap={linecap}
-            hoverColor={item.hoverColor || theme.a500}
-            stroke={item.color || theme.a400}
-            circumference={circumference}
-            barWidth={barWidth}
-            key={`arc-fill-${i}`}
-            d={describeArc(
-                center.x,
-                center.y,
-                50 + barWidth * i + barWidth / 2,
-                0,
-                270 * (item.percentage / 100)
-            )}
-            onMouseEnter={elementMouseEnter(item)}
-            onMouseLeave={elementMouseLeave(item)}
-        />,
-        <Label
-            key={`label-${i}`}
-            x={center.x - 30}
-            y={center.y - 50 - i * barWidth - barWidth / 2}
-        >
-          {item.label || 'untitled'}
-        </Label>
+      <FilledPath
+          linecap={linecap}
+          hoverColor={item.hoverColor || theme.a500}
+          stroke={item.color || theme.a400}
+          circumference={circumference}
+          barWidth={barWidth}
+          key={`arc-fill-${i}`}
+          d={describeArc(
+              center.x,
+              center.y,
+              50 + barWidth * i + barWidth / 2,
+              0,
+              270 * (item.percentage / 100)
+          )}
+          onMouseEnter={elementMouseEnter(item)}
+          onMouseLeave={elementMouseLeave(item)}
+      />,
+      <Label
+          key={`label-${i}`}
+          x={center.x - 30}
+          y={center.y - 50 - i * barWidth - barWidth / 2}
+      >
+        {item.label || 'untitled'}
+      </Label>
     );
   }
 
@@ -109,27 +109,27 @@ const SnailChart = ({
     percentage = percentage % 1 > 0 ? percentage.toFixed(1) : percentage;
 
     elements.push(
-        <Path key={`divider-${i}`} d={`M ${x}, ${y} L ${x2}, ${y2}`} />,
-        <Label
-            key={`percentage-label-${i}`}
-            x={x3}
-            y={y3}
-            textAnchor="middle"
-            fontSize={16}
-        >
-          {percentage}
-        </Label>
+      <Path key={`divider-${i}`} d={`M ${x}, ${y} L ${x2}, ${y2}`} />,
+      <Label
+          key={`percentage-label-${i}`}
+          x={x3}
+          y={y3}
+          textAnchor="middle"
+          fontSize={16}
+      >
+        {percentage}
+      </Label>
     );
   }
 
   return (
-      <Container
-          className={className}
-          viewBox={`${center.x - elementsRadius} ${center.y - elementsRadius} ${2 *
-          elementsRadius} ${2 * elementsRadius}`}
-      >
-        {elements}
-      </Container>
+    <Container
+        className={className}
+        viewBox={`${center.x - elementsRadius} ${center.y - elementsRadius} ${2 *
+        elementsRadius} ${2 * elementsRadius}`}
+    >
+      {elements}
+    </Container>
   );
 };
 
@@ -138,12 +138,12 @@ SnailChart.propTypes = {
   linecap: PropTypes.string,
   dividers: PropTypes.number,
   data: PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string,
-        percentage: PropTypes.number,
-        color: PropTypes.string,
-        hoverColor: PropTypes.string
-      })
+    PropTypes.shape({
+      label: PropTypes.string,
+      percentage: PropTypes.number,
+      color: PropTypes.string,
+      hoverColor: PropTypes.string
+    })
   ),
   mouseEnter: PropTypes.func,
   mouseLeave: PropTypes.func
