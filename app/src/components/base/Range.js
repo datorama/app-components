@@ -131,7 +131,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  height: 12px;
+  height: 36px;
   align-items: center;
 
   ${({ disabled }) =>
@@ -157,7 +157,7 @@ const Inner = styled.div.attrs(({ width }) => ({
   position: absolute;
   top: 0;
   left: 0;
-  height: 2px;
+  height: 100%;
   background: ${({ theme }) => theme.a400};
   transition: all 100ms;
 `;
@@ -172,8 +172,9 @@ const Thumb = styled.div.attrs(({ left }) => ({
   background: ${({ theme }) => theme.a400};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: absolute;
-  top: 0;
+  top: 50%;
   left: -6px;
+  margin-top: -6px;
   opacity: 1;
   transition: all 100ms;
 
@@ -198,7 +199,7 @@ const Thumb = styled.div.attrs(({ left }) => ({
 
 const Label = styled.div`
   position: absolute;
-  top: 16px;
+  top: 25px;
   left: ${({ left }) => left};
   display: flex;
   align-items: center;
@@ -221,7 +222,7 @@ const Value = styled.div.attrs(({ left }) => ({
   transform: translateX(-50%);
   position: absolute;
   transition: all 100ms;
-  top: -28px;
+  top: -50%;
   opacity: 0;
 
   &:after {
@@ -241,7 +242,6 @@ const Value = styled.div.attrs(({ left }) => ({
   ${({ visible }) =>
     visible &&
     css`
-      top: -36px;
       opacity: 1;
     `};
 `;

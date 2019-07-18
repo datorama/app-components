@@ -1112,7 +1112,7 @@
   width: 100%;
   display: flex;
   position: relative;
-  height: 12px;
+  height: 36px;
   align-items: center;
 
   ${({disabled:e})=>e&&s.css`
@@ -1129,7 +1129,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 2px;
+  height: 100%;
   background: ${({theme:e})=>e.a400};
   transition: all 100ms;
 `,Jn=l.a.div.attrs(({left:e})=>({style:{left:`calc(${e}% - 6px)`}}))`
@@ -1140,8 +1140,9 @@
   background: ${({theme:e})=>e.a400};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: absolute;
-  top: 0;
+  top: 50%;
   left: -6px;
+  margin-top: -6px;
   opacity: 1;
   transition: all 100ms;
 
@@ -1160,7 +1161,7 @@
   }
 `,er=l.a.div`
   position: absolute;
-  top: 16px;
+  top: 25px;
   left: ${({left:e})=>e};
   display: flex;
   align-items: center;
@@ -1179,7 +1180,7 @@
   transform: translateX(-50%);
   position: absolute;
   transition: all 100ms;
-  top: -28px;
+  top: -50%;
   opacity: 0;
 
   &:after {
@@ -1197,7 +1198,6 @@
   }
 
   ${({visible:e})=>e&&s.css`
-      top: -36px;
       opacity: 1;
     `};
 `,nr=({touched:e,selected:t,enabled:n,hovered:r,className:a})=>o.a.createElement(ar,{touched:e,selected:t,enabled:n,className:a},o.a.createElement(ir,{touched:e,selected:t,enabled:n,hovered:r}));var rr=nr;nr.propTypes={className:K.a.string,touched:K.a.bool,selected:K.a.bool,enabled:K.a.bool,hovered:K.a.bool};const ar=l.a.div`
