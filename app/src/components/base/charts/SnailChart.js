@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled, { withTheme, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -33,7 +33,10 @@ const SnailChart = ({
   linecap = 'none',
   data = [],
   dividers = 5,
-  className
+  className,
+  onMouseEnter,
+  onMouseLeave,
+  onClick
 }) => {
   // local center
   const center = { x: 250, y: 250 };
@@ -41,6 +44,19 @@ const SnailChart = ({
   const barWidth = 30;
   const circumference = Math.ceil(2 * Math.PI * (50 + barWidth * amount));
   const elementsRadius = 50 + amount * barWidth + barWidth + 30;
+
+  const handleMouseEnter = useCallback(
+    item => event => onMouseEnter && onMouseEnter({ event, item }),
+    [onMouseEnter]
+  );
+  const handleMouseLeave = useCallback(
+    item => event => onMouseLeave && onMouseLeave({ event, item }),
+    [onMouseLeave]
+  );
+  const handleClick = useCallback(
+    item => event => onClick && onClick({ event, item }),
+    [onClick]
+  );
 
   const elements = [];
 
@@ -72,6 +88,9 @@ const SnailChart = ({
           0,
           270 * (item.percentage / 100)
         )}
+        onMouseEnter={handleMouseEnter(item)}
+        onMouseLeave={handleMouseLeave(item)}
+        onClick={handleClick(item)}
       />,
       <Label
         key={`label-${i}`}
@@ -110,7 +129,7 @@ const SnailChart = ({
         textAnchor="middle"
         fontSize={16}
       >
-        {percentage}
+        {percentage}%
       </Label>
     );
   }
@@ -137,7 +156,10 @@ SnailChart.propTypes = {
       color: PropTypes.string,
       hoverColor: PropTypes.string
     })
-  )
+  ),
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 export default withTheme(SnailChart);
