@@ -53,8 +53,8 @@ const SnailChart = ({
   for (let i = 0; i < amount + 1; i++) {
     elements.push(
       <Path
-          key={`arc-${i}`}
-          d={describeArc(center.x, center.y, 50 + barWidth * i, 0, 270)}
+        key={`arc-${i}`}
+        d={describeArc(center.x, center.y, 50 + barWidth * i, 0, 270)}
       />
     );
   }
@@ -71,11 +71,11 @@ const SnailChart = ({
         barWidth={barWidth}
         key={`arc-fill-${i}`}
         d={describeArc(
-            center.x,
-            center.y,
-     50 + barWidth * i + barWidth / 2,
-  0,
-   270 * (item.percentage / 100)
+          center.x,
+          center.y,
+          50 + barWidth * i + barWidth / 2,
+          0,
+          270 * (item.percentage / 100)
         )}
         onMouseEnter={elementMouseEnter(item)}
         onMouseLeave={elementMouseLeave(item)}
@@ -125,8 +125,7 @@ const SnailChart = ({
   return (
     <Container
       className={className}
-      viewBox={`${center.x - elementsRadius} ${center.y - elementsRadius} ${2 *
-      elementsRadius} ${2 * elementsRadius}`}
+      viewBox={`${center.x - elementsRadius} ${center.y - elementsRadius} ${2 * elementsRadius} ${2 * elementsRadius}`}
     >
       {elements}
     </Container>
