@@ -12,6 +12,7 @@ class Range extends Component {
     max: PropTypes.number,
     initialValue: PropTypes.number,
     disabled: PropTypes.bool,
+    showValue: PropTypes.bool,
     className: PropTypes.string
   };
 
@@ -64,12 +65,31 @@ class Range extends Component {
       dragging: false
     });
 
+  onClick = e => {
+    const { clientX } = e;
+    const { x, width } = this.el.getBoundingClientRect();
+
+    const percentage = Math.round(((clientX - x) / width) * 100);
+
+    if (percentage !== this.state.value) {
+      this.setState({
+        percentage,
+        lastPercentage: percentage,
+        value: percentage
+      });
+    }
+  };
+
   render() {
     const { percentage, dragging, value } = this.state;
-    const { min, max, disabled, className } = this.props;
+    const { min, max, disabled, showValue, className } = this.props;
 
     return (
-      <Container disabled={disabled} className={className}>
+      <Container
+        disabled={disabled}
+        className={className}
+        onClick={this.onClick}
+      >
         <Outer ref={el => (this.el = el)} className="outer" disabled={disabled}>
           <Inner width={percentage} className="inner" />
         </Outer>
@@ -86,7 +106,11 @@ class Range extends Component {
             disabled={disabled}
           />
         </Draggable>
-        <Value left={percentage} visible={dragging} className="value">
+        <Value
+          left={percentage}
+          visible={showValue || dragging}
+          className="value"
+        >
           {value}
         </Value>
 
@@ -107,7 +131,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  height: 6px;
+  height: 12px;
   align-items: center;
 
   ${({ disabled }) =>
@@ -148,7 +172,7 @@ const Thumb = styled.div.attrs(({ left }) => ({
   background: ${({ theme }) => theme.a400};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: absolute;
-  top: -3px;
+  top: 0;
   left: -6px;
   opacity: 1;
   transition: all 100ms;
@@ -174,7 +198,7 @@ const Thumb = styled.div.attrs(({ left }) => ({
 
 const Label = styled.div`
   position: absolute;
-  top: 10px;
+  top: 16px;
   left: ${({ left }) => left};
   display: flex;
   align-items: center;
@@ -199,6 +223,20 @@ const Value = styled.div.attrs(({ left }) => ({
   transition: all 100ms;
   top: -28px;
   opacity: 0;
+
+  &:after {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -4px;
+    border: solid transparent;
+    border-width: 4px;
+    border-top-color: ${({ theme }) => hexToRgba(theme.p500, 90)};
+    pointer-events: none;
+    content: ' ';
+  }
 
   ${({ visible }) =>
     visible &&
