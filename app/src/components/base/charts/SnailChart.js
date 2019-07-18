@@ -64,26 +64,26 @@ const SnailChart = ({
 
     elements.push(
       <FilledPath
-          linecap={linecap}
-          hoverColor={item.hoverColor || theme.a500}
-          stroke={item.color || theme.a400}
-          circumference={circumference}
-          barWidth={barWidth}
-          key={`arc-fill-${i}`}
-          d={describeArc(
-              center.x,
-              center.y,
-              50 + barWidth * i + barWidth / 2,
-              0,
-              270 * (item.percentage / 100)
-          )}
-          onMouseEnter={elementMouseEnter(item)}
-          onMouseLeave={elementMouseLeave(item)}
+        linecap={linecap}
+        hoverColor={item.hoverColor || theme.a500}
+        stroke={item.color || theme.a400}
+        circumference={circumference}
+        barWidth={barWidth}
+        key={`arc-fill-${i}`}
+        d={describeArc(
+            center.x,
+            center.y,
+     50 + barWidth * i + barWidth / 2,
+  0,
+   270 * (item.percentage / 100)
+        )}
+        onMouseEnter={elementMouseEnter(item)}
+        onMouseLeave={elementMouseLeave(item)}
       />,
       <Label
-          key={`label-${i}`}
-          x={center.x - 30}
-          y={center.y - 50 - i * barWidth - barWidth / 2}
+        key={`label-${i}`}
+        x={center.x - 30}
+        y={center.y - 50 - i * barWidth - barWidth / 2}
       >
         {item.label || 'untitled'}
       </Label>
@@ -111,11 +111,11 @@ const SnailChart = ({
     elements.push(
       <Path key={`divider-${i}`} d={`M ${x}, ${y} L ${x2}, ${y2}`} />,
       <Label
-          key={`percentage-label-${i}`}
-          x={x3}
-          y={y3}
-          textAnchor="middle"
-          fontSize={16}
+        key={`percentage-label-${i}`}
+        x={x3}
+        y={y3}
+        textAnchor="middle"
+        fontSize={16}
       >
         {percentage}
       </Label>
@@ -124,9 +124,9 @@ const SnailChart = ({
 
   return (
     <Container
-        className={className}
-        viewBox={`${center.x - elementsRadius} ${center.y - elementsRadius} ${2 *
-        elementsRadius} ${2 * elementsRadius}`}
+      className={className}
+      viewBox={`${center.x - elementsRadius} ${center.y - elementsRadius} ${2 *
+      elementsRadius} ${2 * elementsRadius}`}
     >
       {elements}
     </Container>
