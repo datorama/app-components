@@ -10,16 +10,29 @@ class Range extends Component {
   static propTypes = {
     min: PropTypes.number,
     max: PropTypes.number,
+    initialValue: PropTypes.number,
     disabled: PropTypes.bool,
+    showValue: PropTypes.bool,
     className: PropTypes.string
   };
 
-  state = {
-    percentage: 0,
-    lastPercentage: 0,
-    dragging: false,
-    value: 0
-  };
+  constructor(props) {
+    super(props);
+
+    const { min, max, initialValue } = this.props;
+
+    const initialPercentage =
+      initialValue !== undefined
+        ? Math.round((initialValue / 100) * (max - min)) + min
+        : 0;
+
+    this.state = {
+      percentage: initialPercentage,
+      lastPercentage: initialPercentage,
+      dragging: false,
+      value: initialValue || 0
+    };
+  }
 
   handleDrag = ({ translateX }) => {
     const { width } = this.el.getBoundingClientRect();
@@ -52,12 +65,31 @@ class Range extends Component {
       dragging: false
     });
 
+  onClick = e => {
+    const { clientX } = e;
+    const { x, width } = this.el.getBoundingClientRect();
+
+    const percentage = Math.round(((clientX - x) / width) * 100);
+
+    if (percentage !== this.state.value) {
+      this.setState({
+        percentage,
+        lastPercentage: percentage,
+        value: percentage
+      });
+    }
+  };
+
   render() {
     const { percentage, dragging, value } = this.state;
-    const { min, max, disabled, className } = this.props;
+    const { min, max, disabled, showValue, className } = this.props;
 
     return (
-      <Container disabled={disabled} className={className}>
+      <Container
+        disabled={disabled}
+        className={className}
+        onClick={this.onClick}
+      >
         <Outer ref={el => (this.el = el)} className="outer" disabled={disabled}>
           <Inner width={percentage} className="inner" />
         </Outer>
@@ -74,7 +106,11 @@ class Range extends Component {
             disabled={disabled}
           />
         </Draggable>
-        <Value left={percentage} visible={dragging} className="value">
+        <Value
+          left={percentage}
+          visible={showValue || dragging}
+          className="value"
+        >
           {value}
         </Value>
 
@@ -95,7 +131,8 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   position: relative;
-  height: 6px;
+  height: 36px;
+  cursor: pointer;
   align-items: center;
 
   ${({ disabled }) =>
@@ -121,7 +158,7 @@ const Inner = styled.div.attrs(({ width }) => ({
   position: absolute;
   top: 0;
   left: 0;
-  height: 2px;
+  height: 100%;
   background: ${({ theme }) => theme.a400};
   transition: all 100ms;
 `;
@@ -136,8 +173,9 @@ const Thumb = styled.div.attrs(({ left }) => ({
   background: ${({ theme }) => theme.a400};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: absolute;
-  top: -3px;
+  top: 50%;
   left: -6px;
+  margin-top: -6px;
   opacity: 1;
   transition: all 100ms;
 
@@ -162,7 +200,7 @@ const Thumb = styled.div.attrs(({ left }) => ({
 
 const Label = styled.div`
   position: absolute;
-  top: 10px;
+  top: 25px;
   left: ${({ left }) => left};
   display: flex;
   align-items: center;
@@ -185,13 +223,26 @@ const Value = styled.div.attrs(({ left }) => ({
   transform: translateX(-50%);
   position: absolute;
   transition: all 100ms;
-  top: -28px;
+  top: -50%;
   opacity: 0;
+
+  &:after {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -4px;
+    border: solid transparent;
+    border-width: 4px;
+    border-top-color: ${({ theme }) => hexToRgba(theme.p500, 90)};
+    pointer-events: none;
+    content: ' ';
+  }
 
   ${({ visible }) =>
     visible &&
     css`
-      top: -36px;
       opacity: 1;
     `};
 `;
