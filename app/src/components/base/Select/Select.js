@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, orderBy, debounce, map, set, get } from 'lodash/fp';
+import { find, orderBy, debounce, map, set, get, forEach } from 'lodash/fp';
 import {
   getOptionByValue,
   getOptionsSize,
@@ -45,7 +45,8 @@ export default class Select extends React.Component {
     small: PropTypes.bool,
     large: PropTypes.bool,
     inlineSearch: PropTypes.bool,
-    maxTags: PropTypes.number
+    maxTags: PropTypes.number,
+    allFlag: PropTypes.bool
   };
 
   state = {
@@ -305,9 +306,15 @@ export default class Select extends React.Component {
       currentHoveredOptionValue: null
     });
 
-  debouncedOnChange = debounce(this.props.debounce, values =>
-    this.props.onChange(values)
-  );
+  debouncedOnChange = debounce(this.props.debounce, values => {
+    const { onChange, allFlag } = this.props;
+
+    if (values.length === this.getTotal() && allFlag) {
+      onChange([], true);
+    } else {
+      onChange(values);
+    }
+  });
 
   applyChanges(values) {
     const { closeOnSelect, multi } = this.props;
@@ -323,6 +330,21 @@ export default class Select extends React.Component {
 
   toggleFocus = () =>
     this.setState(prevState => ({ inputFocused: !prevState.inputFocused }));
+
+  getTotal() {
+    const { options } = this.props;
+
+    let total = 0;
+    forEach(option => {
+      if (option.options) {
+        total += option.options.length;
+      } else {
+        total++;
+      }
+    }, options);
+
+    return total;
+  }
 
   render() {
     const {
@@ -424,7 +446,8 @@ Select.defaultProps = {
   sortDirection: 'asc',
   closeOnSelect: true, // apply only for single select
   debounce: 0,
-  maxTags: 999
+  maxTags: 999,
+  allFlag: false
 };
 
 const Container = styled.div`

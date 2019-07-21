@@ -9,7 +9,7 @@ import Snippet from './Snippet';
 const single = `
 () => {
 const [selected, setSelected] = useState([]);
-const options = [ 
+const options = [
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
   { value: '3', label: 'black' },
@@ -23,7 +23,7 @@ return (
     placeholder="Select colors"
     options={options}
     onChange={setSelected}
-    values={selected} 
+    values={selected}
   />
  );
 }
@@ -32,7 +32,7 @@ return (
 const group = `
 () => {
 const [selected, setSelected] = useState([]);
-const options = [ 
+const options = [
   {
     label: 'Colors',
     options: [
@@ -70,10 +70,67 @@ return (
 }
 `;
 
+const all = `
+() => {
+/*
+* Helper for server side queries - instead of passing
+* all of the options pass [] or * for all values.
+*/
+const [selected, setSelected] = useState([]);
+const options = [
+  {
+    label: 'Colors',
+    options: [
+      { value: '1', label: 'orange' },
+      { value: '2', label: 'purple' },
+      { value: '3', label: 'black' },
+      { value: '4', label: 'green' },
+      { value: '5', label: 'yellow' },
+      { value: '6', label: 'white' }
+    ]
+  },
+  {
+    label: 'Fruits',
+    options: [
+      { value: '7', label: 'apple' },
+      { value: '8', label: 'orange' },
+      { value: '9', label: 'pear' },
+      { value: '10', label: 'melon' }
+    ]
+  }
+];
+
+const handleChange = useCallback((values, isAll) => {
+    if (isAll) {
+      setSelected([
+        ...options[0].options,
+        ...options[1].options,
+      ]);
+    } else {
+      setSelected(values);
+    }
+}, []);
+
+return (
+  <Select
+      placeholder="Select colors / fruits"
+      searchable
+      allFlag
+      inlineSearch
+      multi
+      maxTags={2}
+      options={options}
+      values={selected}
+      onChange={handleChange}
+    />
+  );
+}
+`;
+
 const sizesSnippet = `
 () => {
 const [selected, setSelected] = useState([]);
-const options = [ 
+const options = [
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
   { value: '3', label: 'black' },
@@ -88,7 +145,7 @@ return (
     options={options}
     onChange={setSelected}
     values={selected}
-    large // possible values: small, large (omit for regular) 
+    large // possible values: small, large (omit for regular)
   />
  );
 }
@@ -97,7 +154,7 @@ return (
 const searchable = `
 () => {
 const [selected, setSelected] = useState([]);
-const options = [ 
+const options = [
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
   { value: '3', label: 'black' },
@@ -112,7 +169,7 @@ return (
     options={options}
     onChange={setSelected}
     values={selected}
-    searchable 
+    searchable
   />
  );
 }
@@ -121,7 +178,7 @@ return (
 const inlineSearch = `
 () => {
 const [selected, setSelected] = useState([]);
-const options = [ 
+const options = [
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
   { value: '3', label: 'black' },
@@ -148,7 +205,7 @@ return (
 const multi = `
 () => {
 const [selected, setSelected] = useState([]);
-const options = [ 
+const options = [
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
   { value: '3', label: 'black' },
@@ -173,7 +230,7 @@ return (
 const loading = `
 () => {
 const [selected, setSelected] = useState([]);
-const options = [ 
+const options = [
   { value: '1', label: 'orange' },
   { value: '2', label: 'purple' },
   { value: '3', label: 'black' },
@@ -208,7 +265,7 @@ export default class SelectDoc extends React.Component {
       <Base title={title} description={description} name="Select">
         <Row>
           <Col>
-            <SectionTitle>single select</SectionTitle>
+            <SectionTitle>Single Select</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
@@ -219,7 +276,7 @@ export default class SelectDoc extends React.Component {
 
         <Row>
           <Col>
-            <SectionTitle>Group select</SectionTitle>
+            <SectionTitle>Group Select</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
@@ -230,7 +287,7 @@ export default class SelectDoc extends React.Component {
 
         <Row>
           <Col>
-            <SectionTitle>select sizes</SectionTitle>
+            <SectionTitle>Select Sizes</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
@@ -240,7 +297,7 @@ export default class SelectDoc extends React.Component {
         </Row>
         <Row>
           <Col>
-            <SectionTitle>searchable</SectionTitle>
+            <SectionTitle>Searchable</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
@@ -251,7 +308,7 @@ export default class SelectDoc extends React.Component {
 
         <Row>
           <Col>
-            <SectionTitle>inline search</SectionTitle>
+            <SectionTitle>Inline Search</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
@@ -262,7 +319,7 @@ export default class SelectDoc extends React.Component {
 
         <Row>
           <Col>
-            <SectionTitle>multi select</SectionTitle>
+            <SectionTitle>Multi Select</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
@@ -273,12 +330,23 @@ export default class SelectDoc extends React.Component {
 
         <Row>
           <Col>
-            <SectionTitle>loading</SectionTitle>
+            <SectionTitle>Loading</SectionTitle>
           </Col>
         </Row>
         <Row align="stretch">
           <Col>
             <Snippet snippet={loading} />
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <SectionTitle>All Selected Flag</SectionTitle>
+          </Col>
+        </Row>
+        <Row align="stretch">
+          <Col>
+            <Snippet snippet={all} />
           </Col>
         </Row>
       </Base>
