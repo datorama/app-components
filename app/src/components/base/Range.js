@@ -132,6 +132,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   height: 36px;
+  cursor: pointer;
   align-items: center;
 
   ${({ disabled }) =>

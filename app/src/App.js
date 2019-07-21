@@ -96,7 +96,7 @@ const ConnectedNavigation = withRouter(Navigation);
 
 class App extends Component {
   state = {
-    light: false,
+    light: true,
     colorsOpen: false,
     customTheme: {}
   };
