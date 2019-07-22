@@ -45,8 +45,7 @@ export default class Select extends React.Component {
     small: PropTypes.bool,
     large: PropTypes.bool,
     inlineSearch: PropTypes.bool,
-    maxTags: PropTypes.number,
-    allFlag: PropTypes.bool
+    maxTags: PropTypes.number
   };
 
   state = {
@@ -307,13 +306,10 @@ export default class Select extends React.Component {
     });
 
   debouncedOnChange = debounce(this.props.debounce, values => {
-    const { onChange, allFlag } = this.props;
+    const { onChange } = this.props;
+    const allSelected = values.length === this.getTotal();
 
-    if (values.length === this.getTotal() && allFlag) {
-      onChange([], true);
-    } else {
-      onChange(values);
-    }
+    onChange(values, allSelected);
   });
 
   applyChanges(values) {
@@ -446,8 +442,7 @@ Select.defaultProps = {
   sortDirection: 'asc',
   closeOnSelect: true, // apply only for single select
   debounce: 0,
-  maxTags: 999,
-  allFlag: false
+  maxTags: 999
 };
 
 const Container = styled.div`

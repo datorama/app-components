@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Base from './Base';
 import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
+import Alert from './common/Alert';
 
 const single = `
 () => {
@@ -65,63 +66,6 @@ return (
       options={options}
       values={selected}
       onChange={setSelected}
-    />
-  );
-}
-`;
-
-const all = `
-() => {
-/*
-* Helper for server side queries - instead of passing
-* all of the options pass [] or * for all values.
-*/
-const [selected, setSelected] = useState([]);
-const options = [
-  {
-    label: 'Colors',
-    options: [
-      { value: '1', label: 'orange' },
-      { value: '2', label: 'purple' },
-      { value: '3', label: 'black' },
-      { value: '4', label: 'green' },
-      { value: '5', label: 'yellow' },
-      { value: '6', label: 'white' }
-    ]
-  },
-  {
-    label: 'Fruits',
-    options: [
-      { value: '7', label: 'apple' },
-      { value: '8', label: 'orange' },
-      { value: '9', label: 'pear' },
-      { value: '10', label: 'melon' }
-    ]
-  }
-];
-
-const handleChange = useCallback((values, isAll) => {
-    if (isAll) {
-      setSelected([
-        ...options[0].options,
-        ...options[1].options,
-      ]);
-    } else {
-      setSelected(values);
-    }
-}, []);
-
-return (
-  <Select
-      placeholder="Select colors / fruits"
-      searchable
-      allFlag
-      inlineSearch
-      multi
-      maxTags={2}
-      options={options}
-      values={selected}
-      onChange={handleChange}
     />
   );
 }
@@ -264,6 +208,17 @@ export default class SelectDoc extends React.Component {
     return (
       <Base title={title} description={description} name="Select">
         <Row>
+          <Col size={6}>
+            <Alert>
+              When using the select output for filtering data, don't pass the
+              actual output when selecting all of the options. Instead, pass *
+              or whatever the server is expecting. The onChange prop return 2
+              arguments (values, isAll).
+            </Alert>
+          </Col>
+        </Row>
+
+        <Row>
           <Col>
             <SectionTitle>Single Select</SectionTitle>
           </Col>
@@ -336,17 +291,6 @@ export default class SelectDoc extends React.Component {
         <Row align="stretch">
           <Col>
             <Snippet snippet={loading} />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col>
-            <SectionTitle>All Selected Flag</SectionTitle>
-          </Col>
-        </Row>
-        <Row align="stretch">
-          <Col>
-            <Snippet snippet={all} />
           </Col>
         </Row>
       </Base>
