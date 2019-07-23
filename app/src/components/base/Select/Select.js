@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, orderBy, debounce, map, set, get, forEach } from 'lodash/fp';
+import { find, orderBy, debounce, map, set, get } from 'lodash/fp';
 import {
   getOptionByValue,
   getOptionsSize,
@@ -306,8 +306,8 @@ export default class Select extends React.Component {
     });
 
   debouncedOnChange = debounce(this.props.debounce, values => {
-    const { onChange } = this.props;
-    const allSelected = values.length === this.getTotal();
+    const { onChange, options } = this.props;
+    const allSelected = values.length === getOptionsSize(options);
 
     onChange(values, allSelected);
   });
@@ -326,21 +326,6 @@ export default class Select extends React.Component {
 
   toggleFocus = () =>
     this.setState(prevState => ({ inputFocused: !prevState.inputFocused }));
-
-  getTotal() {
-    const { options } = this.props;
-
-    let total = 0;
-    forEach(option => {
-      if (option.options) {
-        total += option.options.length;
-      } else {
-        total++;
-      }
-    }, options);
-
-    return total;
-  }
 
   render() {
     const {
