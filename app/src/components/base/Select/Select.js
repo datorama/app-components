@@ -305,9 +305,12 @@ export default class Select extends React.Component {
       currentHoveredOptionValue: null
     });
 
-  debouncedOnChange = debounce(this.props.debounce, values =>
-    this.props.onChange(values)
-  );
+  debouncedOnChange = debounce(this.props.debounce, values => {
+    const { onChange, options } = this.props;
+    const allSelected = values.length === getOptionsSize(options);
+
+    onChange(values, allSelected);
+  });
 
   applyChanges(values) {
     const { closeOnSelect, multi } = this.props;
