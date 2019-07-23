@@ -5,10 +5,10 @@ export const tableOptionsShape = shape({
   headerRowRenderer: func,
   emptyRenderer: func,
   stickyHeader: bool,
-  tableHeight: string,
-  rowClick: func,
+  height: string,
+  onRowClick: func,
   searchable: bool,
-  searchByFields: arrayOf(string),
+  searchFields: arrayOf(string),
   pagination: bool,
   paginationPageSize: number,
   paginationMax: number

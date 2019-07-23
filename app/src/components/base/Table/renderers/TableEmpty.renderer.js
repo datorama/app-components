@@ -8,7 +8,7 @@ const TableEmptyRenderer = ({ emptyRenderer }) => {
     return emptyRenderer();
   }
 
-  return <Empty className="table-empty">Oops.. No data to display</Empty>;
+  return <Empty className="table-empty">Oops... No data to display</Empty>;
 };
 
 TableEmptyRenderer.propTypes = {

@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useMemo,
+  useCallback
+} from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import {
@@ -24,12 +30,12 @@ const INITIAL_PAGE_NUMBER = 1;
 const defaultConfig = {
   options: {
     pagination: false,
-    paginationPageSize: 3,
-    paginationMax: 3,
+    paginationPageSize: 6,
+    paginationMax: 6,
     stickyHeader: false,
     searchable: false,
-    searchByFields: [],
-    rowClick: () => {}
+    searchFields: [],
+    onRowClick: () => {}
   }
 };
 
@@ -37,18 +43,22 @@ const Table = ({ config, rowsData = [], className }) => {
   const [filteredRowsData, setFilteredRowsData] = useState(rowsData);
   const [displayedRowsData, setDisplayedRowsData] = useState(rowsData);
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE_NUMBER);
+  const tableContainerRef = useRef(null);
 
-  const mergedConfig = defaultsDeep(defaultConfig, config);
+  const mergedConfig = useMemo(() => defaultsDeep(defaultConfig, config), [
+    config
+  ]);
+
   const { columnDefs, options } = mergedConfig;
   const {
     stickyHeader,
-    tableHeight,
-    rowClick,
+    height,
+    onRowClick,
     rowRenderer,
     headerRowRenderer,
     emptyRenderer,
     searchable,
-    searchByFields,
+    searchFields,
     pagination,
     paginationPageSize,
     paginationMax
@@ -65,30 +75,41 @@ const Table = ({ config, rowsData = [], className }) => {
     setDisplayedRowsData(slice(start, end, filteredRowsData));
   }, [currentPage, filteredRowsData, pagination, paginationPageSize]);
 
-  const onSearch = searchTerm => {
-    const lowerSearchTerm = searchTerm.toLowerCase();
+  useEffect(() => {
+    if (tableContainerRef.current) {
+      tableContainerRef.current.scrollTop = 0;
+    }
+  }, [currentPage, displayedRowsData]);
 
-    const result = filter(row => {
-      return searchByFields.some(field => {
-        const fieldValue = get(field, row);
+  const onSearch = useCallback(
+    debounce(500, searchTerm => {
+      const lowerSearchTerm = searchTerm.toLowerCase();
 
-        return includes(lowerSearchTerm, String(fieldValue).toLowerCase());
-      });
-    }, rowsData);
+      const result = filter(row => {
+        return searchFields.some(field => {
+          const fieldValue = get(field, row);
 
-    setCurrentPage(INITIAL_PAGE_NUMBER);
-    setFilteredRowsData(result);
-  };
+          return includes(lowerSearchTerm, String(fieldValue).toLowerCase());
+        });
+      }, rowsData);
 
-  const debouncedOnChange = debounce(500, onSearch);
+      setCurrentPage(INITIAL_PAGE_NUMBER);
+      setFilteredRowsData(result);
+    }),
+    []
+  );
 
   return (
     <Container className={`table-component-container ${className}`}>
       {searchable && (
-        <TableSearch className="table-search" onChange={debouncedOnChange} />
+        <TableSearch className="table-search" onChange={onSearch} />
       )}
 
-      <TableContainer height={tableHeight} className="table-container">
+      <TableContainer
+        ref={tableContainerRef}
+        height={height}
+        className="table-container"
+      >
         <TableHead sticky={stickyHeader} className="table-head">
           <TableHeaderRowRenderer
             headerRowRenderer={headerRowRenderer}
@@ -107,7 +128,7 @@ const Table = ({ config, rowsData = [], className }) => {
                   rowRenderer={rowRenderer}
                   row={row}
                   rowIndex={rowIndex}
-                  rowClick={rowClick}
+                  onRowClick={onRowClick}
                   columnDefs={columnDefs}
                 />
               ),

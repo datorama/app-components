@@ -31,13 +31,13 @@ const config = {
     ), */
     // headerRowRenderer: (columnDefs) => // replace the header row, 
     stickyHeader: true,
-    tableHeight: '400px',
+    height: '400px',
     pagination: true,
     paginationPageSize: 5,
     paginationMax: 3,
     searchable: true,
-    searchByFields: ['name', 'id'],
-    rowClick: row => console.log(row),
+    searchFields: ['name', 'id'],
+    onRowClick: row => console.log(row),
     emptyRenderer: () => <Empty>Custom empty message</Empty>
   },
   columnDefs: [
