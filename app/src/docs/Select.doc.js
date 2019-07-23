@@ -212,7 +212,7 @@ export default class SelectDoc extends React.Component {
             <Alert>
               When using the select output for filtering data, don't pass the
               actual output when selecting all of the options. Instead, pass *
-              or whatever the server is expecting. The onChange prop return 2
+              or whatever the server is expecting. The onChange prop returns two
               arguments (values, isAllSelected).
             </Alert>
           </Col>

@@ -28,8 +28,8 @@ const Container = styled.div`
 `;
 
 const StyledIcon = styled(InfoIcon)`
-  width: 20px;
-  height: 20px;
+  width: 32px;
+  height: 32px;
   margin-right: 10px;
 
   path {
