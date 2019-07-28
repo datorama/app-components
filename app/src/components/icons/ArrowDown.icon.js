@@ -1,7 +1,6 @@
 import React from 'react';
-import { IconComponent } from './icons.types';
 
-const ArrowDownIcon: IconComponent = ({ className, onClick }) => (
+const ArrowDownIcon = ({ className, onClick }) => (
   <svg
     onClick={onClick}
     className={className}

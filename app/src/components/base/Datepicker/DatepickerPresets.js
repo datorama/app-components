@@ -1,49 +1,24 @@
-import React, { Component, FunctionComponent } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, isEmpty } from 'lodash/fp';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
+import styled from 'styled-components';
 
 // icons
 import ArrowDown from '../../icons/ArrowDown.icon';
 
 // components
 import Select from '../Select/Select';
-import {
-  CustomPreset,
-  Preset,
-  PresetOption,
-  PresetsMap
-} from './Datepicker.types';
 import { convertToMomentRange } from './date.utils';
 
-type CustomHeaderProps = {
-  open: boolean;
-  toggleOpen: () => void;
-  placeholder: string;
-  values: { label: string; value: string | number };
-};
-
-const CustomHeader: FunctionComponent<CustomHeaderProps> = ({
-  open,
-  toggleOpen,
-  placeholder,
-  values
-}) => (
+const CustomHeader = ({ open, toggleOpen, placeholder, values }) => (
   <Header onClick={toggleOpen}>
     {get('[0].label', values) || placeholder}
     <Arrow rotation={open ? '180deg' : '0deg'} />
   </Header>
 );
 
-type Props = {
-  firstDayOfWeek: number;
-  onChange: (preset: PresetOption[]) => void;
-  selectedPreset: PresetOption[];
-  customPresets?: CustomPreset[];
-};
-
-class DatepickerPresets extends Component<Props> {
+class DatepickerPresets extends Component {
   static propTypes = {
     firstDayOfWeek: PropTypes.oneOf([0, 1]),
     onChange: PropTypes.func,
@@ -66,9 +41,9 @@ class DatepickerPresets extends Component<Props> {
     )
   };
 
-  presetsMap: PresetsMap | null = null;
-  presetsOptions: Preset[] = [];
-  today: Moment | null = null;
+  presetsMap = null;
+  presetsOptions = [];
+  today = null;
 
   componentDidMount() {
     const { firstDayOfWeek } = this.props;
@@ -291,12 +266,10 @@ class DatepickerPresets extends Component<Props> {
     ];
 
     if (!isEmpty(customPresets)) {
-      const options: PresetOption[] = customPresets!.map(
-        (customPreset: CustomPreset) => ({
-          ...customPreset,
-          dateRange: convertToMomentRange(customPreset.dateRange)
-        })
-      );
+      const options = customPresets.map(customPreset => ({
+        ...customPreset,
+        dateRange: convertToMomentRange(customPreset.dateRange)
+      }));
 
       this.presetsOptions.push({
         label: 'Custom',
@@ -353,7 +326,7 @@ const Container = styled.div`
   z-index: 2;
 `;
 
-export const Arrow = styled(ArrowDown)<{ rotation: string }>`
+export const Arrow = styled(ArrowDown)`
   width: 8px;
   height: 8px;
   transform: rotate(${({ rotation }) => rotation});

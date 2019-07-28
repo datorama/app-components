@@ -1,7 +1,6 @@
 import React from 'react';
-import { IconComponent } from './icons.types';
 
-const CalendarIcon: IconComponent = ({ className, onClick }) => (
+const CalendarIcon = ({ className, onClick }) => (
   <svg
     onClick={onClick}
     className={className}

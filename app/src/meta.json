@@ -110,6 +110,63 @@
   },
   {
     "description": "",
+    "displayName": "Checkbox",
+    "methods": [],
+    "props": {
+      "checked": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "round": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "partial": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Checkbox.js"
+  },
+  {
+    "description": "",
     "displayName": "Carousel",
     "methods": [
       {
@@ -140,9 +197,7 @@
         "params": [
           {
             "name": "current",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -244,64 +299,7 @@
         "description": ""
       }
     },
-    "filename": "/components/base/Carousel.tsx"
-  },
-  {
-    "description": "",
-    "displayName": "Checkbox",
-    "methods": [],
-    "props": {
-      "checked": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "round": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "label": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "partial": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Checkbox.js"
+    "filename": "/components/base/Carousel.js"
   },
   {
     "description": "",
@@ -396,53 +394,6 @@
   },
   {
     "description": "",
-    "displayName": "DragDropProvider",
-    "methods": [
-      {
-        "name": "setDrag",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "dragging",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "setHover",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "hovering",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "onDrop": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/DragDropProvider.js"
-  },
-  {
-    "description": "",
     "displayName": "Collapsible",
     "methods": [
       {
@@ -489,6 +440,53 @@
       }
     },
     "filename": "/components/base/Collapsible.js"
+  },
+  {
+    "description": "",
+    "displayName": "DragDropProvider",
+    "methods": [
+      {
+        "name": "setDrag",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "dragging",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "hovering",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onDrop": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/DragDropProvider.js"
   },
   {
     "description": "",
@@ -2127,9 +2125,7 @@
         "params": [
           {
             "name": "e",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -2148,9 +2144,7 @@
         "params": [
           {
             "name": "e",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -2162,9 +2156,7 @@
         "params": [
           {
             "name": "e",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -2207,7 +2199,13 @@
         "description": ""
       }
     },
-    "filename": "/components/base/Datepicker/DatepickerInput.tsx"
+    "filename": "/components/base/Datepicker/DatepickerInput.js"
+  },
+  {
+    "description": "",
+    "displayName": "ToastsProvider",
+    "methods": [],
+    "filename": "/components/base/Notifications/Toasts.js"
   },
   {
     "description": "",
@@ -2226,9 +2224,9 @@
   },
   {
     "description": "",
-    "displayName": "ToastsProvider",
+    "displayName": "NotificationsProvider",
     "methods": [],
-    "filename": "/components/base/Notifications/Toasts.js"
+    "filename": "/components/base/Notifications/index.js"
   },
   {
     "description": "",
@@ -2368,12 +2366,6 @@
       }
     },
     "filename": "/components/base/Select/InlineSearch.js"
-  },
-  {
-    "description": "",
-    "displayName": "NotificationsProvider",
-    "methods": [],
-    "filename": "/components/base/Notifications/index.js"
   },
   {
     "description": "",
@@ -3129,7 +3121,7 @@
         "description": ""
       }
     },
-    "filename": "/components/base/Datepicker/DatepickerPresets.tsx"
+    "filename": "/components/base/Datepicker/DatepickerPresets.js"
   },
   {
     "description": "",
@@ -3292,13 +3284,6 @@
       },
       {
         "name": "toggleFocus",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "getTotal",
         "docblock": null,
         "modifiers": [],
         "params": [],
@@ -3583,9 +3568,7 @@
         "params": [
           {
             "name": "hoveredDate",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -3653,9 +3636,7 @@
         "params": [
           {
             "name": "selectedDate",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -3667,9 +3648,7 @@
         "params": [
           {
             "name": "selection",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -3681,9 +3660,7 @@
         "params": [
           {
             "name": "preset",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -3695,15 +3672,11 @@
         "params": [
           {
             "name": "type",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           },
           {
             "name": "value",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -3722,9 +3695,7 @@
         "params": [
           {
             "name": "e",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -3736,9 +3707,7 @@
         "params": [
           {
             "name": "preset",
-            "type": {
-              "name": "unknown"
-            }
+            "type": null
           }
         ],
         "returns": null
@@ -3885,6 +3854,6 @@
         "description": ""
       }
     },
-    "filename": "/components/base/Datepicker/Datepicker.tsx"
+    "filename": "/components/base/Datepicker/Datepicker.js"
   }
 ]

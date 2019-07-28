@@ -41,7 +41,7 @@ function createComponentFile() {
 function parseComponent(component, filename) {
   const componentInfo = reactDocs.parse(component, null, null, {
     parserOptions: {
-      plugins: ['typescript', 'jsx', 'classProperties', 'objectRestSpread']
+      plugins: ['jsx', 'classProperties', 'objectRestSpread']
     }
   });
   const splitIndex = filename.indexOf('/src/');
@@ -106,7 +106,7 @@ function filewalker(dir, done) {
           }
           if (
             valid &&
-            (file.endsWith('.js') || file.endsWith('.tsx')) &&
+            file.endsWith('.js') &&
             !file.endsWith('.story.js') &&
             !file.endsWith('.test.js') &&
             !file.endsWith('.types.js')
