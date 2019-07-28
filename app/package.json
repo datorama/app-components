@@ -6,7 +6,7 @@
   "repository": "https://github.com/datorama/app-components",
   "private": true,
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "prism-react-renderer": "^0.1.7",
     "prop-types": "^15.7.2",
