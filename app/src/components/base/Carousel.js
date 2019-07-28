@@ -1,27 +1,9 @@
-import React, { Component, ReactNode, Fragment } from 'react';
-import styled, { css } from 'styled-components';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
+import styled, { css } from 'styled-components';
 
-type Props = {
-  slides: ReactNode[];
-  loading?: boolean;
-  className?: string;
-  minHeight?: number;
-  prevControl?: () => ReactNode;
-  nextControl?: () => ReactNode;
-  controls?: boolean;
-  bulletSize?: number;
-  bulletBg?: string;
-  bulletActiveBg?: string;
-  bulletHoverBg?: string;
-};
-
-type State = {
-  current: number;
-};
-
-class Carousel extends Component<Props, State> {
+class Carousel extends Component {
   static propTypes = {
     slides: PropTypes.arrayOf(PropTypes.node).isRequired,
     loading: PropTypes.bool,
@@ -36,11 +18,11 @@ class Carousel extends Component<Props, State> {
     bulletHoverBg: PropTypes.string
   };
 
-  state: State = {
+  state = {
     current: 0
   };
 
-  componentDidUpdate(prevProps: Readonly<Props>): void {
+  componentDidUpdate(prevProps) {
     if (prevProps.slides !== this.props.slides) {
       this.setState({ current: 0 });
     }
@@ -74,7 +56,7 @@ class Carousel extends Component<Props, State> {
     }
   };
 
-  setSlide = (current: number) => this.setState({ current });
+  setSlide = current => this.setState({ current });
 
   renderSlides = () => {
     const { slides, minHeight, loading } = this.props;
@@ -171,7 +153,7 @@ const SlidesContainer = styled.div`
   overflow: hidden;
 `;
 
-const Slides = styled.div<{ total: number; translate: number }>`
+const Slides = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -186,7 +168,7 @@ const Control = styled.div`
   cursor: pointer;
 `;
 
-const Slide = styled.div<{ total: number }>`
+const Slide = styled.div`
   width: ${({ total }) => `${100 / total}%`};
   min-height: 100px;
   box-sizing: border-box;
@@ -211,13 +193,7 @@ const Bullets = styled.div`
   margin-top: 20px;
 `;
 
-const Bullet = styled.div<{
-  size: number | undefined;
-  background: string | undefined;
-  selected: boolean;
-  activeBackground: string | undefined;
-  hoverBackground: string | undefined;
-}>`
+const Bullet = styled.div`
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
   background: ${({ theme, background }) => background || theme.p200};
@@ -238,7 +214,7 @@ const Bullet = styled.div<{
   }
 `;
 
-const SpinnerContainer = styled.div<{ minHeight: number | undefined }>`
+const SpinnerContainer = styled.div`
   width: 100%;
   min-height: ${({ minHeight }) => minHeight}px;
   display: flex;

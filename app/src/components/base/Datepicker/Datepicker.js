@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { set, isEmpty } from 'lodash/fp';
 
@@ -9,12 +9,6 @@ import Arrow from '../../icons/ArrowDate.icon';
 import ArrowDown from '../../icons/ArrowDown.icon';
 import Calendar from '../../icons/Calendar.icon';
 
-import {
-  MomentRange,
-  DateRange,
-  PresetOption,
-  CustomPreset
-} from './Datepicker.types';
 import DatePickerInput from './DatepickerInput';
 import { SelectMenuContext } from '../../contexts';
 import { convertToDateRange, convertToMomentRange } from './date.utils';
@@ -23,43 +17,8 @@ import { convertToDateRange, convertToMomentRange } from './date.utils';
 import ClickOut from '../ClickOut';
 import DatepickerPresets from './DatepickerPresets';
 
-type Props = {
-  onChange?: (dateRange: DateRange) => DateRange;
-  onMenuEnter?: () => void;
-  onMenuLeave?: () => void;
-  dateRange?: DateRange;
-  className?: string;
-  months?: number;
-  firstDayOfWeek?: number;
-  dateFormat?: string;
-  customPresets?: CustomPreset[];
-};
-
-type DefaultProps = {
-  months: number;
-  dateRange: DateRange;
-  firstDayOfWeek: number;
-  dateFormat: string;
-  onChange: (dateRange: DateRange) => void;
-  onMenuEnter: () => void;
-  onMenuLeave: () => void;
-};
-
-type State = {
-  today: Moment;
-  offset: number;
-  open: boolean;
-  selection: MomentRange;
-  committedSelection: MomentRange;
-  tmpStart: Moment;
-  selecting: boolean;
-  hoveredDate: Moment;
-  selectedPreset: PresetOption[];
-  committedSelectedPreset: PresetOption[];
-};
-
-class Datepicker extends Component<Props & DefaultProps, State> {
-  weekdays: string[] = [];
+class Datepicker extends Component {
+  weekdays = [];
 
   static propTypes = {
     onChange: PropTypes.func,
@@ -85,7 +44,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     )
   };
 
-  static defaultProps: DefaultProps = {
+  static defaultProps = {
     months: 1,
     dateRange: {
       startDate: new Date(),
@@ -98,7 +57,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     onMenuLeave: () => {}
   };
 
-  constructor(props: Props & DefaultProps) {
+  constructor(props) {
     super(props);
 
     moment.updateLocale('en', {
@@ -201,7 +160,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     );
   };
 
-  setHover = (hoveredDate: Moment) => {
+  setHover = hoveredDate => {
     const { selecting, tmpStart } = this.state;
 
     let extra = {};
@@ -293,7 +252,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     });
   };
 
-  handleClick = (selectedDate: Moment) => {
+  handleClick = selectedDate => {
     const { selecting, tmpStart } = this.state;
 
     if (selecting) {
@@ -318,10 +277,10 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     }
   };
 
-  selectMonth = (selection: MomentRange) => () =>
+  selectMonth = selection => () =>
     this.setState({ selection, selecting: false, selectedPreset: [] });
 
-  setPreset = (preset: PresetOption[]) => {
+  setPreset = preset => {
     this.setState(
       {
         selecting: false,
@@ -334,7 +293,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     );
   };
 
-  onChangeDate = (type: 'startDate' | 'endDate', value: string) => {
+  onChangeDate = (type, value) => {
     const { dateFormat } = this.props;
     const parsed = moment(value, dateFormat);
 
@@ -354,7 +313,7 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     return selection.startDate.isSameOrBefore(selection.endDate, 'day');
   };
 
-  onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  onKeyDown = e => {
     const { keyCode } = e;
 
     // Enter
@@ -367,10 +326,11 @@ class Datepicker extends Component<Props & DefaultProps, State> {
     }
   };
 
-  getPresetTitle = (preset: PresetOption) => {
+  getPresetTitle = preset => {
     const { dateFormat } = this.props;
     const { label, dateRange } = preset;
     const { startDate, endDate } = dateRange;
+
     return `${label} (${startDate.format(dateFormat)} - ${endDate.format(
       dateFormat
     )})`;
@@ -520,7 +480,7 @@ const Separator = styled.span`
   margin: 0 10px;
 `;
 
-const StyledArrowDown = styled(ArrowDown)<{ rotation: string }>`
+const StyledArrowDown = styled(ArrowDown)`
   width: 8px;
   height: 8px;
   transform: rotate(${({ rotation }) => rotation});
@@ -532,10 +492,7 @@ const StyledArrowDown = styled(ArrowDown)<{ rotation: string }>`
   }
 `;
 
-const Container = styled.div<{
-  visible: boolean;
-  total: number;
-}>`
+const Container = styled.div`
   user-select: none;
   width: ${({ total }) => total * (182 + 20) + 32 + 20}px;
   padding: 0 20px;
@@ -608,14 +565,7 @@ const DatesContainer = styled.div`
   height: 100%;
 `;
 
-const DateContainer = styled.div<{
-  type?: 'title';
-  disabled?: boolean;
-  selected?: boolean;
-  isStart?: boolean;
-  isEnd?: boolean;
-  sameDay?: boolean;
-}>`
+const DateContainer = styled.div`
   box-sizing: border-box;
   width: 26px;
   height: 26px;
@@ -659,10 +609,7 @@ const DateContainer = styled.div<{
     `};
 `;
 
-const DateIcon = styled.div<{
-  type?: 'title' | 'edge' | 'normal';
-  today?: boolean;
-}>`
+const DateIcon = styled.div`
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -701,7 +648,7 @@ const Dates = styled.div`
   width: 100%; // IE11 fix so that flex-wrap would work
 `;
 
-const Divider = styled.div<{ margin?: string }>`
+const Divider = styled.div`
   width: 100%;
   height: 1px;
   background: ${({ theme }) => theme.p100};
@@ -716,7 +663,7 @@ const Buttons = styled.div`
   justify-content: flex-end;
 `;
 
-const InlineButton = styled.div<{ primary?: boolean }>`
+const InlineButton = styled.div`
   margin-left: 20px;
   ${({ theme }) => theme.text.pLink};
   line-height: 14px;
@@ -753,7 +700,7 @@ const ArrowHolder = styled.div`
   }
 `;
 
-const StyledArrow = styled(Arrow)<{ rotation: string }>`
+const StyledArrow = styled(Arrow)`
   width: 14px;
   height: 14px;
   transform: rotate(${({ rotation }) => rotation});

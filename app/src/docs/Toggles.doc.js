@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // components
 import Base from './Base';
-import { Checkbox, Row, Col, Toggle } from '../components/index';
+import { Row, Col } from '../components/index';
 import PropTable from './PropTable';
 import Snippet from './Snippet';
 

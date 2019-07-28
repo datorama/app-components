@@ -1,24 +1,9 @@
 import React from 'react';
 import { func, string, object } from 'prop-types';
-import { Moment } from 'moment';
 import styled from 'styled-components';
 
-type Props = {
-  date?: Moment;
-  onChange: (value: string) => void;
-  onClick?: () => void;
-  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  dateFormat: string;
-  placeholder: string;
-};
-
-type State = {
-  editMode: boolean;
-  value: string;
-};
-
-class DatePickerInput extends React.Component<Props, State> {
-  inputRef = React.createRef<HTMLInputElement>();
+class DatePickerInput extends React.Component {
+  inputRef = React.createRef();
 
   static propTypes = {
     date: object,
@@ -33,7 +18,7 @@ class DatePickerInput extends React.Component<Props, State> {
     value: this.props.placeholder
   };
 
-  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onChange = e => {
     this.setState({
       editMode: true,
       value: e.target.value
@@ -47,7 +32,7 @@ class DatePickerInput extends React.Component<Props, State> {
     });
   };
 
-  onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  onKeyDown = e => {
     if (e.keyCode === 27 || e.keyCode === 13) {
       this.inputRef.current && this.inputRef.current.blur();
     }
@@ -55,7 +40,7 @@ class DatePickerInput extends React.Component<Props, State> {
     this.props.onKeyDown && this.props.onKeyDown(e);
   };
 
-  onClick = (e: React.MouseEvent<HTMLInputElement>) => {
+  onClick = e => {
     e.stopPropagation();
     this.props.onClick && this.props.onClick();
   };
