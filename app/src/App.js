@@ -43,6 +43,7 @@ import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
 import SnailChart from './docs/SnailChart.doc';
 import Ellipsis from './docs/Ellipsis.doc';
+import Table from './docs/Table.doc';
 
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
@@ -178,7 +179,7 @@ class App extends Component {
       { key: 'date-picker', label: 'Date Picker', path: 'datepicker' },
       { key: 'widget', label: 'Widget', path: 'widget' },
       { key: 'sticky', label: 'Sticky', path: 'sticky' },
-      { key: 'table', label: 'Table' },
+      { key: 'table', label: 'Table', path: 'table' },
       { key: 'ellipsis', label: 'Ellipsis', path: 'ellipsis' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
@@ -256,6 +257,7 @@ class App extends Component {
                 <Route exact path="/error-page" component={ErrorPage} />
                 <Route exact path="/snail-chart" component={SnailChart} />
                 <Route exact path="/ellipsis" component={Ellipsis} />
+                <Route exact path="/table" component={Table} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/drag-drop" component={DragDrop} />
