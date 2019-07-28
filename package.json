@@ -19,7 +19,6 @@
     "@babel/plugin-proposal-class-properties": "^7.3.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
-    "@babel/preset-typescript": "^7.3.3",
     "@types/lodash": "^4.14.126",
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
@@ -44,7 +43,6 @@
     "style-loader": "^0.23.1",
     "styled-components": "4.1.1",
     "terser-webpack-plugin": "1.1.0",
-    "typescript": "3.5.1",
     "webpack": "4.29.6",
     "webpack-cli": "^3.2.2"
   },
@@ -70,7 +68,7 @@
   },
   "lint-staged": {
     "linters": {
-      "app/src/**/*.{js,jsx,tsx,json,css,scss}": [
+      "app/src/**/*.{js,jsx,json,css,scss}": [
         "prettier --single-quote --write",
         "git add"
       ]
