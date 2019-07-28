@@ -59,7 +59,10 @@ const Table = props => {
   filtered = slice(page * maxPage, page * maxPage + maxPage, filtered);
 
   const handlePagination = useCallback(index => setPage(index - 1), []);
-  const handleKey = useCallback(e => setTerm(e.target.value), []);
+  const handleKey = useCallback(e => {
+    setTerm(e.target.value);
+    setPage(0);
+  }, []);
 
   return (
     <Container>
