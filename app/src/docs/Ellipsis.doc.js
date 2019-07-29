@@ -15,7 +15,7 @@ const snippet = `
     justifyContent: 'space-around',
     flexDirection: 'column'
   };
-  
+
   return (
     <div style={demoStyles}>
       <Range min={120} max={400} onChange={setValue}/>

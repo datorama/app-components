@@ -17,7 +17,7 @@ const snippet = `
 const withInitialValue = `
 () => (
   <div style={{ width: '100%' }}>
-    <Range min={0} max={100} initialValue={50} onChange={console.log} />
+    <Range min={100} max={200} initialValue={150} onChange={console.log} />
   </div>
 );
 `;
