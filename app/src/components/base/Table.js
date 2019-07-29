@@ -1,35 +1,50 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo, memo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Pagination from './Pagination';
 import TextInput from './TextInput';
 import { hexToRgba } from '../utils';
 import { useDebounce } from '../hooks/common.hooks';
-import { get, slice } from 'lodash/fp';
+import { get, forEach, flow, chunk, filter } from 'lodash/fp';
 
-const defaultRenderer = (headers, colRenderer) => (row, i) => (
-  <Row key={`row-${i}`}>
-    {headers.map(header => (
-      <Col
-        key={`cell-${header.id}`}
-        textStyle="sm"
-        size={header.size}
-        maxWidth={header.maxWidth}
-      >
-        {colRenderer
-          ? colRenderer({
-              value: get(header.path, row),
-              headerId: header.id,
-              path: header.path
-            })
-          : get(header.path, row)}
-      </Col>
-    ))}
-  </Row>
+const TableBody = memo(({ filtered, headers, colRenderer }) =>
+  filtered.map((row, i) => (
+    <Row key={`row-${i}`}>
+      {headers.map(header => (
+        <Col
+          key={`cell-${header.id}`}
+          textStyle="sm"
+          size={header.size}
+          maxWidth={header.maxWidth}
+        >
+          {colRenderer
+            ? colRenderer({
+                value: get(header.path, row),
+                headerId: header.id,
+                path: header.path
+              })
+            : get(header.path, row)}
+        </Col>
+      ))}
+    </Row>
+  ))
 );
 
 const Empty = () => <Message>No data</Message>;
 const NoResults = () => <Message>No Results</Message>;
+
+const TableHead = memo(({ headers }) =>
+  headers.map(header => (
+    <Col
+      key={header.id}
+      textStyle="smBold"
+      size={header.size}
+      maxWidth={header.maxWidth}
+    >
+      {header.label}
+    </Col>
+  ))
+);
 
 const Table = props => {
   const { data, headers, maxPage, colRenderer } = props;
@@ -37,26 +52,31 @@ const Table = props => {
   const [term, setTerm] = useState('');
   const debouncedTerm = useDebounce(term, 500);
 
-  let filtered = data.filter(row => {
-    let filterRow = false;
+  const filtered = useMemo(
+    () =>
+      flow(
+        filter(row => {
+          let filterRow = false;
 
-    headers.map(header => {
-      if (
-        get(header.path, row)
-          .toString()
-          .toLowerCase()
-          .includes(debouncedTerm.toLowerCase())
-      ) {
-        filterRow = true;
-      }
-    });
+          forEach(header => {
+            if (
+              get(header.path, row)
+                .toString()
+                .toLowerCase()
+                .includes(debouncedTerm.toLowerCase())
+            ) {
+              filterRow = true;
 
-    return filterRow;
-  });
+              return false;
+            }
+          }, headers);
 
-  const pages = Math.ceil(filtered.length / maxPage);
-
-  filtered = slice(page * maxPage, page * maxPage + maxPage, filtered);
+          return filterRow;
+        }),
+        chunk(maxPage)
+      )(data),
+    [data, debouncedTerm, headers, maxPage]
+  );
 
   const handlePagination = useCallback(index => setPage(index - 1), []);
   const handleKey = useCallback(e => {
@@ -69,28 +89,28 @@ const Table = props => {
       <Header>
         <StyledInput placeholder="search" onChange={handleKey} />
       </Header>
+
       <Row className="header">
-        {headers.map(header => (
-          <Col
-            key={header.id}
-            textStyle="smBold"
-            size={header.size}
-            maxWidth={header.maxWidth}
-          >
-            {header.label}
-          </Col>
-        ))}
+        <TableHead headers={headers} />
       </Row>
+
       <Body className="body">
-        {filtered.map(defaultRenderer(headers, colRenderer))}
+        <TableBody
+          filtered={filtered[page]}
+          headers={headers}
+          colRenderer={colRenderer}
+        />
+
         {!data.length && <Empty />}
+
         {data.length && !filtered.length && <NoResults />}
       </Body>
+
       <Footer className="footer">
         <Pagination
           key={debouncedTerm}
           max={5}
-          total={pages}
+          total={filtered.length}
           onChange={handlePagination}
         />
       </Footer>
