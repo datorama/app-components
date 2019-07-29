@@ -13,7 +13,8 @@ class Range extends Component {
     initialValue: PropTypes.number,
     disabled: PropTypes.bool,
     showValue: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onChange: PropTypes.func
   };
 
   constructor(props) {
@@ -23,14 +24,14 @@ class Range extends Component {
 
     const initialPercentage =
       initialValue !== undefined
-        ? Math.round((initialValue / 100) * (max - min)) + min
+        ? Math.max(((initialValue - min) / (max - min)) * 100)
         : 0;
 
     this.state = {
       percentage: initialPercentage,
       lastPercentage: initialPercentage,
       dragging: false,
-      value: initialValue || 0
+      value: initialValue || min
     };
   }
 
@@ -66,17 +67,25 @@ class Range extends Component {
     });
 
   onClick = e => {
+    const { onChange, min, max } = this.props;
     const { clientX } = e;
     const { x, width } = this.el.getBoundingClientRect();
 
     const percentage = Math.round(((clientX - x) / width) * 100);
 
     if (percentage !== this.state.value) {
-      this.setState({
-        percentage,
-        lastPercentage: percentage,
-        value: percentage
-      });
+      this.setState(
+        {
+          percentage,
+          lastPercentage: percentage,
+          value: Math.round((percentage / 100) * (max - min)) + min
+        },
+        () => {
+          if (onChange) {
+            onChange(this.state.value);
+          }
+        }
+      );
     }
   };
 
@@ -233,8 +242,7 @@ const Value = styled.div.attrs(({ left }) => ({
     width: 0;
     height: 0;
     margin-left: -4px;
-    border: solid transparent;
-    border-width: 4px;
+    border: 4px solid transparent;
     border-top-color: ${({ theme }) => hexToRgba(theme.p500, 90)};
     pointer-events: none;
     content: ' ';
