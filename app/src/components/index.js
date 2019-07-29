@@ -35,6 +35,7 @@ export { default as Tag } from './base/Tag';
 export { default as TagGroup } from './base/TagGroup';
 export { default as TextInput } from './base/TextInput';
 export { default as Ellipsis } from './base/Ellipsis';
+export { default as Table } from './base/Table';
 export {
   withToast,
   withSnackbar,
