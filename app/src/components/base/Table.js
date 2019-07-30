@@ -5,7 +5,7 @@ import Pagination from './Pagination';
 import TextInput from './TextInput';
 import { hexToRgba } from '../utils';
 import { useDebounce } from '../hooks/common.hooks';
-import { get, forEach, flow, chunk, filter } from 'lodash/fp';
+import { get, forEach, flow, chunk, filter, isEmpty } from 'lodash/fp';
 
 const TableBody = memo(({ filtered, headers, colRenderer }) =>
   filtered.map((row, i) => (
@@ -96,23 +96,25 @@ const Table = props => {
 
       <Body className="body">
         <TableBody
-          filtered={filtered[page]}
+          filtered={filtered[page] || []}
           headers={headers}
           colRenderer={colRenderer}
         />
 
-        {!data.length && <Empty />}
+        {isEmpty(data) && <Empty />}
 
-        {data.length && !filtered.length && <NoResults />}
+        {!isEmpty(data) && isEmpty(filtered) && <NoResults />}
       </Body>
 
       <Footer className="footer">
-        <Pagination
-          key={debouncedTerm}
-          max={5}
-          total={filtered.length}
-          onChange={handlePagination}
-        />
+        {!isEmpty(filtered) && (
+          <Pagination
+            key={debouncedTerm}
+            max={5}
+            total={filtered.length}
+            onChange={handlePagination}
+          />
+        )}
       </Footer>
     </Container>
   );
