@@ -28,16 +28,18 @@ const describeArc = (x, y, radius, startAngle, endAngle) => {
   ].join(' ');
 };
 
-const SnailChart = ({
-  theme,
-  linecap = 'none',
-  data = [],
-  dividers = 5,
-  className,
-  onMouseEnter,
-  onMouseLeave,
-  onClick
-}) => {
+const SnailChart = props => {
+  const {
+    theme,
+    linecap = 'none',
+    data = [],
+    dividers = 5,
+    className,
+    onMouseEnter,
+    onMouseLeave,
+    onClick
+  } = props;
+
   // local center
   const center = { x: 250, y: 250 };
   const amount = data.length;
@@ -86,7 +88,7 @@ const SnailChart = ({
           center.y,
           50 + barWidth * i + barWidth / 2,
           0,
-          270 * (item.percentage / 100)
+          270 * (Math.max(0, Math.min(item.percentage, 100)) / 100)
         )}
         onMouseEnter={handleMouseEnter(item)}
         onMouseLeave={handleMouseLeave(item)}
