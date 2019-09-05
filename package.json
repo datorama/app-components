@@ -39,7 +39,7 @@
     "style-loader": "^1.0.0",
     "styled-components": "4.3.2",
     "terser-webpack-plugin": "1.4.1",
-    "webpack": "4.39.3",
+    "webpack": "4.39.1",
     "webpack-cli": "^3.3.7"
   },
   "scripts": {
@@ -63,6 +63,9 @@
     }
   },
   "lint-staged": {
-    "app/src/**/*.{js,jsx,json,css}": ["prettier --single-quote --write", "git add"]
+    "app/src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   }
 }
