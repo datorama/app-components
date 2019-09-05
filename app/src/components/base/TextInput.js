@@ -24,6 +24,7 @@ const TextInput = props => {
         large={props.large}
         onFocus={props.onFocus}
         className="text-input"
+        type={props.type || 'text'}
       />
       {withMessage && (
         <Message valid={props.valid}>
@@ -47,7 +48,8 @@ TextInput.propTypes = {
   errorMessage: PropTypes.string,
   large: PropTypes.bool,
   onFocus: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
+  type: PropTypes.string
 };
 
 export default TextInput;
