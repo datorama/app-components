@@ -17,7 +17,9 @@ export default class Modal extends React.Component {
     open: PropTypes.bool.isRequired,
     title: PropTypes.string,
     className: PropTypes.string,
-    buttons: PropTypes.arrayOf(PropTypes.object).isRequired,
+    buttons: PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+    ).isRequired,
     size: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
   };
 
@@ -77,15 +79,22 @@ export default class Modal extends React.Component {
             )}
             <Content>{children}</Content>
             <Footer>
-              {buttons.map((button, i) => (
-                <StyledButton
-                  key={`btn-${i}`}
-                  secondary={button.type === 'secondary'}
-                  onClick={this.handleClick(button.onClick)}
-                >
-                  {button.label}
-                </StyledButton>
-              ))}
+              {buttons.map((button, i) => {
+                if (typeof button === 'function') {
+                  return button({ key: `btn-${i}` });
+                }
+
+                return (
+                  <StyledButton
+                    key={`btn-${i}`}
+                    secondary={button.type === 'secondary'}
+                    disabled={button.disabled}
+                    onClick={this.handleClick(button.onClick)}
+                  >
+                    {button.label}
+                  </StyledButton>
+                );
+              })}
             </Footer>
           </StyledCard>
         </Container>
