@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
-import * as d3 from 'd3';
+import * as d3 from 'd3-shape';
 import PropTypes from 'prop-types';
 import { maxBy } from 'lodash/fp';
 
@@ -137,7 +137,8 @@ const GoalsChart = ({
 
   const modifiedData = data.map(arr => [
     (arr[0] / dataMax) * (state.width - padding - 80) + 50,
-    state.height - padding - 20 //- arr[1]
+    arr[1]
+    //state.height - padding - 20 //-
   ]);
 
   const handleDrag = useCallback(pos => {
