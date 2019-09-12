@@ -34,13 +34,14 @@ const SelectMultiHeader = props => {
         <StyledCheckbox
           checked={!!allSelected || !!partialSelected}
           partial={!!partialSelected}
+          className="menu-option-checkbox"
         />
-        <Label>
+        <Label className="menu-option-label multi-select">
           {label} <Italic>{counts}</Italic>
         </Label>
       </Option>
 
-      <Divider />
+      <Divider className="menu-options-divider" />
     </Fragment>
   );
 };

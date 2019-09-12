@@ -59,11 +59,16 @@ const SelectOptionsGroup = props => {
         small={small}
         large={large}
       >
-        {multi && <StyledCheckbox checked={!!selected} />}
+        {multi && (
+          <StyledCheckbox
+            checked={!!selected}
+            className="menu-option-checkbox"
+          />
+        )}
         {optionLabelRenderer ? (
           optionLabelRenderer(option)
         ) : (
-          <Label small={small} large={large}>
+          <Label small={small} large={large} className="menu-option-label">
             {option.label}
           </Label>
         )}
@@ -72,8 +77,9 @@ const SelectOptionsGroup = props => {
   });
 
   return (
-    <Container>
+    <Container className="menu-options-group">
       <GroupLabel
+        className="menu-options-group-label"
         ref={el => (groupLabelsRef.current[groupLabel] = el)}
         small={small}
         large={large}
