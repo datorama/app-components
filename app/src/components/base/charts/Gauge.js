@@ -18,11 +18,11 @@ const Gauge = () => {
     outerCircumference - (75 / 100) * outerCircumference;
   const placeholderDashoffset = circumference - (75 / 100) * circumference;
 
-  const [alpha, setAlpha] = useState(Math.PI);
+  const [alpha, setAlpha] = useState(-Math.PI / 4);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setAlpha(alpha => alpha + Math.PI / 30);
+      setAlpha(alpha => alpha - Math.PI / 30);
     }, 200);
   }, []);
 
@@ -80,7 +80,8 @@ const Gauge = () => {
       <Line
         d={[
           `M ${SIZE / 2}, ${SIZE / 2}`,
-          `l ${200 * Math.sin(alpha)}, ${200 * Math.cos(alpha)}`
+          `L ${SIZE / 2 + 170 * Math.sin(alpha)}, ${SIZE / 2 +
+            170 * Math.cos(alpha)}`
         ].join(' ')}
       />
 
