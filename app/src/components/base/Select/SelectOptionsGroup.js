@@ -50,7 +50,7 @@ const SelectOptionsGroup = props => {
     return (
       <Option
         ref={el => (itemsRef.current[option.value] = el)}
-        className="option"
+        className={!multi && selected ? 'option option-selected' : 'option'}
         key={option.value}
         onClick={() => handleClick(option)}
         selected={selected && !multi}
