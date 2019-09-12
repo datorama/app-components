@@ -8,7 +8,14 @@ import Snippet from './Snippet';
 const snippet = `
 () => (
   <div>
-    <Gauge />
+    <Gauge
+      start={100}
+      end={200}
+      min={0}
+      max={200}
+      value={50}
+      labelRenderer={value => '$' + value}
+    />
   </div>
 );
 `;
