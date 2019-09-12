@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import SearchIcon from '../../icons/SearchThin.icon';
 
 const SelectSearch = props => (
-  <Container>
+  <Container className="menu-search-container">
     <Input
       placeholder={props.searchPlaceholder || 'Search'}
       onChange={props.onChange}
@@ -15,8 +15,9 @@ const SelectSearch = props => (
       large={props.large}
       onFocus={props.toggleFocus}
       onBlur={props.toggleFocus}
+      className="menu-search-input"
     />
-    <StyledSearchIcon />
+    <StyledSearchIcon className="menu-search-icon" />
   </Container>
 );
 

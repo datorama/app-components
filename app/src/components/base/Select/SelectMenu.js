@@ -68,6 +68,7 @@ const SelectMenu = props => {
           )}
 
           <SelectMultiHeader
+            className="menu-multi-header"
             options={options}
             values={values}
             multi={multi}
@@ -77,7 +78,7 @@ const SelectMenu = props => {
             value={searchTerm}
           />
 
-          {!total && <SelectNoResults />}
+          {!total && <SelectNoResults className="menu-no-results" />}
 
           <SelectOptions
             options={options}
