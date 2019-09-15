@@ -44,7 +44,8 @@ const Gauge = props => {
 
   const rangeStart = (start - min) / (max - min);
   const rangeEnd = (end - min) / (max - min);
-  const range = rangeStart;
+  const range = start <= min ? rangeEnd : rangeStart;
+  const floatingLabel = rangeStart <= min ? end : start;
 
   const RADIUS = 110;
 
@@ -156,8 +157,8 @@ const Gauge = props => {
         className="small-label"
       >
         {labelRenderer
-          ? labelRenderer(Math.round(time * start))
-          : Math.round(time * start)}
+          ? labelRenderer(Math.round(time * floatingLabel))
+          : Math.round(time * floatingLabel)}
       </Label>
 
       <Circle
