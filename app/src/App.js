@@ -183,8 +183,8 @@ class App extends Component {
       { key: 'widget', label: 'Widget', path: 'widget' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
-      { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
       { key: 'gauge', label: 'Gauge Chart', path: 'gauge' },
+      { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
 
       { key: 'pages', label: 'Pages', type: 'title' },
       { key: 'error-page', label: 'Error Page', path: 'error-page' },
