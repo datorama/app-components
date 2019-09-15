@@ -7,8 +7,9 @@ import Snippet from './Snippet';
 
 const snippet = `
 () => {
-  const [isOpen, toggleOpen] = useState(false);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleOpen = useCallback(() => setIsOpen(open => !open), [isOpen]);
+  
   return (
     <div>
       <Modal
@@ -17,7 +18,13 @@ const snippet = `
         size="medium"
         title="Modal Example"
         buttons={[
-          { type: 'secondary', label: 'cancel', onClick: null },
+          ({ key }) => (<div key={key}>...</div>),
+          {
+            type: 'secondary',
+            label: 'cancel',
+            onClick: null,
+            disabled: true
+          },
           { label: 'submit', onClick: null }
         ]}
       >
