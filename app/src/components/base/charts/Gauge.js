@@ -5,120 +5,177 @@ import { useAnimation } from '../../hooks/common.hooks';
 import { useTheme } from '../../hooks/theme.hooks';
 
 const SIZE = 400;
+
+const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
+  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+
+  return {
+    x: centerX + radius * Math.cos(angleInRadians),
+    y: centerY + radius * Math.sin(angleInRadians)
+  };
+};
+
+const describeArc = (x, y, radius, startAngle, endAngle) => {
+  const start = polarToCartesian(x, y, radius, endAngle);
+  const end = polarToCartesian(x, y, radius, startAngle);
+  const arcSweep = endAngle - startAngle <= 180 ? '0' : '1';
+
+  return [
+    'M',
+    start.x,
+    start.y,
+    'A',
+    radius,
+    radius,
+    0,
+    arcSweep,
+    0,
+    end.x,
+    end.y
+  ].join(' ');
+};
+
 const Gauge = props => {
+  const { className, min, max, labelRenderer, start, end, value } = props;
   const theme = useTheme();
+  const time = useAnimation('elastic', 2000, 0);
 
-  const startOffset = props.start / (props.max - props.min);
-  const endOffset = props.end / (props.max - props.min);
-  const percent = 0.5;
-  const selected = props.value / (props.max - props.min);
+  const calcValue = (value - min) / (max - min);
 
-  const R1 = SIZE - 110;
-  const outerCircumference = (2 * Math.PI * R1) / 2;
+  const rangeStart = (start - min) / (max - min);
+  const rangeEnd = (end - min) / (max - min);
+  const range = rangeStart;
 
-  const R2 = SIZE - 160;
-  const circumference = (2 * Math.PI * R2) / 2;
+  const RADIUS = 110;
 
-  const outerPlaceholderDashoffset =
-    outerCircumference - (75 / 100) * outerCircumference;
-  const placeholderDashoffset = circumference - (75 / 100) * circumference;
+  const valuePos = polarToCartesian(
+    SIZE / 2,
+    SIZE / 2,
+    RADIUS + 25,
+    -135 + time * 275 * calcValue
+  );
 
-  const time = useAnimation('elastic', 2000, 500);
-  const alpha = (-1 * Math.PI) / 4 - selected * time * 1.5 * Math.PI;
+  const rangePos = polarToCartesian(
+    SIZE / 2,
+    SIZE / 2,
+    RADIUS + 60,
+    -135 + time * 275 * range
+  );
+
+  const tickCenter = { x: SIZE / 2, y: SIZE / 2 + 60 };
+  const tickVector = {
+    x: valuePos.x - tickCenter.x,
+    y: valuePos.y - tickCenter.y
+  };
+  const tickPos = {
+    x: tickCenter.x + tickVector.x * 0.8,
+    y: tickCenter.y + tickVector.y * 0.8
+  };
 
   return (
-    <Container viewBox={`0 0 ${SIZE} ${SIZE}`} className={props.className}>
-      <defs>
-        <linearGradient id="gauge-colors" x1="100%" y1="0%" x2="0%" y2="0%">
-          <stop
-            offset="0%"
-            style={{ stopColor: theme.p200, stopOpacity: 0.5 }}
-          />
-          <stop
-            offset="100%"
-            style={{ stopColor: theme.p300, stopOpacity: 1 }}
-          />
-        </linearGradient>
-      </defs>
-
-      <ThickPlaceholder
-        className="value-placeholder"
-        cx={SIZE / 2}
-        cy={SIZE / 2}
-        r={R2 / 2}
-        dashoffset={placeholderDashoffset}
-        circumference={circumference}
+    <Container viewBox={`0 0 ${SIZE} ${SIZE}`} className={className}>
+      <Path
+        d={describeArc(SIZE / 2, SIZE / 2, RADIUS, 0, time * 275)}
         stroke={theme.p100}
+        width={30}
+        className="thick-bg"
       />
 
-      <ThickCircle
-        className="value"
-        cx={SIZE / 2}
-        cy={SIZE / 2}
-        r={R2 / 2}
-        dashoffset={time * 0.75 * (endOffset - startOffset) * circumference}
-        circumference={0.75 * circumference}
-        stroke="url(#gauge-colors)"
+      <Path
+        d={describeArc(
+          SIZE / 2,
+          SIZE / 2,
+          RADIUS,
+          time * 275 * rangeStart,
+          time * 275 * rangeEnd
+        )}
+        stroke={theme.p200}
+        width={30}
+        className="thick-value"
       />
 
-      <ThinPlaceholder
-        className="outer-placeholder"
-        cx={SIZE / 2}
-        cy={SIZE / 2}
-        r={R1 / 2}
-        dashoffset={outerPlaceholderDashoffset}
-        circumference={outerCircumference}
-        stroke={theme.p100}
+      <Path
+        d={describeArc(SIZE / 2, SIZE / 2, RADIUS + 25, 0, time * 275)}
+        stroke={theme.g100}
+        width={10}
+        className="thin-bg"
       />
 
-      <ThinCircle
-        className="outer-value"
-        cx={SIZE / 2}
-        cy={SIZE / 2}
-        r={R1 / 2}
-        dashoffset={time * 0.75 * percent * outerCircumference}
-        circumference={0.75 * outerCircumference}
-        stroke={theme.a400}
+      <Path
+        d={describeArc(
+          SIZE / 2,
+          SIZE / 2,
+          RADIUS + 25,
+          time * 275 * rangeStart,
+          time * 275 * rangeEnd
+        )}
+        stroke={theme.g300}
+        width={10}
+        className="thin-value"
       />
 
-      <Line
-        className="line"
-        d={[
-          `M ${SIZE / 2}, ${SIZE / 2 + 50}`,
-          `L ${SIZE / 2 + 90 * Math.sin(alpha)}, ${SIZE / 2 +
-            15 +
-            90 * Math.cos(alpha)}`
-        ].join(' ')}
-      />
-
-      <Dot
-        cx={SIZE / 2 + 145 * Math.sin(alpha)}
-        cy={SIZE / 2 + 145 * Math.cos(alpha)}
-        r={12}
-      />
-
-      <Percent x={SIZE / 2} y={SIZE - 50} className="percent">
-        {props.labelRenderer
-          ? props.labelRenderer(Math.round(time * props.value))
-          : Math.round(time * props.value)}
-      </Percent>
-
-      <SmallLabel x={SIZE / 2 - 100} y={SIZE - 50} className="min">
-        {props.labelRenderer ? props.labelRenderer(props.min) : props.min}
-      </SmallLabel>
-      <SmallLabel x={SIZE / 2 + 100} y={SIZE - 50} className="max">
-        {props.labelRenderer ? props.labelRenderer(props.max) : props.max}
-      </SmallLabel>
-      <SmallLabel
-        className="outer-label"
-        x={SIZE / 2 + 180 * Math.sin(alpha)}
-        y={SIZE / 2 + 180 * Math.cos(alpha)}
-        size={22}
+      <Label
+        x={SIZE / 2 - 90}
+        y={SIZE - 60}
+        fill={theme.p200}
+        size={26}
+        anchor="end"
+        className="small-label"
       >
-        {props.labelRenderer
-          ? props.labelRenderer(Math.round(time * props.value))
-          : Math.round(time * props.value)}
-      </SmallLabel>
+        {labelRenderer ? labelRenderer(min) : min}
+      </Label>
+
+      <Label
+        x={SIZE / 2 + 90}
+        y={SIZE - 60}
+        fill={theme.p200}
+        size={26}
+        anchor="start"
+        className="small-label"
+      >
+        {labelRenderer ? labelRenderer(max) : max}
+      </Label>
+
+      <Label
+        x={SIZE / 2}
+        y={SIZE - 80}
+        fill={theme.p300}
+        size={40}
+        className="large-label"
+      >
+        {labelRenderer
+          ? labelRenderer(Math.round(time * value))
+          : Math.round(time * value)}
+      </Label>
+
+      <Label
+        x={rangePos.x}
+        y={rangePos.y}
+        fill={theme.p200}
+        size={26}
+        className="small-label"
+      >
+        {labelRenderer
+          ? labelRenderer(Math.round(time * start))
+          : Math.round(time * start)}
+      </Label>
+
+      <Circle
+        cx={valuePos.x}
+        cy={valuePos.y}
+        r={13}
+        fill={theme.g300}
+        className="circle"
+      />
+
+      <Tick
+        d={[
+          `M ${tickCenter.x}, ${tickCenter.y}`,
+          `L ${tickPos.x}, ${tickPos.y} z`
+        ].join(' ')}
+        fill={theme.p400}
+        className="tick"
+      />
     </Container>
   );
 };
@@ -138,53 +195,35 @@ Gauge.propTypes = {
 const Container = styled.svg`
   width: ${SIZE}px;
   height: ${SIZE}px;
+  ${({ theme }) => theme.animation.fade};
 `;
 
-const ThickCircle = styled.circle`
+const Path = styled.path`
+  stroke-linecap: round;
   fill: transparent;
-  stroke-width: 30;
-
-  transform: rotate(135deg);
+  stroke: ${({ stroke }) => stroke};
+  stroke-width: ${({ width }) => width};
   transform-origin: 50% 50%;
-  stroke: ${({ stroke }) => stroke};
-  stroke-linecap: round;
-  stroke-dashoffset: ${({ dashoffset }) => dashoffset};
-  stroke-dasharray: ${({ circumference }) => circumference};
+  transform: rotate(-135deg);
 `;
 
-const ThinCircle = styled(ThickCircle)`
-  stroke: ${({ stroke }) => stroke};
-  stroke-width: 10;
-`;
-
-const ThinPlaceholder = styled(ThinCircle)`
-  stroke-dashoffset: ${({ dashoffset }) => dashoffset};
-`;
-
-const ThickPlaceholder = styled(ThickCircle)`
-  stroke-dashoffset: ${({ dashoffset }) => dashoffset};
-`;
-
-const Percent = styled.text`
-  fill: ${({ theme }) => theme.p600};
-  font-size: 40px;
-  text-anchor: middle;
+const Label = styled.text`
+  font-size: ${({ size }) => size}px;
+  fill: ${({ fill }) => fill};
   font-weight: 700;
+  text-anchor: ${({ anchor }) => anchor || 'middle'};
+  alignment-baseline: middle;
 `;
 
-const SmallLabel = styled.text`
-  fill: ${({ theme }) => theme.p200};
-  font-size: ${({ size }) => size || 24}px;
-  text-anchor: middle;
-  font-weight: 700;
+const Circle = styled.circle`
+  stroke: transparent;
+  fill: ${({ fill }) => fill};
 `;
 
-const Line = styled.path`
-  stroke-width: 5;
+const Tick = styled.path`
+  stroke: ${({ fill }) => fill};
+  stroke-width: 4;
+  fill: ${({ fill }) => fill};
   stroke-linecap: round;
-  stroke: ${({ theme }) => theme.p300};
-`;
-
-const Dot = styled.circle`
-  fill: ${({ theme }) => theme.a400};
+  stroke-linejoin: round;
 `;

@@ -9,11 +9,13 @@ const snippet = `
 () => (
   <div>
     <Gauge
-      start={100}
-      end={200}
-      min={0}
-      max={200}
-      value={50}
+      // range start - [0 - 360]
+      start={90}
+      // range end - [0 - 360]
+      end={150}
+      min={50}
+      max={150}
+      value={125}
       labelRenderer={value => '$' + value}
     />
   </div>
