@@ -44,6 +44,7 @@ import Sticky from './docs/Sticky.doc';
 import SnailChart from './docs/SnailChart.doc';
 import Ellipsis from './docs/Ellipsis.doc';
 import Table from './docs/Table.doc';
+import Gauge from './docs/Gauge.doc';
 
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
@@ -52,7 +53,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.14.1</Version>
+        <Version>0.15.0</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -182,6 +183,7 @@ class App extends Component {
       { key: 'widget', label: 'Widget', path: 'widget' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
+      { key: 'gauge', label: 'Gauge Chart', path: 'gauge' },
       { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
 
       { key: 'pages', label: 'Pages', type: 'title' },
@@ -257,6 +259,7 @@ class App extends Component {
                 <Route exact path="/snail-chart" component={SnailChart} />
                 <Route exact path="/ellipsis" component={Ellipsis} />
                 <Route exact path="/table" component={Table} />
+                <Route exact path="/gauge" component={Gauge} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/drag-drop" component={DragDrop} />
