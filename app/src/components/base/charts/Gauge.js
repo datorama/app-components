@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useAnimation } from '../../hooks/common.hooks';
 import { useTheme } from '../../hooks/theme.hooks';
+import { identity } from 'lodash/fp';
 
 const SIZE = 400;
 
@@ -36,7 +37,15 @@ const describeArc = (x, y, radius, startAngle, endAngle) => {
 };
 
 const Gauge = props => {
-  const { className, min, max, labelRenderer, start, end, value } = props;
+  const {
+    className,
+    min,
+    max,
+    labelRenderer = identity,
+    start,
+    end,
+    value
+  } = props;
   const theme = useTheme();
   const time = useAnimation('elastic', 2000, 0);
 
@@ -123,7 +132,7 @@ const Gauge = props => {
         anchor="end"
         className="small-label"
       >
-        {labelRenderer ? labelRenderer(min) : min}
+        {labelRenderer(min)}
       </Label>
 
       <Label
@@ -134,7 +143,7 @@ const Gauge = props => {
         anchor="start"
         className="small-label"
       >
-        {labelRenderer ? labelRenderer(max) : max}
+        {labelRenderer(max)}
       </Label>
 
       <Label
@@ -144,9 +153,7 @@ const Gauge = props => {
         size={40}
         className="large-label"
       >
-        {labelRenderer
-          ? labelRenderer(Math.round(time * value))
-          : Math.round(time * value)}
+        {labelRenderer(time * value)}
       </Label>
 
       <Label
@@ -156,9 +163,7 @@ const Gauge = props => {
         size={26}
         className="small-label"
       >
-        {labelRenderer
-          ? labelRenderer(Math.round(time * floatingLabel))
-          : Math.round(time * floatingLabel)}
+        {labelRenderer(time * floatingLabel)}
       </Label>
 
       <Circle
