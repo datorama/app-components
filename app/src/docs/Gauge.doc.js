@@ -16,7 +16,7 @@ const snippet = `
       min={50}
       max={150}
       value={125}
-      labelRenderer={value => '$' + value}
+      labelRenderer={value => '$' + Math.round(value)}
     />
   </div>
 );
