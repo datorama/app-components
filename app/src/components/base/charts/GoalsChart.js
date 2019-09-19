@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import * as d3 from 'd3-shape';
 import PropTypes from 'prop-types';
-import { maxBy } from 'lodash/fp';
+import { maxBy, minBy } from 'lodash/fp';
 
 import DragSvg from './DragSvg';
 import { hexToRgba } from '../../utils';
@@ -43,7 +43,7 @@ const Axis = ({
       textAnchor="end"
       color={labelsColor}
     >
-      {max}
+      {max}%
     </Label>,
     <Label
       key="top-value"
@@ -53,7 +53,7 @@ const Axis = ({
       textAnchor="end"
       color={labelsColor}
     >
-      {min}
+      {min}%
     </Label>
   );
 
@@ -99,7 +99,63 @@ const Points = ({
         mask="url(#goals-mask)"
         color={fillColor}
       />
-      <Line d={lineData} speed={speed} color={lineColor} />
+      <Line
+        d={lineData}
+        speed={speed}
+        color={lineColor}
+        filter="url(#area-shadow)"
+      />
+    </g>
+  );
+};
+
+const HoverPoints = ({
+  data,
+  width,
+  padding,
+  onMouseEnter,
+  hovered,
+  originalData
+}) => {
+  const rectWidth = (width - 2 * padding - 70) / data.length;
+
+  if (rectWidth <= 0) {
+    return null;
+  }
+
+  return (
+    <g>
+      {data.map((point, i) => (
+        <HoverZone key={`point-${i}`} onMouseEnter={() => onMouseEnter(i)}>
+          <HoverRect
+            width={rectWidth}
+            height="100%"
+            x={point[0] - 0.5 * rectWidth}
+            y={0}
+          />
+          <Circle cx={point[0]} cy={point[1]} r={3} selected={hovered === i} />
+
+          <TextBg
+            x={point[0] - 20}
+            y={point[1] - 25}
+            width={40}
+            height={20}
+            rx={4}
+            ry={4}
+            selected={hovered === i}
+          />
+
+          <TooltipLabel
+            alignmentBaseline="middle"
+            textAnchor="end"
+            x={point[0] + 10}
+            y={point[1] - 13}
+            selected={hovered === i}
+          >
+            {originalData[i][1]}
+          </TooltipLabel>
+        </HoverZone>
+      ))}
     </g>
   );
 };
@@ -114,32 +170,31 @@ const GoalsChart = ({
   lineColor,
   labelsColor,
   areaColor,
-  dragColor,
-  min,
-  max
+  dragColor
 }) => {
   const [state, setState] = useState({
     width: 0,
     height: 0,
     translation: 0
   });
+  const padding = 20;
+
+  const maxY = maxBy(arr => arr[1], data);
+  const minY = minBy(arr => arr[1], data);
+  const maxX = maxBy(arr => arr[0], data);
+  const minX = minBy(arr => arr[0], data);
+
+  const adjustedData = data.map(arr => [
+    100 +
+      ((arr[0] - minX[0]) / (maxX[0] - minX[0])) *
+        (state.width - 2 * padding - 50 - 100),
+    state.height -
+      padding -
+      ((arr[1] - minY[1]) / (maxY[1] - minY[1])) * (state.height - 2 * padding)
+  ]);
 
   const steps = 10;
-  const padding = 20;
   const el = useRef(null);
-
-  const maxItem = maxBy(arr => arr[0], data);
-
-  let dataMax = 0;
-  if (maxItem) {
-    dataMax = maxItem[0];
-  }
-
-  const modifiedData = data.map(arr => [
-    (arr[0] / dataMax) * (state.width - padding - 80) + 50,
-    arr[1]
-    //state.height - padding - 20 //-
-  ]);
 
   const handleDrag = useCallback(pos => {
     setState(current => ({
@@ -161,13 +216,32 @@ const GoalsChart = ({
   }, [el]);
 
   const percentage =
-    ((-1 * state.translation) / (state.height - 2 * padding)) * (max - min);
+    minY[1] +
+    Math.round(
+      ((-1 * state.translation) / (state.height - 2 * padding)) *
+        (maxY[1] - minY[1])
+    );
+
+  const [hovered, setHovered] = useState(null);
+  const handleMouseEnter = useCallback(index => setHovered(index), []);
 
   return (
-    <Container ref={el} className={className}>
+    <Container
+      ref={el}
+      className={className}
+      onMouseLeave={() => handleMouseEnter(null)}
+    >
+      <defs>
+        <filter id="area-shadow" x="-200%" y="-200%" width="400%" height="400%">
+          <feOffset result="offOut" in="SourceGraphic" dx="5" dy="10" />
+          <feGaussianBlur result="blurOut" in="offOut" stdDeviation="6" />
+          <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+        </filter>
+      </defs>
+
       <Axis
-        min={min}
-        max={max}
+        min={minY[1]}
+        max={maxY[1]}
         steps={steps}
         height={state.height}
         padding={padding}
@@ -178,13 +252,21 @@ const GoalsChart = ({
         height={state.height}
         width={state.width}
         padding={padding}
-        data={modifiedData}
+        data={adjustedData}
         translation={state.translation}
         invert={invert}
         speed={animationSpeed}
         fillColor={fillColor}
         areaColor={areaColor}
         lineColor={lineColor}
+      />
+      <HoverPoints
+        data={adjustedData}
+        width={state.width}
+        padding={padding}
+        onMouseEnter={handleMouseEnter}
+        hovered={hovered}
+        originalData={data}
       />
       <DragSvg
         onChange={handleDrag}
@@ -255,14 +337,23 @@ const GoalsChart = ({
         />
       </DragSvg>
 
+      <TextBg
+        x={2 * padding - 5 - 35}
+        y={state.height - padding + state.translation - 11}
+        width={40}
+        height={20}
+        rx={4}
+        ry={4}
+        selected={true}
+      />
       <Percentage
         alignmentBaseline="middle"
+        textAnchor="end"
         x={2 * padding - 5}
         y={state.height - padding + state.translation}
-        textAnchor="end"
         color={labelsColor}
       >
-        {percentage.toFixed(1)}
+        {percentage}%
       </Percentage>
     </Container>
   );
@@ -280,15 +371,13 @@ GoalsChart.propTypes = {
   labelsColor: PropTypes.string,
   fillColor: PropTypes.string,
   areaColor: PropTypes.string,
-  className: PropTypes.string,
-  min: PropTypes.number,
-  max: PropTypes.number
+  className: PropTypes.string
 };
 
 const Container = styled.svg`
   width: 100%;
   height: 200px;
-  min-width: 500px;
+  min-width: 600px;
   user-select: none;
 `;
 
@@ -335,11 +424,11 @@ const Overlay = styled(Path)`
 `;
 
 const Line = styled.path`
-  stroke-width: 1;
+  stroke-width: 2;
   fill: transparent;
-  stroke: ${({ theme, color }) => color || theme.p600};
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
+  stroke: ${({ theme, color }) => color || theme.a300};
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
   animation: dash ${({ speed }) => speed}ms linear forwards;
   stroke-linecap: round;
 
@@ -375,7 +464,53 @@ const Arrow = styled.path`
 `;
 
 const Percentage = styled.text`
-  font-size: 11px;
-  font-weight: 500;
-  fill: ${({ theme, color }) => color || theme.p400};
+  font-size: 14px;
+  font-weight: 600;
+  fill: ${({ theme, color }) => color || theme.a400};
+`;
+
+const Circle = styled.circle`
+  stroke: none;
+  fill: ${({ theme, color }) => color || theme.p600};
+  opacity: 0;
+  transition: all 300ms;
+
+  ${({ selected }) =>
+    selected &&
+    `
+    opacity: 1;
+  `};
+`;
+
+const TextBg = styled.rect`
+  fill: ${({ theme }) => theme.a100};
+  opacity: 0;
+
+  ${({ selected }) =>
+    selected &&
+    `
+    opacity: 1;
+  `};
+`;
+
+const HoverRect = styled.rect`
+  stroke: none;
+  fill: transparent;
+`;
+
+const HoverZone = styled.g``;
+
+const TooltipLabel = styled.text`
+  font-size: 12px;
+  font-weight: 600;
+  fill: ${({ theme, color }) => color || theme.a400};
+
+  opacity: 0;
+  transition: all 300ms;
+
+  ${({ selected }) =>
+    selected &&
+    `
+    opacity: 1;
+  `};
 `;

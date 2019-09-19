@@ -8,24 +8,33 @@ import Snippet from './Snippet';
 const snippet = `
 () => {
   const data = [
-    [0, 20],
-    [50, 60],
-    [100, 10],
-    [150, 50],
-    [200, 90],
-    [250, 30],
-    [300, 70],
-    [350, 20],
-    [400, 30]
+    [0, 40],
+    [100, 80],
+    [200, 30],
+    [300, 50],
+    [400, 40],
+    [500, 80]
   ];
 
   return (
     <div>
-      <svg>
+      <svg width="0" height="0">
         <defs>
-            <linearGradient id="gradient" x1="0%" y1="100%" x2="100%" y2="0%" >
-                <stop offset="0%" style={{ stopColor: "rgb(158,31,255)", stopOpacity: 1 }} />
-                <stop offset="100%" style={{ stopColor: "rgb(18,121,255)", stopOpacity: 1 }} />
+            <linearGradient
+              id="gradient"
+              x1="0%"
+              y1="100%"
+              x2="100%"
+              y2="0%"
+              >
+                <stop
+                  offset="0%"
+                  style={{ stopColor: "rgb(158,31,255)", stopOpacity: 1 }}
+                />
+                <stop
+                  offset="100%"
+                  style={{ stopColor: "rgb(18,121,255)", stopOpacity: 1 }}
+                />
             </linearGradient>
         </defs>
       </svg>
@@ -33,8 +42,7 @@ const snippet = `
       <GoalsChart
         data={data}
         fillColor="url(#gradient)" // filter or hex
-        min={0}
-        max={100}
+        // invert={true}
         // ticksColor="#ff0000"
         // dragColor="#ff0000"
         // labelsColor="#ff0000"
