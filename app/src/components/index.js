@@ -56,6 +56,7 @@ export { default as ErrorPage } from './base/ErrorPage';
 export { default as Sticky } from './base/Sticky';
 export { default as SnailChart } from './base/charts/SnailChart';
 export { default as GoalsChart } from './base/charts/GoalsChart';
+export { default as Gauge } from './base/charts/Gauge';
 
 export const AppTheme = ({ provider: Provider, theme, children }) => (
   <Provider theme={theme}>

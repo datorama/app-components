@@ -44,6 +44,7 @@ import Sticky from './docs/Sticky.doc';
 import SnailChart from './docs/SnailChart.doc';
 import Ellipsis from './docs/Ellipsis.doc';
 import Table from './docs/Table.doc';
+import Gauge from './docs/Gauge.doc';
 import GoalsChart from './docs/GoalsChart';
 
 const Navigation = ({ list, history, location, onClick }) => {
@@ -53,7 +54,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.11.3</Version>
+        <Version>0.16.0</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -153,39 +154,39 @@ class App extends Component {
       },
 
       { key: 'style', label: 'Style', type: 'title' },
-      { key: 'colors', label: 'Colors', path: 'colors' },
-      { key: 'typography', label: 'Typography', path: 'typography' },
-      { key: 'layout', label: 'Layout', path: 'layout' },
       { key: 'animations', label: 'Animations', path: 'animations' },
+      { key: 'colors', label: 'Colors', path: 'colors' },
+      { key: 'layout', label: 'Layout', path: 'layout' },
+      { key: 'typography', label: 'Typography', path: 'typography' },
 
       { key: 'components', label: 'Components', type: 'title' },
       { key: 'button', label: 'Button', path: 'button' },
       { key: 'card', label: 'Card', path: 'card' },
-      { key: 'modal', label: 'Modal', path: 'modal' },
-      { key: 'toggles', label: 'Toggles', path: 'toggles' },
-      { key: 'progress', label: 'Progress', path: 'progress' },
-      { key: 'spinner', label: 'Spinner', path: 'spinner' },
-      { key: 'text-input', label: 'Text Input', path: 'text-input' },
-      { key: 'tag', label: 'Tag', path: 'tag' },
-      { key: 'select', label: 'Select', path: 'select' },
       { key: 'carousel', label: 'Carousel', path: 'carousel' },
-      { key: 'pagination', label: 'Pagination', path: 'pagination' },
-
-      { key: 'notifications', label: 'Notifications', path: 'notifications' },
-      { key: 'stepper', label: 'Stepper', path: 'stepper' },
-      { key: 'tooltip', label: 'Tooltip', path: 'tooltip' },
-      { key: 'range-input', label: 'Range Input', path: 'range' },
-      { key: 'tabs', label: 'Tabs', path: 'tabs' },
       { key: 'collapse', label: 'Collapse', path: 'collapse' },
       { key: 'date-picker', label: 'Date Picker', path: 'datepicker' },
-      { key: 'widget', label: 'Widget', path: 'widget' },
+      { key: 'ellipsis', label: 'Ellipsis', path: 'ellipsis' },
+      { key: 'modal', label: 'Modal', path: 'modal' },
+      { key: 'notifications', label: 'Notifications', path: 'notifications' },
+      { key: 'pagination', label: 'Pagination', path: 'pagination' },
+      { key: 'progress', label: 'Progress', path: 'progress' },
+      { key: 'range-input', label: 'Range Input', path: 'range' },
+      { key: 'select', label: 'Select', path: 'select' },
+      { key: 'spinner', label: 'Spinner', path: 'spinner' },
+      { key: 'stepper', label: 'Stepper', path: 'stepper' },
       { key: 'sticky', label: 'Sticky', path: 'sticky' },
       { key: 'table', label: 'Table', path: 'table' },
-      { key: 'ellipsis', label: 'Ellipsis', path: 'ellipsis' },
+      { key: 'tabs', label: 'Tabs', path: 'tabs' },
+      { key: 'tag', label: 'Tag', path: 'tag' },
+      { key: 'text-input', label: 'Text Input', path: 'text-input' },
+      { key: 'toggles', label: 'Toggles', path: 'toggles' },
+      { key: 'tooltip', label: 'Tooltip', path: 'tooltip' },
+      { key: 'widget', label: 'Widget', path: 'widget' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
-      { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
       { key: 'goals-chart', label: 'Goals Chart', path: 'goals-chart' },
+      { key: 'gauge', label: 'Gauge Chart', path: 'gauge' },
+      { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
 
       { key: 'pages', label: 'Pages', type: 'title' },
       { key: 'error-page', label: 'Error Page', path: 'error-page' },
@@ -261,6 +262,7 @@ class App extends Component {
                 <Route exact path="/goals-chart" component={GoalsChart} />
                 <Route exact path="/ellipsis" component={Ellipsis} />
                 <Route exact path="/table" component={Table} />
+                <Route exact path="/gauge" component={Gauge} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/drag-drop" component={DragDrop} />

@@ -79,7 +79,7 @@ const SelectOptions = props => {
     return (
       <Option
         ref={el => (itemsRef.current[option.value] = el)}
-        className="option"
+        className={!multi && selected ? 'option option-selected' : 'option'}
         key={option.value}
         onClick={() => handleClick(option)}
         selected={selected && !multi}
@@ -88,11 +88,16 @@ const SelectOptions = props => {
         small={small}
         large={large}
       >
-        {multi && <StyledCheckbox checked={!!selected} />}
+        {multi && (
+          <StyledCheckbox
+            checked={!!selected}
+            className="menu-option-checkbox"
+          />
+        )}
         {optionLabelRenderer ? (
           optionLabelRenderer(option)
         ) : (
-          <Label small={small} large={large}>
+          <Label small={small} large={large} className="menu-option-label">
             {option.label}
           </Label>
         )}
@@ -102,13 +107,14 @@ const SelectOptions = props => {
 
   return (
     <Container
+      className="menu-options-container"
       ref={containerRef}
       maxItems={maxItems}
       marginTop={multi || (searchable && !inlineSearch) ? '5px' : 0}
       small={small}
       large={large}
     >
-      <Inner>{items}</Inner>
+      <Inner className="menu-options">{items}</Inner>
     </Container>
   );
 };
