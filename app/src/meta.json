@@ -110,63 +110,6 @@
   },
   {
     "description": "",
-    "displayName": "Checkbox",
-    "methods": [],
-    "props": {
-      "checked": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "round": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "label": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "partial": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Checkbox.js"
-  },
-  {
-    "description": "",
     "displayName": "ClickOut",
     "methods": [
       {
@@ -255,6 +198,112 @@
       }
     },
     "filename": "/components/base/Collapse.js"
+  },
+  {
+    "description": "",
+    "displayName": "Checkbox",
+    "methods": [],
+    "props": {
+      "checked": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "round": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "partial": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Checkbox.js"
+  },
+  {
+    "description": "",
+    "displayName": "Collapsible",
+    "methods": [
+      {
+        "name": "handleRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": true,
+        "description": ""
+      },
+      "toggleOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Collapsible.js"
   },
   {
     "description": "",
@@ -394,123 +443,6 @@
   },
   {
     "description": "",
-    "displayName": "Collapsible",
-    "methods": [
-      {
-        "name": "handleRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": true,
-        "description": ""
-      },
-      "toggleOpen": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Collapsible.js"
-  },
-  {
-    "description": "",
-    "displayName": "Draggable",
-    "methods": [
-      {
-        "name": "handleMouseDown",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{ clientX, clientY }",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleMouseMove",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{ clientX, clientY }",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleMouseUp",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "onDrag": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "id": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "setDrag": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Draggable.js"
-  },
-  {
-    "description": "",
     "displayName": "DragDropProvider",
     "methods": [
       {
@@ -555,55 +487,6 @@
       }
     },
     "filename": "/components/base/DragDropProvider.js"
-  },
-  {
-    "description": "",
-    "displayName": "Droppable",
-    "methods": [
-      {
-        "name": "setHover",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "hovering",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "id": {
-        "type": {
-          "name": "string"
-        },
-        "required": true,
-        "description": ""
-      },
-      "setHover": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Droppable.js"
   },
   {
     "description": "",
@@ -683,9 +566,97 @@
   },
   {
     "description": "",
-    "displayName": "LinearProgress",
-    "methods": [],
+    "displayName": "Draggable",
+    "methods": [
+      {
+        "name": "handleMouseDown",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ clientX, clientY }",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseMove",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ clientX, clientY }",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleMouseUp",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
+      "onDrag": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "setDrag": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Draggable.js"
+  },
+  {
+    "description": "",
+    "displayName": "Droppable",
+    "methods": [
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "hovering",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
       "className": {
         "type": {
           "name": "string"
@@ -693,15 +664,22 @@
         "required": false,
         "description": ""
       },
-      "color": {
+      "id": {
         "type": {
           "name": "string"
         },
-        "required": false,
+        "required": true,
+        "description": ""
+      },
+      "setHover": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
         "description": ""
       }
     },
-    "filename": "/components/base/LinearProgress.js"
+    "filename": "/components/base/Droppable.js"
   },
   {
     "description": "",
@@ -804,72 +782,17 @@
   },
   {
     "description": "",
-    "displayName": "Pagination",
-    "methods": [
-      {
-        "name": "next",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "update",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "prev",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "setPage",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "selected",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "getPages",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
+    "displayName": "LinearProgress",
+    "methods": [],
     "props": {
-      "total": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "max": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
       "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "color": {
         "type": {
           "name": "string"
         },
@@ -877,7 +800,7 @@
         "description": ""
       }
     },
-    "filename": "/components/base/Pagination.js"
+    "filename": "/components/base/LinearProgress.js"
   },
   {
     "description": "",
@@ -1102,6 +1025,83 @@
   },
   {
     "description": "",
+    "displayName": "Pagination",
+    "methods": [
+      {
+        "name": "next",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "update",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "prev",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "setPage",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "selected",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "getPages",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "total": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "max": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Pagination.js"
+  },
+  {
+    "description": "",
     "displayName": "RadialProgress",
     "methods": [],
     "props": {
@@ -1149,6 +1149,87 @@
       }
     },
     "filename": "/components/base/RadialProgress.js"
+  },
+  {
+    "description": "",
+    "displayName": "SegmentedButton",
+    "methods": [],
+    "props": {
+      "sections": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "id": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "number"
+                  },
+                  {
+                    "name": "string"
+                  }
+                ],
+                "required": false
+              },
+              "label": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "node"
+                  },
+                  {
+                    "name": "string"
+                  }
+                ],
+                "required": false
+              },
+              "className": {
+                "name": "string",
+                "required": false
+              },
+              "disabled": {
+                "name": "bool",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "number"
+            },
+            {
+              "name": "string"
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/SegmentedButton.js"
   },
   {
     "description": "",
@@ -1248,71 +1329,12 @@
   },
   {
     "description": "",
-    "displayName": "SegmentedButton",
+    "displayName": "Spinner",
     "methods": [],
     "props": {
-      "sections": {
+      "color": {
         "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "id": {
-                "name": "union",
-                "value": [
-                  {
-                    "name": "number"
-                  },
-                  {
-                    "name": "string"
-                  }
-                ],
-                "required": false
-              },
-              "label": {
-                "name": "union",
-                "value": [
-                  {
-                    "name": "node"
-                  },
-                  {
-                    "name": "string"
-                  }
-                ],
-                "required": false
-              },
-              "className": {
-                "name": "string",
-                "required": false
-              },
-              "disabled": {
-                "name": "bool",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "number"
-            },
-            {
-              "name": "string"
-            }
-          ]
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
+          "name": "string"
         },
         "required": false,
         "description": ""
@@ -1325,7 +1347,7 @@
         "description": ""
       }
     },
-    "filename": "/components/base/SegmentedButton.js"
+    "filename": "/components/base/Spinner.js"
   },
   {
     "description": "",
@@ -1386,12 +1408,27 @@
   },
   {
     "description": "",
-    "displayName": "Spinner",
-    "methods": [],
+    "displayName": "Sticky",
+    "methods": [
+      {
+        "name": "handleScroll",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "update",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
-      "color": {
+      "children": {
         "type": {
-          "name": "string"
+          "name": "node"
         },
         "required": false,
         "description": ""
@@ -1402,52 +1439,16 @@
         },
         "required": false,
         "description": ""
-      }
-    },
-    "filename": "/components/base/Spinner.js"
-  },
-  {
-    "description": "",
-    "displayName": "StepperBullet",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
       },
-      "touched": {
+      "onChange": {
         "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "enabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "hovered": {
-        "type": {
-          "name": "bool"
+          "name": "func"
         },
         "required": false,
         "description": ""
       }
     },
-    "filename": "/components/base/StepperBullet.js"
+    "filename": "/components/base/Sticky.js"
   },
   {
     "description": "",
@@ -1520,50 +1521,6 @@
       }
     },
     "filename": "/components/base/Table.js"
-  },
-  {
-    "description": "",
-    "displayName": "Sticky",
-    "methods": [
-      {
-        "name": "handleScroll",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "update",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Sticky.js"
   },
   {
     "description": "",
@@ -1671,6 +1628,99 @@
   },
   {
     "description": "",
+    "displayName": "StepperBullet",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "touched": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "enabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "hovered": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/StepperBullet.js"
+  },
+  {
+    "description": "",
+    "displayName": "Tag",
+    "methods": [],
+    "props": {
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tag.js"
+  },
+  {
+    "description": "",
     "displayName": "TagGroup",
     "methods": [],
     "props": {
@@ -1737,7 +1787,7 @@
   },
   {
     "description": "",
-    "displayName": "Tag",
+    "displayName": "TextInput",
     "methods": [],
     "props": {
       "label": {
@@ -1747,21 +1797,7 @@
         "required": false,
         "description": ""
       },
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
+      "placeholder": {
         "type": {
           "name": "string"
         },
@@ -1775,15 +1811,85 @@
         "required": false,
         "description": ""
       },
-      "selected": {
+      "value": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "required": {
         "type": {
           "name": "bool"
         },
         "required": false,
         "description": ""
+      },
+      "valid": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "error": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "validMessage": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "errorMessage": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "large": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onFocus": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "type": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
       }
     },
-    "filename": "/components/base/Tag.js"
+    "filename": "/components/base/TextInput.js"
   },
   {
     "description": "",
@@ -1914,112 +2020,6 @@
       }
     },
     "filename": "/components/base/Toasts.js"
-  },
-  {
-    "description": "",
-    "displayName": "TextInput",
-    "methods": [],
-    "props": {
-      "label": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "value": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "required": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "valid": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "error": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "validMessage": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "errorMessage": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "large": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onFocus": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "type": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/TextInput.js"
   },
   {
     "description": "",
@@ -2232,24 +2232,15 @@
   },
   {
     "description": "",
-    "displayName": "SnackbarProvider",
-    "methods": [],
-    "props": {
-      "throttle": {
-        "defaultValue": {
-          "value": "200",
-          "computed": false
-        },
-        "required": false
-      }
-    },
-    "filename": "/components/base/Notifications/Snackbars.js"
-  },
-  {
-    "description": "",
     "displayName": "ToastsProvider",
     "methods": [],
     "filename": "/components/base/Notifications/Toasts.js"
+  },
+  {
+    "description": "",
+    "displayName": "NotificationsProvider",
+    "methods": [],
+    "filename": "/components/base/Notifications/index.js"
   },
   {
     "description": "",
@@ -2340,9 +2331,40 @@
   },
   {
     "description": "",
-    "displayName": "NotificationsProvider",
+    "displayName": "SelectMultiHeader",
     "methods": [],
-    "filename": "/components/base/Notifications/index.js"
+    "props": {
+      "selectAll": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "multi": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "total": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectMultiHeader.js"
   },
   {
     "description": "",
@@ -2482,93 +2504,6 @@
       }
     },
     "filename": "/components/base/Select/InlineSearch.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectHeader",
-    "methods": [],
-    "props": {
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "options": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "headerRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "toggleOpen": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholderRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "loading": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "error": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "small": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "large": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectHeader.js"
   },
   {
     "description": "",
@@ -2722,12 +2657,19 @@
   },
   {
     "description": "",
-    "displayName": "SelectMultiHeader",
+    "displayName": "SelectHeader",
     "methods": [],
     "props": {
-      "selectAll": {
+      "open": {
         "type": {
-          "name": "func"
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
         },
         "required": false,
         "description": ""
@@ -2740,28 +2682,6 @@
         "required": false,
         "description": ""
       },
-      "multi": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "total": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/SelectMultiHeader.js"
-  },
-  {
-    "description": "",
-    "displayName": "SelectOptions",
-    "methods": [],
-    "props": {
       "options": {
         "type": {
           "name": "custom",
@@ -2770,52 +2690,37 @@
         "required": false,
         "description": ""
       },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "optionRenderer": {
+      "headerRenderer": {
         "type": {
           "name": "func"
         },
         "required": false,
         "description": ""
       },
-      "multi": {
+      "toggleOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholderRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "loading": {
         "type": {
           "name": "bool"
         },
         "required": false,
         "description": ""
       },
-      "handleClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "maxItems": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchable": {
+      "error": {
         "type": {
           "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "optionLabelRenderer": {
-        "type": {
-          "name": "func"
         },
         "required": false,
         "description": ""
@@ -2833,46 +2738,24 @@
         },
         "required": false,
         "description": ""
-      },
-      "inlineSearch": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "currentHoveredOptionValue": {
-        "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "string"
-            },
-            {
-              "name": "number"
-            }
-          ]
-        },
-        "required": false,
-        "description": ""
       }
     },
-    "filename": "/components/base/Select/SelectOptions.js"
+    "filename": "/components/base/Select/SelectHeader.js"
   },
   {
     "description": "",
-    "displayName": "SelectNoResults",
+    "displayName": "SnackbarProvider",
     "methods": [],
     "props": {
-      "theme": {
-        "type": {
-          "name": "object"
+      "throttle": {
+        "defaultValue": {
+          "value": "200",
+          "computed": false
         },
-        "required": false,
-        "description": ""
+        "required": false
       }
     },
-    "filename": "/components/base/Select/SelectNoResults.js"
+    "filename": "/components/base/Notifications/Snackbars.js"
   },
   {
     "description": "",
@@ -2978,6 +2861,21 @@
   },
   {
     "description": "",
+    "displayName": "SelectNoResults",
+    "methods": [],
+    "props": {
+      "theme": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectNoResults.js"
+  },
+  {
+    "description": "",
     "displayName": "SelectSpinner",
     "methods": [],
     "props": {
@@ -2990,6 +2888,108 @@
       }
     },
     "filename": "/components/base/Select/SelectSpinner.js"
+  },
+  {
+    "description": "",
+    "displayName": "SelectOptions",
+    "methods": [],
+    "props": {
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "optionRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "multi": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "handleClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxItems": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "optionLabelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "small": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "large": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "inlineSearch": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "currentHoveredOptionValue": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "number"
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/SelectOptions.js"
   },
   {
     "description": "",
@@ -3040,6 +3040,12 @@
       }
     },
     "filename": "/components/base/Select/SelectSearch.js"
+  },
+  {
+    "description": "",
+    "displayName": "DragSvg",
+    "methods": [],
+    "filename": "/components/base/charts/DragSvg.js"
   },
   {
     "description": "",
@@ -3175,12 +3181,6 @@
       }
     },
     "filename": "/components/base/charts/SnailChart.js"
-  },
-  {
-    "description": "",
-    "displayName": "DragSvg",
-    "methods": [],
-    "filename": "/components/base/charts/DragSvg.js"
   },
   {
     "description": "",

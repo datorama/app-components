@@ -99,12 +99,7 @@ const Points = ({
         mask="url(#goals-mask)"
         color={fillColor}
       />
-      <Line
-        d={lineData}
-        speed={speed}
-        color={lineColor}
-        filter="url(#area-shadow)"
-      />
+      <Line d={lineData} speed={speed} color={lineColor} />
     </g>
   );
 };
@@ -231,14 +226,6 @@ const GoalsChart = ({
       className={className}
       onMouseLeave={() => handleMouseEnter(null)}
     >
-      <defs>
-        <filter id="area-shadow" x="-200%" y="-200%" width="400%" height="400%">
-          <feOffset result="offOut" in="SourceGraphic" dx="5" dy="10" />
-          <feGaussianBlur result="blurOut" in="offOut" stdDeviation="6" />
-          <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-        </filter>
-      </defs>
-
       <Axis
         min={minY[1]}
         max={maxY[1]}
