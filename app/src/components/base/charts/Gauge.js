@@ -8,7 +8,7 @@ import { identity } from 'lodash/fp';
 const SIZE = 400;
 
 const polarToCartesian = (centerX, centerY, radius, angleInDegrees) => {
-  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
+  const angleInRadians = ((angleInDegrees - 3 - 90) * Math.PI) / 180;
 
   return {
     x: centerX + radius * Math.cos(angleInRadians),
@@ -47,7 +47,7 @@ const Gauge = props => {
     value
   } = props;
   const theme = useTheme();
-  const time = useAnimation('elastic', 2000, 0);
+  const time = useAnimation('quadratic', 2000, 0);
 
   const calcValue = (value - min) / (max - min);
 
@@ -210,7 +210,7 @@ const Path = styled.path`
   stroke: ${({ stroke }) => stroke};
   stroke-width: ${({ width }) => width};
   transform-origin: 50% 50%;
-  transform: rotate(-135deg);
+  transform: rotate(222.5deg);
 `;
 
 const Label = styled.text`
