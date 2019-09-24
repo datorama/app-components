@@ -72,8 +72,17 @@ const SnailChart = props => {
     );
   }
 
+  const max = Math.floor(elementsRadius / 10);
+  const truncData = data.map(row => ({
+    ...row,
+    label:
+      row.label && row.label.length > max
+        ? row.label.substring(0, max - 3) + '...'
+        : row.label
+  }));
+
   for (let i = amount - 1; i >= 0; i--) {
-    const item = data[i];
+    const item = truncData[i];
 
     elements.push(
       <FilledPath
@@ -99,6 +108,7 @@ const SnailChart = props => {
         x={center.x - 30}
         y={center.y - 50 - i * barWidth - barWidth / 2}
       >
+        <title>{data[i].label}</title>
         {item.label || 'untitled'}
       </Label>
     );
