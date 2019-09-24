@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { debounce } from 'lodash/fp';
+import { debounce, isFunction } from 'lodash/fp';
 import Popup from './Popup';
 
 // icons
@@ -10,7 +10,7 @@ import TipIcon from '../icons/TipLine.icon';
 class Tooltip extends Component {
   static propTypes = {
     children: PropTypes.node,
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     long: PropTypes.bool,
     onClickInfo: PropTypes.func,
     position: PropTypes.string,
@@ -91,7 +91,7 @@ class Tooltip extends Component {
 
     return (
       <Fragment>
-        <span>{title}</span>
+        <span>{isFunction(title) ? title() : title}</span>
         {long && onClickInfo && (
           <LongAction onClick={onClickInfo}>More Info</LongAction>
         )}
