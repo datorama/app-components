@@ -75,8 +75,8 @@ const Points = ({
   const areaGenerator = d3
     .area()
     .y0(height - padding)
-    .curve(d3.curveCardinal);
-  const lineGenerator = d3.line().curve(d3.curveCardinal);
+    .curve(d3.curveCatmullRom);
+  const lineGenerator = d3.line().curve(d3.curveCatmullRom);
   const areaData = areaGenerator(data);
   const lineData = lineGenerator(data);
 
