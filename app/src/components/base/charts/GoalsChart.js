@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import * as d3 from 'd3-shape';
 import PropTypes from 'prop-types';
-import { maxBy, minBy } from 'lodash/fp';
+import { maxBy, minBy, isNumber } from 'lodash/fp';
 
 import DragSvg from './DragSvg';
 import { hexToRgba } from '../../utils';
@@ -165,7 +165,9 @@ const GoalsChart = ({
   lineColor,
   labelsColor,
   areaColor,
-  dragColor
+  dragColor,
+  value,
+  onChange
 }) => {
   const [state, setState] = useState({
     width: 0,
@@ -191,12 +193,30 @@ const GoalsChart = ({
   const steps = 10;
   const el = useRef(null);
 
-  const handleDrag = useCallback(pos => {
-    setState(current => ({
-      ...current,
-      translation: pos[1]
-    }));
-  }, []);
+  const getPercentage = useCallback(
+    translation =>
+      !state.height
+        ? value
+        : minY[1] +
+          Math.round(
+            ((-1 * translation) / (state.height - 2 * padding)) *
+              (maxY[1] - minY[1])
+          ),
+    [maxY, minY, state.height, value]
+  );
+
+  const handleDrag = useCallback(
+    pos => {
+      if (onChange) {
+        return onChange(getPercentage(pos[1]));
+      }
+      setState(current => ({
+        ...current,
+        translation: pos[1]
+      }));
+    },
+    [getPercentage, onChange]
+  );
 
   useEffect(() => {
     if (el !== null) {
@@ -210,12 +230,15 @@ const GoalsChart = ({
     }
   }, [el]);
 
-  const percentage =
-    minY[1] +
-    Math.round(
-      ((-1 * state.translation) / (state.height - 2 * padding)) *
-        (maxY[1] - minY[1])
-    );
+  const getTranslation = percentage =>
+    (-1 * (percentage - minY[1]) * (state.height - 2 * padding)) /
+    (maxY[1] - minY[1]);
+
+  const percentage = isNumber(value) ? value : getPercentage(state.translation);
+
+  const dragTranslation = isNumber(value)
+    ? getTranslation(percentage)
+    : state.translation;
 
   const [hovered, setHovered] = useState(null);
   const handleMouseEnter = useCallback(index => setHovered(index), []);
@@ -240,7 +263,7 @@ const GoalsChart = ({
         width={state.width}
         padding={padding}
         data={adjustedData}
-        translation={state.translation}
+        translation={dragTranslation}
         invert={invert}
         speed={animationSpeed}
         fillColor={fillColor}
@@ -255,78 +278,81 @@ const GoalsChart = ({
         hovered={hovered}
         originalData={data}
       />
-      <DragSvg
-        onChange={handleDrag}
-        minY={-1 * (state.height - 2 * padding)}
-        maxY={0}
-      >
-        <DragLineZone
-          x1={2 * padding - 2}
-          x2={state.width - 2 * padding + 2}
-          y1={state.height - padding + state.translation}
-          y2={state.height - padding + state.translation}
-          color={dragColor}
-        />
-        <DragLine
-          x1={2 * padding - 2}
-          x2={state.width - 2 * padding + 2}
-          y1={state.height - padding + state.translation}
-          y2={state.height - padding + state.translation}
-          color={dragColor}
-        />
-        <Arrow
-          color={dragColor}
-          d={[
-            `M ${2 * padding - 1}, ${state.height -
-              padding +
-              state.translation +
-              4}`,
-            'l 4, 4',
-            'l 4, -4',
-            'z'
-          ].join(' ')}
-        />
-        <Arrow
-          color={dragColor}
-          d={[
-            `M ${2 * padding - 1}, ${state.height -
-              padding +
-              state.translation -
-              4}`,
-            'l 4, -4',
-            'l 4, 4',
-            'z'
-          ].join(' ')}
-        />
-        <Arrow
-          color={dragColor}
-          d={[
-            `M ${state.width - 2 * padding - 7}, ${state.height -
-              padding +
-              state.translation +
-              4}`,
-            'l 4, 4',
-            'l 4, -4',
-            'z'
-          ].join(' ')}
-        />
-        <Arrow
-          color={dragColor}
-          d={[
-            `M ${state.width - 2 * padding - 7}, ${state.height -
-              padding +
-              state.translation -
-              4}`,
-            'l 4, -4',
-            'l 4, 4',
-            'z'
-          ].join(' ')}
-        />
-      </DragSvg>
+      {!!state.height && (
+        <DragSvg
+          onChange={handleDrag}
+          initialTranslation={[0, dragTranslation]}
+          minY={-1 * (state.height - 2 * padding)}
+          maxY={0}
+        >
+          <DragLineZone
+            x1={2 * padding - 2}
+            x2={state.width - 2 * padding + 2}
+            y1={state.height - padding + dragTranslation}
+            y2={state.height - padding + dragTranslation}
+            color={dragColor}
+          />
+          <DragLine
+            x1={2 * padding - 2}
+            x2={state.width - 2 * padding + 2}
+            y1={state.height - padding + dragTranslation}
+            y2={state.height - padding + dragTranslation}
+            color={dragColor}
+          />
+          <Arrow
+            color={dragColor}
+            d={[
+              `M ${2 * padding - 1}, ${state.height -
+                padding +
+                dragTranslation +
+                4}`,
+              'l 4, 4',
+              'l 4, -4',
+              'z'
+            ].join(' ')}
+          />
+          <Arrow
+            color={dragColor}
+            d={[
+              `M ${2 * padding - 1}, ${state.height -
+                padding +
+                dragTranslation -
+                4}`,
+              'l 4, -4',
+              'l 4, 4',
+              'z'
+            ].join(' ')}
+          />
+          <Arrow
+            color={dragColor}
+            d={[
+              `M ${state.width - 2 * padding - 7}, ${state.height -
+                padding +
+                dragTranslation +
+                4}`,
+              'l 4, 4',
+              'l 4, -4',
+              'z'
+            ].join(' ')}
+          />
+          <Arrow
+            color={dragColor}
+            d={[
+              `M ${state.width - 2 * padding - 7}, ${state.height -
+                padding +
+                dragTranslation -
+                4}`,
+              'l 4, -4',
+              'l 4, 4',
+              'z'
+            ].join(' ')}
+          />
+        </DragSvg>
+      )}
 
       <TextBg
         x={2 * padding - 5 - 35}
-        y={state.height - padding + state.translation - 11}
+        y={state.height - padding + dragTranslation - 11}
         width={40}
         height={20}
         rx={4}
@@ -337,7 +363,7 @@ const GoalsChart = ({
         alignmentBaseline="middle"
         textAnchor="end"
         x={2 * padding - 5}
-        y={state.height - padding + state.translation}
+        y={state.height - padding + dragTranslation}
         color={labelsColor}
       >
         {percentage}%
@@ -358,6 +384,8 @@ GoalsChart.propTypes = {
   labelsColor: PropTypes.string,
   fillColor: PropTypes.string,
   areaColor: PropTypes.string,
+  value: PropTypes.number,
+  onChange: PropTypes.func,
   className: PropTypes.string
 };
 

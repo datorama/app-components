@@ -15,6 +15,8 @@ const snippet = `
     [400, 40],
     [500, 80]
   ];
+  
+  const [value, setValue] = useState(50)
 
   return (
     <div>
@@ -42,6 +44,8 @@ const snippet = `
       <GoalsChart
         data={data}
         fillColor="url(#gradient)" // filter or hex
+        value = {value}
+        onChange={setValue}
         // invert={true}
         // ticksColor="#ff0000"
         // dragColor="#ff0000"

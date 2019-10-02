@@ -1,11 +1,17 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 
-const DragSvg = ({ children, onChange, minY, maxY }) => {
+const DragSvg = ({
+  children,
+  onChange,
+  minY,
+  maxY,
+  initialTranslation = [0, 0]
+}) => {
   const [state, setState] = useState({
     dragging: false,
     origin: [0, 0],
     translation: [0, 0],
-    lastTranslation: [0, 0]
+    lastTranslation: initialTranslation
   });
 
   const handleMouseMove = useCallback(
