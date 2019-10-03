@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo
+} from 'react';
 import styled from 'styled-components';
 import * as d3 from 'd3-shape';
 import PropTypes from 'prop-types';
@@ -17,7 +23,11 @@ const Axis = ({
   labelsColor
 }) => {
   const lines = [];
-  const step = (height - 2 * padding) / (steps - 1);
+  const step = useMemo(() => (height - 2 * padding) / (steps - 1), [
+    height,
+    padding,
+    steps
+  ]);
 
   for (let i = 0; i < steps; i++) {
     const y = padding + i * step;
@@ -72,15 +82,24 @@ const Points = ({
   areaColor,
   lineColor
 }) => {
-  const areaGenerator = d3
-    .area()
-    .y0(height - padding)
-    .curve(d3.curveCatmullRom);
-  const lineGenerator = d3.line().curve(d3.curveCatmullRom);
+  const areaGenerator = useMemo(
+    () =>
+      d3
+        .area()
+        .y0(height - padding)
+        .curve(d3.curveCatmullRom),
+    [height, padding]
+  );
+
+  const lineGenerator = useMemo(() => d3.line().curve(d3.curveCatmullRom), []);
+
   const areaData = areaGenerator(data);
   const lineData = lineGenerator(data);
 
-  const rectY = invert ? padding + translation : height - padding + translation;
+  const rectY = useMemo(
+    () => (invert ? padding + translation : height - padding + translation),
+    [height, invert, padding, translation]
+  );
 
   return (
     <g>
@@ -112,7 +131,11 @@ const HoverPoints = ({
   hovered,
   originalData
 }) => {
-  const rectWidth = (width - 2 * padding - 70) / data.length;
+  const rectWidth = useMemo(() => (width - 2 * padding - 70) / data.length, [
+    data.length,
+    padding,
+    width
+  ]);
 
   if (rectWidth <= 0) {
     return null;
@@ -176,23 +199,29 @@ const GoalsChart = ({
   });
   const padding = 20;
 
-  const maxY = maxBy(arr => arr[1], data);
-  const minY = minBy(arr => arr[1], data);
-  const maxX = maxBy(arr => arr[0], data);
-  const minX = minBy(arr => arr[0], data);
+  const maxY = useMemo(() => maxBy(arr => arr[1], data), [data]);
+  const minY = useMemo(() => minBy(arr => arr[1], data), [data]);
+  const maxX = useMemo(() => maxBy(arr => arr[0], data), [data]);
+  const minX = useMemo(() => minBy(arr => arr[0], data), [data]);
 
-  const adjustedData = data.map(arr => [
-    100 +
-      ((arr[0] - minX[0]) / (maxX[0] - minX[0])) *
-        (state.width - 2 * padding - 50 - 100),
-    state.height -
-      padding -
-      ((arr[1] - minY[1]) / (maxY[1] - minY[1])) * (state.height - 2 * padding)
-  ]);
+  const adjustedData = useMemo(
+    () =>
+      data.map(arr => [
+        100 +
+          ((arr[0] - minX[0]) / (maxX[0] - minX[0])) *
+            (state.width - 2 * padding - 50 - 100),
+        state.height -
+          padding -
+          ((arr[1] - minY[1]) / (maxY[1] - minY[1])) *
+            (state.height - 2 * padding)
+      ]),
+    [data, maxX, maxY, minX, minY, state.height, state.width]
+  );
 
   const steps = 10;
   const el = useRef(null);
 
+  // calculates percentage value based on a given DragSvg y translation value
   const getPercentage = useCallback(
     translation =>
       !state.height
@@ -203,6 +232,14 @@ const GoalsChart = ({
               (maxY[1] - minY[1])
           ),
     [maxY, minY, state.height, value]
+  );
+
+  // calculates y translation value based on a given percentage value (useful for a controlled implementation of the component)
+  const getTranslation = useCallback(
+    percentage =>
+      (-1 * (percentage - minY[1]) * (state.height - 2 * padding)) /
+      (maxY[1] - minY[1]),
+    [maxY, minY, state.height]
   );
 
   const handleDrag = useCallback(
@@ -230,15 +267,15 @@ const GoalsChart = ({
     }
   }, [el]);
 
-  const getTranslation = percentage =>
-    (-1 * (percentage - minY[1]) * (state.height - 2 * padding)) /
-    (maxY[1] - minY[1]);
+  const percentage = useMemo(
+    () => (isNumber(value) ? value : getPercentage(state.translation)),
+    [getPercentage, state.translation, value]
+  );
 
-  const percentage = isNumber(value) ? value : getPercentage(state.translation);
-
-  const dragTranslation = isNumber(value)
-    ? getTranslation(percentage)
-    : state.translation;
+  const dragTranslation = useMemo(
+    () => (isNumber(value) ? getTranslation(percentage) : state.translation),
+    [getTranslation, percentage, state.translation, value]
+  );
 
   const [hovered, setHovered] = useState(null);
   const handleMouseEnter = useCallback(index => setHovered(index), []);
