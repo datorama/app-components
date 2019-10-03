@@ -17,6 +17,10 @@ const snippet = `
   ];
   
   const [value, setValue] = useState(50)
+  const onControlledChange = useCallback(nextValue => {
+    console.log('changing value to '+nextValue+"%");
+    setValue(nextValue);
+  }, [])
 
   return (
     <div>
@@ -45,7 +49,7 @@ const snippet = `
         data={data}
         fillColor="url(#gradient)" // filter or hex
         // value = {value}
-        // onChange={setValue}
+        // onChange={onControlledChange}
         // invert={true}
         // ticksColor="#ff0000"
         // dragColor="#ff0000"
