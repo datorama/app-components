@@ -20,7 +20,8 @@ const Axis = ({
   height,
   padding,
   ticksColor,
-  labelsColor
+  labelsColor,
+  axisLabelRenderer
 }) => {
   const lines = [];
   const step = useMemo(() => (height - 2 * padding) / (steps - 1), [
@@ -44,27 +45,51 @@ const Axis = ({
     );
   }
 
+  const bottomValueProps = useMemo(
+    () => ({
+      key: 'bottom-value',
+      x: 2 * padding - 5,
+      y: padding,
+      value: max
+    }),
+    [max, padding]
+  );
+
+  const topValueProps = useMemo(
+    () => ({
+      key: 'top-value',
+      x: 2 * padding - 5,
+      y: padding + (steps - 1) * step,
+      value: min
+    }),
+    [min, padding, step, steps]
+  );
+
   lines.push(
-    <Label
-      key="bottom-value"
-      x={2 * padding - 5}
-      y={padding}
-      alignmentBaseline="middle"
-      textAnchor="end"
-      color={labelsColor}
-    >
-      {max}%
-    </Label>,
-    <Label
-      key="top-value"
-      x={2 * padding - 5}
-      y={padding + (steps - 1) * step}
-      alignmentBaseline="middle"
-      textAnchor="end"
-      color={labelsColor}
-    >
-      {min}%
-    </Label>
+    axisLabelRenderer ? (
+      axisLabelRenderer(bottomValueProps)
+    ) : (
+      <Label
+        {...bottomValueProps}
+        alignmentBaseline="middle"
+        textAnchor="end"
+        color={labelsColor}
+      >
+        {max}%
+      </Label>
+    ),
+    axisLabelRenderer ? (
+      axisLabelRenderer(topValueProps)
+    ) : (
+      <Label
+        {...topValueProps}
+        alignmentBaseline="middle"
+        textAnchor="end"
+        color={labelsColor}
+      >
+        {min}%
+      </Label>
+    )
   );
 
   return <g>{lines}</g>;
@@ -129,7 +154,8 @@ const HoverPoints = ({
   padding,
   onMouseEnter,
   hovered,
-  originalData
+  originalData,
+  lineLabelRenderer
 }) => {
   const rectWidth = useMemo(() => (width - 2 * padding - 70) / data.length, [
     data.length,
@@ -153,25 +179,35 @@ const HoverPoints = ({
           />
           <Circle cx={point[0]} cy={point[1]} r={3} selected={hovered === i} />
 
-          <TextBg
-            x={point[0] - 20}
-            y={point[1] - 25}
-            width={40}
-            height={20}
-            rx={4}
-            ry={4}
-            selected={hovered === i}
-          />
+          {lineLabelRenderer ? (
+            lineLabelRenderer({
+              x: point[0] + 10,
+              y: point[1] - 13,
+              value: originalData[i][1]
+            })
+          ) : (
+            <>
+              <TextBg
+                x={point[0] - 20}
+                y={point[1] - 25}
+                width={40}
+                height={20}
+                rx={4}
+                ry={4}
+                selected={hovered === i}
+              />
 
-          <TooltipLabel
-            alignmentBaseline="middle"
-            textAnchor="end"
-            x={point[0] + 10}
-            y={point[1] - 13}
-            selected={hovered === i}
-          >
-            {originalData[i][1]}
-          </TooltipLabel>
+              <TooltipLabel
+                alignmentBaseline="middle"
+                textAnchor="end"
+                x={point[0] + 10}
+                y={point[1] - 13}
+                selected={hovered === i}
+              >
+                {originalData[i][1]}
+              </TooltipLabel>
+            </>
+          )}
         </HoverZone>
       ))}
     </g>
@@ -190,7 +226,10 @@ const GoalsChart = ({
   areaColor,
   dragColor,
   value,
-  onChange
+  onChange,
+  axisLabelRenderer,
+  valueLabelRenderer,
+  lineLabelRenderer
 }) => {
   const [state, setState] = useState({
     width: 0,
@@ -294,6 +333,7 @@ const GoalsChart = ({
         padding={padding}
         ticksColor={ticksColor}
         labelsColor={labelsColor}
+        axisLabelRenderer={axisLabelRenderer}
       />
       <Points
         height={state.height}
@@ -314,6 +354,7 @@ const GoalsChart = ({
         onMouseEnter={handleMouseEnter}
         hovered={hovered}
         originalData={data}
+        lineLabelRenderer={lineLabelRenderer}
       />
       {!!state.height && (
         <DragSvg
@@ -387,24 +428,34 @@ const GoalsChart = ({
         </DragSvg>
       )}
 
-      <TextBg
-        x={2 * padding - 5 - 35}
-        y={state.height - padding + dragTranslation - 11}
-        width={40}
-        height={20}
-        rx={4}
-        ry={4}
-        selected={true}
-      />
-      <Percentage
-        alignmentBaseline="middle"
-        textAnchor="end"
-        x={2 * padding - 5}
-        y={state.height - padding + dragTranslation}
-        color={labelsColor}
-      >
-        {percentage}%
-      </Percentage>
+      {valueLabelRenderer ? (
+        valueLabelRenderer({
+          x: 2 * padding - 5 - 35,
+          y: state.height - padding + dragTranslation - 11,
+          value: percentage
+        })
+      ) : (
+        <>
+          <TextBg
+            x={2 * padding - 5 - 35}
+            y={state.height - padding + dragTranslation - 11}
+            width={40}
+            height={20}
+            rx={4}
+            ry={4}
+            selected={true}
+          />
+          <Percentage
+            alignmentBaseline="middle"
+            textAnchor="end"
+            x={2 * padding - 5}
+            y={state.height - padding + dragTranslation}
+            color={labelsColor}
+          >
+            {percentage}%
+          </Percentage>
+        </>
+      )}
     </Container>
   );
 };
@@ -423,6 +474,9 @@ GoalsChart.propTypes = {
   areaColor: PropTypes.string,
   value: PropTypes.number,
   onChange: PropTypes.func,
+  axisLabelRenderer: PropTypes.func,
+  valueLabelRenderer: PropTypes.func,
+  lineLabelRenderer: PropTypes.func,
   className: PropTypes.string
 };
 
