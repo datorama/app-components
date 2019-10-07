@@ -45,6 +45,7 @@ import SnailChart from './docs/SnailChart.doc';
 import Ellipsis from './docs/Ellipsis.doc';
 import Table from './docs/Table.doc';
 import Gauge from './docs/Gauge.doc';
+import GoalsChart from './docs/GoalsChart';
 
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
@@ -183,6 +184,7 @@ class App extends Component {
       { key: 'widget', label: 'Widget', path: 'widget' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
+      { key: 'goals-chart', label: 'Goals Chart', path: 'goals-chart' },
       { key: 'gauge', label: 'Gauge Chart', path: 'gauge' },
       { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
 
@@ -257,6 +259,7 @@ class App extends Component {
                 <Route exact path="/sticky" component={Sticky} />
                 <Route exact path="/error-page" component={ErrorPage} />
                 <Route exact path="/snail-chart" component={SnailChart} />
+                <Route exact path="/goals-chart" component={GoalsChart} />
                 <Route exact path="/ellipsis" component={Ellipsis} />
                 <Route exact path="/table" component={Table} />
                 <Route exact path="/gauge" component={Gauge} />
