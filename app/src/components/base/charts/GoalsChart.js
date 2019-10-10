@@ -8,7 +8,7 @@ import React, {
 import styled from 'styled-components';
 import * as d3 from 'd3-shape';
 import PropTypes from 'prop-types';
-import { maxBy, minBy, isNumber } from 'lodash/fp';
+import { maxBy, minBy, isNumber, identity } from 'lodash/fp';
 
 import DragSvg from './DragSvg';
 import { hexToRgba } from '../../utils';
@@ -21,7 +21,8 @@ const Axis = ({
   padding,
   ticksColor,
   labelsColor,
-  axisLabelRenderer
+  axisLabelRenderer,
+  formatter
 }) => {
   const lines = [];
   const step = useMemo(() => (height - 2 * padding) / (steps - 1), [
@@ -75,7 +76,7 @@ const Axis = ({
         textAnchor="end"
         color={labelsColor}
       >
-        {max}%
+        {formatter(max)}
       </Label>
     ),
     axisLabelRenderer ? (
@@ -87,7 +88,7 @@ const Axis = ({
         textAnchor="end"
         color={labelsColor}
       >
-        {min}%
+        {formatter(min)}
       </Label>
     )
   );
@@ -156,7 +157,8 @@ const HoverPoints = ({
   onMouseEnter,
   hovered,
   originalData,
-  lineLabelRenderer
+  lineLabelRenderer,
+  formatter
 }) => {
   const rectWidth = useMemo(() => (width - 2 * padding - 70) / data.length, [
     data.length,
@@ -205,7 +207,7 @@ const HoverPoints = ({
                 y={point[1] - 13}
                 selected={hovered === i}
               >
-                {originalData[i][1]}
+                {formatter(originalData[i][1])}
               </TooltipLabel>
             </>
           )}
@@ -231,6 +233,7 @@ const GoalsChart = ({
   axisLabelRenderer,
   valueLabelRenderer,
   lineLabelRenderer,
+  formatter = identity,
   id
 }) => {
   const [state, setState] = useState({
@@ -333,6 +336,7 @@ const GoalsChart = ({
         steps={steps}
         height={state.height}
         padding={padding}
+        formatter={formatter}
         ticksColor={ticksColor}
         labelsColor={labelsColor}
         axisLabelRenderer={axisLabelRenderer}
@@ -351,6 +355,7 @@ const GoalsChart = ({
         lineColor={lineColor}
       />
       <HoverPoints
+        formatter={formatter}
         data={adjustedData}
         width={state.width}
         padding={padding}
@@ -455,7 +460,7 @@ const GoalsChart = ({
             y={state.height - padding + dragTranslation}
             color={labelsColor}
           >
-            {percentage}%
+            {formatter(percentage)}
           </Percentage>
         </>
       )}
