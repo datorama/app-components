@@ -141,7 +141,7 @@ const Points = ({
         height={Math.max(0, height - 2 * padding)}
         x={0}
         y={rectY}
-        mask="url(#goals-mask)"
+        mask={`url(#goals-mask-${id})`}
         color={fillColor}
       />
       <Line d={lineData} speed={speed} color={lineColor} />
