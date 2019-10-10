@@ -105,7 +105,8 @@ const Points = ({
   speed,
   fillColor,
   areaColor,
-  lineColor
+  lineColor,
+  id = 'id'
 }) => {
   const areaGenerator = useMemo(
     () =>
@@ -129,7 +130,7 @@ const Points = ({
   return (
     <g>
       <defs>
-        <mask id="goals-mask">
+        <mask id={`goals-mask-${id}`}>
           <Overlay d={areaData} fill="#fff" speed={speed} />
         </mask>
       </defs>
@@ -229,7 +230,8 @@ const GoalsChart = ({
   onChange,
   axisLabelRenderer,
   valueLabelRenderer,
-  lineLabelRenderer
+  lineLabelRenderer,
+  id
 }) => {
   const [state, setState] = useState({
     width: 0,
@@ -336,6 +338,7 @@ const GoalsChart = ({
         axisLabelRenderer={axisLabelRenderer}
       />
       <Points
+        id={id}
         height={state.height}
         width={state.width}
         padding={padding}
