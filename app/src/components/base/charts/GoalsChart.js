@@ -36,9 +36,7 @@ const GoalsChart = ({
   steps = 10,
   id,
   maxY: passedMaxY,
-  minY: passedMinY,
-  maxX: passedMaxX,
-  minX: passedMinX
+  minY: passedMinY
 }) => {
   const [state, setState] = useState({
     width: 0,
@@ -54,14 +52,8 @@ const GoalsChart = ({
     data,
     passedMinY
   ]);
-  const maxX = useMemo(() => passedMaxX || get('0', maxBy('0', data)), [
-    data,
-    passedMaxX
-  ]);
-  const minX = useMemo(() => passedMinX || get('0', minBy('0', data)), [
-    data,
-    passedMinX
-  ]);
+  const maxX = useMemo(() => get('0', maxBy('0', data)), [data]);
+  const minX = useMemo(() => get('0', minBy('0', data)), [data]);
 
   // state.height - padding -> initial position from top, with a padding
   // arr[1] - minY
