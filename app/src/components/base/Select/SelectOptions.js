@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import styled, { css, withTheme } from 'styled-components';
+import React, { useRef, useMemo } from 'react';
+import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import { find, isEmpty, get } from 'lodash/fp';
 import { List } from 'react-virtualized';
@@ -30,6 +30,14 @@ const SelectOptions = props => {
 
   const containerRef = useRef(null);
   const itemsRef = useRef({});
+
+  const rowHeight = useMemo(() => getOptionHeight({ small, large, theme }), [
+    large,
+    small,
+    theme
+  ]);
+
+  const maxHeight = useMemo(() => maxItems * rowHeight, [maxItems, rowHeight]);
 
   if (isEmpty(options)) {
     return null;
@@ -107,18 +115,14 @@ const SelectOptions = props => {
     );
   });
 
-  const rowHeight = getOptionHeight({ small, large, theme });
   const innerListHeight = rowHeight * items.length;
-  const maxHeight = maxItems * rowHeight;
 
   return (
     <Container
       className="menu-options-container"
       ref={containerRef}
-      maxItems={maxItems}
+      maxHeight={maxHeight}
       marginTop={multi || (searchable && !inlineSearch) ? '5px' : 0}
-      small={small}
-      large={large}
     >
       {get('[0].options', options) ? (
         <Inner className="menu-options">{items}</Inner>
@@ -162,21 +166,8 @@ const Container = styled.div`
   position: relative;
   margin-top: ${({ marginTop }) => marginTop};
   width: 100%;
-  max-height: ${({ maxItems, theme }) =>
-    `calc(${maxItems} * ${theme.size.MEDIUM})`};
+  max-height: ${({ maxHeight }) => `${maxHeight}px`};
   overflow: auto;
-
-  ${({ theme, small, maxItems }) =>
-    small &&
-    css`
-      max-height: calc(${maxItems} * ${theme.size.SMALL});
-    `};
-
-  ${({ theme, large, maxItems }) =>
-    large &&
-    css`
-      max-height: calc(${maxItems} * ${theme.size.LARGE});
-    `};
 `;
 
 const StyledCheckbox = styled(Checkbox)`
