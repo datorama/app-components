@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { maxBy, minBy, isNumber, identity, get } from 'lodash/fp';
+import { maxBy, minBy, isNumber, identity, get, max, min } from 'lodash/fp';
 
 import GoalsChartAxis from './goals-chart/GoalsChartAxis';
 import GoalsChartHoverPoints from './goals-chart/GoalsChartHoverPoints';
@@ -39,12 +39,20 @@ const GoalsChart = ({
   });
 
   const maxY = useMemo(
-    () => (isNumber(passedMaxY) ? passedMaxY : get('1', maxBy('1', data))),
-    [data, passedMaxY]
+    () =>
+      max([
+        value,
+        isNumber(passedMaxY) ? passedMaxY : get('1', maxBy('1', data))
+      ]),
+    [data, passedMaxY, value]
   );
   const minY = useMemo(
-    () => (isNumber(passedMinY) ? passedMinY : get('1', minBy('1', data))),
-    [data, passedMinY]
+    () =>
+      min([
+        value,
+        isNumber(passedMinY) ? passedMinY : get('1', minBy('1', data))
+      ]),
+    [data, passedMinY, value]
   );
   const maxX = useMemo(() => get('0', maxBy('0', data)), [data]);
   const minX = useMemo(() => get('0', minBy('0', data)), [data]);
