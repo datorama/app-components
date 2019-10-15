@@ -43,3 +43,9 @@ export const calcScrollTop = (optionElement, containerElement, offset = 0) => {
 
   return containerElement.scrollTop;
 };
+
+export const getOptionHeight = ({ small, large, theme }) => {
+  if (small) return parseInt(theme.size.SMALL);
+  if (large) return parseInt(theme.size.LARGE);
+  return parseInt(theme.size.MEDIUM);
+};
