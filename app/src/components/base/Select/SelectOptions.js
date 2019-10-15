@@ -2,7 +2,7 @@ import React, { useRef, useMemo } from 'react';
 import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import { find, isEmpty, get } from 'lodash/fp';
-import { List } from 'react-virtualized';
+import { List, AutoSizer } from 'react-virtualized';
 
 // components
 import Checkbox from '../Checkbox';
@@ -127,16 +127,23 @@ const SelectOptions = props => {
       {get('[0].options', options) ? (
         <Inner className="menu-options">{items}</Inner>
       ) : (
-        <List
-          className="menu-options"
-          height={innerListHeight < maxHeight ? innerListHeight : maxHeight}
-          width={170}
-          rowCount={items.length}
-          rowHeight={rowHeight}
-          rowRenderer={({ index, style }) =>
-            React.cloneElement(items[index], { style, transition: 'none' })
-          }
-        />
+        <AutoSizer disableHeight>
+          {({ width }) => (
+            <List
+              className="menu-options"
+              height={innerListHeight < maxHeight ? innerListHeight : maxHeight}
+              width={width}
+              rowCount={items.length}
+              rowHeight={rowHeight}
+              rowRenderer={({ index, style }) =>
+                React.cloneElement(items[index], {
+                  style,
+                  transition: 'none'
+                })
+              }
+            />
+          )}
+        </AutoSizer>
       )}
     </Container>
   );
