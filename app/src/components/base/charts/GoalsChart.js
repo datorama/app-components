@@ -6,214 +6,14 @@ import React, {
   useMemo
 } from 'react';
 import styled from 'styled-components';
-import * as d3 from 'd3-shape';
 import PropTypes from 'prop-types';
-import { maxBy, minBy, isNumber } from 'lodash/fp';
+import { maxBy, minBy, isNumber, identity, get } from 'lodash/fp';
 
-import DragSvg from './DragSvg';
-import { hexToRgba } from '../../utils';
-
-const Axis = ({
-  min,
-  max,
-  steps,
-  height,
-  padding,
-  ticksColor,
-  labelsColor,
-  axisLabelRenderer
-}) => {
-  const lines = [];
-  const step = useMemo(() => (height - 2 * padding) / (steps - 1), [
-    height,
-    padding,
-    steps
-  ]);
-
-  for (let i = 0; i < steps; i++) {
-    const y = padding + i * step;
-
-    lines.push(
-      <Tick
-        key={`line-${i}`}
-        x1={2 * padding}
-        x2={2 * padding + 5}
-        y1={y}
-        y2={y}
-        color={ticksColor}
-      />
-    );
-  }
-
-  const bottomValueProps = useMemo(
-    () => ({
-      key: 'bottom-value',
-      x: 2 * padding - 5,
-      y: padding,
-      value: max
-    }),
-    [max, padding]
-  );
-
-  const topValueProps = useMemo(
-    () => ({
-      key: 'top-value',
-      x: 2 * padding - 5,
-      y: padding + (steps - 1) * step,
-      value: min
-    }),
-    [min, padding, step, steps]
-  );
-
-  lines.push(
-    axisLabelRenderer ? (
-      axisLabelRenderer(bottomValueProps)
-    ) : (
-      <Label
-        {...bottomValueProps}
-        alignmentBaseline="middle"
-        textAnchor="end"
-        color={labelsColor}
-      >
-        {max}%
-      </Label>
-    ),
-    axisLabelRenderer ? (
-      axisLabelRenderer(topValueProps)
-    ) : (
-      <Label
-        {...topValueProps}
-        alignmentBaseline="middle"
-        textAnchor="end"
-        color={labelsColor}
-      >
-        {min}%
-      </Label>
-    )
-  );
-
-  return <g>{lines}</g>;
-};
-
-const Points = ({
-  width,
-  height,
-  padding,
-  data,
-  translation,
-  invert,
-  speed,
-  fillColor,
-  areaColor,
-  lineColor,
-  id = 'id'
-}) => {
-  const areaGenerator = useMemo(
-    () =>
-      d3
-        .area()
-        .y0(height - padding)
-        .curve(d3.curveCatmullRom),
-    [height, padding]
-  );
-
-  const lineGenerator = useMemo(() => d3.line().curve(d3.curveCatmullRom), []);
-
-  const areaData = areaGenerator(data);
-  const lineData = lineGenerator(data);
-
-  const rectY = useMemo(
-    () => (invert ? padding + translation : height - padding + translation),
-    [height, invert, padding, translation]
-  );
-
-  return (
-    <g>
-      <defs>
-        <mask id={`goals-mask-${id}`}>
-          <Overlay d={areaData} fill="#fff" speed={speed} />
-        </mask>
-      </defs>
-
-      <Path d={areaData} speed={speed} color={areaColor} />
-      <Rect
-        width={width}
-        height={Math.max(0, height - 2 * padding)}
-        x={0}
-        y={rectY}
-        mask={`url(#goals-mask-${id})`}
-        color={fillColor}
-      />
-      <Line d={lineData} speed={speed} color={lineColor} />
-    </g>
-  );
-};
-
-const HoverPoints = ({
-  data,
-  width,
-  padding,
-  onMouseEnter,
-  hovered,
-  originalData,
-  lineLabelRenderer
-}) => {
-  const rectWidth = useMemo(() => (width - 2 * padding - 70) / data.length, [
-    data.length,
-    padding,
-    width
-  ]);
-
-  if (rectWidth <= 0) {
-    return null;
-  }
-
-  return (
-    <g>
-      {data.map((point, i) => (
-        <HoverZone key={`point-${i}`} onMouseEnter={() => onMouseEnter(i)}>
-          <HoverRect
-            width={rectWidth}
-            height="100%"
-            x={point[0] - 0.5 * rectWidth}
-            y={0}
-          />
-          <Circle cx={point[0]} cy={point[1]} r={3} selected={hovered === i} />
-
-          {lineLabelRenderer ? (
-            lineLabelRenderer({
-              x: point[0] + 10,
-              y: point[1] - 13,
-              value: originalData[i][1]
-            })
-          ) : (
-            <>
-              <TextBg
-                x={point[0] - 20}
-                y={point[1] - 25}
-                width={40}
-                height={20}
-                rx={4}
-                ry={4}
-                selected={hovered === i}
-              />
-
-              <TooltipLabel
-                alignmentBaseline="middle"
-                textAnchor="end"
-                x={point[0] + 10}
-                y={point[1] - 13}
-                selected={hovered === i}
-              >
-                {originalData[i][1]}
-              </TooltipLabel>
-            </>
-          )}
-        </HoverZone>
-      ))}
-    </g>
-  );
-};
+import GoalsChartAxis from './goals-chart/GoalsChartAxis';
+import GoalsChartHoverPoints from './goals-chart/GoalsChartHoverPoints';
+import GoalsChartPoints from './goals-chart/GoalsChartPoints';
+import GoalsChartDrag from './goals-chart/GoalsChartDrag';
+import GoalsChartValue from './goals-chart/GoalsChartValue';
 
 const GoalsChart = ({
   data = [],
@@ -231,35 +31,45 @@ const GoalsChart = ({
   axisLabelRenderer,
   valueLabelRenderer,
   lineLabelRenderer,
-  id
+  valueFormatter = identity,
+  padding = 20,
+  steps = 10,
+  id,
+  maxY: passedMaxY,
+  minY: passedMinY
 }) => {
   const [state, setState] = useState({
     width: 0,
     height: 0,
     translation: 0
   });
-  const padding = 20;
 
-  const maxY = useMemo(() => maxBy(arr => arr[1], data), [data]);
-  const minY = useMemo(() => minBy(arr => arr[1], data), [data]);
-  const maxX = useMemo(() => maxBy(arr => arr[0], data), [data]);
-  const minX = useMemo(() => minBy(arr => arr[0], data), [data]);
+  const maxY = useMemo(() => passedMaxY || get('1', maxBy('1', data)), [
+    data,
+    passedMaxY
+  ]);
+  const minY = useMemo(() => passedMinY || get('1', minBy('1', data)), [
+    data,
+    passedMinY
+  ]);
+  const maxX = useMemo(() => get('0', maxBy('0', data)), [data]);
+  const minX = useMemo(() => get('0', minBy('0', data)), [data]);
 
+  // state.height - padding -> initial position from top, with a padding
+  // arr[1] - minY
   const adjustedData = useMemo(
     () =>
       data.map(arr => [
         100 +
-          ((arr[0] - minX[0]) / (maxX[0] - minX[0])) *
+          ((arr[0] - minX) / (maxX - minX)) *
             (state.width - 2 * padding - 50 - 100),
         state.height -
           padding -
-          ((arr[1] - minY[1]) / (maxY[1] - minY[1])) *
-            (state.height - 2 * padding)
+          ((arr[1] - minY) / (maxY - minY)) * (state.height - 2 * padding)
       ]),
-    [data, maxX, maxY, minX, minY, state.height, state.width]
+    [data, maxX, maxY, minX, minY, padding, state.height, state.width]
   );
 
-  const steps = 10;
   const el = useRef(null);
 
   // calculates percentage value based on a given DragSvg y translation value
@@ -267,20 +77,18 @@ const GoalsChart = ({
     translation =>
       !state.height
         ? value
-        : minY[1] +
+        : minY +
           Math.round(
-            ((-1 * translation) / (state.height - 2 * padding)) *
-              (maxY[1] - minY[1])
+            ((-1 * translation) / (state.height - 2 * padding)) * (maxY - minY)
           ),
-    [maxY, minY, state.height, value]
+    [maxY, minY, padding, state.height, value]
   );
 
   // calculates y translation value based on a given percentage value (useful for a controlled implementation of the component)
   const getTranslation = useCallback(
     percentage =>
-      (-1 * (percentage - minY[1]) * (state.height - 2 * padding)) /
-      (maxY[1] - minY[1]),
-    [maxY, minY, state.height]
+      (-1 * (percentage - minY) * (state.height - 2 * padding)) / (maxY - minY),
+    [maxY, minY, padding, state.height]
   );
 
   const handleDrag = useCallback(
@@ -297,15 +105,15 @@ const GoalsChart = ({
   );
 
   useEffect(() => {
-    if (el !== null) {
-      const { width, height } = el.current.getBoundingClientRect();
+    if (!el.current) return;
 
-      setState(current => ({
-        ...current,
-        width,
-        height
-      }));
-    }
+    const { width, height } = el.current.getBoundingClientRect();
+
+    setState(current => ({
+      ...current,
+      width,
+      height
+    }));
   }, [el]);
 
   const percentage = useMemo(
@@ -327,17 +135,18 @@ const GoalsChart = ({
       className={className}
       onMouseLeave={() => handleMouseEnter(null)}
     >
-      <Axis
-        min={minY[1]}
-        max={maxY[1]}
+      <GoalsChartAxis
+        min={minY}
+        max={maxY}
         steps={steps}
         height={state.height}
         padding={padding}
+        valueFormatter={valueFormatter}
         ticksColor={ticksColor}
         labelsColor={labelsColor}
         axisLabelRenderer={axisLabelRenderer}
       />
-      <Points
+      <GoalsChartPoints
         id={id}
         height={state.height}
         width={state.width}
@@ -350,7 +159,8 @@ const GoalsChart = ({
         areaColor={areaColor}
         lineColor={lineColor}
       />
-      <HoverPoints
+      <GoalsChartHoverPoints
+        valueFormatter={valueFormatter}
         data={adjustedData}
         width={state.width}
         padding={padding}
@@ -360,75 +170,14 @@ const GoalsChart = ({
         lineLabelRenderer={lineLabelRenderer}
       />
       {!!state.height && (
-        <DragSvg
-          onChange={handleDrag}
-          initialTranslation={[0, dragTranslation]}
-          minY={-1 * (state.height - 2 * padding)}
-          maxY={0}
-        >
-          <DragLineZone
-            x1={2 * padding - 2}
-            x2={state.width - 2 * padding + 2}
-            y1={state.height - padding + dragTranslation}
-            y2={state.height - padding + dragTranslation}
-            color={dragColor}
-          />
-          <DragLine
-            x1={2 * padding - 2}
-            x2={state.width - 2 * padding + 2}
-            y1={state.height - padding + dragTranslation}
-            y2={state.height - padding + dragTranslation}
-            color={dragColor}
-          />
-          <Arrow
-            color={dragColor}
-            d={[
-              `M ${2 * padding - 1}, ${state.height -
-                padding +
-                dragTranslation +
-                4}`,
-              'l 4, 4',
-              'l 4, -4',
-              'z'
-            ].join(' ')}
-          />
-          <Arrow
-            color={dragColor}
-            d={[
-              `M ${2 * padding - 1}, ${state.height -
-                padding +
-                dragTranslation -
-                4}`,
-              'l 4, -4',
-              'l 4, 4',
-              'z'
-            ].join(' ')}
-          />
-          <Arrow
-            color={dragColor}
-            d={[
-              `M ${state.width - 2 * padding - 7}, ${state.height -
-                padding +
-                dragTranslation +
-                4}`,
-              'l 4, 4',
-              'l 4, -4',
-              'z'
-            ].join(' ')}
-          />
-          <Arrow
-            color={dragColor}
-            d={[
-              `M ${state.width - 2 * padding - 7}, ${state.height -
-                padding +
-                dragTranslation -
-                4}`,
-              'l 4, -4',
-              'l 4, 4',
-              'z'
-            ].join(' ')}
-          />
-        </DragSvg>
+        <GoalsChartDrag
+          handleDrag={handleDrag}
+          dragColor={dragColor}
+          padding={padding}
+          width={state.width}
+          height={state.height}
+          dragTranslation={dragTranslation}
+        />
       )}
 
       {valueLabelRenderer ? (
@@ -438,26 +187,14 @@ const GoalsChart = ({
           value: percentage
         })
       ) : (
-        <>
-          <TextBg
-            x={2 * padding - 5 - 35}
-            y={state.height - padding + dragTranslation - 11}
-            width={40}
-            height={20}
-            rx={4}
-            ry={4}
-            selected={true}
-          />
-          <Percentage
-            alignmentBaseline="middle"
-            textAnchor="end"
-            x={2 * padding - 5}
-            y={state.height - padding + dragTranslation}
-            color={labelsColor}
-          >
-            {percentage}%
-          </Percentage>
-        </>
+        <GoalsChartValue
+          padding={padding}
+          dragTranslation={dragTranslation}
+          height={state.height}
+          labelsColor={labelsColor}
+          valueFormatter={valueFormatter}
+          percentage={percentage}
+        />
       )}
     </Container>
   );
@@ -480,7 +217,13 @@ GoalsChart.propTypes = {
   axisLabelRenderer: PropTypes.func,
   valueLabelRenderer: PropTypes.func,
   lineLabelRenderer: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
+  valueFormatter: PropTypes.func,
+  steps: PropTypes.number,
+  padding: PropTypes.number,
+  id: PropTypes.string,
+  maxY: PropTypes.number,
+  minY: PropTypes.number
 };
 
 const Container = styled.svg`
@@ -488,138 +231,5 @@ const Container = styled.svg`
   height: 200px;
   min-width: 600px;
   user-select: none;
-`;
-
-const Tick = styled.line`
-  stroke: ${({ theme, color }) => color || theme.p400};
-  stroke-width: 1;
-  stroke-linecap: round;
-`;
-
-const Label = styled.text`
-  font-size: 11px;
-  font-weight: 500;
-  fill: ${({ theme, color }) => color || theme.p400};
-`;
-
-const Path = styled.path`
-  stroke: transparent;
-  animation: appear ${({ speed }) => speed}ms linear forwards;
-  animation-delay: ${({ speed }) => speed}ms;
-  fill: transparent;
-
-  @keyframes appear {
-    from {
-      fill: transparent;
-    }
-    to {
-      fill: ${({ theme, color }) => color || theme.p100};
-    }
-  }
-`;
-
-const Overlay = styled(Path)`
-  animation: appear-mask ${({ speed }) => speed}ms linear forwards;
-  animation-delay: 1s;
-
-  @keyframes appear-mask {
-    from {
-      fill: transparent;
-    }
-    to {
-      fill: #fff;
-    }
-  }
-`;
-
-const Line = styled.path`
-  stroke-width: 2;
-  fill: transparent;
-  stroke: ${({ theme, color }) => color || theme.a300};
-  stroke-dasharray: 2000;
-  stroke-dashoffset: 2000;
-  animation: dash ${({ speed }) => speed}ms linear forwards;
-  stroke-linecap: round;
-
-  @keyframes dash {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-`;
-
-const Rect = styled.rect`
-  fill: ${({ theme, color }) => color || theme.a400};
-`;
-
-const DragLine = styled.line`
-  stroke: ${({ theme, color }) => color || theme.a500};
-  stroke-linecap: round;
-  stroke-width: 2;
-  pointer-events: none;
-`;
-
-const DragLineZone = styled.line`
-  stroke-width: 20;
-  stroke: transparent;
-
-  &:hover {
-    stroke: ${({ theme, color }) => hexToRgba(color || theme.a100, 20)};
-  }
-`;
-
-const Arrow = styled.path`
-  fill: ${({ theme, color }) => color || theme.a500};
-`;
-
-const Percentage = styled.text`
-  font-size: 14px;
-  font-weight: 600;
-  fill: ${({ theme, color }) => color || theme.a400};
-`;
-
-const Circle = styled.circle`
-  stroke: none;
-  fill: ${({ theme, color }) => color || theme.p600};
-  opacity: 0;
-  transition: all 300ms;
-
-  ${({ selected }) =>
-    selected &&
-    `
-    opacity: 1;
-  `};
-`;
-
-const TextBg = styled.rect`
-  fill: ${({ theme }) => theme.a100};
-  opacity: 0;
-
-  ${({ selected }) =>
-    selected &&
-    `
-    opacity: 1;
-  `};
-`;
-
-const HoverRect = styled.rect`
-  stroke: none;
-  fill: transparent;
-`;
-
-const HoverZone = styled.g``;
-
-const TooltipLabel = styled.text`
-  font-size: 12px;
-  font-weight: 600;
-  fill: ${({ theme, color }) => color || theme.a400};
-
-  opacity: 0;
-  transition: all 300ms;
-
-  ${({ selected }) =>
-    selected &&
-    `
-    opacity: 1;
-  `};
+  overflow: visible;
 `;
