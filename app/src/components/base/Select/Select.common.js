@@ -5,7 +5,7 @@ export const Option = styled.div`
   height: ${({ theme }) => theme.size.MEDIUM};
   display: flex;
   align-items: center;
-  transition: all 300ms;
+  transition: ${({ transition }) => transition || 'all 300ms'};
   cursor: pointer;
   box-sizing: border-box;
   padding: 0 10px;

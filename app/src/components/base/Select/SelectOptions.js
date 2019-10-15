@@ -1,14 +1,15 @@
 import React, { useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import { find, isEmpty, get } from 'lodash/fp';
+import { List } from 'react-virtualized';
 
 // components
 import Checkbox from '../Checkbox';
 import { Option, Label } from './Select.common';
 import { optionsType } from './Select.types';
 import SelectOptionsGroup from './SelectOptionsGroup';
-import { calcScrollTop } from './select.utils';
+import { calcScrollTop, getOptionHeight } from './select.utils';
 
 const SelectOptions = props => {
   const {
@@ -23,7 +24,8 @@ const SelectOptions = props => {
     small,
     large,
     inlineSearch,
-    currentHoveredOptionValue
+    currentHoveredOptionValue,
+    theme
   } = props;
 
   const containerRef = useRef(null);
@@ -105,6 +107,10 @@ const SelectOptions = props => {
     );
   });
 
+  const rowHeight = getOptionHeight({ small, large, theme });
+  const innerListHeight = rowHeight * items.length;
+  const maxHeight = maxItems * rowHeight;
+
   return (
     <Container
       className="menu-options-container"
@@ -114,7 +120,20 @@ const SelectOptions = props => {
       small={small}
       large={large}
     >
-      <Inner className="menu-options">{items}</Inner>
+      {get('[0].options', options) ? (
+        <Inner className="menu-options">{items}</Inner>
+      ) : (
+        <List
+          className="menu-options"
+          height={innerListHeight < maxHeight ? innerListHeight : maxHeight}
+          width={170}
+          rowCount={items.length}
+          rowHeight={rowHeight}
+          rowRenderer={({ index, style }) =>
+            React.cloneElement(items[index], { style, transition: 'none' })
+          }
+        />
+      )}
     </Container>
   );
 };
@@ -137,7 +156,7 @@ SelectOptions.propTypes = {
   ])
 };
 
-export default SelectOptions;
+export default withTheme(SelectOptions);
 
 const Container = styled.div`
   position: relative;
