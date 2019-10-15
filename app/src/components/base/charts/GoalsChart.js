@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useMemo
-} from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { maxBy, minBy, isNumber, identity, get } from 'lodash/fp';
@@ -44,14 +38,14 @@ const GoalsChart = ({
     translation: 0
   });
 
-  const maxY = useMemo(() => passedMaxY || get('1', maxBy('1', data)), [
-    data,
-    passedMaxY
-  ]);
-  const minY = useMemo(() => passedMinY || get('1', minBy('1', data)), [
-    data,
-    passedMinY
-  ]);
+  const maxY = useMemo(
+    () => (isNumber(passedMaxY) ? passedMaxY : get('1', maxBy('1', data))),
+    [data, passedMaxY]
+  );
+  const minY = useMemo(
+    () => (isNumber(passedMinY) ? passedMinY : get('1', minBy('1', data))),
+    [data, passedMinY]
+  );
   const maxX = useMemo(() => get('0', maxBy('0', data)), [data]);
   const minX = useMemo(() => get('0', minBy('0', data)), [data]);
 
@@ -69,8 +63,6 @@ const GoalsChart = ({
       ]),
     [data, maxX, maxY, minX, minY, padding, state.height, state.width]
   );
-
-  const el = useRef(null);
 
   // calculates percentage value based on a given DragSvg y translation value
   const getPercentage = useCallback(
@@ -104,17 +96,17 @@ const GoalsChart = ({
     [getPercentage, onChange]
   );
 
-  useEffect(() => {
-    if (!el.current) return;
+  const onRef = useCallback(node => {
+    if (!node) return;
 
-    const { width, height } = el.current.getBoundingClientRect();
+    const { width, height } = node.getBoundingClientRect();
 
     setState(current => ({
       ...current,
       width,
       height
     }));
-  }, [el]);
+  }, []);
 
   const percentage = useMemo(
     () => (isNumber(value) ? value : getPercentage(state.translation)),
@@ -131,7 +123,7 @@ const GoalsChart = ({
 
   return (
     <Container
-      ref={el}
+      ref={onRef}
       className={className}
       onMouseLeave={() => handleMouseEnter(null)}
     >
