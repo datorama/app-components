@@ -70,9 +70,7 @@ const GoalsChart = ({
       !state.height
         ? value
         : minY +
-          Math.round(
-            ((-1 * translation) / (state.height - 2 * padding)) * (maxY - minY)
-          ),
+          ((-1 * translation) / (state.height - 2 * padding)) * (maxY - minY),
     [maxY, minY, padding, state.height, value]
   );
 
