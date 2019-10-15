@@ -70,11 +70,22 @@ const DragSvg = ({
   }, [handleMouseMove, handleMouseUp, state.dragging]);
 
   useEffect(() => {
-    onChange([
-      state.translation[0] + state.lastTranslation[0],
-      state.translation[1] + state.lastTranslation[1]
-    ]);
-  }, [onChange, state.lastTranslation, state.translation]);
+    if (state.dragging) {
+      onChange([
+        state.translation[0] + state.lastTranslation[0],
+        state.translation[1] + state.lastTranslation[1]
+      ]);
+    }
+  }, [onChange, state.lastTranslation, state.translation, state.dragging]);
+
+  useEffect(() => {
+    if (!state.dragging) {
+      setState(state => ({
+        ...state,
+        lastTranslation: initialTranslation
+      }));
+    }
+  }, [initialTranslation, state.dragging]);
 
   const styles = useMemo(
     () => ({
