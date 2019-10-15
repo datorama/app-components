@@ -219,7 +219,11 @@ GoalsChart.propTypes = {
   lineLabelRenderer: PropTypes.func,
   className: PropTypes.string,
   valueFormatter: PropTypes.func,
-  steps: PropTypes.number
+  steps: PropTypes.number,
+  padding: PropTypes.number,
+  id: PropTypes.string,
+  maxY: PropTypes.number,
+  minY: PropTypes.number
 };
 
 const Container = styled.svg`
