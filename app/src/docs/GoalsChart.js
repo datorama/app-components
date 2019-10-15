@@ -48,7 +48,7 @@ const snippet = `
       <GoalsChart
         data={data}
         fillColor="url(#gradient)" // filter or hex
-        // value = {value}
+        // value={value}
         // onChange={onControlledChange}
         // invert={true}
         // ticksColor="#ff0000"
