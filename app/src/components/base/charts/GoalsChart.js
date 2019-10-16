@@ -63,7 +63,7 @@ const GoalsChart = ({
     () =>
       data.map(arr => [
         50 +
-          ((arr[0] - minX) / (maxX - minX)) * (state.width - 2 * padding - 50),
+          ((arr[0] - minX) / (maxX - minX)) * (state.width - 2 * padding - 65),
         state.height -
           padding -
           ((arr[1] - minY) / (maxY - minY)) * (state.height - 2 * padding)
