@@ -16,6 +16,8 @@ import SelectMenu from './SelectMenu';
 import { optionsType } from './Select.types';
 import InlineSearch from './InlineSearch';
 
+export const CurrentHoveredIndexContext = React.createContext(null);
+
 export default class Select extends React.Component {
   static propTypes = {
     className: PropTypes.string,
@@ -53,6 +55,7 @@ export default class Select extends React.Component {
     searchTerm: '',
     localValues: this.props.values,
     currentHoveredOptionValue: null,
+    currentHoveredOptionIndex: 0,
     inputFocused: false
   };
 
@@ -131,15 +134,22 @@ export default class Select extends React.Component {
     this.setState(
       prevState => ({
         open: !prevState.open,
-        searchTerm: !prevState.open ? '' : prevState.searchTerm,
-        currentHoveredOptionValue: null
+        searchTerm: !prevState.open ? '' : prevState.searchTerm
       }),
       () => {
-        const { open } = this.state;
+        const { open, currentHoveredOptionValue } = this.state;
         const { onOpen, onClose } = this.props;
 
         if (open) {
           window.addEventListener('keydown', this.handleKeyDown);
+
+          const allOptions = getAllOptions(this.filteredOptions);
+
+          const currentHoveredOptionIndex = allOptions.findIndex(
+            option => option.value === currentHoveredOptionValue
+          );
+
+          this.setState({ currentHoveredOptionIndex });
 
           if (onOpen) {
             onOpen();
@@ -231,16 +241,18 @@ export default class Select extends React.Component {
   };
 
   setNextOptionValue = ({ allOptions, currentIndex }) => {
-    if (currentIndex === -1) {
+    if (currentIndex === allOptions.length - 1) {
       this.setState({
-        currentHoveredOptionValue: get([0, 'value'], allOptions) || null
+        currentHoveredOptionValue: get([0, 'value'], allOptions) || null,
+        currentHoveredOptionIndex: 0
       });
     } else {
       this.setState({
         currentHoveredOptionValue: get(
           [(currentIndex + 1) % allOptions.length, 'value'],
           allOptions
-        )
+        ),
+        currentHoveredOptionIndex: currentIndex + 1
       });
     }
   };
@@ -248,14 +260,16 @@ export default class Select extends React.Component {
   setPrevOptionValue = ({ allOptions, currentIndex }) => {
     if (currentIndex > 0) {
       this.setState({
-        currentHoveredOptionValue: get([currentIndex - 1, 'value'], allOptions)
+        currentHoveredOptionValue: get([currentIndex - 1, 'value'], allOptions),
+        currentHoveredOptionIndex: currentIndex - 1
       });
     } else {
       this.setState({
         currentHoveredOptionValue: get(
           [allOptions.length - 1, 'value'],
           allOptions
-        )
+        ),
+        currentHoveredOptionIndex: allOptions.length - 1
       });
     }
   };
@@ -283,7 +297,17 @@ export default class Select extends React.Component {
       }
     }
 
-    this.setState({ currentHoveredOptionValue: option.value, searchTerm: '' });
+    const allOptions = getAllOptions(this.filteredOptions);
+
+    const currentHoveredOptionIndex = allOptions.findIndex(
+      op => op.value === option.value
+    );
+
+    this.setState({
+      currentHoveredOptionValue: option.value,
+      currentHoveredOptionIndex,
+      searchTerm: ''
+    });
     this.applyChanges(result);
   };
 
@@ -302,7 +326,8 @@ export default class Select extends React.Component {
   onSearch = e =>
     this.setState({
       searchTerm: e.target.value,
-      currentHoveredOptionValue: null
+      currentHoveredOptionValue: null,
+      currentHoveredOptionIndex: 0
     });
 
   debouncedOnChange = debounce(this.props.debounce, values => {
@@ -349,7 +374,13 @@ export default class Select extends React.Component {
       inlineSearch,
       maxTags
     } = this.props;
-    const { open, searchTerm, localValues } = this.state;
+    const {
+      open,
+      searchTerm,
+      localValues,
+      currentHoveredOptionValue,
+      currentHoveredOptionIndex
+    } = this.state;
     this.filteredOptions = this.filterOptions();
 
     return (
@@ -388,29 +419,32 @@ export default class Select extends React.Component {
               toggleFocus={this.toggleFocus}
             />
           )}
-
-          <SelectMenu
-            open={open}
-            searchable={searchable}
-            onSearch={this.onSearch}
-            options={this.filteredOptions}
-            total={getOptionsSize(options)}
-            values={localValues}
-            multi={multi}
-            selectAll={this.selectAll}
-            optionRenderer={optionRenderer}
-            onSelect={this.onSelect}
-            menuRenderer={menuRenderer}
-            searchTerm={searchTerm}
-            maxItems={maxItems}
-            searchPlaceholder={searchPlaceholder}
-            optionLabelRenderer={optionLabelRenderer}
-            small={small}
-            large={large}
-            inlineSearch={inlineSearch}
-            currentHoveredOptionValue={this.state.currentHoveredOptionValue}
-            toggleFocus={this.toggleFocus}
-          />
+          <CurrentHoveredIndexContext.Provider
+            value={currentHoveredOptionIndex}
+          >
+            <SelectMenu
+              open={open}
+              searchable={searchable}
+              onSearch={this.onSearch}
+              options={this.filteredOptions}
+              total={getOptionsSize(options)}
+              values={localValues}
+              multi={multi}
+              selectAll={this.selectAll}
+              optionRenderer={optionRenderer}
+              onSelect={this.onSelect}
+              menuRenderer={menuRenderer}
+              searchTerm={searchTerm}
+              maxItems={maxItems}
+              searchPlaceholder={searchPlaceholder}
+              optionLabelRenderer={optionLabelRenderer}
+              small={small}
+              large={large}
+              inlineSearch={inlineSearch}
+              currentHoveredOptionValue={currentHoveredOptionValue}
+              toggleFocus={this.toggleFocus}
+            />
+          </CurrentHoveredIndexContext.Provider>
         </Container>
       </ClickOut>
     );
