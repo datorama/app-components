@@ -61,16 +61,13 @@ const Path = styled.path`
   animation: appear ${({ speed }) => speed}ms linear forwards;
   animation-delay: ${({ speed }) => speed}ms;
   fill: transparent;
-  fill-opacity: 100%;
 
   @keyframes appear {
     from {
       fill: transparent;
-      fill-opacity: 100%;
     }
     to {
-      fill: ${({ theme, color }) => color || theme.p100};
-      fill-opacity: 10%;
+      fill: ${({ color }) => color || `rgba(255, 255, 255, 0.1)`};
     }
   }
 `;
