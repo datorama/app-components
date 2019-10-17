@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useContext } from 'react';
 import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import { find, isEmpty, get } from 'lodash/fp';
@@ -9,7 +9,8 @@ import Checkbox from '../Checkbox';
 import { Option, Label } from './Select.common';
 import { optionsType } from './Select.types';
 import SelectOptionsGroup from './SelectOptionsGroup';
-import { calcScrollTop, getOptionHeight } from './select.utils';
+import { getOptionHeight } from './select.utils';
+import { CurrentHoveredIndexContext } from './Select';
 
 const SelectOptions = props => {
   const {
@@ -38,6 +39,8 @@ const SelectOptions = props => {
   ]);
 
   const maxHeight = useMemo(() => maxItems * rowHeight, [maxItems, rowHeight]);
+
+  const currentHoveredIndex = useContext(CurrentHoveredIndexContext);
 
   if (isEmpty(options)) {
     return null;
@@ -77,13 +80,6 @@ const SelectOptions = props => {
 
     if (optionRenderer) {
       return optionRenderer({ option, selected });
-    }
-
-    if (currentHoveredOptionValue === option.value) {
-      containerRef.current.scrollTop = calcScrollTop(
-        get(['current', option.value], itemsRef),
-        containerRef.current
-      );
     }
 
     return (
@@ -133,6 +129,7 @@ const SelectOptions = props => {
               className="menu-options"
               height={innerListHeight < maxHeight ? innerListHeight : maxHeight}
               width={width}
+              scrollToIndex={currentHoveredIndex}
               rowCount={items.length}
               rowHeight={rowHeight}
               rowRenderer={({ index, style }) =>
