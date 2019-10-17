@@ -67,7 +67,7 @@ const Path = styled.path`
       fill: transparent;
     }
     to {
-      fill: ${({ theme, color }) => color || theme.p100};
+      fill: ${({ color }) => color || 'rgba(255, 255, 255, 0.1)'};
     }
   }
 `;
