@@ -37,7 +37,8 @@ const GoalsChartHoverPoints = ({
             lineLabelRenderer({
               x: point[0] + 10,
               y: point[1] - 13,
-              value: originalData[i][1]
+              value: originalData[i][1],
+              isHovered: hovered === i
             })
           ) : (
             <svg
