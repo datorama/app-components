@@ -70,12 +70,13 @@ const DragSvg = ({
   }, [handleMouseMove, handleMouseUp, state.dragging]);
 
   useEffect(() => {
-    if (state.dragging) {
-      onChange([
+    onChange(
+      [
         state.translation[0] + state.lastTranslation[0],
         state.translation[1] + state.lastTranslation[1]
-      ]);
-    }
+      ],
+      state.dragging
+    );
   }, [onChange, state.lastTranslation, state.translation, state.dragging]);
 
   useEffect(() => {

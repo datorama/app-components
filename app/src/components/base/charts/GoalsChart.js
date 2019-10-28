@@ -89,9 +89,9 @@ const GoalsChart = ({
   );
 
   const handleDrag = useCallback(
-    pos => {
+    (pos, isDragging) => {
       if (onChange) {
-        return onChange(getPercentage(pos[1]));
+        return onChange(getPercentage(pos[1]), isDragging);
       }
       setState(current => ({
         ...current,

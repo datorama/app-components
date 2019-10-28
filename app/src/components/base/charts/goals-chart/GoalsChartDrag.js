@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 import DragSvg from '../DragSvg';
@@ -15,7 +15,7 @@ const GoalsChartDrag = ({
 }) => (
   <DragSvg
     onChange={handleDrag}
-    initialTranslation={[0, dragTranslation]}
+    initialTranslation={useMemo(() => [0, dragTranslation], [dragTranslation])}
     minY={-1 * (height - 2 * padding)}
     maxY={0}
   >
