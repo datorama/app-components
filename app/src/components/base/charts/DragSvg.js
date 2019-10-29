@@ -5,10 +5,11 @@ const DragSvg = ({
   onChange,
   minY,
   maxY,
-  initialTranslation = [0, 0]
+  initialTranslation = [0, 0],
+  dragging,
+  setDragging
 }) => {
   const [state, setState] = useState({
-    dragging: false,
     origin: [0, 0],
     translation: [0, 0],
     lastTranslation: initialTranslation
@@ -40,25 +41,28 @@ const DragSvg = ({
 
     setState(current => ({
       ...current,
-      dragging: false,
       translation: [0, 0],
       lastTranslation: [
         current.translation[0] + current.lastTranslation[0],
         current.translation[1] + current.lastTranslation[1]
       ]
     }));
-  }, [handleMouseMove]);
+    setDragging(false);
+  }, [handleMouseMove, setDragging]);
 
-  const handleMouseDown = useCallback(({ clientX, clientY }) => {
-    setState(current => ({
-      ...current,
-      dragging: true,
-      origin: [clientX, clientY]
-    }));
-  }, []);
+  const handleMouseDown = useCallback(
+    ({ clientX, clientY }) => {
+      setState(current => ({
+        ...current,
+        origin: [clientX, clientY]
+      }));
+      setDragging(true);
+    },
+    [setDragging]
+  );
 
   useEffect(() => {
-    if (state.dragging) {
+    if (dragging) {
       window.addEventListener('mousemove', handleMouseMove);
       window.addEventListener('mouseup', handleMouseUp);
     }
@@ -67,32 +71,31 @@ const DragSvg = ({
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [handleMouseMove, handleMouseUp, state.dragging]);
+  }, [dragging, handleMouseMove, handleMouseUp, state.dragging]);
 
   useEffect(() => {
-    onChange(
-      [
+    if (dragging) {
+      onChange([
         state.translation[0] + state.lastTranslation[0],
         state.translation[1] + state.lastTranslation[1]
-      ],
-      state.dragging
-    );
-  }, [onChange, state.lastTranslation, state.translation, state.dragging]);
+      ]);
+    }
+  }, [onChange, state.lastTranslation, state.translation, dragging]);
 
   useEffect(() => {
-    if (!state.dragging) {
+    if (!dragging) {
       setState(state => ({
         ...state,
         lastTranslation: initialTranslation
       }));
     }
-  }, [initialTranslation, state.dragging]);
+  }, [dragging, initialTranslation]);
 
   const styles = useMemo(
     () => ({
-      cursor: state.dragging ? '-webkit-grabbing' : '-webkit-grab'
+      cursor: dragging ? '-webkit-grabbing' : '-webkit-grab'
     }),
-    [state.dragging]
+    [dragging]
   );
 
   return (

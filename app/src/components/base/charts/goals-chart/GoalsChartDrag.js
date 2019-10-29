@@ -11,13 +11,17 @@ const GoalsChartDrag = ({
   padding,
   width,
   height,
-  dragTranslation
+  dragTranslation,
+  dragging,
+  setDragging
 }) => (
   <DragSvg
     onChange={handleDrag}
     initialTranslation={useMemo(() => [0, dragTranslation], [dragTranslation])}
     minY={-1 * (height - 2 * padding)}
     maxY={0}
+    dragging={dragging}
+    setDragging={setDragging}
   >
     <DragLineZone
       x1={2 * padding - 2}

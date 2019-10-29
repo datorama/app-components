@@ -38,6 +38,8 @@ const GoalsChart = ({
     translation: 0
   });
 
+  const [dragging, setDragging] = useState(false);
+
   const maxY = useMemo(
     () =>
       max([
@@ -174,6 +176,8 @@ const GoalsChart = ({
           width={state.width}
           height={state.height}
           dragTranslation={dragTranslation}
+          dragging={dragging}
+          setDragging={setDragging}
         />
       )}
 
@@ -181,7 +185,8 @@ const GoalsChart = ({
         valueLabelRenderer({
           x: 2 * padding - 5 - 35,
           y: state.height - padding + dragTranslation - 11,
-          value: percentage
+          value: percentage,
+          isDragging: dragging
         })
       ) : (
         <GoalsChartValue
