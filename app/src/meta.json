@@ -506,6 +506,13 @@
         },
         "required": false,
         "description": ""
+      },
+      "tooltipPosition": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
       }
     },
     "filename": "/components/base/Ellipsis.js"

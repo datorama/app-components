@@ -7,7 +7,7 @@ import Tooltip from './Tooltip';
 const DEFAULT = 'DEFAULT';
 const SINGLE = 'SINGLE-LINE-ELLIPSIS';
 
-const Ellipsis = ({ children, className }) => {
+const Ellipsis = ({ children, className, tooltipPosition = 'TOP' }) => {
   const [type, setType] = useState();
   const parent = useRef(null);
   const element = useRef(null);
@@ -35,7 +35,7 @@ const Ellipsis = ({ children, className }) => {
 
   if (type === SINGLE) {
     return (
-      <Tooltip title={children}>
+      <Tooltip title={children} position={tooltipPosition}>
         <Container ref={parent} type={type}>
           <span ref={element} className={className}>
             {children}
@@ -56,7 +56,8 @@ const Ellipsis = ({ children, className }) => {
 
 Ellipsis.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  tooltipPosition: PropTypes.string
 };
 
 export default Ellipsis;
