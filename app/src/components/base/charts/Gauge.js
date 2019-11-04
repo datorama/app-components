@@ -126,7 +126,7 @@ const Gauge = props => {
 
       <Label
         x={SIZE / 2 - 90}
-        y={SIZE - 60}
+        y={SIZE - 50}
         fill={theme.p200}
         size={26}
         anchor="end"
@@ -137,7 +137,7 @@ const Gauge = props => {
 
       <Label
         x={SIZE / 2 + 90}
-        y={SIZE - 60}
+        y={SIZE - 50}
         fill={theme.p200}
         size={26}
         anchor="start"

@@ -169,7 +169,6 @@ const Inner = styled.div.attrs(({ width }) => ({
   left: 0;
   height: 100%;
   background: ${({ theme }) => theme.a400};
-  transition: all 100ms;
 `;
 
 const Thumb = styled.div.attrs(({ left }) => ({
@@ -186,7 +185,6 @@ const Thumb = styled.div.attrs(({ left }) => ({
   left: -6px;
   margin-top: -6px;
   opacity: 1;
-  transition: all 100ms;
 
   ${({ dragging }) =>
     dragging &&
