@@ -305,8 +305,7 @@ export default class Select extends React.Component {
 
     this.setState({
       currentHoveredOptionValue: option.value,
-      currentHoveredOptionIndex,
-      searchTerm: ''
+      currentHoveredOptionIndex
     });
     this.applyChanges(result);
   };
