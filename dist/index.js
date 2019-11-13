@@ -591,7 +591,7 @@
       left: 100%;
     }
   }
-`;var ft=n(3);function pt(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}class mt extends a.a.Component{constructor(...e){super(...e),pt(this,"state",{localOpen:!1}),pt(this,"throttledToggle",Object(ft.throttle)(500,this.props.toggleOpen)),pt(this,"handleClick",e=>()=>{e&&e(),this.throttledToggle()})}componentDidUpdate(e){!this.props.open&&e.open&&setTimeout(()=>{this.setState({localOpen:!1})},500),this.props.open&&!e.open&&this.setState({localOpen:!0})}render(){const{open:e,className:t,title:n,buttons:r,children:i,size:s}=this.props,{localOpen:l}=this.state;return l?a.a.createElement(o.Fragment,null,a.a.createElement(vt,{open:l,onClick:this.throttledToggle,visible:e}),a.a.createElement(gt,{open:l,className:t,visible:!0},a.a.createElement(_t,{open:l,className:"modal-card",visible:e,size:s},a.a.createElement(St,{onClick:this.throttledToggle}),n&&a.a.createElement(yt,null,a.a.createElement(Ct,null,n)),a.a.createElement(bt,null,i),a.a.createElement(xt,null,r.map((e,t)=>"function"===typeof e?e({key:`btn-${t}`}):a.a.createElement(wt,{key:`btn-${t}`,secondary:"secondary"===e.type,disabled:e.disabled,onClick:this.handleClick(e.onClick)},e.label)))))):null}}pt(mt,"propTypes",{children:X.a.node,toggleOpen:X.a.func.isRequired,open:X.a.bool.isRequired,title:X.a.string,className:X.a.string,buttons:X.a.arrayOf(X.a.oneOfType([X.a.object,X.a.func])).isRequired,size:X.a.oneOf(["small","medium","large","full"])});const gt=l.a.div`
+`;var ft=n(3);function pt(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}class mt extends a.a.Component{constructor(...e){super(...e),pt(this,"state",{localOpen:!1}),pt(this,"throttledToggle",Object(ft.throttle)(500,this.props.toggleOpen)),pt(this,"handleClick",e=>()=>{e&&e(),this.throttledToggle()})}componentDidUpdate(e){!this.props.open&&e.open&&setTimeout(()=>{this.setState({localOpen:!1})},500),this.props.open&&!e.open&&this.setState({localOpen:!0})}render(){const{open:e,className:t,title:n,buttons:r,children:i,size:s,overlayColor:l}=this.props,{localOpen:c}=this.state;return c?a.a.createElement(o.Fragment,null,a.a.createElement(vt,{open:c,onClick:this.throttledToggle,visible:e,color:l}),a.a.createElement(gt,{open:c,className:t,visible:!0},a.a.createElement(_t,{open:c,className:"modal-card",visible:e,size:s},a.a.createElement(St,{onClick:this.throttledToggle,className:"close-icon"}),n&&a.a.createElement(yt,{className:"header"},a.a.createElement(Ct,{className:"title"},n)),a.a.createElement(bt,{className:"content"},i),a.a.createElement(xt,{className:"footer"},r.map((e,t)=>"function"===typeof e?e({key:`btn-${t}`}):a.a.createElement(wt,{key:`btn-${t}`,secondary:"secondary"===e.type,disabled:e.disabled,onClick:this.handleClick(e.onClick)},e.label)))))):null}}pt(mt,"propTypes",{children:X.a.node,toggleOpen:X.a.func.isRequired,open:X.a.bool.isRequired,title:X.a.string,className:X.a.string,buttons:X.a.arrayOf(X.a.oneOfType([X.a.object,X.a.func])).isRequired,size:X.a.oneOf(["small","medium","large","full"]),overlayColor:X.a.string});const gt=l.a.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -603,7 +603,7 @@
   pointer-events: none;
   z-index: 2;
 `,vt=l()(gt)`
-  background: ${({theme:e})=>Z(e.p0,60)};
+  background: ${({theme:e,color:t})=>t||Z(e.p0,60)};
   pointer-events: all;
   ${({theme:e,visible:t})=>t?e.animation.fade:e.animation.fadeOut};
 `,_t=l()(ae)`

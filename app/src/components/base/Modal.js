@@ -20,7 +20,8 @@ export default class Modal extends React.Component {
     buttons: PropTypes.arrayOf(
       PropTypes.oneOfType([PropTypes.object, PropTypes.func])
     ).isRequired,
-    size: PropTypes.oneOf(['small', 'medium', 'large', 'full'])
+    size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
+    overlayColor: PropTypes.string
   };
 
   state = {
@@ -50,7 +51,15 @@ export default class Modal extends React.Component {
   };
 
   render() {
-    const { open, className, title, buttons, children, size } = this.props;
+    const {
+      open,
+      className,
+      title,
+      buttons,
+      children,
+      size,
+      overlayColor
+    } = this.props;
     const { localOpen } = this.state;
 
     if (!localOpen) {
@@ -63,6 +72,7 @@ export default class Modal extends React.Component {
           open={localOpen}
           onClick={this.throttledToggle}
           visible={open}
+          color={overlayColor}
         />
         <Container open={localOpen} className={className} visible>
           <StyledCard
@@ -71,14 +81,14 @@ export default class Modal extends React.Component {
             visible={open}
             size={size}
           >
-            <CloseIcon onClick={this.throttledToggle} />
+            <CloseIcon onClick={this.throttledToggle} className="close-icon" />
             {title && (
-              <Header>
-                <Title>{title}</Title>
+              <Header className="header">
+                <Title className="title">{title}</Title>
               </Header>
             )}
-            <Content>{children}</Content>
-            <Footer>
+            <Content className="content">{children}</Content>
+            <Footer className="footer">
               {buttons.map((button, i) => {
                 if (typeof button === 'function') {
                   return button({ key: `btn-${i}` });
@@ -117,7 +127,7 @@ const Container = styled.div`
 `;
 
 const Overlay = styled(Container)`
-  background: ${({ theme }) => hexToRgba(theme.p0, 60)};
+  background: ${({ theme, color }) => color || hexToRgba(theme.p0, 60)};
   pointer-events: all;
   ${({ theme, visible }) =>
     visible ? theme.animation.fade : theme.animation.fadeOut};
