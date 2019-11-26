@@ -22,6 +22,9 @@ const snippet = `
     setValue(nextValue);
   }, [])
 
+  const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+  const customRenderer = useCallback(({ index }) => DAYS[index], []);
+  
   return (
     <div>
       <svg width="0" height="0">
@@ -51,6 +54,7 @@ const snippet = `
         value={value}
         onChange={onControlledChange}
         valueFormatter={v => v + "%"}
+        horizontalAxisLabelRenderer={customRenderer}
         // invert={true}
         // ticksColor="#ff0000"
         // dragColor="#ff0000"

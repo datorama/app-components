@@ -8,6 +8,7 @@ import GoalsChartHoverPoints from './goals-chart/GoalsChartHoverPoints';
 import GoalsChartPoints from './goals-chart/GoalsChartPoints';
 import GoalsChartDrag from './goals-chart/GoalsChartDrag';
 import GoalsChartValue from './goals-chart/GoalsChartValue';
+import HorizAxis from './goals-chart/HorizAxis';
 
 const GoalsChart = ({
   data = [],
@@ -30,7 +31,8 @@ const GoalsChart = ({
   steps = 10,
   id,
   maxY: passedMaxY,
-  minY: passedMinY
+  minY: passedMinY,
+  horizontalAxisLabelRenderer
 }) => {
   const [state, setState] = useState({
     width: 0,
@@ -64,8 +66,9 @@ const GoalsChart = ({
   const adjustedData = useMemo(
     () =>
       data.map(arr => [
-        50 +
-          ((arr[0] - minX) / (maxX - minX)) * (state.width - 2 * padding - 65),
+        70 +
+          ((arr[0] - minX) / (maxX - minX)) *
+            (state.width - 2 * padding - 65 - 20),
         state.height -
           padding -
           ((arr[1] - minY) / (maxY - minY)) * (state.height - 2 * padding)
@@ -145,6 +148,7 @@ const GoalsChart = ({
         labelsColor={labelsColor}
         axisLabelRenderer={axisLabelRenderer}
       />
+
       <GoalsChartPoints
         id={id}
         height={state.height}
@@ -158,6 +162,7 @@ const GoalsChart = ({
         areaColor={areaColor}
         lineColor={lineColor}
       />
+
       <GoalsChartHoverPoints
         valueFormatter={valueFormatter}
         data={adjustedData}
@@ -168,6 +173,7 @@ const GoalsChart = ({
         originalData={data}
         lineLabelRenderer={lineLabelRenderer}
       />
+
       {!!state.height && (
         <GoalsChartDrag
           handleDrag={handleDrag}
@@ -198,6 +204,12 @@ const GoalsChart = ({
           percentage={percentage}
         />
       )}
+
+      <HorizAxis
+        data={adjustedData}
+        height={state.height}
+        renderer={horizontalAxisLabelRenderer}
+      />
     </Container>
   );
 };
@@ -225,7 +237,8 @@ GoalsChart.propTypes = {
   padding: PropTypes.number,
   id: PropTypes.string,
   maxY: PropTypes.number,
-  minY: PropTypes.number
+  minY: PropTypes.number,
+  horizontalAxisLabelRenderer: PropTypes.func
 };
 
 const Container = styled.svg`
