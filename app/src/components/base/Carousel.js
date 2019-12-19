@@ -15,7 +15,12 @@ class Carousel extends Component {
     bulletSize: PropTypes.number,
     bulletBg: PropTypes.string,
     bulletActiveBg: PropTypes.string,
-    bulletHoverBg: PropTypes.string
+    bulletHoverBg: PropTypes.string,
+    bullets: PropTypes.bool
+  };
+
+  static defaultProps = {
+    bullets: true
   };
 
   state = {
@@ -106,7 +111,13 @@ class Carousel extends Component {
 
   render() {
     const { current } = this.state;
-    const { className, controls, nextControl, prevControl } = this.props;
+    const {
+      className,
+      controls,
+      nextControl,
+      prevControl,
+      bullets
+    } = this.props;
     const total = this.getTotal();
 
     return (
@@ -128,7 +139,7 @@ class Carousel extends Component {
             </Control>
           )}
         </SlidesAndControls>
-        <Bullets>{this.renderBullets()}</Bullets>
+        {bullets && <Bullets>{this.renderBullets()}</Bullets>}
       </Container>
     );
   }
