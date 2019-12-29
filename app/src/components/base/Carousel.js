@@ -20,7 +20,8 @@ class Carousel extends Component {
   };
 
   static defaultProps = {
-    bullets: true
+    bullets: true,
+    infinite: true
   };
 
   state = {
@@ -116,7 +117,9 @@ class Carousel extends Component {
       controls,
       nextControl,
       prevControl,
-      bullets
+      bullets,
+      infinite,
+      slides
     } = this.props;
     const total = this.getTotal();
 
@@ -124,7 +127,7 @@ class Carousel extends Component {
       <Container className={className}>
         <SlidesAndControls>
           {controls && (
-            <Control onClick={this.prev}>
+            <Control onClick={this.prev} disabled={!infinite && current === 0}>
               {prevControl ? prevControl() : 'Prev'}
             </Control>
           )}
@@ -134,7 +137,10 @@ class Carousel extends Component {
             </Slides>
           </SlidesContainer>
           {controls && (
-            <Control onClick={this.next}>
+            <Control
+              onClick={this.next}
+              disabled={!infinite && current === slides.length - 1}
+            >
               {nextControl ? nextControl() : 'Next'}
             </Control>
           )}
@@ -177,6 +183,13 @@ const Control = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+
+  ${({ disabled }) =>
+    disabled &&
+    `
+    opacity: 0.5;
+    pointer-events: none;
+  `};
 `;
 
 const Slide = styled.div`
