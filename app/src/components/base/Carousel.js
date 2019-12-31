@@ -16,7 +16,8 @@ class Carousel extends Component {
     bulletBg: PropTypes.string,
     bulletActiveBg: PropTypes.string,
     bulletHoverBg: PropTypes.string,
-    bullets: PropTypes.bool
+    bullets: PropTypes.bool,
+    infinite: PropTypes.bool
   };
 
   static defaultProps = {
