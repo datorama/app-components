@@ -31,7 +31,9 @@ const SelectMenu = props => {
     large,
     inlineSearch,
     currentHoveredOptionValue,
-    toggleFocus
+    toggleFocus,
+    onKeyDown,
+    onKeyUp
   } = props;
 
   if (menuRenderer) {
@@ -64,6 +66,8 @@ const SelectMenu = props => {
               small={small}
               large={large}
               toggleFocus={toggleFocus}
+              onKeyDown={onKeyDown}
+              onKeyUp={onKeyUp}
             />
           )}
 
@@ -122,7 +126,9 @@ SelectMenu.propTypes = {
   small: PropTypes.bool,
   large: PropTypes.bool,
   inlineSearch: PropTypes.bool,
-  toggleFocus: PropTypes.func
+  toggleFocus: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func
 };
 
 const Container = styled.div`

@@ -24,6 +24,8 @@ export default class Select extends React.Component {
     options: optionsType,
     values: optionsType,
     onChange: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    onKeyUp: PropTypes.func,
     placeholder: PropTypes.string,
     sortBy: PropTypes.string,
     sortable: PropTypes.bool,
@@ -371,7 +373,9 @@ export default class Select extends React.Component {
       small,
       large,
       inlineSearch,
-      maxTags
+      maxTags,
+      onKeyDown,
+      onKeyUp
     } = this.props;
     const {
       open,
@@ -416,12 +420,16 @@ export default class Select extends React.Component {
               onSelect={this.onSelect}
               loading={loading}
               toggleFocus={this.toggleFocus}
+              onKeyDown={onKeyDown}
+              onKeyUp={onKeyUp}
             />
           )}
           <CurrentHoveredIndexContext.Provider
             value={currentHoveredOptionIndex}
           >
             <SelectMenu
+              onKeyDown={onKeyDown}
+              onKeyUp={onKeyUp}
               open={open}
               searchable={searchable}
               onSearch={this.onSearch}
