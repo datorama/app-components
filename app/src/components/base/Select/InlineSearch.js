@@ -22,7 +22,9 @@ class InlineSearch extends Component {
     maxTags: PropTypes.number,
     onSelect: PropTypes.func,
     loading: PropTypes.bool,
-    toggleFocus: PropTypes.func
+    toggleFocus: PropTypes.func,
+    onKeyDown: PropTypes.func,
+    onKeyUp: PropTypes.func
   };
 
   componentDidUpdate(prevProps) {
@@ -58,7 +60,7 @@ class InlineSearch extends Component {
   };
 
   render() {
-    const { loading, small } = this.props;
+    const { loading, small, onKeyDown, onKeyUp } = this.props;
     const tags = [];
 
     mapWithIndex((option, index) => {
@@ -102,6 +104,8 @@ class InlineSearch extends Component {
             small={this.props.small}
             onFocus={this.props.toggleFocus}
             onBlur={this.props.toggleFocus}
+            onKeyDown={onKeyDown}
+            onKeyUp={onKeyUp}
           />
         </Inner>
         {!loading && (

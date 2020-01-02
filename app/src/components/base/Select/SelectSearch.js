@@ -15,6 +15,8 @@ const SelectSearch = props => (
       large={props.large}
       onFocus={props.toggleFocus}
       onBlur={props.toggleFocus}
+      onKeyDown={props.onKeyDown}
+      onKeyUp={props.onKeyUp}
       className="menu-search-input"
     />
     <StyledSearchIcon className="menu-search-icon" />
@@ -27,7 +29,9 @@ SelectSearch.propTypes = {
   searchPlaceholder: PropTypes.string,
   small: PropTypes.bool,
   large: PropTypes.bool,
-  toggleFocus: PropTypes.func
+  toggleFocus: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onKeyUp: PropTypes.func
 };
 
 export default SelectSearch;
