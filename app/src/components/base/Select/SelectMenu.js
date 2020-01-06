@@ -10,7 +10,7 @@ import SelectNoResults from './SelectNoResults';
 import SelectOptions from './SelectOptions';
 import { SelectMenuContext } from '../../contexts';
 
-const SelectMenu = props => {
+const SelectionMenu = props => {
   const {
     open,
     searchable,
@@ -21,7 +21,6 @@ const SelectMenu = props => {
     selectAll,
     optionRenderer,
     onSelect,
-    menuRenderer,
     searchTerm,
     total,
     maxItems,
@@ -36,7 +35,15 @@ const SelectMenu = props => {
     onKeyUp
   } = props;
 
-  const SelectionMenu = () => (
+  let maxHeight = 400;
+  if (multi) {
+    maxHeight += 5;
+  }
+  if (searchable) {
+    maxHeight += 5;
+  }
+
+  return (
     <SelectMenuContext.Consumer>
       {({ onMenuEnter, onMenuLeave }) => (
         <Container
@@ -90,20 +97,19 @@ const SelectMenu = props => {
       )}
     </SelectMenuContext.Consumer>
   );
+};
+
+const SelectMenu = props => {
+  const { menuRenderer } = props;
 
   if (menuRenderer) {
-    return menuRenderer(props, SelectionMenu);
+    return menuRenderer({
+      ...props,
+      menuRenderer: () => <SelectionMenu {...props} />
+    });
   }
 
-  let maxHeight = 400;
-  if (multi) {
-    maxHeight += 5;
-  }
-  if (searchable) {
-    maxHeight += 5;
-  }
-
-  return <SelectionMenu />;
+  return <SelectionMenu {...props} />;
 };
 
 export default SelectMenu;
