@@ -46,6 +46,7 @@ import Ellipsis from './docs/Ellipsis.doc';
 import Table from './docs/Table.doc';
 import Gauge from './docs/Gauge.doc';
 import GoalsChart from './docs/GoalsChart';
+import Filters from './docs/Filters.doc';
 
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
@@ -54,7 +55,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.24.0</Version>
+        <Version>0.24.1</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -182,6 +183,7 @@ class App extends Component {
       { key: 'toggles', label: 'Toggles', path: 'toggles' },
       { key: 'tooltip', label: 'Tooltip', path: 'tooltip' },
       { key: 'widget', label: 'Widget', path: 'widget' },
+      { key: 'filters', label: 'Filters', path: 'filters' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
       { key: 'goals-chart', label: 'Goals Chart', path: 'goals-chart' },
@@ -263,6 +265,7 @@ class App extends Component {
                 <Route exact path="/ellipsis" component={Ellipsis} />
                 <Route exact path="/table" component={Table} />
                 <Route exact path="/gauge" component={Gauge} />
+                <Route exact path="/filters" component={Filters} />
 
                 <Route exact path="/click-out" component={ClickOut} />
                 <Route exact path="/drag-drop" component={DragDrop} />

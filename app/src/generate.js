@@ -9,7 +9,9 @@ const excludes = [
   'select.utils',
   'notifications.styles.js',
   'notifications.utils.js',
-  'date.utils'
+  'date.utils',
+  'Filter.js',
+  'filter.consts.js'
 ];
 
 // Where the JSON file ends up

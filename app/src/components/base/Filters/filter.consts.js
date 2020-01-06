@@ -1,0 +1,6 @@
+export const OPERATOR = {
+  AT_LEAST: 'AT_LEAST',
+  AT_MOST: 'AT_MOST',
+  CONTAINS: 'CONTAINS',
+  NOT_CONTAINS: 'NOT_CONTAINS'
+};
