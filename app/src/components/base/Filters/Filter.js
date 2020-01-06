@@ -72,7 +72,7 @@ const Filter = ({
         className="free-text-input"
       />
 
-      <DeleteIcon onClick={remove} />
+      <StyledDeleteIcon onClick={remove} />
     </Container>
   );
 };
@@ -114,6 +114,13 @@ const Container = styled.div`
   .free-text-input {
     max-width: 251px;
   }
+`;
+
+const StyledDeleteIcon = styled(DeleteIcon)`
+  path {
+    fill: ${({ theme }) => theme.p600};
+  }
+  cursor: pointer;
 `;
 
 export default Filter;

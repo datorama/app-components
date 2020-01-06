@@ -11,11 +11,11 @@ const snippet = `
   return (
     <Filters
       dimensions={[
-            { value: 'Forename', label: "'Forename'" },
-            { value: 'Surname', label: "'Surname'" },
-            { value: 'Country', label: "'Country'" },
-            { value: 'City', label: "'City'" },
-            { value: 'Favorite Color', label: "'Favorite Color" }
+            { value: 'Forename', label: "Forename" },
+            { value: 'Surname', label: "Surname" },
+            { value: 'Country', label: "Country" },
+            { value: 'City', label: "City" },
+            { value: 'Favorite Color', label: "Favorite Color" }
           ]}
           onChange={nextFilters => console.log(nextFilters)}
           maxFilters={3}

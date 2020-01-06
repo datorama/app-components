@@ -105,14 +105,14 @@ const Filters = ({
       {isShowAddition && (
         <AddConditionWrapper>
           <AddCondition onClick={onAddFilter}>
-            <PlusIcon />
+            <StyledPlusIcon />
           </AddCondition>
         </AddConditionWrapper>
       )}
 
       {filters.length === maxFilters && (
         <Info>
-          <InfoIcon />
+          <StyledInfoIcon />
           {`You can create up to ${maxFilters} filters`}
         </Info>
       )}
@@ -187,7 +187,7 @@ const And = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  color: #00dff7;
+  color: ${({ theme }) => theme.p600};
 `;
 
 const Info = styled.div`
@@ -199,6 +199,19 @@ const Info = styled.div`
 
   img {
     margin-right: 5px;
+  }
+`;
+
+const StyledPlusIcon = styled(PlusIcon)`
+  path {
+    fill: ${({ theme }) => theme.p600};
+  }
+  cursor: pointer;
+`;
+
+const StyledInfoIcon = styled(InfoIcon)`
+  path {
+    fill: ${({ theme }) => theme.p600};
   }
 `;
 
