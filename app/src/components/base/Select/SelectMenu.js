@@ -36,19 +36,7 @@ const SelectMenu = props => {
     onKeyUp
   } = props;
 
-  if (menuRenderer) {
-    return menuRenderer(props);
-  }
-
-  let maxHeight = 400;
-  if (multi) {
-    maxHeight += 5;
-  }
-  if (searchable) {
-    maxHeight += 5;
-  }
-
-  return (
+  const getResultsMenu = () => (
     <SelectMenuContext.Consumer>
       {({ onMenuEnter, onMenuLeave }) => (
         <Container
@@ -102,6 +90,20 @@ const SelectMenu = props => {
       )}
     </SelectMenuContext.Consumer>
   );
+
+  if (menuRenderer) {
+    return menuRenderer(props, getResultsMenu);
+  }
+
+  let maxHeight = 400;
+  if (multi) {
+    maxHeight += 5;
+  }
+  if (searchable) {
+    maxHeight += 5;
+  }
+
+  return getResultsMenu();
 };
 
 export default SelectMenu;
