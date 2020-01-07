@@ -26,7 +26,9 @@ const Filters = ({
   andColor,
   deleteIconColor,
   warningColor,
-  dividerColor
+  dividerColor,
+  textInputBackground,
+  menuBackground
 }) => {
   const [filters, setFilters] = useState(
     addIds(initialState || defaultInitialState)
@@ -110,6 +112,8 @@ const Filters = ({
                 updateFilter={onUpdateFilter}
                 removeFilter={onRemoveFilter}
                 deleteIconColor={deleteIconColor}
+                textInputBackground={textInputBackground}
+                menuBackground={menuBackground}
               />
             </motion.div>
             {isShowDivider(index) && (
@@ -182,7 +186,9 @@ Filters.propTypes = {
   andColor: PropTypes.string,
   deleteIconColor: PropTypes.string,
   warningColor: PropTypes.string,
-  dividerColor: PropTypes.string
+  dividerColor: PropTypes.string,
+  textInputBackground: PropTypes.string,
+  menuBackground: PropTypes.string
 };
 
 const FiltersWrapper = styled.div`

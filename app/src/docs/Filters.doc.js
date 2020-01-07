@@ -66,6 +66,8 @@ const snippet = `
             maxFilters={5}
             andColor="#00dff7"
             deleteIconColor="#ccced3"
+            textInputBackground="rgba(255, 255, 255, 0.2)"
+            menuBackground="#4a5467"
           />
         </div>
       </div>

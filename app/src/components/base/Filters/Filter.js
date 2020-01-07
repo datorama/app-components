@@ -28,7 +28,9 @@ const Filter = ({
   dimension,
   removeFilter,
   index,
-  deleteIconColor
+  deleteIconColor,
+  textInputBackground,
+  menuBackground
 }) => {
   const remove = useCallback(() => removeFilter(index), [index, removeFilter]);
   const onValChange = useCallback(
@@ -49,7 +51,10 @@ const Filter = ({
   );
 
   return (
-    <Container>
+    <Container
+      textInputBackground={textInputBackground}
+      menuBackground={menuBackground}
+    >
       <Select
         className="dimension-select"
         searchable
@@ -92,12 +97,15 @@ const Container = styled.div`
   .header,
   .text-input {
     color: ${({ theme }) => theme.p700};
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    ${({ textInputBackground }) =>
+      textInputBackground &&
+      `background-color: ${textInputBackground} !important`};
   }
 
   .menu,
   .menu-search-input {
-    background-color: #4a5467 !important;
+    ${({ menuBackground }) =>
+      menuBackground && `background-color: ${menuBackground} !important`};
   }
 
   .dimension-select {
