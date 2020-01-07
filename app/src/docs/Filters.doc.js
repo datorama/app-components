@@ -33,7 +33,7 @@ const snippet = `
         style={{
           display: 'flex',
           flexDirection: 'column',
-          minHeight: 650,
+          minHeight: 680,
           overflowY: 'auto'
         }}
       >
