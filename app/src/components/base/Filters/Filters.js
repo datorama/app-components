@@ -17,7 +17,11 @@ const Filters = ({
   dimensions = [],
   maxFilters = 3,
   onChange = noop,
-  initialState = null
+  initialState = null,
+  andColor,
+  deleteIconColor,
+  warningColor,
+  dividerColor
 }) => {
   const [filters, setFilters] = useState(initialState || defaultInitialState);
   const onFiltersChange = useCallback(
@@ -90,12 +94,13 @@ const Filters = ({
             operator={operator}
             updateFilter={onUpdateFilter}
             removeFilter={onRemoveFilter}
+            deleteIconColor={deleteIconColor}
           />
 
           {isShowDivider(index) && (
             <DividerWrapper>
-              <Divider />
-              <And>AND</And>
+              <Divider dividerColor={dividerColor} />
+              <And andColor={andColor}>AND</And>
               <Divider />
             </DividerWrapper>
           )}
@@ -106,13 +111,14 @@ const Filters = ({
         <AddConditionWrapper>
           <AddCondition onClick={onAddFilter}>
             <StyledPlusIcon />
+            CONDITION
           </AddCondition>
         </AddConditionWrapper>
       )}
 
       {filters.length === maxFilters && (
-        <Info>
-          <StyledInfoIcon />
+        <Info warningColor={warningColor}>
+          <StyledInfoIcon warningColor={warningColor} />
           {`You can create up to ${maxFilters} filters`}
         </Info>
       )}
@@ -124,7 +130,11 @@ Filters.propTypes = {
   dimensions: PropTypes.array.isRequired,
   maxFilters: PropTypes.number,
   onChange: PropTypes.func,
-  initialState: PropTypes.object
+  initialState: PropTypes.object,
+  andColor: PropTypes.string,
+  deleteIconColor: PropTypes.string,
+  warningColor: PropTypes.string,
+  dividerColor: PropTypes.string
 };
 
 const FiltersWrapper = styled.div`
@@ -159,7 +169,7 @@ const AddCondition = styled.div`
   justify-content: center;
   cursor: pointer;
 
-  img {
+  svg {
     margin-right: 5px;
   }
 `;
@@ -177,7 +187,7 @@ const Divider = styled.div`
   flex: 1;
   height: 1px;
   opacity: 0.34;
-  background-color: ${({ theme }) => theme.p200};
+  background-color: ${({ theme, dividerColor }) => dividerColor || theme.p200};
 `;
 
 const And = styled.div`
@@ -187,7 +197,8 @@ const And = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 12px;
-  color: ${({ theme }) => theme.p600};
+  font-weight: 600;
+  color: ${({ theme, andColor }) => andColor || theme.p600};
 `;
 
 const Info = styled.div`
@@ -195,9 +206,9 @@ const Info = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  color: ${({ theme }) => theme.p400};
+  color: ${({ theme, warningColor }) => warningColor || theme.p400};
 
-  img {
+  svg {
     margin-right: 5px;
   }
 `;
@@ -211,7 +222,7 @@ const StyledPlusIcon = styled(PlusIcon)`
 
 const StyledInfoIcon = styled(InfoIcon)`
   path {
-    fill: ${({ theme }) => theme.p600};
+    fill: ${({ theme, warningColor }) => warningColor || theme.p600};
   }
 `;
 

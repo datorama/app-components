@@ -55,7 +55,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.24.1</Version>
+        <Version>0.25.0</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -167,6 +167,7 @@ class App extends Component {
       { key: 'collapse', label: 'Collapse', path: 'collapse' },
       { key: 'date-picker', label: 'Date Picker', path: 'datepicker' },
       { key: 'ellipsis', label: 'Ellipsis', path: 'ellipsis' },
+      { key: 'filters', label: 'Filters', path: 'filters' },
       { key: 'modal', label: 'Modal', path: 'modal' },
       { key: 'notifications', label: 'Notifications', path: 'notifications' },
       { key: 'pagination', label: 'Pagination', path: 'pagination' },
@@ -183,7 +184,6 @@ class App extends Component {
       { key: 'toggles', label: 'Toggles', path: 'toggles' },
       { key: 'tooltip', label: 'Tooltip', path: 'tooltip' },
       { key: 'widget', label: 'Widget', path: 'widget' },
-      { key: 'filters', label: 'Filters', path: 'filters' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
       { key: 'goals-chart', label: 'Goals Chart', path: 'goals-chart' },

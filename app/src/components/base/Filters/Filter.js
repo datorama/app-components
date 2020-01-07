@@ -27,7 +27,8 @@ const Filter = ({
   operator,
   dimension,
   removeFilter,
-  index
+  index,
+  deleteIconColor
 }) => {
   const remove = useCallback(() => removeFilter(index), [index, removeFilter]);
   const onValChange = useCallback(
@@ -72,7 +73,7 @@ const Filter = ({
         className="free-text-input"
       />
 
-      <StyledDeleteIcon onClick={remove} />
+      <StyledDeleteIcon deleteIconColor={deleteIconColor} onClick={remove} />
     </Container>
   );
 };
@@ -118,7 +119,7 @@ const Container = styled.div`
 
 const StyledDeleteIcon = styled(DeleteIcon)`
   path {
-    fill: ${({ theme }) => theme.p600};
+    fill: ${({ theme, deleteIconColor }) => deleteIconColor || theme.p600};
   }
   cursor: pointer;
 `;
