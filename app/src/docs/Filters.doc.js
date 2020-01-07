@@ -8,7 +8,7 @@ import Snippet from './Snippet';
 const snippet = `
 () => {
   
-  const initialFiltersState = [
+   const initialFiltersState = [
     {
       operator: 'CONTAINS',
       val: '🍅',
@@ -25,41 +25,48 @@ const snippet = `
       operator: 'NOT_CONTAINS'
     }
   ];
-  
-  const [filters,setFilters] = useState(initialFiltersState)
+
+  const [filters, setFilters] = useState(initialFiltersState);
   
   return (
-  <div style={{display: 'flex', flexDirection: 'column'}}>
-    <div style={{padding: 20, marginBottom: 20, border: '1px dashed'}}>
-        <Filters
-          dimensions={[
-                { value: 'Forename', label: "Forename" },
-                { value: 'Surname', label: "Surname" },
-                { value: 'Country', label: "Country" },
-                { value: 'City', label: "City" },
-                { value: 'Favorite Color', label: "Favorite Color" }
-              ]}
-              deleteIconColor="#979797"
-              dividerColor="#d8d8d8"
-              warningColor="#999ca0"
+    <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 650,
+          overflowY: 'auto'
+        }}
+      >
+        <div style={{ padding: 20, marginBottom: 20, border: '1px dashed' }}>
+          <Filters
+            dimensions={[
+              { value: 'Forename', label: 'Forename' },
+              { value: 'Surname', label: 'Surname' },
+              { value: 'Country', label: 'Country' },
+              { value: 'City', label: 'City' },
+              { value: 'Favorite Color', label: 'Favorite Color' }
+            ]}
+            deleteIconColor="#979797"
+            dividerColor="#d8d8d8"
+            warningColor="#999ca0"
           />
-      </div> 
-    <div style={{background: '#2e405c', color: '#fff', padding: 20}}>
-        <h3>Dark-Mode with initial-state (Switch to Dark Mode):</h3>
-        <Filters
-          dimensions={[
-                { value: '🥗', label: '🥗' },
-                { value: '🍲', label: '🍲' },
-                { value: '🍕', label: '🍕' },  
-              ]}
-              initialState={filters}
-              onChange={setFilters}
-              maxFilters={5}
-              andColor="#00dff7"
-              deleteIconColor="#ccced3"
-        />
-    </div>
-   </div>
+        </div>
+        <div style={{ background: '#2e405c', color: '#fff', padding: 20 }}>
+          <h3>Dark-Mode with initial-state (Switch to Dark Mode):</h3>
+          <Filters
+            dimensions={[
+              { value: '🥗', label: '🥗' },
+              { value: '🍲', label: '🍲' },
+              { value: '🍕', label: '🍕' }
+            ]}
+            initialState={filters}
+            onChange={setFilters}
+            maxFilters={5}
+            andColor="#00dff7"
+            deleteIconColor="#ccced3"
+          />
+        </div>
+      </div>
   );
 }`;
 
