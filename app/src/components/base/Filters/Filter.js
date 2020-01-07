@@ -118,7 +118,7 @@ const Container = styled.div`
 `;
 
 const StyledDeleteIcon = styled(DeleteIcon)`
-  path {
+  > path {
     fill: ${({ theme, deleteIconColor }) => deleteIconColor || theme.p600};
   }
   cursor: pointer;

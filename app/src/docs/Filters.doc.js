@@ -33,11 +33,12 @@ const snippet = `
         style={{
           display: 'flex',
           flexDirection: 'column',
-          minHeight: 680,
+          minHeight: 900,
           overflowY: 'auto'
         }}
       >
         <div style={{ padding: 20, marginBottom: 20, border: '1px dashed' }}>
+        <h3 style={{marginBottom: 50}}>Light-Mode: </h3>
           <Filters
             dimensions={[
               { value: 'Forename', label: 'Forename' },
@@ -49,10 +50,11 @@ const snippet = `
             deleteIconColor="#979797"
             dividerColor="#d8d8d8"
             warningColor="#999ca0"
+            onChange={(filters)=>console.log({filters})}
           />
         </div>
         <div style={{ background: '#2e405c', color: '#fff', padding: 20 }}>
-          <h3>Dark-Mode with initial-state (Switch to Dark Mode):</h3>
+          <h3 style={{marginBottom: 50}}>Dark-Mode with initial-state (Switch to Dark Mode):</h3>
           <Filters
             dimensions={[
               { value: '🥗', label: '🥗' },
