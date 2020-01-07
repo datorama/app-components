@@ -1,6 +1,6 @@
 {
   "name": "@datorama/app-components",
-  "version": "0.25.0",
+  "version": "0.25.1",
   "description": "Datorama React components library",
   "author": "Shay Keinan",
   "repository": "https://github.com/datorama/app-components",
@@ -34,6 +34,7 @@
     "prop-types": "^15.7.2",
     "react": "16.9.0",
     "react-dom": "16.9.0",
+    "react-virtualized": "^9.21.1",
     "replace": "^1.1.1",
     "rimraf": "3.0.0",
     "style-loader": "^1.0.0",
@@ -67,8 +68,5 @@
       "prettier --single-quote --write",
       "git add"
     ]
-  },
-  "dependencies": {
-    "react-virtualized": "^9.21.1"
   }
 }

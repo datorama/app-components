@@ -106,7 +106,6 @@ const Filters = ({
           )}
         </FilterWrapper>
       ))}
-
       {isShowAddition && (
         <AddConditionWrapper>
           <AddCondition onClick={onAddFilter}>
@@ -130,7 +129,7 @@ Filters.propTypes = {
   dimensions: PropTypes.array.isRequired,
   maxFilters: PropTypes.number,
   onChange: PropTypes.func,
-  initialState: PropTypes.object,
+  initialState: PropTypes.array,
   andColor: PropTypes.string,
   deleteIconColor: PropTypes.string,
   warningColor: PropTypes.string,
