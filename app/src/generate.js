@@ -7,6 +7,17 @@ const componentFolder = './src/components/base';
 const excludes = [
   'Select.common.js',
   'select.utils',
+  'SelectHeader.js',
+  'InlineSearch.js',
+  'Select.types.js',
+  'SelectMenu.js',
+  'SelectMultiHeader.js',
+  'SelectNoResults.js',
+  'SelectOptions.js',
+  'SelectOptionsGroup.js',
+  'SelectSearch.js',
+  'SelectSpinner.js',
+
   'notifications.styles.js',
   'notifications.utils.js',
   'date.utils'
@@ -23,6 +34,7 @@ function pushComponent(component) {
 
 function createComponentFile() {
   const componentJsonArray = JSON.stringify(componentDataArray, null, 2);
+
   fs.writeFile(componentJsonPath, componentJsonArray, 'utf8', (err, data) => {
     if (err) {
       throw err;
@@ -45,9 +57,10 @@ function parseComponent(component, filename) {
     }
   });
   const splitIndex = filename.indexOf('/src/');
-  const shortname = filename.substring(splitIndex + 4);
 
-  componentInfo.filename = shortname;
+  componentInfo.filename = filename.substring(splitIndex + 4);
+
+  console.log(filename.substring(splitIndex + 4));
 
   pushComponent(componentInfo);
 }
