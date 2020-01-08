@@ -119,8 +119,6 @@ const Filters = ({
     [filters]
   );
 
-  console.log({ containerHeight });
-
   return (
     <motion.div
       animate={{ height: containerHeight }}
