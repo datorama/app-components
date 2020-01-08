@@ -4,7 +4,7 @@ export const OPERATOR = {
 };
 
 export const HEIGHTS = {
-  filterRow: 50,
-  filterRowAnd: 92,
-  gutter: 20
+  FILTER_ROW: 50,
+  DIVIDER_ROW: 42,
+  GUTTER_ROW: 20
 };
