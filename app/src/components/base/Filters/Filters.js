@@ -45,9 +45,9 @@ const Filters = ({
     index => {
       if (filters.length === 1) return false;
 
-      return index < maxFilters - 1;
+      return index < filters.length - 1;
     },
-    [filters.length, maxFilters]
+    [filters.length]
   );
 
   const isShowAddition = useMemo(() => filters.length < maxFilters, [
