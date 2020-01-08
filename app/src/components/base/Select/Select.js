@@ -321,16 +321,14 @@ export default class Select extends React.Component {
     }
 
     const allOptions = getAllOptions(this.filteredOptions);
-
     const currentHoveredOptionIndex = allOptions.findIndex(
       op => op.value === option.value
     );
 
-    this.setState({
+    this.applyChanges(result, {
       currentHoveredOptionValue: option.value,
       currentHoveredOptionIndex
     });
-    this.applyChanges(result);
   };
 
   selectAll = () => {
@@ -359,10 +357,10 @@ export default class Select extends React.Component {
     onChange(values, allSelected);
   });
 
-  applyChanges(values) {
+  applyChanges(values, extend) {
     const { closeOnSelect, multi } = this.props;
 
-    this.setState({ localValues: values }, () => {
+    this.setState({ localValues: values, ...extend }, () => {
       this.debouncedOnChange(values);
 
       if (!multi && closeOnSelect) {
