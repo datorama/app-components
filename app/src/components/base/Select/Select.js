@@ -49,7 +49,9 @@ export default class Select extends React.Component {
     small: PropTypes.bool,
     large: PropTypes.bool,
     inlineSearch: PropTypes.bool,
-    maxTags: PropTypes.number
+    maxTags: PropTypes.number,
+    clearOnClose: PropTypes.bool,
+    keepSelected: PropTypes.bool
   };
 
   state = {
@@ -83,7 +85,7 @@ export default class Select extends React.Component {
       .includes(searchTerm.toLowerCase());
 
   filterOptions() {
-    const { options } = this.props;
+    const { options, keepSelected, values } = this.props;
 
     if (hasGroups(options)) {
       return this.filterGroupedOptions();
@@ -96,19 +98,35 @@ export default class Select extends React.Component {
       ? orderBy([sortBy], [sortDirection], options)
       : options;
 
-    return sorted.filter(option =>
-      searchBy.some(key => this.checkString(searchTerm, option[key]))
-    );
+    return sorted.filter(option => {
+      if (keepSelected && find(op => op.value === option.value, values)) {
+        return true;
+      }
+
+      return searchBy.some(key => this.checkString(searchTerm, option[key]));
+    });
   }
 
   filterGroupedOptions = () => {
     const { searchTerm } = this.state;
-    const { searchBy, options, sortable, sortDirection, sortBy } = this.props;
+    const {
+      searchBy,
+      options,
+      sortable,
+      sortDirection,
+      sortBy,
+      keepSelected,
+      values
+    } = this.props;
 
     const filtered = map(option => {
-      const filteredInnerOption = option.options.filter(op =>
-        searchBy.some(key => this.checkString(searchTerm, op[key]))
-      );
+      const filteredInnerOption = option.options.filter(op => {
+        if (keepSelected && find(sel => sel.value === op.value, values)) {
+          return true;
+        }
+
+        return searchBy.some(key => this.checkString(searchTerm, op[key]));
+      });
 
       return set('options', filteredInnerOption, option);
     }, options);
@@ -121,12 +139,13 @@ export default class Select extends React.Component {
   sortGroupedOptions = (options, sortBy, sortDirection) => {
     return map(option => {
       const ordered = orderBy([sortBy], [sortDirection], option.options);
+
       return set('options', ordered, option);
     }, options);
   };
 
   toggleOpen = () => {
-    const { keepOpen, inlineSearch } = this.props;
+    const { keepOpen, inlineSearch, clearOnClose } = this.props;
     const { open } = this.state;
 
     if (keepOpen && open) {
@@ -136,7 +155,7 @@ export default class Select extends React.Component {
     this.setState(
       prevState => ({
         open: !prevState.open,
-        searchTerm: !prevState.open ? '' : prevState.searchTerm
+        searchTerm: !prevState.open && clearOnClose ? '' : prevState.searchTerm
       }),
       () => {
         const { open, currentHoveredOptionValue } = this.state;
@@ -163,7 +182,9 @@ export default class Select extends React.Component {
 
           if (inlineSearch) {
             setTimeout(() => {
-              this.setState({ searchTerm: '' });
+              if (clearOnClose) {
+                this.setState({ searchTerm: '' });
+              }
             }, 300);
           }
 
@@ -402,6 +423,7 @@ export default class Select extends React.Component {
               error={error}
               small={small}
               large={large}
+              searchable={searchable}
             />
           )}
 
@@ -450,6 +472,7 @@ export default class Select extends React.Component {
               inlineSearch={inlineSearch}
               currentHoveredOptionValue={currentHoveredOptionValue}
               toggleFocus={this.toggleFocus}
+              loading={loading}
             />
           </CurrentHoveredIndexContext.Provider>
         </Container>
@@ -468,7 +491,8 @@ Select.defaultProps = {
   sortDirection: 'asc',
   closeOnSelect: true, // apply only for single select
   debounce: 0,
-  maxTags: 999
+  maxTags: 999,
+  clearOnClose: true
 };
 
 const Container = styled.div`

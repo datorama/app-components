@@ -9,6 +9,10 @@ import SelectMultiHeader from './SelectMultiHeader';
 import SelectNoResults from './SelectNoResults';
 import SelectOptions from './SelectOptions';
 import { SelectMenuContext } from '../../contexts';
+import Spinner from '../Spinner';
+
+// utils
+import { hexToRgba } from '../../utils';
 
 const SelectionMenu = props => {
   const {
@@ -32,7 +36,8 @@ const SelectionMenu = props => {
     currentHoveredOptionValue,
     toggleFocus,
     onKeyDown,
-    onKeyUp
+    onKeyUp,
+    loading
   } = props;
 
   let maxHeight = 400;
@@ -53,6 +58,12 @@ const SelectionMenu = props => {
           onMouseEnter={onMenuEnter}
           onMouseLeave={onMenuLeave}
         >
+          {(inlineSearch || searchable) && loading && (
+            <SpinnerContainer className="spinner-container">
+              <Spinner />
+            </SpinnerContainer>
+          )}
+
           {!inlineSearch && searchable && (
             <SelectSearch
               onChange={onSearch}
@@ -136,7 +147,8 @@ SelectMenu.propTypes = {
   inlineSearch: PropTypes.bool,
   toggleFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
-  onKeyUp: PropTypes.func
+  onKeyUp: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 const Container = styled.div`
@@ -167,4 +179,17 @@ const Container = styled.div`
       pointer-events: all;
       transform: translateY(0);
     `};
+`;
+
+const SpinnerContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: ${({ theme }) => hexToRgba(theme.p0, 80)};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
 `;

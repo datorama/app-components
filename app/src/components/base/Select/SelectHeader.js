@@ -24,7 +24,8 @@ const SelectHeader = props => {
     loading,
     error,
     small,
-    large
+    large,
+    searchable
   } = props;
 
   if (headerRenderer) {
@@ -65,6 +66,8 @@ const SelectHeader = props => {
     }
   }
 
+  const headerLoading = !searchable && loading;
+
   return (
     <Container
       onClick={toggleOpen}
@@ -74,7 +77,7 @@ const SelectHeader = props => {
       error={error}
       small={small}
       large={large}
-      disabled={loading}
+      disabled={headerLoading}
     >
       <LabelWrapper>
         <Label small={small} large={large}>
@@ -82,8 +85,8 @@ const SelectHeader = props => {
         </Label>
       </LabelWrapper>
 
-      {!loading && <Arrow rotation={open ? '180deg' : '0deg'} />}
-      {loading && <StyledSelectSpinner />}
+      {!headerLoading && <Arrow rotation={open ? '180deg' : '0deg'} />}
+      {headerLoading && <StyledSelectSpinner />}
     </Container>
   );
 };
@@ -99,7 +102,8 @@ SelectHeader.propTypes = {
   loading: PropTypes.bool,
   error: PropTypes.bool,
   small: PropTypes.bool,
-  large: PropTypes.bool
+  large: PropTypes.bool,
+  searchable: PropTypes.bool
 };
 
 export default SelectHeader;

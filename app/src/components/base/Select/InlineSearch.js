@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { optionsType } from './Select.types';
 import { Arrow } from './SelectHeader';
-import SelectSpinner from './SelectSpinner';
 import { map } from 'lodash/fp';
 
 const mapWithIndex = map.convert({ cap: false });
@@ -21,7 +20,6 @@ class InlineSearch extends Component {
     onSearch: PropTypes.func,
     maxTags: PropTypes.number,
     onSelect: PropTypes.func,
-    loading: PropTypes.bool,
     toggleFocus: PropTypes.func,
     onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func
@@ -60,7 +58,7 @@ class InlineSearch extends Component {
   };
 
   render() {
-    const { loading, small, onKeyDown, onKeyUp } = this.props;
+    const { small, onKeyDown, onKeyUp } = this.props;
     const tags = [];
 
     mapWithIndex((option, index) => {
@@ -86,7 +84,6 @@ class InlineSearch extends Component {
 
     return (
       <Container
-        disabled={loading}
         onClick={this.handleClick}
         error={this.props.error}
         small={this.props.small}
@@ -108,10 +105,7 @@ class InlineSearch extends Component {
             onKeyUp={onKeyUp}
           />
         </Inner>
-        {!loading && (
-          <StyledArrow rotation={this.props.open ? '180deg' : '0deg'} />
-        )}
-        {loading && <StyledSelectSpinner />}
+        <StyledArrow rotation={this.props.open ? '180deg' : '0deg'} />
       </Container>
     );
   }
@@ -270,8 +264,4 @@ const SmallInput = styled.input`
 
 const StyledArrow = styled(Arrow)`
   margin-right: 12px;
-`;
-
-const StyledSelectSpinner = styled(SelectSpinner)`
-  margin-right: 8px;
 `;
