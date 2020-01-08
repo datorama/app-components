@@ -22,7 +22,7 @@ const Filters = ({
   dimensions = [],
   maxFilters = 3,
   onChange = noop,
-  initialState = null,
+  initialState,
   andColor,
   deleteIconColor,
   warningColor,
