@@ -12,10 +12,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 import Filter from './Filter';
+import FiltersDivider from './FiltersDivider';
+import FiltersGutter from './FiltersGutter';
 import { HEIGHTS, OPERATOR } from './filter.consts';
-
-import InfoIcon from '../../icons/Info.icon';
-import PlusIcon from '../../icons/Plus.icon';
 
 export const useIsShrinking = filters => {
   const previousFilters = useRef(filters.length);
@@ -156,75 +155,23 @@ const Filters = ({
                   />
                 </FilterRow>
               </motion.div>
-              <AnimatePresence initial={false}>
-                {isShowDivider(index) && (
-                  <motion.div
-                    key={`${id}_Divider`}
-                    initial={{ opacity: 0 }}
-                    animate={{
-                      opacity: 1,
-                      transition: { delay: 0.3, duration: 0.3, ease: 'easeOut' }
-                    }}
-                    exit={{
-                      opacity: 0,
-                      transition: { duration: 0.3, ease: 'easeOut' }
-                    }}
-                  >
-                    <DividerRow>
-                      <DividerWrapper>
-                        <Divider dividerColor={dividerColor} />
-                        <And andColor={andColor}>AND</And>
-                        <Divider />
-                      </DividerWrapper>
-                    </DividerRow>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <FiltersDivider
+                key={`${id}_Divider`}
+                showDivider={isShowDivider(index)}
+                dividerColor={dividerColor}
+                andColor={andColor}
+              />
             </FilterWrapper>
           ))}
-          <Gutter>
-            {isShowAddition && (
-              <motion.div
-                key={`show-addition_${filters.length}`}
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { delay: 0.3, duration: 0.3, ease: 'easeOut' }
-                }}
-                exit={{
-                  opacity: 0
-                }}
-              >
-                <AddConditionWrapper>
-                  <AddCondition onClick={onAddFilter}>
-                    <StyledPlusIcon />
-                    CONDITION
-                  </AddCondition>
-                </AddConditionWrapper>
-              </motion.div>
-            )}
-
-            {isShowWarning && (
-              <motion.div
-                key="show-warning"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { delay: 0.3, duration: 0.3, ease: 'easeOut' }
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.3, ease: 'easeOut' }
-                }}
-              >
-                <Info warningColor={warningColor}>
-                  <StyledInfoIcon warningColor={warningColor} />
-                  {`You can create up to ${maxFilters} filters`}
-                </Info>
-              </motion.div>
-            )}
-          </Gutter>
         </AnimatePresence>
+        <FiltersGutter
+          showAddition={isShowAddition}
+          showWarning={isShowWarning}
+          numFilters={filters.length}
+          maxFilters={maxFilters}
+          onAddFilter={onAddFilter}
+          warningColor={warningColor}
+        />
       </FiltersWrapper>
     </motion.div>
   );
@@ -259,89 +206,8 @@ const FilterWrapper = styled.div`
   flex-direction: column;
 `;
 
-const AddConditionWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  color: ${({ theme }) => theme.p700};
-  font-weight: bold;
-`;
-
-const AddCondition = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-
-  svg {
-    margin-right: 5px;
-  }
-`;
-
-const DividerWrapper = styled.div`
-  height: 17px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 25px;
-`;
-
-const Divider = styled.div`
-  flex: 1;
-  height: 1px;
-  opacity: 0.34;
-  background-color: ${({ theme, dividerColor }) => dividerColor || theme.p200};
-`;
-
-const And = styled.div`
-  height: 100%;
-  padding: 0 15px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: ${({ theme, andColor }) => andColor || theme.p600};
-`;
-
-const Info = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: ${({ theme, warningColor }) => warningColor || theme.p400};
-
-  svg {
-    margin-right: 5px;
-  }
-`;
-
-const StyledPlusIcon = styled(PlusIcon)`
-  path {
-    fill: ${({ theme }) => theme.p600};
-  }
-  cursor: pointer;
-`;
-
-const StyledInfoIcon = styled(InfoIcon)`
-  path {
-    fill: ${({ theme, warningColor }) => warningColor || theme.p600};
-  }
-`;
-
 const FilterRow = styled.div`
   height: ${HEIGHTS.FILTER_ROW}px;
-`;
-
-const DividerRow = styled.div`
-  height: ${HEIGHTS.DIVIDER_ROW}px;
-`;
-
-const Gutter = styled.div`
-  height: ${HEIGHTS.GUTTER_ROW}px;
 `;
 
 export default Filters;
