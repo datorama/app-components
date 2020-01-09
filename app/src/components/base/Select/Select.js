@@ -51,7 +51,8 @@ export default class Select extends React.Component {
     inlineSearch: PropTypes.bool,
     maxTags: PropTypes.number,
     clearOnClose: PropTypes.bool,
-    keepSelected: PropTypes.bool
+    keepSelected: PropTypes.bool,
+    disableSearch: PropTypes.bool
   };
 
   state = {
@@ -60,7 +61,8 @@ export default class Select extends React.Component {
     localValues: this.props.values,
     currentHoveredOptionValue: null,
     currentHoveredOptionIndex: 0,
-    inputFocused: false
+    inputFocused: false,
+    disableSearch: false
   };
 
   filteredOptions = [];
@@ -85,7 +87,7 @@ export default class Select extends React.Component {
       .includes(searchTerm.toLowerCase());
 
   filterOptions() {
-    const { options, keepSelected, values } = this.props;
+    const { options, keepSelected, values, disableSearch } = this.props;
 
     if (hasGroups(options)) {
       return this.filterGroupedOptions();
@@ -99,7 +101,10 @@ export default class Select extends React.Component {
       : options;
 
     return sorted.filter(option => {
-      if (keepSelected && find(op => op.value === option.value, values)) {
+      if (
+        disableSearch ||
+        (keepSelected && find(op => op.value === option.value, values))
+      ) {
         return true;
       }
 
@@ -116,12 +121,16 @@ export default class Select extends React.Component {
       sortDirection,
       sortBy,
       keepSelected,
-      values
+      values,
+      disableSearch
     } = this.props;
 
     const filtered = map(option => {
       const filteredInnerOption = option.options.filter(op => {
-        if (keepSelected && find(sel => sel.value === op.value, values)) {
+        if (
+          disableSearch ||
+          (keepSelected && find(sel => sel.value === op.value, values))
+        ) {
           return true;
         }
 
