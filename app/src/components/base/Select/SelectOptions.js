@@ -59,6 +59,7 @@ const SelectOptions = props => {
         <SelectOptionsGroup
           key={`group-options group-options-${option.label}`}
           options={option.options}
+          groups={options}
           values={values}
           multi={multi}
           inlineSearch={inlineSearch}

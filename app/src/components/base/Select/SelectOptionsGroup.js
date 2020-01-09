@@ -1,7 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { find, get, isEmpty } from 'lodash/fp';
+import { find, get, isEmpty, forEach } from 'lodash/fp';
 
 // components
 import Checkbox from '../Checkbox';
@@ -9,6 +9,17 @@ import { Option, Label } from './Select.common';
 import { optionsType } from './Select.types';
 import { GroupLabel } from './Select.common';
 import { calcScrollTop } from './select.utils';
+import { CurrentHoveredIndexContext } from './Select';
+
+const getFlatOptions = groups => {
+  const res = [];
+
+  forEach(group => {
+    res.push(...group.options);
+  }, groups);
+
+  return res;
+};
 
 const SelectOptionsGroup = props => {
   const {
@@ -22,11 +33,31 @@ const SelectOptionsGroup = props => {
     large,
     groupLabel,
     currentHoveredOptionValue,
-    containerRef
+    containerRef,
+    groups
   } = props;
 
   const itemsRef = useRef({});
   const groupLabelsRef = useRef({});
+  const currentHoveredIndex = useContext(CurrentHoveredIndexContext);
+
+  useEffect(() => {
+    const flatList = getFlatOptions(groups);
+
+    if (flatList[currentHoveredIndex]) {
+      const value = flatList[currentHoveredIndex].value;
+
+      forEach(option => {
+        if (value === option.value) {
+          containerRef.current.scrollTop = calcScrollTop(
+            get(['current', option.value], itemsRef),
+            containerRef.current,
+            get(['current', groupLabel, 'clientHeight'], groupLabelsRef)
+          );
+        }
+      }, options);
+    }
+  }, [containerRef, currentHoveredIndex, groupLabel, groups, options]);
 
   if (isEmpty(options)) {
     return null;
@@ -37,14 +68,6 @@ const SelectOptionsGroup = props => {
 
     if (optionRenderer) {
       return optionRenderer({ option, selected });
-    }
-
-    if (currentHoveredOptionValue === option.value) {
-      containerRef.current.scrollTop = calcScrollTop(
-        get(['current', option.value], itemsRef),
-        containerRef.current,
-        get(['current', groupLabel, 'clientHeight'], groupLabelsRef)
-      );
     }
 
     return (
@@ -91,8 +114,18 @@ const SelectOptionsGroup = props => {
   );
 };
 
+const areEqual = (prevProps, nextProps) => {
+  return (
+    prevProps.options.length === nextProps.options.length &&
+    prevProps.values.length === nextProps.values.length &&
+    prevProps.groups.length === nextProps.groups.length &&
+    prevProps.currentHoveredOptionValue === nextProps.currentHoveredOptionValue
+  );
+};
+
 SelectOptionsGroup.propTypes = {
   options: optionsType,
+  group: PropTypes.array,
   values: optionsType,
   optionRenderer: PropTypes.func,
   multi: PropTypes.bool,
@@ -115,4 +148,4 @@ const StyledCheckbox = styled(Checkbox)`
   margin-right: 10px;
 `;
 
-export default SelectOptionsGroup;
+export default React.memo(SelectOptionsGroup, areEqual);
