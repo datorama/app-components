@@ -7,16 +7,14 @@ import React, {
   useCallback
 } from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from 'lodash/fp';
 
 const useScrollAware = () => {
   const [scrollTop, setScrollTop] = useState(0);
   const ref = useRef();
 
   const onScroll = useCallback(
-    e =>
-      requestAnimationFrame(() => {
-        setScrollTop(e.target.scrollTop);
-      }),
+    throttle(18, e => setScrollTop(e.target.scrollTop)),
     []
   );
 
@@ -26,7 +24,9 @@ const useScrollAware = () => {
     setScrollTop(scrollContainer.scrollTop);
     scrollContainer.addEventListener('scroll', onScroll);
 
-    return () => scrollContainer.removeEventListener('scroll', onScroll);
+    return () => {
+      scrollContainer.removeEventListener('scroll', onScroll);
+    };
   }, [onScroll]);
 
   return [scrollTop, ref];
@@ -45,6 +45,7 @@ const VirtualScroll = props => {
   } = props;
   const [scrollTop, ref] = useScrollAware();
   const totalHeight = rowCount * rowHeight;
+  console.log(scrollTop);
 
   const startNode = Math.max(0, Math.floor(scrollTop / rowHeight) - overScan);
   const visibleNodeCount = Math.min(
