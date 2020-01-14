@@ -2,7 +2,6 @@ import React, { useRef, useMemo, useContext } from 'react';
 import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import { find, isEmpty, get } from 'lodash/fp';
-import { List, AutoSizer } from 'react-virtualized';
 
 // components
 import Checkbox from '../Checkbox';
@@ -11,6 +10,7 @@ import { optionsType } from './Select.types';
 import SelectOptionsGroup from './SelectOptionsGroup';
 import { getOptionHeight } from './select.utils';
 import { CurrentHoveredIndexContext } from './Select';
+import VirtualScroll from '../VirtualScroll';
 
 const SelectOptions = props => {
   const {
@@ -124,24 +124,19 @@ const SelectOptions = props => {
       {get('[0].options', options) ? (
         <Inner className="menu-options">{items}</Inner>
       ) : (
-        <AutoSizer disableHeight>
-          {({ width }) => (
-            <List
-              className="menu-options"
-              height={innerListHeight < maxHeight ? innerListHeight : maxHeight}
-              width={width}
-              scrollToIndex={currentHoveredIndex}
-              rowCount={items.length}
-              rowHeight={rowHeight}
-              rowRenderer={({ index, style }) =>
-                React.cloneElement(items[index], {
-                  style,
-                  transition: 'none'
-                })
-              }
-            />
-          )}
-        </AutoSizer>
+        <VirtualScroll
+          className="menu-options"
+          height={innerListHeight < maxHeight ? innerListHeight : maxHeight}
+          scrollToIndex={currentHoveredIndex}
+          rowCount={items.length}
+          rowHeight={rowHeight}
+          rowRenderer={({ index, style }) =>
+            React.cloneElement(items[index], {
+              style,
+              transition: 'none'
+            })
+          }
+        />
       )}
     </Container>
   );

@@ -67,8 +67,5 @@
       "prettier --single-quote --write",
       "git add"
     ]
-  },
-  "dependencies": {
-    "react-virtualized": "^9.21.1"
   }
 }
