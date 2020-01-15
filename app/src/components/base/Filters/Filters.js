@@ -6,11 +6,11 @@ import { uuid } from '../../utils';
 // COMPONENTS
 import Filter from './Filter';
 
-const emptyState = () => ({
+const emptyState = id => ({
   dimension: [],
   operator: [],
   value: '',
-  id: uuid()
+  id: id || uuid()
 });
 
 const FilterOperator = () => (
@@ -28,7 +28,7 @@ const FooterInfo = ({ max }) => (
   </Info>
 );
 
-const Filters = ({ dimensions, onChange, min, max }) => {
+const Filters = ({ className, dimensions, onChange, min, max }) => {
   const [state, setState] = useState({
     rows: [emptyState()],
     exiting: null
@@ -54,7 +54,9 @@ const Filters = ({ dimensions, onChange, min, max }) => {
       } else {
         setState({
           ...state,
-          rows: state.rows.map((row, i) => (i === index ? emptyState() : row))
+          rows: state.rows.map((row, i) =>
+            i === index ? emptyState(row.id) : row
+          )
         });
       }
     },
@@ -93,7 +95,7 @@ const Filters = ({ dimensions, onChange, min, max }) => {
   }, [onChange, state]);
 
   return (
-    <Container height={74 + (state.rows.length - 1) * 84}>
+    <Container height={74 + (state.rows.length - 1) * 84} className={className}>
       {state.rows.map((row, index) => {
         const showOperator = state.rows[index] && state.rows[index - 1];
 
