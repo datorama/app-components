@@ -8,7 +8,7 @@ import * as animation from './animations';
 import * as layout from './layout';
 
 // UTILS
-export { hexToRgba, shadeColor } from './utils';
+export { hexToRgba, shadeColor, uuid } from './utils';
 
 // BASE COMPONENTS
 export { default as Button } from './base/Button';
@@ -36,6 +36,7 @@ export { default as TagGroup } from './base/TagGroup';
 export { default as TextInput } from './base/TextInput';
 export { default as Ellipsis } from './base/Ellipsis';
 export { default as Table } from './base/Table';
+export { default as Filters } from './base/Filters/Filters';
 export {
   withToast,
   withSnackbar,
