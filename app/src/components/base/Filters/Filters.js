@@ -5,6 +5,7 @@ import { uuid } from '../../utils';
 
 // COMPONENTS
 import Filter from './Filter';
+import InfoIcon from '../../icons/Info.icon';
 
 const emptyState = id => ({
   dimension: [],
@@ -15,16 +16,16 @@ const emptyState = id => ({
 
 const FilterOperator = () => (
   <OperatorContainer>
-    <OperatorDivider />
-    <Operator>AND</Operator>
+    <OperatorDivider className="filters-divider" />
+    <Operator className="filters-operator">AND</Operator>
     <OperatorDivider />
   </OperatorContainer>
 );
 
 const FooterInfo = ({ max }) => (
-  <Info>
-    <InfoIcon />
-    There is a max of {max} filters
+  <Info className="filters-info">
+    <StyledInfoIcon />
+    You can create up to {max} filters
   </Info>
 );
 
@@ -121,7 +122,7 @@ const Filters = ({ className, dimensions, onChange, min, max }) => {
 
       <Footer top={42 + (state.rows.length - 1) * 84}>
         {state.rows.length < max && (
-          <AddButton onClick={addFilter}>+ Add Filter</AddButton>
+          <AddButton onClick={addFilter}>+ Condition</AddButton>
         )}
         {state.rows.length >= max && <FooterInfo max={max} />}
       </Footer>
@@ -185,6 +186,7 @@ const Info = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-size: 12px;
   color: ${({ theme }) => theme.p400};
 `;
@@ -216,15 +218,14 @@ const Operator = styled.div`
 `;
 
 const OperatorDivider = styled.div`
-  width: 30px;
+  width: 100%;
   height: 1px;
   background: ${({ theme }) => theme.p200};
 `;
 
-const InfoIcon = styled.div`
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.p200};
+const StyledInfoIcon = styled(InfoIcon)`
   margin-right: 5px;
+  path {
+    fill: ${({ theme }) => theme.p600};
+  }
 `;
