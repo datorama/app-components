@@ -60,7 +60,7 @@ const Filter = props => {
         value={rowData.value}
       />
       <TrashContainer onClick={removeFilter}>
-        <StyledTrashIcon />
+        <StyledTrashIcon className="trash-icon" />
       </TrashContainer>
     </Row>
   );

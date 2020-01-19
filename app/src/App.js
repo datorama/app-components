@@ -38,7 +38,6 @@ import Tabs from './docs/Tabs.doc';
 import Tooltip from './docs/Tooltip.doc';
 import Stepper from './docs/Stepper.doc';
 import Collapse from './docs/Collapse.doc';
-import Widget from './docs/Widget.doc';
 import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
 import SnailChart from './docs/SnailChart.doc';
