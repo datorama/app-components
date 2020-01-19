@@ -2,6 +2,10 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { uuid } from '../../utils';
+import { find, get } from 'lodash/fp';
+
+// CONSTANTS
+import { operators } from './Filter';
 
 // COMPONENTS
 import Filter from './Filter';
@@ -13,7 +17,6 @@ const emptyState = id => ({
   value: '',
   id: id || uuid()
 });
-
 const FilterOperator = () => (
   <OperatorContainer>
     <OperatorDivider className="filters-divider" />
@@ -29,27 +32,39 @@ const FooterInfo = ({ max }) => (
   </Info>
 );
 
-const Filters = ({ className, dimensions, onChange, min, max }) => {
+const Filters = ({
+  className,
+  dimensions,
+  onChange,
+  min,
+  max,
+  initialState
+}) => {
+  const [touched, setTouched] = useState(false);
   const [state, setState] = useState({
-    rows: [emptyState()],
+    rows: initialState
+      ? initialState.map(filter => ({
+          value: filter.val,
+          id: uuid(),
+          dimension: [find(fi => fi.value === filter.dimension, dimensions)],
+          operator: [find(op => op.value === filter.operator, operators)]
+        }))
+      : [emptyState()],
     exiting: null
   });
 
   const addFilter = useCallback(() => {
+    setTouched(true);
     setState({
       ...state,
-      rows: [
-        ...state.rows,
-        {
-          ...emptyState(),
-          id: uuid()
-        }
-      ]
+      rows: [...state.rows, emptyState()]
     });
   }, [state]);
 
   const handleRemove = useCallback(
     index => {
+      setTouched(true);
+
       if (state.rows.length > min) {
         setState({ ...state, exiting: index });
       } else {
@@ -66,6 +81,8 @@ const Filters = ({ className, dimensions, onChange, min, max }) => {
 
   const handleFilterChange = useCallback(
     ({ key, value, index }) => {
+      setTouched(true);
+
       setState({
         ...state,
         rows: state.rows.map((row, i) => ({
@@ -89,11 +106,17 @@ const Filters = ({ className, dimensions, onChange, min, max }) => {
         });
       }, 300);
     } else {
-      if (onChange) {
-        onChange(state.rows);
+      if (onChange && touched) {
+        onChange(
+          state.rows.map(row => ({
+            val: row.value,
+            operator: get('operator[0].value', row),
+            dimension: get('dimension[0].value', row)
+          }))
+        );
       }
     }
-  }, [onChange, state]);
+  }, [onChange, state, touched]);
 
   return (
     <Container height={74 + (state.rows.length - 1) * 84} className={className}>
@@ -134,7 +157,9 @@ Filters.propTypes = {
   dimensions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func,
   min: PropTypes.number,
-  max: PropTypes.number
+  max: PropTypes.number,
+  className: PropTypes.string,
+  initialState: PropTypes.array
 };
 
 export default Filters;
