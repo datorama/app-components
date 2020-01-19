@@ -157,7 +157,9 @@ Filters.propTypes = {
   dimensions: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func,
   min: PropTypes.number,
-  max: PropTypes.number
+  max: PropTypes.number,
+  className: PropTypes.string,
+  initialState: PropTypes.array
 };
 
 export default Filters;
