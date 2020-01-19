@@ -1,8 +1,10 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { uuid } from '../../utils';
 import { find, get } from 'lodash/fp';
+
+// CONSTANTS
 import { operators } from './Filter';
 
 // COMPONENTS
@@ -15,7 +17,6 @@ const emptyState = id => ({
   value: '',
   id: id || uuid()
 });
-
 const FilterOperator = () => (
   <OperatorContainer>
     <OperatorDivider className="filters-divider" />
@@ -39,21 +40,21 @@ const Filters = ({
   max,
   initialState
 }) => {
+  const [touched, setTouched] = useState(false);
   const [state, setState] = useState({
-    rows: [
-      initialState
-        ? initialState.map(filter => ({
-            ...filter,
-            id: uuid(),
-            dimension: find(fi => fi.value === filter.dimension, dimensions),
-            operator: find(op => op.value === filter.operator, operators)
-          }))
-        : emptyState()
-    ],
+    rows: initialState
+      ? initialState.map(filter => ({
+          value: filter.val,
+          id: uuid(),
+          dimension: [find(fi => fi.value === filter.dimension, dimensions)],
+          operator: [find(op => op.value === filter.operator, operators)]
+        }))
+      : [emptyState()],
     exiting: null
   });
 
   const addFilter = useCallback(() => {
+    setTouched(true);
     setState({
       ...state,
       rows: [...state.rows, emptyState()]
@@ -62,6 +63,8 @@ const Filters = ({
 
   const handleRemove = useCallback(
     index => {
+      setTouched(true);
+
       if (state.rows.length > min) {
         setState({ ...state, exiting: index });
       } else {
@@ -78,6 +81,8 @@ const Filters = ({
 
   const handleFilterChange = useCallback(
     ({ key, value, index }) => {
+      setTouched(true);
+
       setState({
         ...state,
         rows: state.rows.map((row, i) => ({
@@ -101,7 +106,7 @@ const Filters = ({
         });
       }, 300);
     } else {
-      if (onChange) {
+      if (onChange && touched) {
         onChange(
           state.rows.map(row => ({
             val: row.value,
@@ -111,7 +116,7 @@ const Filters = ({
         );
       }
     }
-  }, [onChange, state]);
+  }, [onChange, state, touched]);
 
   return (
     <Container height={74 + (state.rows.length - 1) * 84} className={className}>
