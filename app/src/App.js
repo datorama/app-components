@@ -38,7 +38,6 @@ import Tabs from './docs/Tabs.doc';
 import Tooltip from './docs/Tooltip.doc';
 import Stepper from './docs/Stepper.doc';
 import Collapse from './docs/Collapse.doc';
-import Widget from './docs/Widget.doc';
 import ErrorPage from './docs/ErrorPage.doc';
 import Sticky from './docs/Sticky.doc';
 import SnailChart from './docs/SnailChart.doc';
@@ -46,6 +45,7 @@ import Ellipsis from './docs/Ellipsis.doc';
 import Table from './docs/Table.doc';
 import Gauge from './docs/Gauge.doc';
 import GoalsChart from './docs/GoalsChart';
+import Filters from './docs/Filters.doc';
 
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
@@ -54,7 +54,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.28.0</Version>
+        <Version>0.29.0</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -181,7 +181,7 @@ class App extends Component {
       { key: 'text-input', label: 'Text Input', path: 'text-input' },
       { key: 'toggles', label: 'Toggles', path: 'toggles' },
       { key: 'tooltip', label: 'Tooltip', path: 'tooltip' },
-      { key: 'widget', label: 'Widget', path: 'widget' },
+      { key: 'filters', label: 'Filters', path: 'filters' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
       { key: 'goals-chart', label: 'Goals Chart', path: 'goals-chart' },
@@ -255,7 +255,7 @@ class App extends Component {
                 <Route exact path="/tooltip" component={Tooltip} />
                 <Route exact path="/stepper" component={Stepper} />
                 <Route exact path="/collapse" component={Collapse} />
-                <Route exact path="/widget" component={Widget} />
+                <Route exact path="/filters" component={Filters} />
                 <Route exact path="/sticky" component={Sticky} />
                 <Route exact path="/error-page" component={ErrorPage} />
                 <Route exact path="/snail-chart" component={SnailChart} />

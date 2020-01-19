@@ -45,7 +45,6 @@ const VirtualScroll = props => {
   } = props;
   const [scrollTop, ref] = useScrollAware();
   const totalHeight = rowCount * rowHeight;
-  console.log(scrollTop);
 
   const startNode = Math.max(0, Math.floor(scrollTop / rowHeight) - overScan);
   const visibleNodeCount = Math.min(
