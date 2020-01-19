@@ -1,7 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { uuid } from '../../utils';
+import { find, get } from 'lodash/fp';
+import { operators } from './Filter';
 
 // COMPONENTS
 import Filter from './Filter';
@@ -29,22 +31,32 @@ const FooterInfo = ({ max }) => (
   </Info>
 );
 
-const Filters = ({ className, dimensions, onChange, min, max }) => {
+const Filters = ({
+  className,
+  dimensions,
+  onChange,
+  min,
+  max,
+  initialState
+}) => {
   const [state, setState] = useState({
-    rows: [emptyState()],
+    rows: [
+      initialState
+        ? initialState.map(filter => ({
+            ...filter,
+            id: uuid(),
+            dimension: find(fi => fi.value === filter.dimension, dimensions),
+            operator: find(op => op.value === filter.operator, operators)
+          }))
+        : emptyState()
+    ],
     exiting: null
   });
 
   const addFilter = useCallback(() => {
     setState({
       ...state,
-      rows: [
-        ...state.rows,
-        {
-          ...emptyState(),
-          id: uuid()
-        }
-      ]
+      rows: [...state.rows, emptyState()]
     });
   }, [state]);
 
@@ -90,7 +102,13 @@ const Filters = ({ className, dimensions, onChange, min, max }) => {
       }, 300);
     } else {
       if (onChange) {
-        onChange(state.rows);
+        onChange(
+          state.rows.map(row => ({
+            val: row.value,
+            operator: get('operator[0].value', row),
+            dimension: get('dimension[0].value', row)
+          }))
+        );
       }
     }
   }, [onChange, state]);

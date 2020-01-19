@@ -7,7 +7,7 @@ import Select from '../Select/Select';
 import TextInput from '../TextInput';
 import TrashIcon from '../../icons/Trash.icon';
 
-const operators = [
+export const operators = [
   { value: 'CONTAINS', label: 'contains' },
   { value: 'NOT_CONTAINS', label: 'not contains' }
 ];
