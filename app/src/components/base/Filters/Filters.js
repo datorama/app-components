@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { uuid } from '../../utils';
-import { find, get } from 'lodash/fp';
+import { find, get, filter as lodashFilter } from 'lodash/fp';
 
 // CONSTANTS
 import { operators } from './Filter';
@@ -31,7 +31,6 @@ const FooterInfo = ({ max }) => (
     You can create up to {max} filters
   </Info>
 );
-
 const Filters = ({
   className,
   dimensions,
@@ -40,83 +39,102 @@ const Filters = ({
   max,
   initialState
 }) => {
-  const [touched, setTouched] = useState(false);
   const [state, setState] = useState({
     rows: initialState
       ? initialState.map(filter => ({
           value: filter.val,
           id: uuid(),
-          dimension: [find(fi => fi.value === filter.dimension, dimensions)],
-          operator: [find(op => op.value === filter.operator, operators)]
+          dimension: lodashFilter(Boolean, [
+            find(fi => fi.value === filter.dimension, dimensions)
+          ]),
+          operator: lodashFilter(Boolean, [
+            find(op => op.value === filter.operator, operators)
+          ])
         }))
       : [emptyState()],
     exiting: null
   });
 
-  const addFilter = useCallback(() => {
-    setTouched(true);
-    setState({
-      ...state,
-      rows: [...state.rows, emptyState()]
-    });
-  }, [state]);
-
-  const handleRemove = useCallback(
-    index => {
-      setTouched(true);
-
-      if (state.rows.length > min) {
-        setState({ ...state, exiting: index });
-      } else {
-        setState({
-          ...state,
-          rows: state.rows.map((row, i) =>
-            i === index ? emptyState(row.id) : row
-          )
-        });
-      }
-    },
-    [min, state]
-  );
-
-  const handleFilterChange = useCallback(
-    ({ key, value, index }) => {
-      setTouched(true);
-
-      setState({
-        ...state,
-        rows: state.rows.map((row, i) => ({
-          ...row,
-          [key]: i === index ? value : row[key]
-        }))
-      });
-    },
-    [state]
-  );
-
-  useEffect(() => {
-    if (typeof state.exiting === 'number') {
-      setTimeout(() => {
-        setState({
-          ...state,
-          rows: state.rows.filter(
-            (_, filterIndex) => filterIndex !== state.exiting
-          ),
-          exiting: null
-        });
-      }, 300);
-    } else {
-      if (onChange && touched) {
+  const updateParent = useCallback(
+    rows => {
+      if (onChange) {
         onChange(
-          state.rows.map(row => ({
+          rows.map(row => ({
             val: row.value,
             operator: get('operator[0].value', row),
             dimension: get('dimension[0].value', row)
           }))
         );
       }
+    },
+    [onChange]
+  );
+
+  const addFilter = useCallback(() => {
+    const rows = [...state.rows, emptyState()];
+
+    setState({
+      ...state,
+      rows
+    });
+
+    updateParent(rows);
+  }, [state, updateParent]);
+
+  const handleRemove = useCallback(
+    index => {
+      if (state.rows.length > min) {
+        setState({ ...state, exiting: index });
+      } else {
+        const rows = state.rows.map((row, i) =>
+          i === index ? emptyState(row.id) : row
+        );
+
+        setState({
+          ...state,
+          rows
+        });
+
+        updateParent(rows);
+      }
+    },
+    [min, state, updateParent]
+  );
+
+  const handleFilterChange = useCallback(
+    ({ key, value, index }) => {
+      const rows = state.rows.map((row, i) => ({
+        ...row,
+        [key]: i === index ? value : row[key]
+      }));
+
+      setState({
+        ...state,
+        rows
+      });
+
+      updateParent(rows);
+    },
+    [state, updateParent]
+  );
+
+  useEffect(() => {
+    if (typeof state.exiting === 'number') {
+      setTimeout(() => {
+        const rows = state.rows.filter(
+          (_, filterIndex) => filterIndex !== state.exiting
+        );
+
+        setState({
+          ...state,
+          rows,
+          exiting: null
+        });
+
+        updateParent(rows);
+      }, 300);
     }
-  }, [onChange, state, touched]);
+  }, [onChange, state, updateParent]);
 
   return (
     <Container height={74 + (state.rows.length - 1) * 84} className={className}>
