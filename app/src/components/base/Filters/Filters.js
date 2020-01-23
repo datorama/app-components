@@ -18,10 +18,10 @@ const emptyState = id => ({
   id: id || uuid()
 });
 const FilterOperator = () => (
-  <OperatorContainer>
-    <OperatorDivider className="filters-divider" />
-    <Operator className="filters-operator">AND</Operator>
-    <OperatorDivider />
+  <OperatorContainer className="filters-operator">
+    <OperatorDivider className="operator-divider" />
+    <Operator className="operator-value">AND</Operator>
+    <OperatorDivider className="operator-divider" />
   </OperatorContainer>
 );
 
@@ -143,6 +143,7 @@ const Filters = ({
 
         return (
           <Column
+            className="filters-row"
             animation={state.exiting === index ? 'exit' : 'enter'}
             key={row.id}
             top={index === 0 ? 0 : 42 + (index - 1) * 84}
@@ -150,6 +151,7 @@ const Filters = ({
             {showOperator && <FilterOperator />}
 
             <Filter
+              className="filter"
               index={index}
               total={state.rows.length}
               dimensions={dimensions}
@@ -161,11 +163,18 @@ const Filters = ({
         );
       })}
 
-      <Footer top={42 + (state.rows.length - 1) * 84}>
+      <Footer
+        className="filters-footer"
+        top={42 + (state.rows.length - 1) * 84}
+      >
         {state.rows.length < max && (
-          <AddButton onClick={addFilter}>+ Condition</AddButton>
+          <AddButton className="add-filter" onClick={addFilter}>
+            + CONDITION
+          </AddButton>
         )}
-        {state.rows.length >= max && <FooterInfo max={max} />}
+        {state.rows.length >= max && (
+          <FooterInfo className="filter-footer-info" max={max} />
+        )}
       </Footer>
     </Container>
   );
@@ -230,7 +239,7 @@ const Info = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 12px;
+  font-size: 14px;
   color: ${({ theme }) => theme.p400};
 `;
 
@@ -268,6 +277,7 @@ const OperatorDivider = styled.div`
 
 const StyledInfoIcon = styled(InfoIcon)`
   margin-right: 5px;
+  transform: rotate(180deg);
   path {
     fill: ${({ theme }) => theme.p600};
   }
