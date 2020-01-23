@@ -8,12 +8,20 @@ import TextInput from '../TextInput';
 import TrashIcon from '../../icons/Trash.icon';
 
 export const operators = [
-  { value: 'CONTAINS', label: 'contains' },
-  { value: 'NOT_CONTAINS', label: 'not contains' }
+  { value: 'CONTAINS', label: 'Contains' },
+  { value: 'NOT_CONTAINS', label: 'Not Contains' }
 ];
 
 const Filter = props => {
-  const { dimensions, onRemove, index, total, onChange, rowData } = props;
+  const {
+    dimensions,
+    onRemove,
+    index,
+    total,
+    onChange,
+    rowData,
+    className
+  } = props;
 
   const removeFilter = useCallback(() => {
     onRemove(index);
@@ -41,26 +49,30 @@ const Filter = props => {
   );
 
   return (
-    <Row zIndex={total - index}>
+    <Row zIndex={total - index} className={className}>
       <Select
+        className="select-dimension"
         options={dimensions}
         onChange={handleDimensionChange}
         values={rowData.dimension}
-        placeholder="Dimension"
+        placeholder="Select Dimension"
+        searchable
       />
       <SelectOperator
+        className="select-operator"
         options={operators}
         onChange={handleOperatorChange}
         values={rowData.operator}
         placeholder="operator"
+        searchable
       />
       <TextInput
-        placeholder="value"
+        placeholder="Free text"
         onChange={handleValueChange}
         value={rowData.value}
       />
-      <TrashContainer onClick={removeFilter}>
-        <StyledTrashIcon className="trash-icon" />
+      <TrashContainer className="trash-icon" onClick={removeFilter}>
+        <StyledTrashIcon />
       </TrashContainer>
     </Row>
   );
