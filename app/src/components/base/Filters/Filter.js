@@ -64,7 +64,6 @@ const Filter = props => {
         onChange={handleOperatorChange}
         values={rowData.operator}
         placeholder="operator"
-        searchable
       />
       <TextInput
         placeholder="Free text"
