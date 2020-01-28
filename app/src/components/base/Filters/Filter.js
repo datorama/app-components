@@ -20,6 +20,7 @@ const Filter = props => {
     total,
     onChange,
     rowData,
+    searchableOperator,
     className
   } = props;
 
@@ -64,6 +65,7 @@ const Filter = props => {
         onChange={handleOperatorChange}
         values={rowData.operator}
         placeholder="operator"
+        searchable={searchableOperator}
       />
       <TextInput
         placeholder="Free text"
@@ -83,7 +85,8 @@ Filter.propTypes = {
   index: PropTypes.number.isRequired,
   total: PropTypes.number,
   onChange: PropTypes.func,
-  rowData: PropTypes.object
+  rowData: PropTypes.object,
+  searchableOperator: PropTypes.bool
 };
 
 export default Filter;

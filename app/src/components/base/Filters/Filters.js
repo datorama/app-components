@@ -37,7 +37,8 @@ const Filters = ({
   onChange,
   min,
   max,
-  initialState
+  initialState,
+  searchableOperator = false
 }) => {
   const [state, setState] = useState({
     rows: initialState
@@ -158,6 +159,7 @@ const Filters = ({
               onRemove={handleRemove}
               onChange={handleFilterChange}
               rowData={row}
+              searchableOperator={searchableOperator}
             />
           </Column>
         );
@@ -186,7 +188,8 @@ Filters.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   className: PropTypes.string,
-  initialState: PropTypes.array
+  initialState: PropTypes.array,
+  searchableOperator: PropTypes.bool
 };
 
 export default Filters;
