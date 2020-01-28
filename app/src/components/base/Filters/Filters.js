@@ -10,6 +10,7 @@ import { operators } from './Filter';
 // COMPONENTS
 import Filter from './Filter';
 import InfoIcon from '../../icons/Info.icon';
+import PlusIcon from '../../icons/Plus.icon';
 
 const emptyState = id => ({
   dimension: [],
@@ -17,8 +18,12 @@ const emptyState = id => ({
   value: '',
   id: id || uuid()
 });
+
+const ROW_HEIGHT = 32;
+const GAP = 54;
+
 const FilterOperator = () => (
-  <OperatorContainer className="filters-operator">
+  <OperatorContainer height={GAP} className="filters-operator">
     <OperatorDivider className="operator-divider" />
     <Operator className="operator-value">AND</Operator>
     <OperatorDivider className="operator-divider" />
@@ -37,7 +42,8 @@ const Filters = ({
   onChange,
   min,
   max,
-  initialState
+  initialState,
+  searchableOperator = false
 }) => {
   const [state, setState] = useState({
     rows: initialState
@@ -136,8 +142,18 @@ const Filters = ({
     }
   }, [onChange, state, updateParent]);
 
+  let containerHeight =
+    ROW_HEIGHT * state.rows.length +
+    (state.rows.length - 1) * GAP +
+    ROW_HEIGHT +
+    20;
+
+  if (state.rows.length >= max) {
+    containerHeight += 20;
+  }
+
   return (
-    <Container height={74 + (state.rows.length - 1) * 84} className={className}>
+    <Container height={containerHeight} className={className}>
       {state.rows.map((row, index) => {
         const showOperator = state.rows[index] && state.rows[index - 1];
 
@@ -146,7 +162,11 @@ const Filters = ({
             className="filters-row"
             animation={state.exiting === index ? 'exit' : 'enter'}
             key={row.id}
-            top={index === 0 ? 0 : 42 + (index - 1) * 84}
+            top={
+              index > 0
+                ? ROW_HEIGHT * index + (index - 1) * GAP
+                : ROW_HEIGHT * index
+            }
           >
             {showOperator && <FilterOperator />}
 
@@ -158,6 +178,7 @@ const Filters = ({
               onRemove={handleRemove}
               onChange={handleFilterChange}
               rowData={row}
+              searchableOperator={searchableOperator}
             />
           </Column>
         );
@@ -165,11 +186,15 @@ const Filters = ({
 
       <Footer
         className="filters-footer"
-        top={42 + (state.rows.length - 1) * 84}
+        top={
+          state.rows.length === 1
+            ? ROW_HEIGHT
+            : ROW_HEIGHT * state.rows.length + GAP * (state.rows.length - 1)
+        }
       >
         {state.rows.length < max && (
           <AddButton className="add-filter" onClick={addFilter}>
-            + CONDITION
+            <StyledPlusIcon /> CONDITION
           </AddButton>
         )}
         {state.rows.length >= max && (
@@ -186,7 +211,8 @@ Filters.propTypes = {
   min: PropTypes.number,
   max: PropTypes.number,
   className: PropTypes.string,
-  initialState: PropTypes.array
+  initialState: PropTypes.array,
+  searchableOperator: PropTypes.bool
 };
 
 export default Filters;
@@ -208,12 +234,13 @@ const Column = styled.div`
   opacity: ${({ animation }) => (animation === 'exit' ? 0 : 1)};
   position: absolute;
   top: ${({ top }) => top}px;
+  width: 100%;
 `;
 
 const Footer = styled.div`
   height: 32px;
   display: flex;
-  width: 510px;
+  width: 100%;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -222,15 +249,38 @@ const Footer = styled.div`
   top: ${({ top }) => top}px;
 `;
 
+const StyledPlusIcon = styled(PlusIcon)`
+  margin-right: 5px;
+  width: 10px;
+  height: 10px;
+
+  polygon {
+    fill: ${({ theme }) => theme.p600};
+    transition: all 300ms;
+    stroke-width: 10;
+    stroke: ${({ theme }) => theme.p600};
+  }
+`;
+
 const AddButton = styled.div`
   color: ${({ theme }) => theme.p600};
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 300ms;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
 
   &:hover {
     color: ${({ theme }) => theme.a400};
+
+    ${StyledPlusIcon} {
+      polygon {
+        fill: ${({ theme }) => theme.a400};
+        stroke: ${({ theme }) => theme.a400};
+      }
+    }
   }
 `;
 
@@ -240,16 +290,17 @@ const Info = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 14px;
+  line-height: 18px;
   color: ${({ theme }) => theme.p400};
+  margin-top: 40px;
 `;
 
 const OperatorContainer = styled.div`
-  width: 510px;
+  width: 100%;
   display: flex;
-  height: 32px;
+  height: ${({ height }) => height}px;
   justify-content: center;
   align-items: center;
-  margin: 5px 0;
   opacity: 0;
   visibility: hidden;
   animation: 500ms ease-out 0s 1 fade forwards;
@@ -265,8 +316,8 @@ const OperatorContainer = styled.div`
 const Operator = styled.div`
   color: ${({ theme }) => theme.p600};
   font-size: 12px;
-  font-weight: 500;
-  margin: 0 5px;
+  font-weight: 700;
+  margin: 0 30px;
 `;
 
 const OperatorDivider = styled.div`
@@ -276,9 +327,9 @@ const OperatorDivider = styled.div`
 `;
 
 const StyledInfoIcon = styled(InfoIcon)`
-  margin-right: 5px;
-  transform: rotate(180deg);
+  margin-right: 10px;
+
   path {
-    fill: ${({ theme }) => theme.p600};
+    fill: ${({ theme }) => theme.p300};
   }
 `;

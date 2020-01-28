@@ -20,6 +20,7 @@ const Filter = props => {
     total,
     onChange,
     rowData,
+    searchableOperator,
     className
   } = props;
 
@@ -50,7 +51,7 @@ const Filter = props => {
 
   return (
     <Row zIndex={total - index} className={className}>
-      <Select
+      <StyledSelect
         className="select-dimension"
         options={dimensions}
         onChange={handleDimensionChange}
@@ -58,15 +59,17 @@ const Filter = props => {
         placeholder="Select Dimension"
         searchable
       />
-      <SelectOperator
-        className="select-operator"
-        options={operators}
-        onChange={handleOperatorChange}
-        values={rowData.operator}
-        placeholder="operator"
-        searchable
-      />
-      <TextInput
+      <OperatorContainer className="select-operator-container">
+        <SelectOperator
+          className="select-operator"
+          options={operators}
+          onChange={handleOperatorChange}
+          values={rowData.operator}
+          placeholder="operator"
+          searchable={searchableOperator}
+        />
+      </OperatorContainer>
+      <StyledInput
         placeholder="Free text"
         onChange={handleValueChange}
         value={rowData.value}
@@ -84,7 +87,8 @@ Filter.propTypes = {
   index: PropTypes.number.isRequired,
   total: PropTypes.number,
   onChange: PropTypes.func,
-  rowData: PropTypes.object
+  rowData: PropTypes.object,
+  searchableOperator: PropTypes.bool
 };
 
 export default Filter;
@@ -98,6 +102,7 @@ const Row = styled.div`
   visibility: hidden;
   z-index: ${({ zIndex }) => zIndex || 0};
   animation: 500ms ease-out 0s 1 fade forwards;
+  justify-content: space-between;
 
   @keyframes fade {
     100% {
@@ -107,11 +112,27 @@ const Row = styled.div`
   }
 `;
 
-const SelectOperator = styled(Select)`
-  margin: 0 5px;
+const StyledSelect = styled(Select)`
+  width: 100%;
 
   .header {
-    width: 130px;
+    width: 100%;
+  }
+`;
+
+const StyledInput = styled(TextInput)`
+  max-width: 100%;
+`;
+
+const OperatorContainer = styled.div`
+  margin: 0 10px;
+  width: 100%;
+`;
+const SelectOperator = styled(Select)`
+  width: 100%;
+
+  .header {
+    width: 100%;
   }
 `;
 
@@ -132,9 +153,9 @@ const TrashContainer = styled.div`
 `;
 
 const StyledTrashIcon = styled(TrashIcon)`
-  width: 22px;
+  width: 30px;
 
   path {
-    fill: ${({ theme }) => theme.p600};
+    fill: ${({ theme }) => theme.p300};
   }
 `;
