@@ -358,10 +358,12 @@ class Datepicker extends Component {
       dateFormat,
       onMenuEnter,
       onMenuLeave,
-      customPresets
+      customPresets,
+      bodyRenderer
     } = this.props;
     const monthsElement = [];
     const { startDate, endDate } = selection;
+    const body = () => <Dates>{monthsElement}</Dates>;
 
     for (let i = 0; i < months; i++) {
       monthsElement.push(this.datesRenderer(i));
@@ -423,7 +425,7 @@ class Datepicker extends Component {
               </ArrowHolder>
             </Header>
 
-            <Dates>{monthsElement}</Dates>
+            {bodyRenderer ? bodyRenderer({ body }) : body()}
 
             <Divider />
 
