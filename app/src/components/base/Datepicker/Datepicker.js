@@ -41,7 +41,8 @@ class Datepicker extends Component {
           endDate: PropTypes.instanceOf(Date)
         })
       })
-    )
+    ),
+    bodyRenderer: PropTypes.func
   };
 
   static defaultProps = {
