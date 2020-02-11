@@ -47,10 +47,11 @@ const VirtualScroll = props => {
   const totalHeight = rowCount * rowHeight;
 
   const startNode = Math.max(0, Math.floor(scrollTop / rowHeight) - overScan);
-  const visibleNodeCount = Math.min(
+  let visibleNodeCount = Math.min(
     rowCount - startNode,
     Math.ceil(height / rowHeight) + 2 * overScan
   );
+  visibleNodeCount = Math.max(0, visibleNodeCount);
 
   const visibleChildren = useMemo(
     () =>
