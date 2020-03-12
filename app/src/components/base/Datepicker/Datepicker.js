@@ -95,7 +95,11 @@ class Datepicker extends Component {
 
     this.weekdays.forEach((day, index) => {
       dates.push(
-        <DateContainer key={`date-${day}-${index}`} type="title">
+        <DateContainer
+          key={`date-${day}-${index}`}
+          className="date-picker-date-day"
+          type="title"
+        >
           <DateIcon type="title">{day}</DateIcon>
         </DateContainer>
       );
@@ -103,7 +107,13 @@ class Datepicker extends Component {
 
     // previews disabled dates
     for (let i = monthStart.day(); i > firstDayOfWeek; i--) {
-      dates.push(<DateContainer key={`date-placeholder-${i}`} disabled />);
+      dates.push(
+        <DateContainer
+          className="date-picker-date-day"
+          key={`date-placeholder-${i}`}
+          disabled
+        />
+      );
     }
 
     for (let i = 1; i <= total; i++) {
@@ -121,6 +131,7 @@ class Datepicker extends Component {
 
       dates.push(
         <DateContainer
+          className="date-picker-date-day"
           key={`date-${i}`}
           onClick={() => this.handleClick(current)}
           onMouseEnter={() => this.setHover(current)}
@@ -140,8 +151,12 @@ class Datepicker extends Component {
     }
 
     return (
-      <DatesContainer key={`month-${globalOffset}`}>
+      <DatesContainer
+        key={`month-${globalOffset}`}
+        className="date-picker-dates-container"
+      >
         <MonthTitle
+          className="date-picker-month-title"
           onClick={this.selectMonth({
             startDate: today
               .clone()
@@ -371,6 +386,7 @@ class Datepicker extends Component {
       <ClickOut onClick={this.handleClickOut}>
         <SelectMenuContext.Provider value={{ onMenuEnter, onMenuLeave }}>
           <DatepickerHeaderRow
+            className="date-picker-header-row"
             title={this.computeTooltipTitle()}
             onClick={this.toggleOpen}
           >
@@ -398,7 +414,9 @@ class Datepicker extends Component {
                 />
               </>
             ) : (
-              <Ellipsis>{this.getPresetTitle(selectedPreset[0])}</Ellipsis>
+              <Ellipsis className="date-picker-selected-preset-title">
+                {this.getPresetTitle(selectedPreset[0])}
+              </Ellipsis>
             )}
             <div>
               <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
@@ -414,22 +432,37 @@ class Datepicker extends Component {
             />
             <Divider margin="0" />
 
-            <Header>
-              <ArrowHolder onClick={this.prev}>
+            <Header className="date-picker-next-prev-container">
+              <ArrowHolder
+                onClick={this.prev}
+                className="date-picker-prev-button"
+              >
                 <StyledArrow rotation="-180deg" />
               </ArrowHolder>
               <ArrowHolder onClick={this.next}>
-                <StyledArrow rotation="0deg" />
+                <StyledArrow
+                  rotation="0deg"
+                  className="date-picker-next-button"
+                />
               </ArrowHolder>
             </Header>
 
-            <Dates>{monthsElement}</Dates>
+            <Dates className="dates-container">{monthsElement}</Dates>
 
             <Divider />
 
             <Buttons>
-              <InlineButton onClick={this.cancel}>Cancel</InlineButton>
-              <InlineButton primary onClick={this.apply}>
+              <InlineButton
+                onClick={this.cancel}
+                className="date-picker-cancel-button"
+              >
+                Cancel
+              </InlineButton>
+              <InlineButton
+                primary
+                onClick={this.apply}
+                className="date-picker-apply-button"
+              >
                 Apply
               </InlineButton>
             </Buttons>

@@ -12,7 +12,7 @@ import Select from '../Select/Select';
 import { convertToMomentRange } from './date.utils';
 
 const CustomHeader = ({ open, toggleOpen, placeholder, values }) => (
-  <Header onClick={toggleOpen}>
+  <Header onClick={toggleOpen} className="date-picker-presets-dropdown-header">
     {get('[0].label', values) || placeholder}
     <Arrow rotation={open ? '180deg' : '0deg'} />
   </Header>
@@ -282,7 +282,7 @@ class DatepickerPresets extends Component {
     const { onChange, selectedPreset } = this.props;
 
     return (
-      <Container>
+      <Container className="date-picker-presets-container">
         <Select
           sortable={false}
           placeholder="Presets"
