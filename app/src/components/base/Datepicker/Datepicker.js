@@ -84,6 +84,14 @@ class Datepicker extends Component {
     this.weekdays = moment.weekdaysMin(true);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.dateRange !== this.props.dateRange) {
+      this.setState({
+        selection: convertToMomentRange(this.props.dateRange)
+      });
+    }
+  }
+
   datesRenderer = (globalOffset = 0) => {
     const { offset, today, selection, selecting, hoveredDate } = this.state;
     const { firstDayOfWeek } = this.props;
