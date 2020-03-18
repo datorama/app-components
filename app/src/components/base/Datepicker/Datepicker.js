@@ -82,12 +82,20 @@ class Datepicker extends Component {
     };
 
     this.weekdays = moment.weekdaysMin(true);
+    this.isLocalUpdate = false;
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.dateRange !== this.props.dateRange) {
+      if (this.isLocalUpdate) {
+        this.isLocalUpdate = false;
+
+        return;
+      }
+
       this.setState({
-        selection: convertToMomentRange(this.props.dateRange)
+        selection: convertToMomentRange(this.props.dateRange),
+        selectedPreset: []
       });
     }
   }
@@ -237,6 +245,8 @@ class Datepicker extends Component {
 
   apply = () => {
     if (this.validateSelection()) {
+      this.isLocalUpdate = true;
+
       this.setState(
         {
           committedSelection: this.state.selection,
