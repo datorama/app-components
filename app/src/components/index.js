@@ -37,6 +37,7 @@ export { default as TextInput } from './base/TextInput';
 export { default as Ellipsis } from './base/Ellipsis';
 export { default as Table } from './base/Table';
 export { default as Filters } from './base/Filters/Filters';
+export { default as Tornado } from './base/Tornado/TornadoChart';
 export {
   withToast,
   withSnackbar,
