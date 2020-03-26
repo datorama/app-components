@@ -10,85 +10,72 @@ const snippet = `
   
   const data = {
   labels: [
-    "Paid Advertising",
-    "BDR Prospecting",
-    "Event",
-    "Account Growth",
-    "Sales Prospecting"
+    "Social",
+    "Display",
+    "Search",
+    "Email",
+    "Other",
   ],
   stats: [
     {
       id: 0,
-      qualified: "Qualified Rate",
-      conversion: "Conversion Rate",
-      close: "Close Rate",
-      qualifiedValue: "33.7",
-      conversionValue: "16.9",
-      closeValue: "1.4"
+      revenue: '$0',
+      orders: 173,
+      roas: 0,
     },
     {
       id: 1,
-      qualified: "Qualified Rate",
-      conversion: "Conversion Rate",
-      close: "Close Rate",
-      qualifiedValue: "48.4",
-      conversionValue: "12.9",
-      closeValue: "1.9"
+      revenue: '$0',
+      orders: 173,
+      roas: 0,
+
     },
     {
       id: 2,
-      qualified: "Qualified Rate",
-      conversion: "Conversion Rate",
-      close: "Close Rate",
-      qualifiedValue: "34.1",
-      conversionValue: "5.9",
-      closeValue: "1.3"
+      revenue: '$50K',
+      orders: 173,
+      roas: 29,
     },
     {
       id: 3,
-      qualified: "Qualified Rate",
-      conversion: "Conversion Rate",
-      close: "Close Rate",
-      qualifiedValue: "29.1",
-      conversionValue: "9.7",
-      closeValue: "1.2"
+      revenue: '$50K',
+      orders: 173,
+      roas: 36,
+
     },
     {
       id: 4,
-      qualified: "Qualified Rate",
-      conversion: "Conversion Rate",
-      close: "Close Rate",
-      qualifiedValue: "41.5",
-      conversionValue: "15.2",
-      closeValue: "2.8"
-    }
+      revenue: '$100K',
+      orders: 173,
+      roas: 95,
+    },
   ],
   rows: [
     {
       id: "row-0",
-      data: [356, 620, 675, 412, 1447],
-      label: "leads created",
-      totalValue: 3620,
+      data: [33, 152, 200, 254, 60],
+      label: "Website visits",
+      totalValue: 687,
       totalPercentage: "100"
     },
     {
       id: "row-1",
-      data: [120, 300, 230, 120, 600],
-      label: "qualified leads",
+      data: [120, 300, 150, 120, 600],
+      label: "Product page visits",
       totalValue: 1410,
       totalPercentage: "39"
     },
     {
       id: "row-2",
-      data: [60, 80, 40, 40, 220],
-      label: "leads converted",
+      data: [60, 80, 100, 40, 220],
+      label: "Carts created",
       totalValue: 450,
       totalPercentage: "12"
     },
     {
       id: "row-3",
-      data: [5, 12, 9, 5, 40],
-      label: "closed won",
+      data: [5, 12, 14, 5, 40],
+      label: "Orders placed",
       totalValue: 73,
       totalPercentage: "2"
     }
@@ -96,7 +83,21 @@ const snippet = `
 }
 
   return (
-   <Tornado data={data}/>
+     <Tornado
+        data={data}
+        topLabelRenderer={({ text, pathColor, isSelected }) => (
+          <TopTornadoLabel color={pathColor} isSelected={isSelected}>
+            {text}
+          </TopTornadoLabel>
+        )}
+        bottomStatsRenderer={({ stats, pathColor, isSelected }) => (
+          <BottomTornadoStatsLabel
+            stats={stats}
+            pathColor={pathColor}
+            isSelected={isSelected}
+          />
+        )}
+      />
   );
 }
 `;

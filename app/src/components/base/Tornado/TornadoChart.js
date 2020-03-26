@@ -229,7 +229,8 @@ class TornadoChart extends Component {
                 key={`path-label-${rows[index].key}-${cellIndex}`}
                 x={centroid.x}
                 y={conLabelY}
-                opacity={0.3}
+                fill={`rgba(55, 56, 58)`}
+                opacity={0.4}
               >
                 {connectorLabel ? `${Math.round(connectorLabel)}%` : '--'}
               </Label>
@@ -433,7 +434,7 @@ const Path = styled.path`
 
 const Label = styled.text`
   font-size: 12px;
-  fill: #fff;
+  fill: rgb(55, 56, 58);
   text-anchor: middle;
   transition: all 300ms;
   pointer-events: none;

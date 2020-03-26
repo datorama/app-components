@@ -39,6 +39,10 @@ export { default as Table } from './base/Table';
 export { default as Filters } from './base/Filters/Filters';
 export { default as Tornado } from './base/Tornado/TornadoWidget';
 export {
+  TopTornadoLabel,
+  BottomTornadoStatsLabel
+} from './base/Tornado/retail-labels';
+export {
   withToast,
   withSnackbar,
   default as ToastsProvider

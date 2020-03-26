@@ -12,19 +12,17 @@ export const TORNADO_OFFSET = [
 ];
 
 export const MAIN_COLORS = [
-  '#422ca2',
-  '#6651c1',
-  '#8566d2',
-  '#a171dd',
-  '#bc7cd9',
-  '#da84eb'
+  '#009290',
+  '#00b7a8',
+  '#00d4b6',
+  '#00e2bd',
+  '#7ff0de'
 ];
 
 export const CONNECTOR_COLORS = [
-  '#301f71',
-  '#4d3d93',
-  '#7756B9',
-  '#694991',
-  '#9f67b8',
-  '#ac68b9'
+  '#008475',
+  '#009E8F',
+  '#00A183',
+  '#00AF8A',
+  '#4CBDAB'
 ];

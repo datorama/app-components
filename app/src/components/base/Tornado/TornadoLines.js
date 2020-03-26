@@ -20,7 +20,7 @@ const TornadoLines = ({ rows, onMouseEnter, onMouseLeave }) => (
       return (
         <g key={`line-${i}`}>
           <Line x1={xStart} x2="80%" y1={yPos} y2={yPos} />
-          <g style={{ transform: 'translateX(-120px)' }}>
+          <g style={{ transform: 'translateX(-130px)' }}>
             <LineLabel x="80%" y={yPos - 4}>
               {rows[i].label}
             </LineLabel>
@@ -74,8 +74,7 @@ const Line = styled.line`
 const LineLabel = styled.text`
   fill: #666a6b;
   font-size: 14px;
-  font-weight: 300;
-
+  font-weight: 300;\
   ${({ bold }) =>
     bold &&
     css`
