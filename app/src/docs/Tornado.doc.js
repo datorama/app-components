@@ -110,7 +110,7 @@ const SpinnerDoc = () => {
     <Base title={title} description={description} name="Tornado">
       <Row align="stretch">
         <Col>
-          <Snippet snippet={snippet} />
+          <Snippet snippet={snippet} direction="column" />
         </Col>
       </Row>
     </Base>
