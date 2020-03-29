@@ -18,6 +18,10 @@ const excludes = [
   'SelectSearch.js',
   'SelectSpinner.js',
 
+  'tornado.constants.js',
+  'tornado.stub.js',
+  'tornado.utils.js',
+
   'notifications.styles.js',
   'notifications.utils.js',
   'date.utils'

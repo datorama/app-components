@@ -23,6 +23,8 @@ export const TopTornadoLabel = styled.div`
   ${({ isSelected }) => isSelected && focusedStyle};
 `;
 
+TopTornadoLabel.propTypes = {};
+
 const BottomStats = styled.div`
   width: 100%;
   height: 100%;
@@ -59,3 +61,5 @@ export const BottomTornadoStatsLabel = ({ stats, pathColor, isSelected }) => (
     <Roas>{`${stats.roas} % ROAS`}</Roas>
   </BottomStats>
 );
+
+BottomTornadoStatsLabel.propTypes = {};

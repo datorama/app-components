@@ -6,6 +6,7 @@ import PropTable from './PropTable';
 import { Row, Col, Container } from '../components/index';
 
 const Base = ({ children, title, description, name }) => {
+  console.log({ children, title, description, name });
   return (
     <Container>
       <Row>

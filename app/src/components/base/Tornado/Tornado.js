@@ -6,7 +6,7 @@ import { MAIN_COLORS } from './tornado.constants';
 
 import TornadoChart from './TornadoChart';
 
-export default class TornadoWidget extends React.Component {
+export default class Tornado extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
       labels: PropTypes.arrayOf(PropTypes.string),
