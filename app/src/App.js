@@ -46,6 +46,7 @@ import Table from './docs/Table.doc';
 import Gauge from './docs/Gauge.doc';
 import GoalsChart from './docs/GoalsChart';
 import Filters from './docs/Filters.doc';
+import Tornado from './docs/Tornado.doc';
 
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
@@ -182,6 +183,7 @@ class App extends Component {
       { key: 'toggles', label: 'Toggles', path: 'toggles' },
       { key: 'tooltip', label: 'Tooltip', path: 'tooltip' },
       { key: 'filters', label: 'Filters', path: 'filters' },
+      { key: 'tornado', label: 'Tornado', path: 'tornado' },
 
       { key: 'charts', label: 'Charts', type: 'title' },
       { key: 'goals-chart', label: 'Goals Chart', path: 'goals-chart' },
@@ -256,6 +258,7 @@ class App extends Component {
                 <Route exact path="/stepper" component={Stepper} />
                 <Route exact path="/collapse" component={Collapse} />
                 <Route exact path="/filters" component={Filters} />
+                <Route exact path="/tornado" component={Tornado} />
                 <Route exact path="/sticky" component={Sticky} />
                 <Route exact path="/error-page" component={ErrorPage} />
                 <Route exact path="/snail-chart" component={SnailChart} />

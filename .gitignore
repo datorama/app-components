@@ -79,3 +79,4 @@ fabric.properties
 
 **/.idea/**
 .idea/
+/dist/index.js.LICENSE
