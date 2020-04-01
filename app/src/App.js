@@ -55,7 +55,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>v0.31.3</Version>
+        <Version>v0.32.0</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
