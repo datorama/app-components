@@ -33,8 +33,9 @@ const TornadoArrows = props => {
   // to position
   const bottomCenterDelta = stats.length > 1 ? 30 : 0;
   const topTo = [CONSTANTS.TORNADO_OFFSET[0], 40];
+
   const bottomTo = [
-    calcArrowPos(stats.length, selectedIndex - 1, false, containerWidth) +
+    calcArrowPos(amount, selectedIndex, true, containerWidth) +
       bottomCenterDelta,
     440
   ];
