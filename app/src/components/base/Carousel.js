@@ -129,7 +129,7 @@ class Carousel extends Component {
         <SlidesAndControls>
           {controls && (
             <Control onClick={this.prev} disabled={!infinite && current === 0}>
-              {prevControl ? prevControl() : 'Prev'}
+              {prevControl ? prevControl({ current }) : 'Prev'}
             </Control>
           )}
           <SlidesContainer>
@@ -142,7 +142,7 @@ class Carousel extends Component {
               onClick={this.next}
               disabled={!infinite && current === slides.length - 1}
             >
-              {nextControl ? nextControl() : 'Next'}
+              {nextControl ? nextControl({ current }) : 'Next'}
             </Control>
           )}
         </SlidesAndControls>
