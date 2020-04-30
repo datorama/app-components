@@ -142,7 +142,9 @@ Table.propTypes = {
   ),
   data: PropTypes.arrayOf(PropTypes.object),
   maxPage: PropTypes.number,
-  colRenderer: PropTypes.func
+  colRenderer: PropTypes.func,
+  placeholder: PropTypes.string,
+  footerText: PropTypes.oneOfType(PropTypes.elementType, PropTypes.string)
 };
 
 Table.defaultProps = {
