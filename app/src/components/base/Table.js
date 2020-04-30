@@ -86,7 +86,7 @@ const Table = props => {
 
   return (
     <Container>
-      <Header>
+      <Header className="input-wrapper">
         <StyledInput placeholder="search" onChange={handleKey} />
       </Header>
 
