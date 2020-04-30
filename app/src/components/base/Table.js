@@ -47,7 +47,14 @@ const TableHead = memo(({ headers }) =>
 );
 
 const Table = props => {
-  const { data, headers, maxPage, colRenderer } = props;
+  const {
+    data,
+    headers,
+    maxPage,
+    colRenderer,
+    placeholder,
+    footerText
+  } = props;
   const [page, setPage] = useState(0);
   const [term, setTerm] = useState('');
   const debouncedTerm = useDebounce(term, 500);
@@ -86,8 +93,11 @@ const Table = props => {
 
   return (
     <Container>
-      <Header>
-        <StyledInput placeholder="search" onChange={handleKey} />
+      <Header className="input-wrapper">
+        <StyledInput
+          placeholder={placeholder || 'search'}
+          onChange={handleKey}
+        />
       </Header>
 
       <Row className="header">
@@ -115,6 +125,7 @@ const Table = props => {
             onChange={handlePagination}
           />
         )}
+        {!!footerText && footerText}
       </Footer>
     </Container>
   );
@@ -131,7 +142,9 @@ Table.propTypes = {
   ),
   data: PropTypes.arrayOf(PropTypes.object),
   maxPage: PropTypes.number,
-  colRenderer: PropTypes.func
+  colRenderer: PropTypes.func,
+  placeholder: PropTypes.string,
+  footerText: PropTypes.oneOfType(PropTypes.elementType, PropTypes.string)
 };
 
 Table.defaultProps = {
@@ -166,6 +179,7 @@ const Footer = styled.div`
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  justify-content: space-between;
   padding: 0 20px;
 `;
 
