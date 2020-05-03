@@ -34,6 +34,7 @@ const SelectionMenu = props => {
     large,
     inlineSearch,
     currentHoveredOptionValue,
+    toggleOpen,
     toggleFocus,
     onKeyDown,
     onKeyUp,
@@ -96,6 +97,7 @@ const SelectionMenu = props => {
             optionRenderer={optionRenderer}
             multi={multi}
             handleClick={onSelect}
+            toggleOpen={toggleOpen}
             maxItems={maxItems}
             searchable={searchable}
             optionLabelRenderer={optionLabelRenderer}

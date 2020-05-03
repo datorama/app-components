@@ -19,6 +19,7 @@ const SelectOptions = props => {
     optionRenderer,
     multi,
     handleClick,
+    toggleOpen,
     maxItems,
     searchable,
     optionLabelRenderer,
@@ -80,7 +81,7 @@ const SelectOptions = props => {
     const selected = find(op => op.value === option.value, values);
 
     if (optionRenderer) {
-      return optionRenderer({ option, selected });
+      return optionRenderer({ option, selected, toggleOpen });
     }
 
     return (
