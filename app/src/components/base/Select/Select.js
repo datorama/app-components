@@ -479,6 +479,7 @@ export default class Select extends React.Component {
               inlineSearch={inlineSearch}
               currentHoveredOptionValue={currentHoveredOptionValue}
               toggleFocus={this.toggleFocus}
+              toggleOpen={this.toggleOpen}
               loading={loading}
             />
           </CurrentHoveredIndexContext.Provider>
