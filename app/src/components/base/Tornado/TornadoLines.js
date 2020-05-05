@@ -1,13 +1,15 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { size } from 'lodash/fp';
+
 import * as CONSTANTS from './tornado.constants';
 import { abbreviateNumber } from './tornado.utils';
 
 const TornadoLines = ({ rows, onMouseEnter, onMouseLeave }) => (
   <g>
     {rows.map((line, i) => {
-      const xStart = CONSTANTS.MARGINS[i] + CONSTANTS.BASE[i];
+      const xStart = CONSTANTS.MARGINS[i] + CONSTANTS.BASE(size(rows))[i];
       const yPos =
         i * (CONSTANTS.ROW_HEIGHT + CONSTANTS.MARGIN) +
         CONSTANTS.ROW_HEIGHT +
