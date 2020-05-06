@@ -33,7 +33,7 @@ const TornadoArrows = props => {
   const OFFSET = CONSTANTS.TORNADO_OFFSET(numRows);
 
   const firstRow = normalize(rows[0].data, BASE[0]);
-  const lastRow = normalize(rows[size(rows) - 1].data, BASE[numRows - 1]);
+  const lastRow = normalize(rows[numRows - 1].data, BASE[numRows - 1]);
 
   // to position
   const bottomCenterDelta = stats.length > 1 ? 30 : 0;
