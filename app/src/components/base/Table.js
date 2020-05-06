@@ -30,7 +30,9 @@ const TableBody = memo(({ filtered, headers, colRenderer }) =>
   ))
 );
 
-const Empty = () => <Message>No data</Message>;
+const Empty = ({ emptyRenderer }) => (
+  <Message>{emptyRenderer ? emptyRenderer() : 'No Data'}</Message>
+);
 const NoResults = () => <Message>No Results</Message>;
 
 const TableHead = memo(({ headers }) =>
@@ -53,7 +55,8 @@ const Table = props => {
     maxPage,
     colRenderer,
     placeholder,
-    footerText
+    footerText,
+    emptyRenderer
   } = props;
   const [page, setPage] = useState(0);
   const [term, setTerm] = useState('');
@@ -111,7 +114,7 @@ const Table = props => {
           colRenderer={colRenderer}
         />
 
-        {isEmpty(data) && <Empty />}
+        {isEmpty(data) && <Empty emptyRenderer={emptyRenderer} />}
 
         {!isEmpty(data) && isEmpty(filtered) && <NoResults />}
       </Body>
@@ -144,7 +147,8 @@ Table.propTypes = {
   maxPage: PropTypes.number,
   colRenderer: PropTypes.func,
   placeholder: PropTypes.string,
-  footerText: PropTypes.oneOfType(PropTypes.elementType, PropTypes.string)
+  footerText: PropTypes.oneOfType(PropTypes.elementType, PropTypes.string),
+  emptyRenderer: PropTypes.func
 };
 
 Table.defaultProps = {
