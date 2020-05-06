@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Warp from 'warpjs';
-import { get, sum, isNumber } from 'lodash/fp';
+import { get, sum, isNumber, size } from 'lodash/fp';
 import PropTypes from 'prop-types';
 
 import { abbreviateNumber, normalize, getCentroid } from './tornado.utils';
@@ -12,6 +12,7 @@ import TornadoEllipses from './TornadoEllipses';
 import TornadoLines from './TornadoLines';
 import TornadoArrows from './TornadoArrows';
 import Tooltip from './Tooltip';
+import { TORNADO_OFFSET } from './tornado.constants';
 
 class TornadoChart extends Component {
   static propTypes = {
@@ -89,6 +90,9 @@ class TornadoChart extends Component {
     let offset = 0;
     let nextOffset = 0;
 
+    const numRows = size(rows);
+    const BASE = CONSTANTS.BASE(numRows);
+
     rowData.forEach((val, cellIndex) => {
       const cellWidth = (val / total) * width;
       const rectXpos = offset + CONSTANTS.MARGINS[index];
@@ -135,13 +139,10 @@ class TornadoChart extends Component {
 
       // build connectors
       if (rows.length - 1 > index) {
-        const nextRowData = normalize(
-          rows[index + 1].data,
-          CONSTANTS.BASE[index + 1]
-        );
+        const nextRowData = normalize(rows[index + 1].data, BASE[index + 1]);
         const nextRowTotal = sum(nextRowData);
         const nextWidth =
-          (nextRowData[cellIndex] / nextRowTotal) * CONSTANTS.BASE[index + 1];
+          (nextRowData[cellIndex] / nextRowTotal) * BASE[index + 1];
 
         const path = [
           'M',
@@ -343,20 +344,20 @@ class TornadoChart extends Component {
       hoveringConnector ||
       (abbreviated && (isNumber(hoveredIndex) || hoveringLines));
 
+    const numRows = size(rows);
+    const OFFSET = TORNADO_OFFSET(numRows);
+
     return (
       <Container height={CONSTANTS.CONTAINER_HEIGHT} disabled={!init}>
         <Tooltip fixed title={tooltipText} visible={tooltipVisible}>
           <Svg height={CONSTANTS.CONTAINER_HEIGHT}>
-            <Base
-              offsetX={CONSTANTS.TORNADO_OFFSET[0]}
-              offsetY={CONSTANTS.TORNADO_OFFSET[1]}
-            >
+            <Base offsetX={OFFSET[0]} offsetY={OFFSET[1]}>
               <TornadoLines
                 rows={rows}
                 onMouseEnter={this.handleLinesMouseEnter}
                 onMouseLeave={this.handleLinesMouseLeave}
               />
-              <TornadoEllipses loading={loading} />
+              <TornadoEllipses loading={loading} numRows={numRows} />
             </Base>
           </Svg>
 
@@ -368,11 +369,11 @@ class TornadoChart extends Component {
           >
             <Base
               clickable
-              offsetX={CONSTANTS.TORNADO_OFFSET[0]}
-              offsetY={CONSTANTS.TORNADO_OFFSET[1]}
+              offsetX={OFFSET[0]}
+              offsetY={OFFSET[1]}
               style={{ pointerEvents: 'all' }}
             >
-              {CONSTANTS.BASE.map((width, i) => this.row(width, i))}
+              {CONSTANTS.BASE(numRows).map((width, i) => this.row(width, i))}
             </Base>
           </Svg>
         </Tooltip>

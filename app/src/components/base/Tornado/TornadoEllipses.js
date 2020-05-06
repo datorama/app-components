@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import * as CONSTANTS from './tornado.constants';
 import { forEach } from 'lodash/fp';
 
-const TornadoEllipses = ({ loading }) => {
+const TornadoEllipses = ({ loading, numRows }) => {
   const ellipses = [];
 
   let ellipseIndex = 0;
@@ -27,7 +27,7 @@ const TornadoEllipses = ({ loading }) => {
       />
     );
     ellipseIndex++;
-  }, CONSTANTS.BASE);
+  }, CONSTANTS.BASE(numRows));
 
   return <Fragment>{ellipses}</Fragment>;
 };

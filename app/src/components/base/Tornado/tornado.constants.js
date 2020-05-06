@@ -1,14 +1,14 @@
 export const CONTAINER_HEIGHT = 500;
 export const ROW_HEIGHT = 40;
 export const MARGIN = 40;
-export const BASE = [500, 400, 300, 200];
+export const BASE = numRows => [500, 400, 300, 200].slice(0, numRows);
 export const MARGINS = [0, 50, 100, 150];
 export const ELLIPSES_VERTICAL_OFFSETS = [1, 6, 12, 17];
 export const ELLIPSES_RY = [19, 14, 10, 8];
 export const INTER_SIN = 160;
-export const TORNADO_OFFSET = [
+export const TORNADO_OFFSET = numRows => [
   100,
-  20 + (CONTAINER_HEIGHT - BASE.length * (ROW_HEIGHT + MARGIN)) / 2
+  20 + (CONTAINER_HEIGHT - numRows * (ROW_HEIGHT + MARGIN)) / 2
 ];
 
 export const MAIN_COLORS = [

@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import * as CONSTANTS from './tornado.constants';
+import { size } from 'lodash/fp';
 import PropTypes from 'prop-types';
+
+import * as CONSTANTS from './tornado.constants';
 import { normalize } from './tornado.utils';
 
 const calcArrowPos = (total, index, centered, containerWidth) => {
@@ -26,13 +28,16 @@ const calcArrowPos = (total, index, centered, containerWidth) => {
 
 const TornadoArrows = props => {
   const { rows, selectedIndex, amount, stats, containerWidth } = props;
+  const numRows = size(rows);
+  const BASE = CONSTANTS.BASE(numRows);
+  const OFFSET = CONSTANTS.TORNADO_OFFSET(numRows);
 
-  const firstRow = normalize(rows[0].data, CONSTANTS.BASE[0]);
-  const lastRow = normalize(rows[3].data, CONSTANTS.BASE[3]);
+  const firstRow = normalize(rows[0].data, BASE[0]);
+  const lastRow = normalize(rows[numRows - 1].data, BASE[numRows - 1]);
 
   // to position
   const bottomCenterDelta = stats.length > 1 ? 30 : 0;
-  const topTo = [CONSTANTS.TORNADO_OFFSET[0], 40];
+  const topTo = [OFFSET[0], 40];
 
   const bottomTo = [
     calcArrowPos(amount, selectedIndex, true, containerWidth) +
@@ -45,7 +50,7 @@ const TornadoArrows = props => {
     calcArrowPos(amount, selectedIndex, true, containerWidth),
     20
   ];
-  const bottomFrom = [CONSTANTS.TORNADO_OFFSET[0] + CONSTANTS.MARGINS[3], 420];
+  const bottomFrom = [OFFSET[0] + CONSTANTS.MARGINS[numRows - 1], 420];
 
   // calculate sums
   for (let i = 0; i <= selectedIndex; i++) {
