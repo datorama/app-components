@@ -24,7 +24,7 @@ describe('Button', () => {
         <Button onClick={handleClick}>{buttonLabel}</Button>
       </AppTheme>
     );
-    const node = getByText(buttonLabel);
+    const node = getByText(buttonLabel + '##');
 
     fireEvent.click(node);
   });
