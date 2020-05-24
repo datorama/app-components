@@ -23,7 +23,7 @@ const TornadoLines = ({ rows, onMouseEnter, onMouseLeave }) => (
         <g key={`line-${i}`}>
           <Line x1={xStart} x2="70%" y1={yPos} y2={yPos} />
           <g style={{ transform: 'translateX(-130px)' }}>
-            <LineLabel x="70%" y={yPos - 4}>
+            <LineLabel x="75%" y={yPos - 4}>
               {rows[i].label}
             </LineLabel>
           </g>
@@ -31,7 +31,7 @@ const TornadoLines = ({ rows, onMouseEnter, onMouseLeave }) => (
             onMouseEnter={() => onMouseEnter(rows[i])}
             onMouseLeave={onMouseLeave}
           >
-            <LineLabel x="70%" y={yPos - 4} bold>
+            <LineLabel x="72%" y={yPos - 4} bold>
               {rowValue}
             </LineLabel>
           </g>
