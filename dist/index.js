@@ -1904,7 +1904,7 @@
   fill: ${({fill:e})=>e||"rgba(204, 206, 211, 0.75)"};
   transition: all 500ms;
   opacity: ${({opacity:e})=>e};
-`,Mi=({rows:e,onMouseEnter:t,onMouseLeave:n})=>o.a.createElement("g",null,e.map((r,a)=>{const i=mi[a]+fi(Object(ft.size)(e))[a],s=80*a+40+20*Math.sin(i/160),l=`${Ei(e[a].totalValue||0)} (${e[a].totalPercentage}%)`;return o.a.createElement("g",{key:`line-${a}`},o.a.createElement(Ni,{x1:i,x2:"70%",y1:s,y2:s}),o.a.createElement("g",{style:{transform:"translateX(-130px)"}},o.a.createElement(Ti,{x:"70%",y:s-4},e[a].label)),o.a.createElement("g",{onMouseEnter:()=>t(e[a]),onMouseLeave:n},o.a.createElement(Ti,{x:"70%",y:s-4,bold:!0},l)))}));Mi.propTypes={onMouseEnter:Q.a.func,onMouseLeave:Q.a.func,rows:Q.a.arrayOf(Q.a.shape({id:Q.a.string,data:Q.a.arrayOf(Q.a.number),label:Q.a.string,totalValue:Q.a.number,totalPercentage:Q.a.string}))};var Si=Mi;const Ni=l.a.line`
+`,Mi=({rows:e,onMouseEnter:t,onMouseLeave:n})=>o.a.createElement("g",null,e.map((r,a)=>{const i=mi[a]+fi(Object(ft.size)(e))[a],s=80*a+40+20*Math.sin(i/160),l=`${Ei(e[a].totalValue||0)} (${e[a].totalPercentage}%)`;return o.a.createElement("g",{key:`line-${a}`},o.a.createElement(Ni,{x1:i,x2:"70%",y1:s,y2:s}),o.a.createElement("g",{style:{transform:"translateX(-130px)"}},o.a.createElement(Ti,{x:"75%",y:s-4},e[a].label)),o.a.createElement("g",{onMouseEnter:()=>t(e[a]),onMouseLeave:n},o.a.createElement(Ti,{x:"72%",y:s-4,bold:!0},l)))}));Mi.propTypes={onMouseEnter:Q.a.func,onMouseLeave:Q.a.func,rows:Q.a.arrayOf(Q.a.shape({id:Q.a.string,data:Q.a.arrayOf(Q.a.number),label:Q.a.string,totalValue:Q.a.number,totalPercentage:Q.a.string}))};var Si=Mi;const Ni=l.a.line`
   stroke: #f2f2f4;
   stroke-width: 2px;
   opacity: 0;

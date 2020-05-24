@@ -371,7 +371,6 @@ class Datepicker extends Component {
   render() {
     const { open, selectedPreset, selection } = this.state;
     const {
-      className,
       months,
       firstDayOfWeek,
       dateFormat,
