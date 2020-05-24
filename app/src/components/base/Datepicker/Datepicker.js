@@ -426,7 +426,11 @@ class Datepicker extends Component {
             </div>
           </DatepickerHeaderRow>
 
-          <Container visible={open} className={className} total={months}>
+          <Container
+            className={`dp-dropdown ${open ? 'open' : 'closed'}`}
+            visible={open}
+            total={months}
+          >
             <DatepickerPresets
               onChange={this.setPreset}
               selectedPreset={selectedPreset}
