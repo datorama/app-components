@@ -147,7 +147,7 @@ Table.propTypes = {
   maxPage: PropTypes.number,
   colRenderer: PropTypes.func,
   placeholder: PropTypes.string,
-  footerText: PropTypes.oneOfType(PropTypes.elementType, PropTypes.string),
+  footerText: PropTypes.oneOfType([PropTypes.elementType, PropTypes.string]),
   emptyRenderer: PropTypes.func
 };
 

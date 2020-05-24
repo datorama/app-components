@@ -46,6 +46,7 @@
   "scripts": {
     "heroku-prebuild": "cd app && npm install",
     "start": "cd app && npm run start",
+    "test": "cd app && npm run test",
     "heroku-postbuild": "cd app && npm run build",
     "lib:build": "rimraf dist && webpack && cd app && npm run generate:docs",
     "lib:watch": "rimraf dist && webpack -w",
