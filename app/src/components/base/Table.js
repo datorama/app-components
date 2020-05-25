@@ -56,7 +56,8 @@ const Table = props => {
     colRenderer,
     placeholder,
     footerText,
-    emptyRenderer
+    emptyRenderer,
+    onSearch
   } = props;
   const [page, setPage] = useState(0);
   const [term, setTerm] = useState('');
@@ -64,35 +65,45 @@ const Table = props => {
 
   const filtered = useMemo(
     () =>
-      flow(
-        filter(row => {
-          let filterRow = false;
+      !!onSearch
+        ? chunk(maxPage, data)
+        : flow(
+            filter(row => {
+              let filterRow = false;
 
-          forEach(header => {
-            if (
-              get(header.path, row)
-                .toString()
-                .toLowerCase()
-                .includes(debouncedTerm.toLowerCase())
-            ) {
-              filterRow = true;
+              forEach(header => {
+                if (
+                  get(header.path, row)
+                    .toString()
+                    .toLowerCase()
+                    .includes(debouncedTerm.toLowerCase())
+                ) {
+                  filterRow = true;
 
-              return false;
-            }
-          }, headers);
+                  return false;
+                }
+              }, headers);
 
-          return filterRow;
-        }),
-        chunk(maxPage)
-      )(data),
-    [data, debouncedTerm, headers, maxPage]
+              return filterRow;
+            }),
+            chunk(maxPage)
+          )(data),
+    [data, debouncedTerm, headers, maxPage, onSearch]
   );
 
   const handlePagination = useCallback(index => setPage(index - 1), []);
-  const handleKey = useCallback(e => {
-    setTerm(e.target.value);
-    setPage(0);
-  }, []);
+  const handleKey = useCallback(
+    e => {
+      if (!!onSearch) {
+        onSearch(e.target.value);
+      } else {
+        setTerm(e.target.value);
+      }
+
+      setPage(0);
+    },
+    [onSearch]
+  );
 
   return (
     <Container>
@@ -148,7 +159,8 @@ Table.propTypes = {
   colRenderer: PropTypes.func,
   placeholder: PropTypes.string,
   footerText: PropTypes.oneOfType([PropTypes.elementType, PropTypes.string]),
-  emptyRenderer: PropTypes.func
+  emptyRenderer: PropTypes.func,
+  onSearch: PropTypes.func
 };
 
 Table.defaultProps = {
