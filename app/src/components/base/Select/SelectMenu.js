@@ -38,7 +38,8 @@ const SelectionMenu = props => {
     toggleFocus,
     onKeyDown,
     onKeyUp,
-    loading
+    loading,
+    spinnerColor
   } = props;
 
   let maxHeight = 400;
@@ -61,7 +62,7 @@ const SelectionMenu = props => {
         >
           {(inlineSearch || searchable) && loading && (
             <SpinnerContainer className="spinner-container">
-              <Spinner />
+              <Spinner color={spinnerColor} />
             </SpinnerContainer>
           )}
 
@@ -150,7 +151,8 @@ SelectMenu.propTypes = {
   toggleFocus: PropTypes.func,
   onKeyDown: PropTypes.func,
   onKeyUp: PropTypes.func,
-  loading: PropTypes.bool
+  loading: PropTypes.bool,
+  spinnerColor: PropTypes.string
 };
 
 const Container = styled.div`

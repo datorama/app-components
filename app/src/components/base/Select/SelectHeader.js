@@ -72,7 +72,7 @@ const SelectHeader = props => {
     <Container
       onClick={toggleOpen}
       open={open}
-      className="header"
+      className={`header ${open ? 'open' : 'closed'}`}
       title={label}
       error={error}
       small={small}
