@@ -52,7 +52,8 @@ export default class Select extends React.Component {
     maxTags: PropTypes.number,
     clearOnClose: PropTypes.bool,
     keepSelected: PropTypes.bool,
-    disableSearch: PropTypes.bool
+    disableSearch: PropTypes.bool,
+    spinnerColor: PropTypes.string
   };
 
   state = {
@@ -403,7 +404,8 @@ export default class Select extends React.Component {
       inlineSearch,
       maxTags,
       onKeyDown,
-      onKeyUp
+      onKeyUp,
+      spinnerColor
     } = this.props;
     const {
       open,
@@ -481,6 +483,7 @@ export default class Select extends React.Component {
               toggleFocus={this.toggleFocus}
               toggleOpen={this.toggleOpen}
               loading={loading}
+              spinnerColor={spinnerColor}
             />
           </CurrentHoveredIndexContext.Provider>
         </Container>
