@@ -11,6 +11,7 @@ import Calendar from '../../icons/Calendar.icon';
 
 import DatePickerInput from './DatepickerInput';
 import { SelectMenuContext } from '../../contexts';
+import { hexToRgba } from '../../../components/utils';
 import { convertToDateRange, convertToMomentRange } from './date.utils';
 
 // components
@@ -42,7 +43,8 @@ class Datepicker extends Component {
         })
       })
     ),
-    bodyRenderer: PropTypes.func
+    bodyRenderer: PropTypes.func,
+    customColor: PropTypes.string
   };
 
   static defaultProps = {
@@ -102,7 +104,7 @@ class Datepicker extends Component {
 
   datesRenderer = (globalOffset = 0) => {
     const { offset, today, selection, selecting, hoveredDate } = this.state;
-    const { firstDayOfWeek } = this.props;
+    const { firstDayOfWeek, customColor } = this.props;
     const { startDate, endDate } = selection;
     const dates = [];
     const monthStart = today.clone().startOf('month');
@@ -145,6 +147,7 @@ class Datepicker extends Component {
           sameDay={sameDay}
           isStart={isStart}
           isEnd={isEnd}
+          customColor={customColor}
         >
           <DateIcon
             today={current.isSame(today, 'day')}
@@ -377,7 +380,8 @@ class Datepicker extends Component {
       onMenuEnter,
       onMenuLeave,
       customPresets,
-      bodyRenderer
+      bodyRenderer,
+      customColor
     } = this.props;
     const monthsElement = [];
     const { startDate, endDate } = selection;
@@ -436,7 +440,7 @@ class Datepicker extends Component {
               firstDayOfWeek={firstDayOfWeek}
               customPresets={customPresets}
             />
-            <Divider margin="0" />
+            <Divider margin="0" customColor={customColor} />
 
             <Header>
               <ArrowHolder onClick={this.prev}>
@@ -449,11 +453,15 @@ class Datepicker extends Component {
 
             {bodyRenderer ? bodyRenderer({ body }) : body()}
 
-            <Divider />
+            <Divider customColor={customColor} />
 
             <Buttons>
               <InlineButton onClick={this.cancel}>Cancel</InlineButton>
-              <InlineButton primary onClick={this.apply}>
+              <InlineButton
+                primary
+                onClick={this.apply}
+                customColor={customColor}
+              >
                 Apply
               </InlineButton>
             </Buttons>
@@ -541,6 +549,7 @@ const Container = styled.div`
     visible &&
     css`
       opacity: 1;
+      opacity: 1;
       visibility: visible;
       pointer-events: all;
     `}
@@ -595,29 +604,29 @@ const DateContainer = styled.div`
   height: 26px;
   margin: 2px 0;
 
-  ${({ selected, isStart, isEnd, theme, sameDay }) =>
+  ${({ selected, isStart, isEnd, theme, sameDay, customColor }) =>
     selected &&
     css`
-      background: ${theme.a100};
+      background: ${customColor ? hexToRgba(customColor, 20) : theme.a100};
       border-bottom-left-radius: ${isStart || sameDay ? '50%' : 0};
       border-top-left-radius: ${isStart || sameDay ? '50%' : 0};
       border-bottom-right-radius: ${isEnd || sameDay ? '50%' : 0};
       border-top-right-radius: ${isEnd || sameDay ? '50%' : 0};
     `}
 
-  ${({ theme, selected }) =>
+  ${({ theme, selected, customColor }) =>
     !selected &&
     css`
       border-radius: 13px;
       &:hover {
-        background: ${theme.a100};
+        background: ${customColor ? hexToRgba(customColor, 20) : theme.a100};
       }
     `};
 
-  ${({ isStart, isEnd, theme }) =>
+  ${({ isStart, isEnd, theme, customColor }) =>
     (isStart || isEnd) &&
     css`
-      background: ${theme.a400};
+      background: ${customColor || theme.a100};
     `};
 
   ${({ type }) =>
@@ -675,7 +684,8 @@ const Dates = styled.div`
 const Divider = styled.div`
   width: 100%;
   height: 1px;
-  background: ${({ theme }) => theme.p100};
+  background: ${({ theme, customColor }) =>
+    customColor ? hexToRgba(customColor, 20) : theme.a100};
   margin-top: ${({ margin }) => margin || '20px'};
 `;
 
@@ -697,13 +707,13 @@ const InlineButton = styled.div`
     color: ${({ theme }) => theme.p600};
   }
 
-  ${({ primary, theme }) =>
+  ${({ primary, theme, customColor }) =>
     primary &&
     css`
-      color: ${theme.a400};
+      color: ${customColor || theme.a400};
 
       &:hover {
-        color: ${theme.a500};
+        color: ${customColor ? hexToRgba(customColor, 80) : theme.a500};
       }
     `};
 `;
