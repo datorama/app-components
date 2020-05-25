@@ -22,7 +22,7 @@ const Checkbox = ({
       round={round}
       disabled={disabled}
       partial={partial}
-      className={className}
+      className={`${className} checkbox ${checked ? 'checked' : 'unchecked'}`}
     >
       {partial && (
         <StyledLineIcon selected={checked} round={round} disabled={disabled} />
