@@ -61,7 +61,7 @@ const snippet = `
     {
       id: "row-1",
       data: [120, 300, 150, 120, 600],
-      label: "Product page visits",
+      label: "Page visits",
       totalValue: 1410,
       totalPercentage: "39"
     },

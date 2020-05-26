@@ -231,7 +231,7 @@ class TornadoChart extends Component {
                 x={centroid.x}
                 y={conLabelY}
                 fill={`rgba(55, 56, 58)`}
-                opacity={0.4}
+                opacity={0.75}
               >
                 {connectorLabel ? `${Math.round(connectorLabel)}%` : '--'}
               </Label>
