@@ -15,6 +15,7 @@ import SelectHeader from './SelectHeader';
 import SelectMenu from './SelectMenu';
 import { optionsType } from './Select.types';
 import InlineSearch from './InlineSearch';
+import Fade from '../Fade';
 
 export const CurrentHoveredIndexContext = React.createContext(null);
 
@@ -382,6 +383,12 @@ export default class Select extends React.Component {
   toggleFocus = () =>
     this.setState(prevState => ({ inputFocused: !prevState.inputFocused }));
 
+  getOptions = () => {
+    this.filteredOptions = this.filterOptions();
+
+    return this.filteredOptions;
+  };
+
   render() {
     const {
       options,
@@ -414,7 +421,6 @@ export default class Select extends React.Component {
       currentHoveredOptionValue,
       currentHoveredOptionIndex
     } = this.state;
-    this.filteredOptions = this.filterOptions();
 
     return (
       <ClickOut onClick={this.handleClickOut} className={className}>
@@ -455,37 +461,40 @@ export default class Select extends React.Component {
               onKeyUp={onKeyUp}
             />
           )}
-          <CurrentHoveredIndexContext.Provider
-            value={currentHoveredOptionIndex}
-          >
-            <SelectMenu
-              onKeyDown={onKeyDown}
-              onKeyUp={onKeyUp}
-              open={open}
-              searchable={searchable}
-              onSearch={this.onSearch}
-              options={this.filteredOptions}
-              total={getOptionsSize(options)}
-              values={localValues}
-              multi={multi}
-              selectAll={this.selectAll}
-              optionRenderer={optionRenderer}
-              onSelect={this.onSelect}
-              menuRenderer={menuRenderer}
-              searchTerm={searchTerm}
-              maxItems={maxItems}
-              searchPlaceholder={searchPlaceholder}
-              optionLabelRenderer={optionLabelRenderer}
-              small={small}
-              large={large}
-              inlineSearch={inlineSearch}
-              currentHoveredOptionValue={currentHoveredOptionValue}
-              toggleFocus={this.toggleFocus}
-              toggleOpen={this.toggleOpen}
-              loading={loading}
-              spinnerColor={spinnerColor}
-            />
-          </CurrentHoveredIndexContext.Provider>
+
+          <Fade show={open}>
+            <CurrentHoveredIndexContext.Provider
+              value={currentHoveredOptionIndex}
+            >
+              <SelectMenu
+                onKeyDown={onKeyDown}
+                onKeyUp={onKeyUp}
+                open={open}
+                searchable={searchable}
+                onSearch={this.onSearch}
+                getOptions={this.getOptions}
+                total={getOptionsSize(options)}
+                values={localValues}
+                multi={multi}
+                selectAll={this.selectAll}
+                optionRenderer={optionRenderer}
+                onSelect={this.onSelect}
+                menuRenderer={menuRenderer}
+                searchTerm={searchTerm}
+                maxItems={maxItems}
+                searchPlaceholder={searchPlaceholder}
+                optionLabelRenderer={optionLabelRenderer}
+                small={small}
+                large={large}
+                inlineSearch={inlineSearch}
+                currentHoveredOptionValue={currentHoveredOptionValue}
+                toggleFocus={this.toggleFocus}
+                toggleOpen={this.toggleOpen}
+                loading={loading}
+                spinnerColor={spinnerColor}
+              />
+            </CurrentHoveredIndexContext.Provider>
+          </Fade>
         </Container>
       </ClickOut>
     );

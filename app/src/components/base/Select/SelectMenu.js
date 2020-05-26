@@ -19,7 +19,7 @@ const SelectionMenu = props => {
     open,
     searchable,
     onSearch,
-    options,
+    getOptions,
     values,
     multi,
     selectAll,
@@ -49,6 +49,8 @@ const SelectionMenu = props => {
   if (searchable) {
     maxHeight += 5;
   }
+
+  const options = getOptions();
 
   return (
     <SelectMenuContext.Consumer>
@@ -134,7 +136,7 @@ SelectMenu.propTypes = {
   onSearch: PropTypes.func,
   onMenuEnter: PropTypes.func,
   onMenuLeave: PropTypes.func,
-  options: optionsType,
+  getOptions: PropTypes.func,
   values: optionsType,
   multi: PropTypes.bool,
   selectAll: PropTypes.func,
@@ -166,23 +168,8 @@ const Container = styled.div`
   background: ${({ theme }) => theme.p0};
   border-radius: 2px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  transition: all 300ms;
   user-select: none;
   overflow: hidden;
-
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transform: translateY(-10px);
-
-  ${({ visible }) =>
-    visible &&
-    css`
-      opacity: 1;
-      visibility: visible;
-      pointer-events: all;
-      transform: translateY(0);
-    `};
 `;
 
 const SpinnerContainer = styled.div`
