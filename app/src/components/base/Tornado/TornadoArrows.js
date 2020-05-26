@@ -27,7 +27,7 @@ const calcArrowPos = (total, index, centered, containerWidth) => {
 };
 
 const TornadoArrows = props => {
-  const { rows, selectedIndex, amount, stats, containerWidth } = props;
+  const { rows, selectedIndex, amount, containerWidth } = props;
   const numRows = size(rows);
   const BASE = CONSTANTS.BASE(numRows);
   const OFFSET = CONSTANTS.TORNADO_OFFSET(numRows);
@@ -35,13 +35,10 @@ const TornadoArrows = props => {
   const firstRow = normalize(rows[0].data, BASE[0]);
   const lastRow = normalize(rows[numRows - 1].data, BASE[numRows - 1]);
 
-  // to position
-  const bottomCenterDelta = stats.length > 1 ? 30 : 0;
   const topTo = [OFFSET[0], 40];
 
   const bottomTo = [
-    calcArrowPos(amount, selectedIndex, true, containerWidth) +
-      bottomCenterDelta,
+    calcArrowPos(amount, selectedIndex, true, containerWidth),
     440
   ];
 
@@ -60,24 +57,31 @@ const TornadoArrows = props => {
   }
 
   return (
-    <Svg height={CONSTANTS.CONTAINER_HEIGHT}>
+    <Svg
+      height={CONSTANTS.CONTAINER_HEIGHT}
+      className="tornado tornado-chart tornado-chart-arrows tornado-chart-arrows-container"
+    >
       <ArrowLine
+        id="tornado-top-line"
         d={`M ${topFrom[0]},${topFrom[1]} l 0,20 L ${topTo[0]},${
           topTo[1]
         } l 0,20`}
         color={CONSTANTS.MAIN_COLORS[selectedIndex % 6]}
       />
       <Arrow
+        id="tornado-top-line-arrow"
         d={`M ${topTo[0] - 8}, ${topTo[1] + 20} l 16 0, l -8 8 z`}
         color={CONSTANTS.MAIN_COLORS[selectedIndex % 6]}
       />
       <ArrowLine
+        id="tornado-bottom-line"
         d={`M ${bottomFrom[0]},${bottomFrom[1]} l 0,20 L ${bottomTo[0]},${
           bottomTo[1]
         } l 0,20`}
         color={CONSTANTS.MAIN_COLORS[selectedIndex % 6]}
       />
       <Arrow
+        id="tornado-bottom-line-arrow"
         d={`M ${bottomTo[0] - 8}, ${bottomTo[1] + 20} l 16 0, l -8 8 z`}
         color={CONSTANTS.MAIN_COLORS[selectedIndex % 6]}
       />

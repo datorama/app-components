@@ -8,6 +8,7 @@ import TornadoChart from './TornadoChart';
 
 export default class Tornado extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     data: PropTypes.shape({
       labels: PropTypes.arrayOf(PropTypes.string),
       rows: PropTypes.arrayOf(
@@ -42,9 +43,13 @@ export default class Tornado extends React.Component {
     const { selectedIndex } = this.state;
 
     return (
-      <Row>
+      <Row className="tornado top-strip top-strip-container">
         {data.labels.map((label, i) => (
-          <Col key={`label-${i}`} onClick={() => this.selectIndex(i)}>
+          <Col
+            key={`label-${i}`}
+            onClick={() => this.selectIndex(i)}
+            className="tornado top-strip top-strip-column"
+          >
             {topLabelRenderer({
               text: label,
               pathColor: MAIN_COLORS[i % 5],
@@ -61,9 +66,10 @@ export default class Tornado extends React.Component {
     const { selectedIndex } = this.state;
 
     return (
-      <Row>
+      <Row className="tornado bottom-strip bottom-strip-container">
         {data.stats.map((stat, i) => (
           <BottomCol
+            className="tornado bottom-strip bottom-strip-column"
             key={`stat-${i}`}
             onClick={() => this.selectIndex(i)}
             selected={selectedIndex === i}
@@ -80,11 +86,11 @@ export default class Tornado extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
+    const { data, className = '' } = this.props;
     const { selectedIndex } = this.state;
 
     return (
-      <Container>
+      <Container className={className}>
         {this.topStrip()}
 
         <TornadoChart
@@ -107,6 +113,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+
+  * {
+    box-sizing: border-box;
+  }
 `;
 
 const Row = styled.div`
@@ -142,7 +152,7 @@ const Col = styled.div`
   visibility: hidden;
   animation: 1s ease-out 0s 1 fadeIn forwards;
   animation-delay: 500ms;
-  padding: 0 20px;
+  width: 100%;
 
   &:only-child {
     align-items: center;
@@ -160,5 +170,4 @@ const Col = styled.div`
 const BottomCol = styled(Col)`
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 20px;
 `;
