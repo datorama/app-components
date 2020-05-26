@@ -333,7 +333,7 @@ class TornadoChart extends Component {
       hoveringLines,
       hoveringConnector
     } = this.state;
-    const { rows, selectedIndex, labels, stats } = this.props;
+    const { rows, selectedIndex, labels } = this.props;
     const { value: tooltipText, abbreviated } = this.tooltipContent();
 
     let containerWidth = 0;
@@ -348,8 +348,17 @@ class TornadoChart extends Component {
     const OFFSET = TORNADO_OFFSET(numRows);
 
     return (
-      <Container height={CONSTANTS.CONTAINER_HEIGHT} disabled={!init}>
-        <Tooltip fixed title={tooltipText} visible={tooltipVisible}>
+      <Container
+        height={CONSTANTS.CONTAINER_HEIGHT}
+        disabled={!init}
+        className="tornado tornado-chart tornado-chart-container"
+      >
+        <Tooltip
+          fixed
+          title={tooltipText}
+          visible={tooltipVisible}
+          className="tornado tornado-chart tornado-chart-tooltip tornado-chart-tooltip-container"
+        >
           <Svg height={CONSTANTS.CONTAINER_HEIGHT}>
             <Base offsetX={OFFSET[0]} offsetY={OFFSET[1]}>
               <TornadoLines
@@ -382,7 +391,6 @@ class TornadoChart extends Component {
           rows={rows}
           selectedIndex={selectedIndex}
           amount={labels.length}
-          stats={stats}
           containerWidth={containerWidth}
         />
       </Container>
