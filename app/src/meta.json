@@ -268,6 +268,60 @@
   },
   {
     "description": "",
+    "displayName": "ClickOut",
+    "methods": [
+      {
+        "name": "handleClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleRef",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "el",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": true,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/ClickOut.js"
+  },
+  {
+    "description": "",
     "displayName": "Checkbox",
     "methods": [],
     "props": {
@@ -359,60 +413,6 @@
       }
     },
     "filename": "/components/base/Collapse.js"
-  },
-  {
-    "description": "",
-    "displayName": "ClickOut",
-    "methods": [
-      {
-        "name": "handleClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleRef",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "el",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": true,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/ClickOut.js"
   },
   {
     "description": "",
@@ -580,55 +580,6 @@
   },
   {
     "description": "",
-    "displayName": "Droppable",
-    "methods": [
-      {
-        "name": "setHover",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "hovering",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "id": {
-        "type": {
-          "name": "string"
-        },
-        "required": true,
-        "description": ""
-      },
-      "setHover": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Droppable.js"
-  },
-  {
-    "description": "",
     "displayName": "Ellipsis",
     "methods": [],
     "props": {
@@ -713,6 +664,77 @@
       }
     },
     "filename": "/components/base/ErrorPage.js"
+  },
+  {
+    "description": "",
+    "displayName": "Droppable",
+    "methods": [
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "hovering",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": ""
+      },
+      "setHover": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Droppable.js"
+  },
+  {
+    "description": "",
+    "displayName": "Fade",
+    "methods": [],
+    "props": {
+      "show": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Fade.js"
   },
   {
     "description": "",
@@ -933,6 +955,102 @@
   },
   {
     "description": "",
+    "displayName": "Popup",
+    "methods": [
+      {
+        "name": "handleMouseMove",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "menu",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "contentRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "position": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "'BOTTOM'",
+          "computed": false
+        }
+      },
+      "withClose": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "toggleOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "fixed": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "menuRef": {
+        "type": {
+          "name": "shape",
+          "value": {}
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Popup.js"
+  },
+  {
+    "description": "",
     "displayName": "Pagination",
     "methods": [
       {
@@ -1050,102 +1168,6 @@
       }
     },
     "filename": "/components/base/Progress.js"
-  },
-  {
-    "description": "",
-    "displayName": "Popup",
-    "methods": [
-      {
-        "name": "handleMouseMove",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "menu",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "contentRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "position": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "'BOTTOM'",
-          "computed": false
-        }
-      },
-      "withClose": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "toggleOpen": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "fixed": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "menuRef": {
-        "type": {
-          "name": "shape",
-          "value": {}
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Popup.js"
   },
   {
     "description": "",
@@ -1295,6 +1317,28 @@
   },
   {
     "description": "",
+    "displayName": "Spinner",
+    "methods": [],
+    "props": {
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Spinner.js"
+  },
+  {
+    "description": "",
     "displayName": "SegmentedButton",
     "methods": [],
     "props": {
@@ -1376,28 +1420,6 @@
   },
   {
     "description": "",
-    "displayName": "Spinner",
-    "methods": [],
-    "props": {
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Spinner.js"
-  },
-  {
-    "description": "",
     "displayName": "Stepper",
     "methods": [
       {
@@ -1455,6 +1477,49 @@
   },
   {
     "description": "",
+    "displayName": "StepperBullet",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "touched": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "enabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "hovered": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/StepperBullet.js"
+  },
+  {
+    "description": "",
     "displayName": "Sticky",
     "methods": [
       {
@@ -1496,49 +1561,6 @@
       }
     },
     "filename": "/components/base/Sticky.js"
-  },
-  {
-    "description": "",
-    "displayName": "StepperBullet",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "touched": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "enabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "hovered": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/StepperBullet.js"
   },
   {
     "description": "",
@@ -2474,6 +2496,1656 @@
   },
   {
     "description": "",
+    "displayName": "Filter",
+    "methods": [],
+    "props": {
+      "dimensions": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "onRemove": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "index": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "total": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "rowData": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchableOperator": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Filters/Filter.js"
+  },
+  {
+    "description": "",
+    "displayName": "Filters",
+    "methods": [],
+    "props": {
+      "dimensions": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": true,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "min": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "max": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "initialState": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchableOperator": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      }
+    },
+    "filename": "/components/base/Filters/Filters.js"
+  },
+  {
+    "description": "",
+    "displayName": "ToastsProvider",
+    "methods": [],
+    "filename": "/components/base/Notifications/Toasts.js"
+  },
+  {
+    "description": "",
+    "displayName": "SnackbarProvider",
+    "methods": [],
+    "props": {
+      "throttle": {
+        "defaultValue": {
+          "value": "200",
+          "computed": false
+        },
+        "required": false
+      }
+    },
+    "filename": "/components/base/Notifications/Snackbars.js"
+  },
+  {
+    "description": "",
+    "displayName": "NotificationsProvider",
+    "methods": [],
+    "filename": "/components/base/Notifications/index.js"
+  },
+  {
+    "description": "",
+    "displayName": "Tooltip",
+    "methods": [
+      {
+        "name": "title",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "long": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClickInfo": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "position": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "fixed": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "visible": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tornado/Tooltip.js"
+  },
+  {
+    "description": "",
+    "displayName": "Tornado",
+    "methods": [
+      {
+        "name": "selectIndex",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "selectedIndex",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "topStrip",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "bottomStrip",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "data": {
+        "type": {
+          "name": "shape",
+          "value": {
+            "labels": {
+              "name": "arrayOf",
+              "value": {
+                "name": "string"
+              },
+              "required": false
+            },
+            "rows": {
+              "name": "arrayOf",
+              "value": {
+                "name": "shape",
+                "value": {
+                  "id": {
+                    "name": "string",
+                    "required": false
+                  },
+                  "data": {
+                    "name": "arrayOf",
+                    "value": {
+                      "name": "number"
+                    },
+                    "required": false
+                  },
+                  "label": {
+                    "name": "string",
+                    "required": false
+                  },
+                  "totalValue": {
+                    "name": "number",
+                    "required": false
+                  },
+                  "totalPercentage": {
+                    "name": "string",
+                    "required": false
+                  }
+                }
+              },
+              "required": false
+            },
+            "stats": {
+              "name": "array",
+              "required": false
+            },
+            "topLabelRenderer": {
+              "name": "func",
+              "required": false
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tornado/Tornado.js"
+  },
+  {
+    "description": "",
+    "displayName": "TornadoArrows",
+    "methods": [],
+    "props": {
+      "selectedIndex": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "amount": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "containerWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "rows": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "id": {
+                "name": "string",
+                "required": false
+              },
+              "data": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "number"
+                },
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "required": false
+              },
+              "totalValue": {
+                "name": "number",
+                "required": false
+              },
+              "totalPercentage": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "stats": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tornado/TornadoArrows.js"
+  },
+  {
+    "description": "",
+    "displayName": "Popup",
+    "methods": [
+      {
+        "name": "handleMouseMove",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "contentRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "position": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "'BOTTOM'",
+          "computed": false
+        }
+      },
+      "withClose": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "toggleOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "fixed": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tornado/Popup.js"
+  },
+  {
+    "description": "",
+    "displayName": "TornadoEllipses",
+    "methods": [],
+    "props": {
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tornado/TornadoEllipses.js"
+  },
+  {
+    "description": "",
+    "displayName": "BottomTornadoStatsLabel",
+    "methods": [],
+    "filename": "/components/base/Tornado/retail-labels.js"
+  },
+  {
+    "description": "",
+    "displayName": "TornadoLines",
+    "methods": [],
+    "props": {
+      "onMouseEnter": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onMouseLeave": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "rows": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "id": {
+                "name": "string",
+                "required": false
+              },
+              "data": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "number"
+                },
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "required": false
+              },
+              "totalValue": {
+                "name": "number",
+                "required": false
+              },
+              "totalPercentage": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tornado/TornadoLines.js"
+  },
+  {
+    "description": "",
+    "displayName": "Gauge",
+    "methods": [],
+    "props": {
+      "start": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "end": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "min": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "max": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "value": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "labelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/charts/Gauge.js"
+  },
+  {
+    "description": "",
+    "displayName": "SnailChart",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "linecap": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "dividers": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "data": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "label": {
+                "name": "string",
+                "required": false
+              },
+              "percentage": {
+                "name": "number",
+                "required": false
+              },
+              "color": {
+                "name": "string",
+                "required": false
+              },
+              "hoverColor": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "onMouseEnter": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onMouseLeave": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/charts/SnailChart.js"
+  },
+  {
+    "description": "",
+    "displayName": "DragSvg",
+    "methods": [],
+    "props": {
+      "initialTranslation": {
+        "defaultValue": {
+          "value": "[0, 0]",
+          "computed": false
+        },
+        "required": false
+      }
+    },
+    "filename": "/components/base/charts/DragSvg.js"
+  },
+  {
+    "description": "",
+    "displayName": "GoalsChart",
+    "methods": [],
+    "props": {
+      "invert": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "data": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "animationSpeed": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "2000",
+          "computed": false
+        }
+      },
+      "dragColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "lineColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "ticksColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "labelsColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "fillColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "areaColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "value": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "axisLabelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "valueLabelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "lineLabelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "valueFormatter": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "identity",
+          "computed": true
+        }
+      },
+      "steps": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "padding": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "20",
+          "computed": false
+        }
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "minY": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "horizontalAxisLabelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/charts/GoalsChart.js"
+  },
+  {
+    "description": "",
+    "displayName": "DatepickerPresets",
+    "methods": [
+      {
+        "name": "setPresets",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "firstDayOfWeek": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "0",
+              "computed": false
+            },
+            {
+              "value": "1",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectedPreset": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "label": {
+                "name": "string",
+                "required": false
+              },
+              "value": {
+                "name": "union",
+                "value": [
+                  {
+                    "name": "string"
+                  },
+                  {
+                    "name": "number"
+                  }
+                ],
+                "required": false
+              },
+              "dateRange": {
+                "name": "object",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "customPresets": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "value": {
+                "name": "string",
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "required": false
+              },
+              "dateRange": {
+                "name": "shape",
+                "value": {
+                  "startDate": {
+                    "name": "instanceOf",
+                    "value": "Date",
+                    "required": false
+                  },
+                  "endDate": {
+                    "name": "instanceOf",
+                    "value": "Date",
+                    "required": false
+                  }
+                },
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Datepicker/DatepickerPresets.js"
+  },
+  {
+    "description": "",
+    "displayName": "Select",
+    "methods": [
+      {
+        "name": "checkString",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "searchTerm",
+            "type": null
+          },
+          {
+            "name": "str",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "filterOptions",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "filterGroupedOptions",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "sortGroupedOptions",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "options",
+            "type": null
+          },
+          {
+            "name": "sortBy",
+            "type": null
+          },
+          {
+            "name": "sortDirection",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "toggleOpen",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleKeyDown",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "event",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleVerticalArrowsClick",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "key",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "setNextOptionValue",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ allOptions, currentIndex }",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "setPrevOptionValue",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "{ allOptions, currentIndex }",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleClickOut",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "onSelect",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "option",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "selectAll",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "onSearch",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "e",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "applyChanges",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "values",
+            "type": null
+          },
+          {
+            "name": "extend",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "toggleFocus",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "getOptions",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "options": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "values": {
+        "type": {
+          "name": "custom",
+          "raw": "optionsType"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onKeyDown": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onKeyUp": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "sortBy": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "'label'",
+          "computed": false
+        }
+      },
+      "sortable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "multi": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "keepOpen": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "searchBy": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "['label']",
+          "computed": false
+        }
+      },
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "debounce": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "headerRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "optionRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "optionLabelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "placeholderRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "menuRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxItems": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "5",
+          "computed": false
+        }
+      },
+      "closeOnSelect": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "sortDirection": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'asc'",
+              "computed": false
+            },
+            {
+              "value": "'desc'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "'asc'",
+          "computed": false
+        }
+      },
+      "searchPlaceholder": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "error": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "small": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "large": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "inlineSearch": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxTags": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "999",
+          "computed": false
+        }
+      },
+      "clearOnClose": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "keepSelected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disableSearch": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "spinnerColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Select/Select.js"
+  },
+  {
+    "description": "",
+    "displayName": "TornadoChart",
+    "methods": [
+      {
+        "name": "animateInterpolation",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "interpolation",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "[x, y]",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "interpolate",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "toggleConnectorhover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "hoveringConnector",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "row",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "width",
+            "type": null
+          },
+          {
+            "name": "index",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "selectIndex",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "index",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "hoverIndex",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "index",
+            "type": null
+          },
+          {
+            "name": "rowIndex",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "tooltipContent",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      },
+      {
+        "name": "handleLinesMouseEnter",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "line",
+            "type": null
+          }
+        ],
+        "returns": null
+      },
+      {
+        "name": "handleLinesMouseLeave",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
+    "props": {
+      "labels": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "rows": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "id": {
+                "name": "string",
+                "required": false
+              },
+              "data": {
+                "name": "arrayOf",
+                "value": {
+                  "name": "number"
+                },
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "required": false
+              },
+              "totalValue": {
+                "name": "number",
+                "required": false
+              },
+              "totalPercentage": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "stats": {
+        "type": {
+          "name": "array"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectedIndex": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectIndex": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tornado/TornadoChart.js"
+  },
+  {
+    "description": "",
     "displayName": "Datepicker",
     "methods": [
       {
@@ -2799,1649 +4471,6 @@
   },
   {
     "description": "",
-    "displayName": "DatepickerPresets",
-    "methods": [
-      {
-        "name": "setPresets",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "firstDayOfWeek": {
-        "type": {
-          "name": "enum",
-          "value": [
-            {
-              "value": "0",
-              "computed": false
-            },
-            {
-              "value": "1",
-              "computed": false
-            }
-          ]
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selectedPreset": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "label": {
-                "name": "string",
-                "required": false
-              },
-              "value": {
-                "name": "union",
-                "value": [
-                  {
-                    "name": "string"
-                  },
-                  {
-                    "name": "number"
-                  }
-                ],
-                "required": false
-              },
-              "dateRange": {
-                "name": "object",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "customPresets": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "value": {
-                "name": "string",
-                "required": false
-              },
-              "label": {
-                "name": "string",
-                "required": false
-              },
-              "dateRange": {
-                "name": "shape",
-                "value": {
-                  "startDate": {
-                    "name": "instanceOf",
-                    "value": "Date",
-                    "required": false
-                  },
-                  "endDate": {
-                    "name": "instanceOf",
-                    "value": "Date",
-                    "required": false
-                  }
-                },
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Datepicker/DatepickerPresets.js"
-  },
-  {
-    "description": "",
-    "displayName": "Filter",
-    "methods": [],
-    "props": {
-      "dimensions": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "object"
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "onRemove": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
-      "index": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "total": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "rowData": {
-        "type": {
-          "name": "object"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchableOperator": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Filters/Filter.js"
-  },
-  {
-    "description": "",
-    "displayName": "Filters",
-    "methods": [],
-    "props": {
-      "dimensions": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "object"
-          }
-        },
-        "required": true,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "min": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "max": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "initialState": {
-        "type": {
-          "name": "array"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchableOperator": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "false",
-          "computed": false
-        }
-      }
-    },
-    "filename": "/components/base/Filters/Filters.js"
-  },
-  {
-    "description": "",
-    "displayName": "SnackbarProvider",
-    "methods": [],
-    "props": {
-      "throttle": {
-        "defaultValue": {
-          "value": "200",
-          "computed": false
-        },
-        "required": false
-      }
-    },
-    "filename": "/components/base/Notifications/Snackbars.js"
-  },
-  {
-    "description": "",
-    "displayName": "ToastsProvider",
-    "methods": [],
-    "filename": "/components/base/Notifications/Toasts.js"
-  },
-  {
-    "description": "",
-    "displayName": "NotificationsProvider",
-    "methods": [],
-    "filename": "/components/base/Notifications/index.js"
-  },
-  {
-    "description": "",
-    "displayName": "Select",
-    "methods": [
-      {
-        "name": "checkString",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "searchTerm",
-            "type": null
-          },
-          {
-            "name": "str",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "filterOptions",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "filterGroupedOptions",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "sortGroupedOptions",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "options",
-            "type": null
-          },
-          {
-            "name": "sortBy",
-            "type": null
-          },
-          {
-            "name": "sortDirection",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "toggleOpen",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleKeyDown",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "event",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleVerticalArrowsClick",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "key",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "setNextOptionValue",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{ allOptions, currentIndex }",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "setPrevOptionValue",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "{ allOptions, currentIndex }",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleClickOut",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "onSelect",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "option",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "selectAll",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "onSearch",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "applyChanges",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "values",
-            "type": null
-          },
-          {
-            "name": "extend",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "toggleFocus",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "options": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "values": {
-        "type": {
-          "name": "custom",
-          "raw": "optionsType"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onKeyDown": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onKeyUp": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "sortBy": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "'label'",
-          "computed": false
-        }
-      },
-      "sortable": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "true",
-          "computed": false
-        }
-      },
-      "multi": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "false",
-          "computed": false
-        }
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchable": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "false",
-          "computed": false
-        }
-      },
-      "keepOpen": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "searchBy": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "string"
-          }
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "['label']",
-          "computed": false
-        }
-      },
-      "loading": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "debounce": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "0",
-          "computed": false
-        }
-      },
-      "headerRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "optionRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "optionLabelRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "placeholderRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "menuRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "maxItems": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "5",
-          "computed": false
-        }
-      },
-      "closeOnSelect": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "true",
-          "computed": false
-        }
-      },
-      "sortDirection": {
-        "type": {
-          "name": "enum",
-          "value": [
-            {
-              "value": "'asc'",
-              "computed": false
-            },
-            {
-              "value": "'desc'",
-              "computed": false
-            }
-          ]
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "'asc'",
-          "computed": false
-        }
-      },
-      "searchPlaceholder": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "error": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "small": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "large": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "inlineSearch": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "maxTags": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "999",
-          "computed": false
-        }
-      },
-      "clearOnClose": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "true",
-          "computed": false
-        }
-      },
-      "keepSelected": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disableSearch": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "spinnerColor": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Select/Select.js"
-  },
-  {
-    "description": "",
-    "displayName": "Tooltip",
-    "methods": [
-      {
-        "name": "title",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "title": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "long": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClickInfo": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "position": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "fixed": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "visible": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tornado/Tooltip.js"
-  },
-  {
-    "description": "",
-    "displayName": "Popup",
-    "methods": [
-      {
-        "name": "handleMouseMove",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "e",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "contentRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "position": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "'BOTTOM'",
-          "computed": false
-        }
-      },
-      "withClose": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "toggleOpen": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "fixed": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tornado/Popup.js"
-  },
-  {
-    "description": "",
-    "displayName": "Tornado",
-    "methods": [
-      {
-        "name": "selectIndex",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "selectedIndex",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "topStrip",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "bottomStrip",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "data": {
-        "type": {
-          "name": "shape",
-          "value": {
-            "labels": {
-              "name": "arrayOf",
-              "value": {
-                "name": "string"
-              },
-              "required": false
-            },
-            "rows": {
-              "name": "arrayOf",
-              "value": {
-                "name": "shape",
-                "value": {
-                  "id": {
-                    "name": "string",
-                    "required": false
-                  },
-                  "data": {
-                    "name": "arrayOf",
-                    "value": {
-                      "name": "number"
-                    },
-                    "required": false
-                  },
-                  "label": {
-                    "name": "string",
-                    "required": false
-                  },
-                  "totalValue": {
-                    "name": "number",
-                    "required": false
-                  },
-                  "totalPercentage": {
-                    "name": "string",
-                    "required": false
-                  }
-                }
-              },
-              "required": false
-            },
-            "stats": {
-              "name": "array",
-              "required": false
-            },
-            "topLabelRenderer": {
-              "name": "func",
-              "required": false
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tornado/Tornado.js"
-  },
-  {
-    "description": "",
-    "displayName": "TornadoArrows",
-    "methods": [],
-    "props": {
-      "selectedIndex": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "amount": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "containerWidth": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "rows": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "id": {
-                "name": "string",
-                "required": false
-              },
-              "data": {
-                "name": "arrayOf",
-                "value": {
-                  "name": "number"
-                },
-                "required": false
-              },
-              "label": {
-                "name": "string",
-                "required": false
-              },
-              "totalValue": {
-                "name": "number",
-                "required": false
-              },
-              "totalPercentage": {
-                "name": "string",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "stats": {
-        "type": {
-          "name": "array"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tornado/TornadoArrows.js"
-  },
-  {
-    "description": "",
-    "displayName": "TornadoEllipses",
-    "methods": [],
-    "props": {
-      "loading": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tornado/TornadoEllipses.js"
-  },
-  {
-    "description": "",
-    "displayName": "BottomTornadoStatsLabel",
-    "methods": [],
-    "filename": "/components/base/Tornado/retail-labels.js"
-  },
-  {
-    "description": "",
-    "displayName": "DragSvg",
-    "methods": [],
-    "props": {
-      "initialTranslation": {
-        "defaultValue": {
-          "value": "[0, 0]",
-          "computed": false
-        },
-        "required": false
-      }
-    },
-    "filename": "/components/base/charts/DragSvg.js"
-  },
-  {
-    "description": "",
-    "displayName": "TornadoLines",
-    "methods": [],
-    "props": {
-      "onMouseEnter": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onMouseLeave": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "rows": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "id": {
-                "name": "string",
-                "required": false
-              },
-              "data": {
-                "name": "arrayOf",
-                "value": {
-                  "name": "number"
-                },
-                "required": false
-              },
-              "label": {
-                "name": "string",
-                "required": false
-              },
-              "totalValue": {
-                "name": "number",
-                "required": false
-              },
-              "totalPercentage": {
-                "name": "string",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tornado/TornadoLines.js"
-  },
-  {
-    "description": "",
-    "displayName": "GoalsChart",
-    "methods": [],
-    "props": {
-      "invert": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "false",
-          "computed": false
-        }
-      },
-      "data": {
-        "type": {
-          "name": "array"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "[]",
-          "computed": false
-        }
-      },
-      "animationSpeed": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "2000",
-          "computed": false
-        }
-      },
-      "dragColor": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "lineColor": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "ticksColor": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "labelsColor": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "fillColor": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "areaColor": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "value": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "axisLabelRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "valueLabelRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "lineLabelRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "valueFormatter": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "identity",
-          "computed": true
-        }
-      },
-      "steps": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "10",
-          "computed": false
-        }
-      },
-      "padding": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "20",
-          "computed": false
-        }
-      },
-      "id": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "maxY": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "minY": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "horizontalAxisLabelRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/charts/GoalsChart.js"
-  },
-  {
-    "description": "",
-    "displayName": "Gauge",
-    "methods": [],
-    "props": {
-      "start": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "end": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "min": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "max": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "value": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "labelRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/charts/Gauge.js"
-  },
-  {
-    "description": "",
-    "displayName": "TornadoChart",
-    "methods": [
-      {
-        "name": "animateInterpolation",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "interpolation",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "[x, y]",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "interpolate",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "toggleConnectorhover",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "hoveringConnector",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "row",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "width",
-            "type": null
-          },
-          {
-            "name": "index",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "selectIndex",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "index",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "hoverIndex",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "index",
-            "type": null
-          },
-          {
-            "name": "rowIndex",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "tooltipContent",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      },
-      {
-        "name": "handleLinesMouseEnter",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "line",
-            "type": null
-          }
-        ],
-        "returns": null
-      },
-      {
-        "name": "handleLinesMouseLeave",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "labels": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "string"
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "rows": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "id": {
-                "name": "string",
-                "required": false
-              },
-              "data": {
-                "name": "arrayOf",
-                "value": {
-                  "name": "number"
-                },
-                "required": false
-              },
-              "label": {
-                "name": "string",
-                "required": false
-              },
-              "totalValue": {
-                "name": "number",
-                "required": false
-              },
-              "totalPercentage": {
-                "name": "string",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "stats": {
-        "type": {
-          "name": "array"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selectedIndex": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selectIndex": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tornado/TornadoChart.js"
-  },
-  {
-    "description": "",
-    "displayName": "SnailChart",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "linecap": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "dividers": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "data": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "label": {
-                "name": "string",
-                "required": false
-              },
-              "percentage": {
-                "name": "number",
-                "required": false
-              },
-              "color": {
-                "name": "string",
-                "required": false
-              },
-              "hoverColor": {
-                "name": "string",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "onMouseEnter": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onMouseLeave": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/charts/SnailChart.js"
-  },
-  {
-    "description": "",
     "displayName": "GoalsChartPoints",
     "methods": [],
     "props": {
@@ -4457,21 +4486,21 @@
   },
   {
     "description": "",
-    "displayName": "GoalsChartValue",
-    "methods": [],
-    "filename": "/components/base/charts/goals-chart/GoalsChartValue.js"
-  },
-  {
-    "description": "",
     "displayName": "GoalsChartHoverPoints",
     "methods": [],
     "filename": "/components/base/charts/goals-chart/GoalsChartHoverPoints.js"
   },
   {
     "description": "",
-    "displayName": "HorizAxis",
+    "displayName": "GoalsChartDrag",
     "methods": [],
-    "filename": "/components/base/charts/goals-chart/HorizAxis.js"
+    "filename": "/components/base/charts/goals-chart/GoalsChartDrag.js"
+  },
+  {
+    "description": "",
+    "displayName": "GoalsChartValue",
+    "methods": [],
+    "filename": "/components/base/charts/goals-chart/GoalsChartValue.js"
   },
   {
     "description": "",
@@ -4481,8 +4510,8 @@
   },
   {
     "description": "",
-    "displayName": "GoalsChartDrag",
+    "displayName": "HorizAxis",
     "methods": [],
-    "filename": "/components/base/charts/goals-chart/GoalsChartDrag.js"
+    "filename": "/components/base/charts/goals-chart/HorizAxis.js"
   }
 ]
