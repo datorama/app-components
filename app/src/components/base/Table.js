@@ -30,7 +30,9 @@ const TableBody = memo(({ filtered, headers, colRenderer }) =>
   ))
 );
 
-const Empty = () => <Message>No data</Message>;
+const Empty = ({ emptyRenderer }) => (
+  <Message>{emptyRenderer ? emptyRenderer() : 'No Data'}</Message>
+);
 const NoResults = () => <Message>No Results</Message>;
 
 const TableHead = memo(({ headers }) =>
@@ -47,47 +49,69 @@ const TableHead = memo(({ headers }) =>
 );
 
 const Table = props => {
-  const { data, headers, maxPage, colRenderer } = props;
+  const {
+    data,
+    headers,
+    maxPage,
+    colRenderer,
+    placeholder,
+    footerText,
+    emptyRenderer,
+    onSearch
+  } = props;
   const [page, setPage] = useState(0);
   const [term, setTerm] = useState('');
   const debouncedTerm = useDebounce(term, 500);
 
   const filtered = useMemo(
     () =>
-      flow(
-        filter(row => {
-          let filterRow = false;
+      !!onSearch
+        ? chunk(maxPage, data)
+        : flow(
+            filter(row => {
+              let filterRow = false;
 
-          forEach(header => {
-            if (
-              get(header.path, row)
-                .toString()
-                .toLowerCase()
-                .includes(debouncedTerm.toLowerCase())
-            ) {
-              filterRow = true;
+              forEach(header => {
+                if (
+                  get(header.path, row)
+                    .toString()
+                    .toLowerCase()
+                    .includes(debouncedTerm.toLowerCase())
+                ) {
+                  filterRow = true;
 
-              return false;
-            }
-          }, headers);
+                  return false;
+                }
+              }, headers);
 
-          return filterRow;
-        }),
-        chunk(maxPage)
-      )(data),
-    [data, debouncedTerm, headers, maxPage]
+              return filterRow;
+            }),
+            chunk(maxPage)
+          )(data),
+    [data, debouncedTerm, headers, maxPage, onSearch]
   );
 
   const handlePagination = useCallback(index => setPage(index - 1), []);
-  const handleKey = useCallback(e => {
-    setTerm(e.target.value);
-    setPage(0);
-  }, []);
+  const handleKey = useCallback(
+    e => {
+      if (!!onSearch) {
+        onSearch(e.target.value);
+      } else {
+        setTerm(e.target.value);
+      }
+
+      setPage(0);
+    },
+    [onSearch]
+  );
 
   return (
     <Container>
-      <Header>
-        <StyledInput placeholder="search" onChange={handleKey} />
+      <Header className="input-wrapper">
+        <StyledInput
+          placeholder={placeholder || 'search'}
+          onChange={handleKey}
+        />
       </Header>
 
       <Row className="header">
@@ -101,7 +125,7 @@ const Table = props => {
           colRenderer={colRenderer}
         />
 
-        {isEmpty(data) && <Empty />}
+        {isEmpty(data) && <Empty emptyRenderer={emptyRenderer} />}
 
         {!isEmpty(data) && isEmpty(filtered) && <NoResults />}
       </Body>
@@ -115,6 +139,7 @@ const Table = props => {
             onChange={handlePagination}
           />
         )}
+        {!!footerText && footerText}
       </Footer>
     </Container>
   );
@@ -124,14 +149,18 @@ Table.propTypes = {
   headers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      label: PropTypes.string,
+      label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
       path: PropTypes.string,
       size: PropTypes.number
     })
   ),
   data: PropTypes.arrayOf(PropTypes.object),
   maxPage: PropTypes.number,
-  colRenderer: PropTypes.func
+  colRenderer: PropTypes.func,
+  placeholder: PropTypes.string,
+  footerText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  emptyRenderer: PropTypes.func,
+  onSearch: PropTypes.func
 };
 
 Table.defaultProps = {
@@ -166,6 +195,7 @@ const Footer = styled.div`
   display: flex;
   align-items: center;
   box-sizing: border-box;
+  justify-content: space-between;
   padding: 0 20px;
 `;
 

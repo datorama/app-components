@@ -88,7 +88,7 @@ class InlineSearch extends Component {
         error={this.props.error}
         small={this.props.small}
         large={this.props.large}
-        className="inline-container"
+        className={`inline-container ${this.props.open ? 'open' : 'closed'}`}
         open={this.props.open}
       >
         <Inner>

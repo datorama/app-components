@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import { noop } from 'lodash/fp';
 
 // utils
 import { hexToRgba } from '../utils';
@@ -21,7 +22,8 @@ export default class Modal extends React.Component {
       PropTypes.oneOfType([PropTypes.object, PropTypes.func])
     ).isRequired,
     size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
-    overlayColor: PropTypes.string
+    overlayColor: PropTypes.string,
+    closeOnOverlayClick: PropTypes.bool
   };
 
   state = {
@@ -58,7 +60,8 @@ export default class Modal extends React.Component {
       buttons,
       children,
       size,
-      overlayColor
+      overlayColor,
+      closeOnOverlayClick = true
     } = this.props;
     const { localOpen } = this.state;
 
@@ -70,7 +73,7 @@ export default class Modal extends React.Component {
       <Fragment>
         <Overlay
           open={localOpen}
-          onClick={this.throttledToggle}
+          onClick={closeOnOverlayClick ? this.throttledToggle : noop}
           visible={open}
           color={overlayColor}
         />
