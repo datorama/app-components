@@ -149,7 +149,7 @@ Table.propTypes = {
   headers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      label: PropTypes.string,
+      label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
       path: PropTypes.string,
       size: PropTypes.number
     })
