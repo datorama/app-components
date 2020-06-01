@@ -149,7 +149,7 @@ Table.propTypes = {
   headers: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      label: PropTypes.string,
+      label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
       path: PropTypes.string,
       size: PropTypes.number
     })
@@ -158,7 +158,7 @@ Table.propTypes = {
   maxPage: PropTypes.number,
   colRenderer: PropTypes.func,
   placeholder: PropTypes.string,
-  footerText: PropTypes.oneOfType([PropTypes.elementType, PropTypes.string]),
+  footerText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   emptyRenderer: PropTypes.func,
   onSearch: PropTypes.func
 };
