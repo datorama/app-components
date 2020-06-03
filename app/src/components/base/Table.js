@@ -109,7 +109,7 @@ const Table = props => {
   return (
     <Container>
       {tableHeaderRenderer ? (
-        tableHeaderRenderer()
+        tableHeaderRenderer({ setSearch: handleKey })
       ) : (
         <Header className="input-wrapper">
           <StyledInput
