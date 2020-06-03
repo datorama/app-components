@@ -58,7 +58,7 @@ const Table = props => {
     footerText,
     emptyRenderer,
     onSearch,
-    topFiltersRenderer
+    tableHeaderRenderer
   } = props;
   const [page, setPage] = useState(0);
   const [term, setTerm] = useState('');
@@ -108,8 +108,8 @@ const Table = props => {
 
   return (
     <Container>
-      {topFiltersRenderer ? (
-        topFiltersRenderer()
+      {tableHeaderRenderer ? (
+        tableHeaderRenderer()
       ) : (
         <Header className="input-wrapper">
           <StyledInput
@@ -166,7 +166,7 @@ Table.propTypes = {
   footerText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   emptyRenderer: PropTypes.func,
   onSearch: PropTypes.func,
-  topFiltersRenderer: PropTypes.func
+  tableHeaderRenderer: PropTypes.func
 };
 
 Table.defaultProps = {
