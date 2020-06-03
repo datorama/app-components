@@ -19,6 +19,7 @@ import Layout from './docs/Layout.doc';
 import Datepicker from './docs/Datepicker.doc';
 import ClickOut from './docs/ClickOut.doc';
 import Typography from './docs/Typography.doc';
+import Theme from './docs/Theme.doc';
 import Button from './docs/Button.doc';
 import Animations from './docs/Animations.doc';
 import Card from './docs/Card.doc';
@@ -159,6 +160,7 @@ class App extends Component {
       { key: 'colors', label: 'Colors', path: 'colors' },
       { key: 'layout', label: 'Layout', path: 'layout' },
       { key: 'typography', label: 'Typography', path: 'typography' },
+      { key: 'theme', label: 'Theme', path: 'theme' },
 
       { key: 'components', label: 'Components', type: 'title' },
       { key: 'button', label: 'Button', path: 'button' },
@@ -238,6 +240,7 @@ class App extends Component {
                 <Route exact path="/typography" component={Typography} />
                 <Route exact path="/layout" component={Layout} />
                 <Route exact path="/animations" component={Animations} />
+                <Route exact path="/theme" component={Theme} />
 
                 <Route exact path="/button" component={Button} />
                 <Route exact path="/datepicker" component={Datepicker} />
