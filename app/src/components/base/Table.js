@@ -57,7 +57,8 @@ const Table = props => {
     placeholder,
     footerText,
     emptyRenderer,
-    onSearch
+    onSearch,
+    topFiltersRenderer
   } = props;
   const [page, setPage] = useState(0);
   const [term, setTerm] = useState('');
@@ -107,12 +108,16 @@ const Table = props => {
 
   return (
     <Container>
-      <Header className="input-wrapper">
-        <StyledInput
-          placeholder={placeholder || 'search'}
-          onChange={handleKey}
-        />
-      </Header>
+      {topFiltersRenderer ? (
+        topFiltersRenderer()
+      ) : (
+        <Header className="input-wrapper">
+          <StyledInput
+            placeholder={placeholder || 'search'}
+            onChange={handleKey}
+          />
+        </Header>
+      )}
 
       <Row className="header">
         <TableHead headers={headers} />
@@ -160,7 +165,8 @@ Table.propTypes = {
   placeholder: PropTypes.string,
   footerText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   emptyRenderer: PropTypes.func,
-  onSearch: PropTypes.func
+  onSearch: PropTypes.func,
+  topFiltersRenderer: PropTypes.func
 };
 
 Table.defaultProps = {
