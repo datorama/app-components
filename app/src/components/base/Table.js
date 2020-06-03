@@ -9,7 +9,7 @@ import { get, forEach, flow, chunk, filter, isEmpty } from 'lodash/fp';
 
 const TableBody = memo(({ filtered, headers, colRenderer }) =>
   filtered.map((row, i) => (
-    <Row key={`row-${i}`}>
+    <Row key={`row-${i}`} className="body-row">
       {headers.map(header => (
         <Col
           key={`cell-${header.id}`}
