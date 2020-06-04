@@ -59,18 +59,11 @@ const snippet = `
       totalPercentage: "100"
     },
     {
-      id: "row-1",
-      data: [120, 300, 150, 120, 600],
-      label: "Page visits",
-      totalValue: 1410,
-      totalPercentage: "39"
-    },
-    {
       id: "row-2",
-      data: [60, 80, 100, 40, 220],
       label: "Carts created",
-      totalValue: 450,
-      totalPercentage: "12"
+      placeholderMessage: "Hello World",
+      onPlaceholderClick: ()=> alert("Pickles!"),
+      data: [null, null, null, null, null ],  
     },
     {
       id: "row-3",

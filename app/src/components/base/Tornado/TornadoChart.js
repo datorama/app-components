@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import styled from 'styled-components';
 import Warp from 'warpjs';
 import { get, sum, isNumber, size } from 'lodash/fp';
@@ -12,6 +12,7 @@ import TornadoEllipses from './TornadoEllipses';
 import TornadoLines from './TornadoLines';
 import TornadoArrows from './TornadoArrows';
 import Tooltip from './Tooltip';
+import TornadoRowPlaceholder from './TornadoRowPlaceholder';
 import { TORNADO_OFFSET } from './tornado.constants';
 
 class TornadoChart extends Component {
@@ -80,6 +81,19 @@ class TornadoChart extends Component {
 
   row(width, index) {
     const { rows, selectedIndex } = this.props;
+
+    if (rows[index].placeholderMessage) {
+      return (
+        <TornadoRowPlaceholder
+          key={index}
+          index={index}
+          width={width}
+          placeholderMessage={rows[index].placeholderMessage}
+          onClick={rows[index].onPlaceholderClick}
+        />
+      );
+    }
+
     const { loading, animating, hoveredIndex, init } = this.state;
     const rowData = normalize(rows[index].data, width);
     const rawData = rows[index].data;
@@ -138,7 +152,10 @@ class TornadoChart extends Component {
       }
 
       // build connectors
-      if (rows.length - 1 > index) {
+      if (
+        rows.length - 1 > index &&
+        !rows.some(row => !!row.placeholderMessage)
+      ) {
         const nextRowData = normalize(rows[index + 1].data, BASE[index + 1]);
         const nextRowTotal = sum(nextRowData);
         const nextWidth =
@@ -424,7 +441,7 @@ const Base = styled.g`
   cursor: ${({ clickable }) => (clickable ? 'pointer' : 'auto')};
 `;
 
-const Rect = styled.rect`
+export const Rect = styled.rect`
   fill: ${({ fill }) => fill || 'transparent'};
   stroke: ${({ fill }) => fill || 'transparent'};
   stroke-width: 1px;
