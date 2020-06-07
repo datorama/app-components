@@ -204,7 +204,7 @@ const TornadoDoc = () => {
       <Row>
         <Col>
           <SectionTitle>
-            3 row 4 funnels Tornado with placeholder and initial index
+            3 rows 4 funnels Tornado with placeholder and initial index
           </SectionTitle>
         </Col>
       </Row>
