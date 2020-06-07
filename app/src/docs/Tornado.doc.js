@@ -62,8 +62,7 @@ const snippet = `
       id: "row-2",
       label: "Carts created",
       placeholderMessage: "Hello World",
-      onPlaceholderClick: ()=> alert("Pickles!"),
-      data: [null, null, null, null, null ],  
+      onPlaceholderClick: ()=> alert("Pickles!"),  
     },
     {
       id: "row-3",
