@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { fill, size } from 'lodash/fp';
+import { fill, size, isNil } from 'lodash/fp';
 
 import { MAIN_COLORS } from './tornado.constants';
 
@@ -25,7 +25,8 @@ export default class Tornado extends React.Component {
       ),
       stats: PropTypes.array,
       topLabelRenderer: PropTypes.func
-    })
+    }),
+    initialIndex: PropTypes.number
   };
 
   state = {
@@ -35,10 +36,18 @@ export default class Tornado extends React.Component {
   selectIndex = selectedIndex => this.setState({ selectedIndex });
 
   componentDidMount() {
-    const { labels } = this.props.data;
-    const middle = Math.floor(labels.length / 2);
+    const {
+      data: { labels },
+      initialIndex
+    } = this.props;
 
-    this.selectIndex(middle);
+    if (!isNil(initialIndex)) {
+      this.selectIndex(initialIndex);
+    } else {
+      const middle = Math.floor(labels.length / 2);
+
+      this.selectIndex(middle);
+    }
   }
 
   topStrip() {
