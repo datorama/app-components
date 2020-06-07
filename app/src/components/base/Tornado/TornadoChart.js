@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import Warp from 'warpjs';
 import { get, sum, isNumber, size } from 'lodash/fp';
