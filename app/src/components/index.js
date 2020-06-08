@@ -1,5 +1,5 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 // LIB CORE
 import * as libColors from './colors';
@@ -64,11 +64,59 @@ export { default as SnailChart } from './base/charts/SnailChart';
 export { default as GoalsChart } from './base/charts/GoalsChart';
 export { default as Gauge } from './base/charts/Gauge';
 
-export const AppTheme = ({ provider: Provider, theme, children }) => (
-  <Provider theme={theme}>
-    <ThemeProvider theme={theme}>{children}</ThemeProvider>
-  </Provider>
-);
+export const AppTheme = ({ provider: Provider, theme, children }) => {
+  return (
+    <Provider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles font={theme.font} />
+        {children}
+      </ThemeProvider>
+    </Provider>
+  );
+};
+
+const GlobalStyles = createGlobalStyle`
+  ${({ font }) => {
+    switch (font) {
+      case 'roboto':
+        return `
+          @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+    
+          body, input, select, textarea, button {
+            font-family: 'Roboto', sans-serif;
+          }
+        `;
+
+      case 'lato':
+        return `
+          @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+          
+          body, input, select, textarea, button {
+            font-family: 'Lato', sans-serif;
+          }
+        `;
+
+      case 'merriweather':
+        return `
+          @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
+          
+          body, input, select, textarea, button {
+            font-family: 'Merriweather', serif;
+          }
+        `;
+
+      default:
+        return `
+          @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+    
+          body, input, select, textarea, button {
+            font-family: 'Open Sans', sans-serif;
+          }
+        `;
+    }
+  }};
+  
+`;
 
 // DEFAULT COMPONENTS HEIGHTS
 const SMALL = '24px';

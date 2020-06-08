@@ -74,3 +74,45 @@ export const uuid = () => {
     return v.toString(16);
   });
 };
+
+export const getColors = (hex, arr, dark, prefix) => {
+  const result = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    result[`${prefix}${arr[i]}`] =
+      arr[i] === 400
+        ? hex
+        : shadeColor(hex, dark ? arr[arr.length - 1 - i] : arr[i]);
+  }
+
+  return result;
+};
+
+export const extendTheme = ({ theme, options }) => {
+  let newTheme = { ...theme };
+
+  // colors
+  if (options.primary) {
+    const arr = [0, 50, 100, 200, 300, 400, 500, 600, 700];
+
+    newTheme = {
+      ...newTheme,
+      ...getColors(options.primary, arr, options.dark, 'p')
+    };
+  }
+
+  if (options.accent) {
+    const arr = [100, 200, 300, 350, 400, 500, 600, 700, 800];
+
+    newTheme = {
+      ...newTheme,
+      ...getColors(options.accent, arr, options.dark, 'a')
+    };
+  }
+
+  // typography
+  newTheme.font = options.font || 'open-sans';
+
+  // scale (only fonts)
+  return newTheme;
+};
