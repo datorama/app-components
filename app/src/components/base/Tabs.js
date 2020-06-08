@@ -6,34 +6,6 @@ const Tabs = props => {
   const [tabWidths, setTabsWidths] = useState([]);
   const [prevWidth, setPrevWidth] = useState([]);
   const [localWidths, setLocalWidths] = useState([]);
-
-  const calculateWidths = useCallback(() => {
-    if (localWidths.length === props.tabs.length) {
-      const { tabs } = props;
-
-      let total = 0;
-      const prevTemp = [0];
-      for (let i = 0; i < tabs.length; i++) {
-        total += localWidths[i];
-        prevTemp.push(total);
-      }
-
-      setPrevWidth(prevWidths => [...prevTemp]);
-      setTabsWidths(tabsWidths => [...localWidths]);
-    }
-  }, [localWidths, props]);
-
-  const handleTabRef = useCallback(el => {
-    if (el) {
-      const { width } = el.getBoundingClientRect();
-      setLocalWidths(localWidths => [...localWidths, width]);
-    }
-  }, []);
-
-  useEffect(() => {
-    calculateWidths();
-  }, [localWidths, calculateWidths]);
-
   const {
     contentRenderer,
     labelRenderer,
@@ -44,6 +16,28 @@ const Tabs = props => {
     justify,
     className
   } = props;
+
+  const handleTabRef = useCallback(el => {
+    if (el) {
+      const { width } = el.getBoundingClientRect();
+      setLocalWidths(localWidths => [...localWidths, width]);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localWidths.length === tabs.length) {
+      let total = 0;
+      const prevTemp = [0];
+      for (let i = 0; i < tabs.length; i++) {
+        total += localWidths[i];
+        prevTemp.push(total);
+      }
+
+      setPrevWidth(prevWidths => [...prevTemp]);
+      setTabsWidths(tabsWidths => [...localWidths]);
+    }
+  }, [localWidths, tabs.length]);
+
   return (
     <Container className={className}>
       <Header justify={justify}>
