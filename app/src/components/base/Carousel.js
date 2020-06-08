@@ -1,74 +1,58 @@
-import React, { Component, Fragment } from 'react';
+import React, {
+  Fragment,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback
+} from 'react';
 import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 import styled, { css } from 'styled-components';
 
-class Carousel extends Component {
-  static propTypes = {
-    slides: PropTypes.arrayOf(PropTypes.node).isRequired,
-    loading: PropTypes.bool,
-    className: PropTypes.string,
-    minHeight: PropTypes.number,
-    prevControl: PropTypes.func,
-    nextControl: PropTypes.func,
-    controls: PropTypes.bool,
-    bulletSize: PropTypes.number,
-    bulletBg: PropTypes.string,
-    bulletActiveBg: PropTypes.string,
-    bulletHoverBg: PropTypes.string,
-    bullets: PropTypes.bool,
-    infinite: PropTypes.bool
-  };
+const Carousel = props => {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  static defaultProps = {
-    bullets: true,
-    infinite: true
-  };
+  const {
+    className,
+    controls,
+    nextControl,
+    prevControl,
+    bullets,
+    infinite,
+    slides,
+    minHeight,
+    loading,
+    bulletSize,
+    bulletBg,
+    bulletActiveBg,
+    bulletHoverBg
+  } = props;
 
-  state = {
-    current: 0
-  };
+  const total = slides.length;
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.slides !== this.props.slides) {
-      this.setState({ current: 0 });
-    }
-  }
+  useEffect(() => {
+    setCurrentSlide(0);
+  }, [slides]);
 
-  getTotal = () => {
-    return this.props.slides.length;
-  };
-
-  next = () => {
-    const { current } = this.state;
-    const total = this.getTotal();
-
+  const next = useCallback(() => {
     // Last slide - go to first slide
-    if (current === total - 1) {
-      this.setSlide(0);
+    if (currentSlide === total - 1) {
+      setCurrentSlide(0);
     } else {
-      this.setSlide(current + 1);
+      setCurrentSlide(current => current + 1);
     }
-  };
+  }, [currentSlide, total]);
 
-  prev = () => {
-    const { current } = this.state;
-    const total = this.getTotal();
-
+  const prev = useCallback(() => {
     // First slide - go to last slide
-    if (current === 0) {
-      this.setSlide(total - 1);
+    if (currentSlide === 0) {
+      setCurrentSlide(total - 1);
     } else {
-      this.setSlide(current - 1);
+      setCurrentSlide(current => current - 1);
     }
-  };
+  }, [currentSlide, total]);
 
-  setSlide = current => this.setState({ current });
-
-  renderSlides = () => {
-    const { slides, minHeight, loading } = this.props;
-    const total = slides.length;
-
+  const renderSlides = useMemo(() => {
     return slides.map((slide, index) => {
       return (
         <Slide key={`slide-${index}`} total={total}>
@@ -84,18 +68,9 @@ class Carousel extends Component {
         </Slide>
       );
     });
-  };
+  }, [slides, loading, minHeight, total]);
 
-  renderBullets = () => {
-    const { current } = this.state;
-    const {
-      slides,
-      bulletSize,
-      bulletBg,
-      bulletActiveBg,
-      bulletHoverBg
-    } = this.props;
-
+  const renderBullets = useMemo(() => {
     return slides.map((slide, index) => {
       return (
         <Bullet
@@ -104,55 +79,69 @@ class Carousel extends Component {
           activeBackground={bulletActiveBg}
           hoverBackground={bulletHoverBg}
           key={`bullet-${index}`}
-          onClick={() => this.setSlide(index)}
-          selected={current === index}
+          onClick={() => setCurrentSlide(index)}
+          selected={currentSlide === index}
         />
       );
     });
-  };
+  }, [
+    slides,
+    bulletSize,
+    bulletBg,
+    bulletActiveBg,
+    bulletHoverBg,
+    currentSlide
+  ]);
 
-  render() {
-    const { current } = this.state;
-    const {
-      className,
-      controls,
-      nextControl,
-      prevControl,
-      bullets,
-      infinite,
-      slides
-    } = this.props;
-    const total = this.getTotal();
-
-    return (
-      <Container className={className}>
-        <SlidesAndControls>
-          {controls && (
-            <Control onClick={this.prev} disabled={!infinite && current === 0}>
-              {prevControl ? prevControl({ current }) : 'Prev'}
-            </Control>
-          )}
-          <SlidesContainer>
-            <Slides total={total} translate={-1 * current * (100 / total)}>
-              {this.renderSlides()}
-            </Slides>
-          </SlidesContainer>
-          {controls && (
-            <Control
-              onClick={this.next}
-              disabled={!infinite && current === slides.length - 1}
-            >
-              {nextControl ? nextControl({ current }) : 'Next'}
-            </Control>
-          )}
-        </SlidesAndControls>
-        {bullets && <Bullets>{this.renderBullets()}</Bullets>}
-      </Container>
-    );
-  }
-}
+  return (
+    <Container className={className}>
+      <SlidesAndControls>
+        {controls && (
+          <Control onClick={prev} disabled={!infinite && currentSlide === 0}>
+            {prevControl ? prevControl({ current: currentSlide }) : 'Prev'}
+          </Control>
+        )}
+        <SlidesContainer>
+          <Slides total={total} translate={-1 * currentSlide * (100 / total)}>
+            {renderSlides()}
+          </Slides>
+        </SlidesContainer>
+        {controls && (
+          <Control
+            onClick={next}
+            disabled={!infinite && currentSlide === slides.length - 1}
+          >
+            {nextControl ? nextControl({ current: currentSlide }) : 'Next'}
+          </Control>
+        )}
+      </SlidesAndControls>
+      {bullets && <Bullets>{renderBullets()}</Bullets>}
+    </Container>
+  );
+};
 
 export default Carousel;
+
+Carousel.propTypes = {
+  slides: PropTypes.arrayOf(PropTypes.node).isRequired,
+  loading: PropTypes.bool,
+  className: PropTypes.string,
+  minHeight: PropTypes.number,
+  prevControl: PropTypes.func,
+  nextControl: PropTypes.func,
+  controls: PropTypes.bool,
+  bulletSize: PropTypes.number,
+  bulletBg: PropTypes.string,
+  bulletActiveBg: PropTypes.string,
+  bulletHoverBg: PropTypes.string,
+  bullets: PropTypes.bool,
+  infinite: PropTypes.bool
+};
+
+Carousel.defaultProps = {
+  bullets: true,
+  infinite: true
+};
 
 const Container = styled.div`
   width: 100%;
