@@ -9,7 +9,7 @@ import { get, forEach, flow, chunk, filter, isEmpty } from 'lodash/fp';
 
 const TableBody = memo(({ filtered, headers, colRenderer }) =>
   filtered.map((row, i) => (
-    <Row key={`row-${i}`}>
+    <Row key={`row-${i}`} className="body-row">
       {headers.map(header => (
         <Col
           key={`cell-${header.id}`}
@@ -57,7 +57,8 @@ const Table = props => {
     placeholder,
     footerText,
     emptyRenderer,
-    onSearch
+    onSearch,
+    tableHeaderRenderer
   } = props;
   const [page, setPage] = useState(0);
   const [term, setTerm] = useState('');
@@ -107,12 +108,16 @@ const Table = props => {
 
   return (
     <Container>
-      <Header className="input-wrapper">
-        <StyledInput
-          placeholder={placeholder || 'search'}
-          onChange={handleKey}
-        />
-      </Header>
+      {tableHeaderRenderer ? (
+        tableHeaderRenderer({ onSearch: handleKey })
+      ) : (
+        <Header className="input-wrapper">
+          <StyledInput
+            placeholder={placeholder || 'search'}
+            onChange={handleKey}
+          />
+        </Header>
+      )}
 
       <Row className="header">
         <TableHead headers={headers} />
@@ -160,7 +165,8 @@ Table.propTypes = {
   placeholder: PropTypes.string,
   footerText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   emptyRenderer: PropTypes.func,
-  onSearch: PropTypes.func
+  onSearch: PropTypes.func,
+  tableHeaderRenderer: PropTypes.func
 };
 
 Table.defaultProps = {
