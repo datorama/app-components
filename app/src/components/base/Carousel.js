@@ -52,9 +52,9 @@ const Carousel = props => {
     }
   }, [currentSlide, total]);
 
-  const renderSlides = useMemo(() => {
-    return slides.map((slide, index) => {
-      return (
+  const renderSlides = useMemo(
+    () =>
+      slides.map((slide, index) => (
         <Slide key={`slide-${index}`} total={total}>
           <SlideInner>
             {loading ? (
@@ -66,13 +66,13 @@ const Carousel = props => {
             )}
           </SlideInner>
         </Slide>
-      );
-    });
-  }, [slides, loading, minHeight, total]);
+      )),
+    [slides, loading, minHeight, total]
+  );
 
-  const renderBullets = useMemo(() => {
-    return slides.map((slide, index) => {
-      return (
+  const renderBullets = useMemo(
+    () =>
+      slides.map((slide, index) => (
         <Bullet
           size={bulletSize}
           background={bulletBg}
@@ -82,16 +82,9 @@ const Carousel = props => {
           onClick={() => setCurrentSlide(index)}
           selected={currentSlide === index}
         />
-      );
-    });
-  }, [
-    slides,
-    bulletSize,
-    bulletBg,
-    bulletActiveBg,
-    bulletHoverBg,
-    currentSlide
-  ]);
+      )),
+    [slides, bulletSize, bulletBg, bulletActiveBg, bulletHoverBg, currentSlide]
+  );
 
   return (
     <Container className={className}>
@@ -103,7 +96,7 @@ const Carousel = props => {
         )}
         <SlidesContainer>
           <Slides total={total} translate={-1 * currentSlide * (100 / total)}>
-            {renderSlides()}
+            {renderSlides}
           </Slides>
         </SlidesContainer>
         {controls && (
@@ -115,7 +108,7 @@ const Carousel = props => {
           </Control>
         )}
       </SlidesAndControls>
-      {bullets && <Bullets>{renderBullets()}</Bullets>}
+      {bullets && <Bullets>{renderBullets}</Bullets>}
     </Container>
   );
 };
