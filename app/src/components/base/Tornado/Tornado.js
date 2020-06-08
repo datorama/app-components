@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { fill, size, isNil } from 'lodash/fp';
 
 import { MAIN_COLORS } from './tornado.constants';
 
@@ -14,15 +15,18 @@ export default class Tornado extends React.Component {
       rows: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.string,
-          data: PropTypes.arrayOf(PropTypes.number),
+          data: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.number), undefined),
           label: PropTypes.string,
           totalValue: PropTypes.number,
-          totalPercentage: PropTypes.string
+          totalPercentage: PropTypes.string,
+          placeholderMessage: PropTypes.string,
+          onPlaceholderClick: PropTypes.func
         })
       ),
       stats: PropTypes.array,
       topLabelRenderer: PropTypes.func
-    })
+    }),
+    initialIndex: PropTypes.number
   };
 
   state = {
@@ -32,10 +36,18 @@ export default class Tornado extends React.Component {
   selectIndex = selectedIndex => this.setState({ selectedIndex });
 
   componentDidMount() {
-    const { labels } = this.props.data;
-    const middle = Math.floor(labels.length / 2);
+    const {
+      data: { labels },
+      initialIndex
+    } = this.props;
 
-    this.selectIndex(middle);
+    if (!isNil(initialIndex)) {
+      this.selectIndex(initialIndex);
+    } else {
+      const middle = Math.floor(labels.length / 2);
+
+      this.selectIndex(middle);
+    }
   }
 
   topStrip() {
@@ -92,10 +104,9 @@ export default class Tornado extends React.Component {
     return (
       <Container className={className}>
         {this.topStrip()}
-
         <TornadoChart
           labels={data.labels}
-          rows={data.rows}
+          rows={data.rows || fill(null, 0, size(data.labels), [])}
           stats={data.stats}
           selectedIndex={selectedIndex}
           selectIndex={this.selectIndex}
