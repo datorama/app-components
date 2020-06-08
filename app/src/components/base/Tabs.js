@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -7,29 +7,32 @@ const Tabs = props => {
   const [prevWidth, setPrevWidth] = useState([]);
   const [localWidths, setLocalWidths] = useState([]);
 
-  const handleTabRef = el => {
+  const calculateWidths = useCallback(() => {
+    if (localWidths.length === props.tabs.length) {
+      const { tabs } = props;
+
+      let total = 0;
+      const prevTemp = [0];
+      for (let i = 0; i < tabs.length; i++) {
+        total += localWidths[i];
+        prevTemp.push(total);
+      }
+
+      setPrevWidth(prevWidths => [...prevTemp]);
+      setTabsWidths(tabsWidths => [...localWidths]);
+    }
+  }, [localWidths, props]);
+
+  const handleTabRef = useCallback(el => {
     if (el) {
       const { width } = el.getBoundingClientRect();
-
       setLocalWidths(localWidths => [...localWidths, width]);
-
-      if (localWidths.length === props.tabs.length) {
-        const { tabs } = props;
-
-        let total = 0;
-        let prevTemp = [0];
-        setPrevWidth(prevWidth => [0]);
-        for (let i = 0; i < tabs.length; i++) {
-          total += localWidths[i];
-
-          prevTemp.push(total);
-        }
-
-        setPrevWidth([...prevTemp]);
-        setTabsWidths(tabsWidths => [...localWidths]);
-      }
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    calculateWidths();
+  }, [localWidths, calculateWidths]);
 
   const {
     contentRenderer,
@@ -45,33 +48,29 @@ const Tabs = props => {
     <Container className={className}>
       <Header justify={justify}>
         <InnerHeader>
-          {useMemo(
-            () =>
-              tabs.map(tab => {
-                const key = `tab-${tab.id}`;
-                const handleClick = () => onSelect(tab.id);
-                const selected = tab.id === selectedIndex;
+          {tabs.map(tab => {
+            const key = `tab-${tab.id}`;
+            const handleClick = () => onSelect(tab.id);
+            const selected = tab.id === selectedIndex;
 
-                return (
-                  <Tab
-                    gap={gap / 2}
-                    className={`tab-${tab.id}`}
-                    ref={handleTabRef}
-                    key={key}
-                    onClick={tab.disabled ? null : handleClick}
-                  >
-                    {labelRenderer ? (
-                      labelRenderer({ selected, tab })
-                    ) : (
-                      <Label disabled={tab.disabled} selected={selected}>
-                        {tab.label}
-                      </Label>
-                    )}
-                  </Tab>
-                );
-              }),
-            [tabs]
-          )}
+            return (
+              <Tab
+                gap={gap / 2}
+                className={`tab-${tab.id}`}
+                ref={handleTabRef}
+                key={key}
+                onClick={tab.disabled ? null : handleClick}
+              >
+                {labelRenderer ? (
+                  labelRenderer({ selected, tab })
+                ) : (
+                  <Label disabled={tab.disabled} selected={selected}>
+                    {tab.label}
+                  </Label>
+                )}
+              </Tab>
+            );
+          })}
           <Line
             left={prevWidth[selectedIndex]}
             gap={gap / 2}
