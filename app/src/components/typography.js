@@ -30,11 +30,6 @@ export const pLink = css`
   color: ${({ theme }) => theme.p400};
 `;
 
-export const getpLink = (scale = 1) => css`
-  ${pLink};
-  font-size: ${scale * 14}px;
-`;
-
 export const pNote = css`
   font-size: 14px;
   font-weight: 400;

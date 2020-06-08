@@ -8,7 +8,7 @@ import * as animation from './animations';
 import * as layout from './layout';
 
 // UTILS
-export { hexToRgba, shadeColor, uuid } from './utils';
+export { hexToRgba, shadeColor, uuid, extendTheme } from './utils';
 
 // BASE COMPONENTS
 export { default as Button } from './base/Button';

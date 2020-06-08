@@ -64,11 +64,17 @@ const ThemeDoc = () => {
     [config, setConfig]
   );
 
-  const optionRenderer = useCallback(options => {
-    const { option, toggleOpen } = options;
-    const handleClick = () => {};
-    return <div key={option.value}>{option.label}</div>;
-  }, []);
+  const optionLabelRenderer = useCallback(
+    ({ value, label }) => <OptionLabel font={value}>{label}</OptionLabel>,
+    []
+  );
+
+  const handleScale = useCallback(
+    value => {
+      setConfig({ ...config, scale: value });
+    },
+    [config, setConfig]
+  );
 
   return (
     <Container>
@@ -121,7 +127,7 @@ const ThemeDoc = () => {
         <Col direction="row" justify="flex-start" align="center">
           <Label>Dark / Light</Label>
           <Toggle
-            checked={config.dark}
+            checked={!!config.dark}
             onClick={() => setConfig({ ...config, dark: !config.dark })}
           />
         </Col>
@@ -135,7 +141,7 @@ const ThemeDoc = () => {
             values={selected}
             onChange={setFont}
             placeholder="Select font"
-            optionRenderer={optionRenderer}
+            optionLabelRenderer={optionLabelRenderer}
           />
         </Col>
       </Row>
@@ -144,11 +150,7 @@ const ThemeDoc = () => {
         <Col direction="row" justify="flex-start" align="center">
           <Label>Scale</Label>
           <RangeContainer>
-            <Range
-              min={1}
-              max={20}
-              onChange={value => setConfig({ ...config, scale: value })}
-            />
+            <Range min={1} max={20} onChange={handleScale} />
           </RangeContainer>
         </Col>
       </Row>
@@ -318,7 +320,7 @@ const StyledCard = styled(Card)`
 
 const Label = styled.div`
   ${({ theme }) => theme.text.sm};
-  min-width: 100px;
+  min-width: 160px;
 `;
 
 const StaticColor = styled.div`
@@ -351,4 +353,27 @@ const WidgetTitle = styled.div`
 
 const StyledButton = styled(Button)`
   margin-left: 10px;
+`;
+
+const OptionLabel = styled.div`
+  ${({ theme }) => theme.text.sm};
+  color: ${({ color, theme }) => color || theme.p700};
+  font-size: 14px;
+  text-transform: capitalize;
+
+  ${({ font }) => {
+    switch (font) {
+      case 'roboto':
+        return "font-family: 'Roboto', sans-serif;";
+
+      case 'lato':
+        return "font-family: 'Lato', sans-serif;";
+
+      case 'merriweather':
+        return "font-family: 'Merriweather', serif;";
+
+      default:
+        return null;
+    }
+  }};
 `;
