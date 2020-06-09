@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,7 @@ const Collapse = props => {
   const [open, setOpen] = useState(false);
   const { children, className, label } = props;
 
-  const toggleOpen = () => setOpen(open => !open);
+  const toggleOpen = useCallback(() => setOpen(open => !open), []);
 
   return (
     <Container className={className}>
