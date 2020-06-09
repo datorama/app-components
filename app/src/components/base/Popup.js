@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
@@ -14,55 +14,41 @@ const RIGHT = 'RIGHT';
 // const TOP_LEFT = 'TOP_LEFT';
 // const TOP_RIGHT = 'TOP_RIGHT';
 
-export default class Popup extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    open: PropTypes.bool,
-    className: PropTypes.string,
-    contentRenderer: PropTypes.func,
-    position: PropTypes.string,
-    withClose: PropTypes.bool,
-    toggleOpen: PropTypes.func,
-    fixed: PropTypes.bool,
-    menuRef: PropTypes.shape({})
-  };
+const Popup = props => {
+  const {
+    children,
+    className,
+    open,
+    position,
+    contentRenderer,
+    withClose,
+    toggleOpen,
+    fixed,
+    menuRef
+  } = props;
 
-  static defaultProps = { position: BOTTOM };
+  const [coordinate, setCoordinate] = useState({ x: 0, y: 0 });
 
-  state = {
-    x: 0,
-    y: 0
-  };
+  const handleMouseMove = useCallback(
+    e => setCoordinate({ x: e.clientX, y: e.clientY }),
+    []
+  );
 
-  componentDidUpdate(prevProps) {
-    if (this.props.fixed) {
-      if (this.props.open && !prevProps.open) {
-        window.addEventListener('mousemove', this.handleMouseMove);
-      }
-
-      if (!this.props.open && prevProps.open) {
-        window.removeEventListener('mousemove', this.handleMouseMove);
-      }
+  useEffect(() => {
+    if (fixed) {
+      if (open) window.addEventListener('mousemove', handleMouseMove);
+      else window.removeEventListener('mousemove', handleMouseMove);
     }
-  }
+  }, [fixed, open, handleMouseMove]);
 
-  componentWillUnmount() {
-    window.removeEventListener('mousemove', this.handleMouseMove);
-  }
+  useEffect(() => {
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [handleMouseMove]);
 
-  handleMouseMove = e => this.setState({ x: e.clientX, y: e.clientY });
-
-  menu() {
-    const {
-      open,
-      position,
-      contentRenderer,
-      withClose,
-      toggleOpen,
-      fixed,
-      menuRef
-    } = this.props;
-    const { x, y } = this.state;
+  const menu = useMemo(() => {
+    const { x, y } = coordinate;
 
     return (
       <StyledMenu
@@ -78,22 +64,41 @@ export default class Popup extends Component {
         {withClose && <CloseIcon onClick={toggleOpen} />}
       </StyledMenu>
     );
-  }
+  }, [
+    contentRenderer,
+    fixed,
+    menuRef,
+    open,
+    position,
+    toggleOpen,
+    withClose,
+    coordinate
+  ]);
 
-  render() {
-    const { children, className, fixed } = this.props;
+  return (
+    <Container className={className}>
+      {children}
 
-    return (
-      <Container className={className}>
-        {children}
+      {fixed ? ReactDOM.createPortal(menu, document.body) : menu}
+    </Container>
+  );
+};
 
-        {fixed
-          ? ReactDOM.createPortal(this.menu(), document.body)
-          : this.menu()}
-      </Container>
-    );
-  }
-}
+Popup.propTypes = {
+  children: PropTypes.node,
+  open: PropTypes.bool,
+  className: PropTypes.string,
+  contentRenderer: PropTypes.func,
+  position: PropTypes.string,
+  withClose: PropTypes.bool,
+  toggleOpen: PropTypes.func,
+  fixed: PropTypes.bool,
+  menuRef: PropTypes.shape({})
+};
+
+Popup.defaultProps = { position: BOTTOM };
+
+export default Popup;
 
 const StyledMenu = styled.div.attrs(({ fixed, x, y }) => ({
   style: fixed ? { top: y, left: x } : {}
