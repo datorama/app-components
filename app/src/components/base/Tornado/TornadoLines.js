@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { size } from 'lodash/fp';
+import { size, isNil } from 'lodash/fp';
 
 import * as CONSTANTS from './tornado.constants';
 import { abbreviateNumber } from './tornado.utils';
@@ -15,9 +15,14 @@ const TornadoLines = ({ rows, onMouseEnter, onMouseLeave }) => (
         CONSTANTS.ROW_HEIGHT +
         20 * Math.sin(xStart / CONSTANTS.INTER_SIN);
 
-      const rowValue = `${abbreviateNumber(rows[i].totalValue || 0)} (${
-        rows[i].totalPercentage
-      }%)`;
+      const displayTotals =
+        !isNil(rows[i].totalValue) && !isNil(rows[i].totalPercentage);
+
+      const rowValue =
+        displayTotals &&
+        `${abbreviateNumber(rows[i].totalValue || 0)} (${
+          rows[i].totalPercentage
+        }%)`;
 
       return (
         <g key={`line-${i}`}>
