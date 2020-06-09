@@ -1,93 +1,84 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-class Tabs extends Component {
-  state = {
-    tabWidths: [],
-    prevWidth: []
-  };
+const Tabs = props => {
+  const [tabWidths, setTabsWidths] = useState([]);
+  const [prevWidth, setPrevWidth] = useState([]);
+  const [localWidths, setLocalWidths] = useState([]);
+  const {
+    contentRenderer,
+    labelRenderer,
+    selectedIndex,
+    tabs,
+    gap = 35,
+    onSelect,
+    justify,
+    className
+  } = props;
 
-  localWidths = [];
-
-  handleTabRef = el => {
+  const handleTabRef = useCallback(el => {
     if (el) {
       const { width } = el.getBoundingClientRect();
-
-      this.localWidths.push(width);
-
-      if (this.localWidths.length === this.props.tabs.length) {
-        const { tabs } = this.props;
-
-        let total = 0;
-        const prevWidth = [0];
-
-        for (let i = 0; i < tabs.length; i++) {
-          total += this.localWidths[i];
-
-          prevWidth.push(total);
-        }
-
-        this.setState({ tabWidths: this.localWidths, prevWidth });
-      }
+      setLocalWidths(localWidths => [...localWidths, width]);
     }
-  };
+  }, []);
 
-  render() {
-    const {
-      contentRenderer,
-      labelRenderer,
-      selectedIndex,
-      tabs,
-      gap = 35,
-      onSelect,
-      justify,
-      className
-    } = this.props;
-    const { tabWidths, prevWidth } = this.state;
+  useEffect(() => {
+    if (localWidths.length === tabs.length) {
+      let total = 0;
+      const prevTemp = [0];
+      for (let i = 0; i < tabs.length; i++) {
+        total += localWidths[i];
+        prevTemp.push(total);
+      }
 
-    return (
-      <Container className={className}>
-        <Header justify={justify}>
-          <InnerHeader>
-            {tabs.map(tab => {
-              const key = `tab-${tab.id}`;
-              const handleClick = () => onSelect(tab.id);
-              const selected = tab.id === selectedIndex;
+      setPrevWidth(prevWidths => [...prevTemp]);
+      setTabsWidths(tabsWidths => [...localWidths]);
+    }
+  }, [localWidths, tabs.length]);
 
-              return (
-                <Tab
-                  gap={gap / 2}
-                  className={`tab-${tab.id}`}
-                  ref={this.handleTabRef}
-                  key={key}
-                  onClick={tab.disabled ? null : handleClick}
-                >
-                  {labelRenderer ? (
-                    labelRenderer({ selected, tab })
-                  ) : (
-                    <Label disabled={tab.disabled} selected={selected}>
-                      {tab.label}
-                    </Label>
-                  )}
-                </Tab>
-              );
-            })}
-            <Line
-              left={prevWidth[selectedIndex]}
-              gap={gap / 2}
-              width={tabWidths[selectedIndex]}
-            />
-          </InnerHeader>
-        </Header>
+  return (
+    <Container className={className}>
+      <Header justify={justify}>
+        <InnerHeader>
+          {tabs.map(tab => {
+            const key = `tab-${tab.id}`;
+            const handleClick = () => onSelect(tab.id);
+            const selected = tab.id === selectedIndex;
 
-        {contentRenderer && (
-          <Content>{contentRenderer(tabs[selectedIndex])}</Content>
-        )}
-      </Container>
-    );
-  }
-}
+            return (
+              <Tab
+                gap={gap / 2}
+                className={`tab-${tab.id}`}
+                ref={handleTabRef}
+                key={key}
+                onClick={tab.disabled ? null : handleClick}
+              >
+                {labelRenderer ? (
+                  labelRenderer({ selected, tab })
+                ) : (
+                  <Label disabled={tab.disabled} selected={selected}>
+                    {tab.label}
+                  </Label>
+                )}
+              </Tab>
+            );
+          })}
+          <Line
+            left={prevWidth[selectedIndex]}
+            gap={gap / 2}
+            width={tabWidths[selectedIndex]}
+          />
+        </InnerHeader>
+      </Header>
+
+      {contentRenderer && (
+        <Content>{contentRenderer(tabs[selectedIndex])}</Content>
+      )}
+    </Container>
+  );
+};
 
 Tabs.propTypes = {
   className: PropTypes.string,
