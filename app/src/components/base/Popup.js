@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
@@ -47,39 +47,20 @@ const Popup = props => {
     };
   }, [handleMouseMove]);
 
-  const menu = useMemo(() => {
-    const { x, y } = coordinate;
-
-    return (
-      <StyledMenu
-        visible={open}
-        className="pop-menu"
-        position={position}
-        fixed={fixed}
-        x={x}
-        y={y}
-        ref={menuRef}
-      >
-        {contentRenderer()}
-        {withClose && <CloseIcon onClick={toggleOpen} />}
-      </StyledMenu>
-    );
-  }, [
-    contentRenderer,
-    fixed,
-    menuRef,
-    open,
-    position,
-    toggleOpen,
-    withClose,
-    coordinate
-  ]);
-
   return (
     <Container className={className}>
       {children}
-
-      {fixed ? ReactDOM.createPortal(menu, document.body) : menu}
+      <Menu
+        open={open}
+        fixed={fixed}
+        x={coordinate.x}
+        y={coordinate.y}
+        menuRef={menuRef}
+        contentRenderer={contentRenderer}
+        withClose={withClose}
+        toggleOpen={toggleOpen}
+        position={position}
+      />
     </Container>
   );
 };
@@ -94,6 +75,35 @@ Popup.propTypes = {
   toggleOpen: PropTypes.func,
   fixed: PropTypes.bool,
   menuRef: PropTypes.shape({})
+};
+
+const Menu = ({
+  open,
+  position,
+  fixed,
+  x,
+  y,
+  menuRef,
+  contentRenderer,
+  withClose,
+  toggleOpen
+}) => {
+  const menu = (
+    <StyledMenu
+      visible={open}
+      className="pop-menu"
+      position={position}
+      fixed={fixed}
+      x={x}
+      y={y}
+      ref={menuRef}
+    >
+      {contentRenderer()}
+      {withClose && <CloseIcon onClick={toggleOpen} />}
+    </StyledMenu>
+  );
+
+  return fixed ? ReactDOM.createPortal(menu, document.body) : menu;
 };
 
 Popup.defaultProps = { position: BOTTOM };
