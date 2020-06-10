@@ -7,27 +7,39 @@ import { hexToRgba } from '../utils';
 import { useDebounce } from '../hooks/common.hooks';
 import { get, forEach, flow, chunk, filter, isEmpty } from 'lodash/fp';
 
-const TableBody = memo(({ filtered, headers, colRenderer }) =>
-  filtered.map((row, i) => (
-    <Row key={`row-${i}`} className="body-row">
-      {headers.map(header => (
-        <Col
-          key={`cell-${header.id}`}
-          textStyle="sm"
-          size={header.size}
-          maxWidth={header.maxWidth}
-        >
-          {colRenderer
-            ? colRenderer({
-                value: get(header.path, row),
-                headerId: header.id,
-                path: header.path
-              })
-            : get(header.path, row)}
-        </Col>
-      ))}
-    </Row>
-  ))
+const RowComponent = ({ headers, colRenderer, row }) => (
+  <Row className="body-row">
+    {headers.map(header => (
+      <Col
+        key={`cell-${header.id}`}
+        textStyle="sm"
+        size={header.size}
+        maxWidth={header.maxWidth}
+      >
+        {colRenderer
+          ? colRenderer({
+              value: get(header.path, row),
+              headerId: header.id,
+              path: header.path
+            })
+          : get(header.path, row)}
+      </Col>
+    ))}
+  </Row>
+);
+const TableBody = memo(({ filtered, headers, colRenderer, rowRenderer }) =>
+  filtered.map((row, i) =>
+    rowRenderer ? (
+      rowRenderer({ i, row, headers, colRenderer, RowComponent })
+    ) : (
+      <RowComponent
+        headers={headers}
+        colRenderer={colRenderer}
+        row={row}
+        key={`row-${i}`}
+      />
+    )
+  )
 );
 
 const Empty = ({ emptyRenderer }) => (
@@ -58,7 +70,8 @@ const Table = props => {
     footerText,
     emptyRenderer,
     onSearch,
-    tableHeaderRenderer
+    tableHeaderRenderer,
+    rowRenderer
   } = props;
   const [page, setPage] = useState(0);
   const [term, setTerm] = useState('');
@@ -128,6 +141,7 @@ const Table = props => {
           filtered={filtered[page] || []}
           headers={headers}
           colRenderer={colRenderer}
+          rowRenderer={rowRenderer}
         />
 
         {isEmpty(data) && <Empty emptyRenderer={emptyRenderer} />}
@@ -166,7 +180,8 @@ Table.propTypes = {
   footerText: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   emptyRenderer: PropTypes.func,
   onSearch: PropTypes.func,
-  tableHeaderRenderer: PropTypes.func
+  tableHeaderRenderer: PropTypes.func,
+  rowRenderer: PropTypes.func
 };
 
 Table.defaultProps = {
