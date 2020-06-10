@@ -20,10 +20,6 @@ const Pagination = props => {
   const { total, max, className, onChange } = props;
   const noControls = total <= max;
 
-  const update = useCallback(() => {
-    onChange(selected);
-  }, [onChange, selected]);
-
   const next = useCallback(() => {
     const next = current + 1;
     const nextSelected = selected + 1;
@@ -91,8 +87,8 @@ const Pagination = props => {
   }, [current, max, selected, setPage, total]);
 
   useEffect(() => {
-    update();
-  }, [current, selected, update]);
+    onChange(selected);
+  }, [current, selected, onChange]);
 
   return (
     <Container className={className}>
