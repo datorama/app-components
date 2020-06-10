@@ -12,16 +12,11 @@ const Collapsible = props => {
     setIsOpen(open);
   }, [open]);
 
-  useEffect(() => {
-    if (!open) {
-      setIsOpen(false);
-    }
-  }, [height, open]);
-
   const handleRef = useCallback(el => {
     if (el) {
       const { height } = el.getBoundingClientRect();
       setHeight(`${height}px`);
+      setIsOpen(false);
     }
   }, []);
 
