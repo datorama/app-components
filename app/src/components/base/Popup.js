@@ -39,13 +39,11 @@ const Popup = props => {
       if (open) window.addEventListener('mousemove', handleMouseMove);
       else window.removeEventListener('mousemove', handleMouseMove);
     }
-  }, [fixed, open, handleMouseMove]);
 
-  useEffect(() => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [handleMouseMove]);
+  }, [fixed, open, handleMouseMove]);
 
   return (
     <Container className={className}>
