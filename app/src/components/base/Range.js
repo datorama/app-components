@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { hexToRgba } from '../utils';
@@ -6,133 +6,114 @@ import { hexToRgba } from '../utils';
 // components
 import Draggable from './Draggable';
 
-class Range extends Component {
-  static propTypes = {
-    min: PropTypes.number,
-    max: PropTypes.number,
-    initialValue: PropTypes.number,
-    disabled: PropTypes.bool,
-    showValue: PropTypes.bool,
-    className: PropTypes.string,
-    onChange: PropTypes.func
-  };
+const Range = props => {
+  const {
+    min,
+    max,
+    initialValue,
+    disabled,
+    showValue,
+    className,
+    onChange
+  } = props;
+  const initialPercentage =
+    initialValue !== undefined
+      ? Math.max(((initialValue - min) / (max - min)) * 100)
+      : 0;
 
-  constructor(props) {
-    super(props);
+  const [percentage, setPercentage] = useState(initialPercentage);
+  const [lastPercentage, setLastPercentage] = useState(initialPercentage);
+  const [dragging, setDragging] = useState(false);
+  const [value, setValue] = useState(initialValue || min);
+  const outerEl = useRef();
 
-    const { min, max, initialValue } = this.props;
-
-    const initialPercentage =
-      initialValue !== undefined
-        ? Math.max(((initialValue - min) / (max - min)) * 100)
-        : 0;
-
-    this.state = {
-      percentage: initialPercentage,
-      lastPercentage: initialPercentage,
-      dragging: false,
-      value: initialValue || min
-    };
-  }
-
-  handleDrag = ({ translateX }) => {
-    const { width } = this.el.getBoundingClientRect();
-    const { lastPercentage } = this.state;
-    const { min, max, onChange } = this.props;
-    const calcPercentage = Math.min(
-      100,
-      lastPercentage + (translateX / width) * 100
-    );
-    const percentage = Math.max(0, calcPercentage);
-
-    this.setState(
-      {
-        percentage,
-        value: Math.round((percentage / 100) * (max - min)) + min
-      },
-      () => {
-        if (onChange) {
-          onChange(this.state.value);
-        }
-      }
-    );
-  };
-
-  handleDragStart = () => this.setState({ dragging: true });
-
-  handleDragEnd = () =>
-    this.setState({
-      lastPercentage: this.state.percentage,
-      dragging: false
-    });
-
-  onClick = e => {
-    const { onChange, min, max } = this.props;
-    const { clientX } = e;
-    const { x, width } = this.el.getBoundingClientRect();
-
-    const percentage = Math.round(((clientX - x) / width) * 100);
-
-    if (percentage !== this.state.value) {
-      this.setState(
-        {
-          percentage,
-          lastPercentage: percentage,
-          value: Math.round((percentage / 100) * (max - min)) + min
-        },
-        () => {
-          if (onChange) {
-            onChange(this.state.value);
-          }
-        }
+  const handleDrag = useCallback(
+    ({ translateX }) => {
+      const { width } = outerEl.current.getBoundingClientRect();
+      const calcPercentage = Math.min(
+        100,
+        lastPercentage + (translateX / width) * 100
       );
-    }
-  };
+      const currentPercentage = Math.max(0, calcPercentage);
 
-  render() {
-    const { percentage, dragging, value } = this.state;
-    const { min, max, disabled, showValue, className } = this.props;
+      setPercentage(currentPercentage);
+    },
+    [outerEl, lastPercentage]
+  );
 
-    return (
-      <Container
-        disabled={disabled}
-        className={className}
-        onClick={this.onClick}
+  useEffect(() => {
+    const newValue = Math.round((percentage / 100) * (max - min)) + min;
+    setValue(newValue);
+    onChange(newValue);
+  }, [max, min, percentage, onChange]);
+
+  const handleDragStart = useCallback(() => setDragging(true), [setDragging]);
+
+  const handleDragEnd = useCallback(() => {
+    setDragging(false);
+    setPercentage(percentage);
+  }, [percentage]);
+
+  const handleClick = useCallback(
+    e => {
+      const { clientX } = e;
+      const { x, width } = outerEl.current.getBoundingClientRect();
+
+      const currentPercentage = Math.round(((clientX - x) / width) * 100);
+
+      if (currentPercentage !== value) {
+        setPercentage(currentPercentage);
+        setLastPercentage(currentPercentage);
+      }
+    },
+    [outerEl, value]
+  );
+
+  return (
+    <Container disabled={disabled} className={className} onClick={handleClick}>
+      <Outer ref={outerEl} className="outer" disabled={disabled}>
+        <Inner width={percentage} className="inner" />
+      </Outer>
+      <Draggable
+        onDragStart={handleDragStart}
+        onDrag={handleDrag}
+        onDragEnd={handleDragEnd}
+        controlled
       >
-        <Outer ref={el => (this.el = el)} className="outer" disabled={disabled}>
-          <Inner width={percentage} className="inner" />
-        </Outer>
-        <Draggable
-          onDragStart={this.handleDragStart}
-          onDrag={this.handleDrag}
-          onDragEnd={this.handleDragEnd}
-          controlled
-        >
-          <Thumb
-            className="thumb"
-            left={percentage}
-            dragging={dragging}
-            disabled={disabled}
-          />
-        </Draggable>
-        <Value
+        <Thumb
+          className="thumb"
           left={percentage}
-          visible={showValue || dragging}
-          className="value"
-        >
-          {value}
-        </Value>
+          dragging={dragging}
+          disabled={disabled}
+        />
+      </Draggable>
+      <Value
+        left={percentage}
+        visible={showValue || dragging}
+        className="value"
+      >
+        {value}
+      </Value>
 
-        <Label left="-20px" className="label">
-          {min}
-        </Label>
-        <Label left="calc(100% - 20px)" className="label">
-          {max}
-        </Label>
-      </Container>
-    );
-  }
-}
+      <Label left="-20px" className="label">
+        {min}
+      </Label>
+      <Label left="calc(100% - 20px)" className="label">
+        {max}
+      </Label>
+    </Container>
+  );
+};
+
+Range.propTypes = {
+  min: PropTypes.number,
+  max: PropTypes.number,
+  initialValue: PropTypes.number,
+  disabled: PropTypes.bool,
+  showValue: PropTypes.bool,
+  className: PropTypes.string,
+  onChange: PropTypes.func
+};
 
 export default Range;
 
