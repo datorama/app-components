@@ -1,49 +1,50 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 // components
 import StepperBullet from './StepperBullet';
 
-class Stepper extends Component {
-  state = {
-    hovered: false
-  };
+const Stepper = props => {
+  const { steps, currentStep, selectStep, className } = props;
+  const [hovered, setHovered] = useState(null);
 
-  toggleHover = id => () => this.setState({ hovered: id });
+  const toggleHover = useCallback(id => () => setHovered(id), []);
 
-  render() {
-    let { steps, currentStep, selectStep, className } = this.props;
-    const { hovered } = this.state;
-
-    return (
-      <Container className={className}>
-        {steps.map((step, index) => (
-          <Step
-            key={step.id}
-            disabled={!step.enabled}
-            onClick={() => selectStep(step.id)}
-            onMouseEnter={this.toggleHover(step.id)}
-            onMouseLeave={this.toggleHover(null)}
-          >
-            <StyledBullet
-              hovered={
-                hovered === step.id && step.id !== currentStep && step.enabled
-              }
-              selected={step.id === currentStep}
-              enabled={step.enabled}
-              touched={step.touched}
-            />
-            <Label disabled={!step.enabled} selected={step.id === currentStep}>
-              {step.label}
-            </Label>
-            {index !== steps.length - 1 && <Divider />}
-          </Step>
-        ))}
-      </Container>
-    );
-  }
-}
+  return (
+    <Container className={className}>
+      {useMemo(
+        () =>
+          steps.map((step, index) => (
+            <Step
+              key={step.id}
+              disabled={!step.enabled}
+              onClick={() => selectStep(step.id)}
+              onMouseEnter={toggleHover(step.id)}
+              onMouseLeave={toggleHover(null)}
+            >
+              <StyledBullet
+                hovered={
+                  hovered === step.id && step.id !== currentStep && step.enabled
+                }
+                selected={step.id === currentStep}
+                enabled={step.enabled}
+                touched={step.touched}
+              />
+              <Label
+                disabled={!step.enabled}
+                selected={step.id === currentStep}
+              >
+                {step.label}
+              </Label>
+              {index !== steps.length - 1 && <Divider />}
+            </Step>
+          )),
+        [currentStep, hovered, selectStep, steps, toggleHover]
+      )}
+    </Container>
+  );
+};
 
 Stepper.defaultProps = { steps: [] };
 
