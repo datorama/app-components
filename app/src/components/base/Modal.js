@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { noop } from 'lodash/fp';
@@ -11,110 +11,107 @@ import { throttle } from 'lodash/fp';
 import Card from './Card';
 import Button from './Button';
 
-export default class Modal extends React.Component {
-  static propTypes = {
-    children: PropTypes.node,
-    toggleOpen: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-    title: PropTypes.string,
-    className: PropTypes.string,
-    buttons: PropTypes.arrayOf(
-      PropTypes.oneOfType([PropTypes.object, PropTypes.func])
-    ).isRequired,
-    size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
-    overlayColor: PropTypes.string,
-    closeOnOverlayClick: PropTypes.bool
-  };
+const Modal = props => {
+  const [localOpen, setLocalopen] = useState(false);
+  const {
+    open,
+    className,
+    title,
+    buttons,
+    children,
+    size,
+    overlayColor,
+    closeOnOverlayClick = true,
+    toggleOpen
+  } = props;
 
-  state = {
-    localOpen: false
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setLocalopen(open);
+    }, 500);
+  }, [open]);
 
-  componentDidUpdate(prevProps) {
-    if (!this.props.open && prevProps.open) {
-      setTimeout(() => {
-        this.setState({ localOpen: false });
-      }, 500);
-    }
+  const throttledToggle = useCallback(throttle(500, toggleOpen), [toggleOpen]);
 
-    if (this.props.open && !prevProps.open) {
-      this.setState({ localOpen: true });
-    }
+  const handleClick = useCallback(
+    onClick => () => {
+      if (onClick) {
+        onClick();
+      }
+
+      throttledToggle();
+    },
+    [throttledToggle]
+  );
+
+  if (!localOpen) {
+    return null;
   }
 
-  throttledToggle = throttle(500, this.props.toggleOpen);
+  return (
+    <Fragment>
+      <Overlay
+        open={localOpen}
+        onClick={closeOnOverlayClick ? throttledToggle : noop}
+        visible={open}
+        color={overlayColor}
+      />
+      <Container open={localOpen} className={className} visible>
+        <StyledCard
+          open={localOpen}
+          className="modal-card"
+          visible={open}
+          size={size}
+        >
+          <CloseIcon onClick={throttledToggle} className="close-icon" />
+          {title && (
+            <Header className="header">
+              <Title className="title">{title}</Title>
+            </Header>
+          )}
+          <Content className="content">{children}</Content>
+          <Footer className="footer">
+            <FooterButtons buttons={buttons} handleClick={handleClick} />
+          </Footer>
+        </StyledCard>
+      </Container>
+    </Fragment>
+  );
+};
 
-  handleClick = onClick => () => {
-    if (onClick) {
-      onClick();
-    }
+Modal.propTypes = {
+  children: PropTypes.node,
+  toggleOpen: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  title: PropTypes.string,
+  className: PropTypes.string,
+  buttons: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+  ).isRequired,
+  size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
+  overlayColor: PropTypes.string,
+  closeOnOverlayClick: PropTypes.bool
+};
 
-    this.throttledToggle();
-  };
+export default Modal;
 
-  render() {
-    const {
-      open,
-      className,
-      title,
-      buttons,
-      children,
-      size,
-      overlayColor,
-      closeOnOverlayClick = true
-    } = this.props;
-    const { localOpen } = this.state;
-
-    if (!localOpen) {
-      return null;
+const FooterButtons = ({ buttons, handleClick }) =>
+  buttons.map((button, i) => {
+    if (typeof button === 'function') {
+      return button({ key: `btn-${i}` });
     }
 
     return (
-      <Fragment>
-        <Overlay
-          open={localOpen}
-          onClick={closeOnOverlayClick ? this.throttledToggle : noop}
-          visible={open}
-          color={overlayColor}
-        />
-        <Container open={localOpen} className={className} visible>
-          <StyledCard
-            open={localOpen}
-            className="modal-card"
-            visible={open}
-            size={size}
-          >
-            <CloseIcon onClick={this.throttledToggle} className="close-icon" />
-            {title && (
-              <Header className="header">
-                <Title className="title">{title}</Title>
-              </Header>
-            )}
-            <Content className="content">{children}</Content>
-            <Footer className="footer">
-              {buttons.map((button, i) => {
-                if (typeof button === 'function') {
-                  return button({ key: `btn-${i}` });
-                }
-
-                return (
-                  <StyledButton
-                    key={`btn-${i}`}
-                    secondary={button.type === 'secondary'}
-                    disabled={button.disabled}
-                    onClick={this.handleClick(button.onClick)}
-                  >
-                    {button.label}
-                  </StyledButton>
-                );
-              })}
-            </Footer>
-          </StyledCard>
-        </Container>
-      </Fragment>
+      <StyledButton
+        key={`btn-${i}`}
+        secondary={button.type === 'secondary'}
+        disabled={button.disabled}
+        onClick={handleClick(button.onClick)}
+      >
+        {button.label}
+      </StyledButton>
     );
-  }
-}
+  });
 
 const Container = styled.div`
   position: fixed;
