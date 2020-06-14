@@ -1,5 +1,5 @@
-import React from 'react';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import React, { useEffect } from 'react';
+import { ThemeProvider } from 'styled-components';
 
 // LIB CORE
 import * as libColors from './colors';
@@ -64,59 +64,74 @@ export { default as SnailChart } from './base/charts/SnailChart';
 export { default as GoalsChart } from './base/charts/GoalsChart';
 export { default as Gauge } from './base/charts/Gauge';
 
-export const AppTheme = ({ provider: Provider, theme, children }) => {
-  return (
-    <Provider theme={theme}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles font={theme.font} />
-        {children}
-      </ThemeProvider>
-    </Provider>
-  );
-};
+const loadFonts = font => {
+  const head = document.head || document.getElementsByTagName('head')[0],
+    style = document.createElement('style');
+  let css = '';
 
-const GlobalStyles = createGlobalStyle`
-  ${({ font }) => {
-    switch (font) {
-      case 'roboto':
-        return `
+  head.appendChild(style);
+
+  switch (font) {
+    case 'roboto':
+      css = `
           @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-    
+
           body, input, select, textarea, button {
             font-family: 'Roboto', sans-serif;
           }
         `;
+      break;
 
-      case 'lato':
-        return `
+    case 'lato':
+      css = `
           @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-          
+
           body, input, select, textarea, button {
             font-family: 'Lato', sans-serif;
           }
         `;
+      break;
 
-      case 'merriweather':
-        return `
+    case 'merriweather':
+      css = `
           @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
-          
+
           body, input, select, textarea, button {
             font-family: 'Merriweather', serif;
           }
         `;
+      break;
 
-      default:
-        return `
+    default:
+      css = `
           @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
-    
+
           body, input, select, textarea, button {
             font-family: 'Open Sans', sans-serif;
           }
         `;
-    }
-  }};
-  
-`;
+  }
+
+  style.type = 'text/css';
+  if (style.styleSheet) {
+    // This is required for IE8 and below.
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+};
+
+export const AppTheme = ({ provider: Provider, theme, children }) => {
+  useEffect(() => {
+    loadFonts(theme.font);
+  }, [theme]);
+
+  return (
+    <Provider theme={theme}>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+    </Provider>
+  );
+};
 
 // DEFAULT COMPONENTS HEIGHTS
 const SMALL = '24px';

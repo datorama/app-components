@@ -15,7 +15,10 @@ export default class Tornado extends React.Component {
       rows: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.string,
-          data: PropTypes.oneOf(PropTypes.arrayOf(PropTypes.number), undefined),
+          data: PropTypes.oneOf([
+            PropTypes.arrayOf(PropTypes.number),
+            undefined
+          ]),
           label: PropTypes.string,
           totalValue: PropTypes.number,
           totalPercentage: PropTypes.string,
