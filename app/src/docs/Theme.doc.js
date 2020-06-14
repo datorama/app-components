@@ -8,7 +8,6 @@ import {
   Col,
   Container,
   Card,
-  Range,
   Select,
   Toggle,
   SnailChart,
@@ -69,12 +68,13 @@ const ThemeDoc = () => {
     []
   );
 
-  const handleScale = useCallback(
-    value => {
-      setConfig({ ...config, scale: value });
-    },
-    [config, setConfig]
-  );
+  const scaleUp = useCallback(() => {
+    setConfig({ ...config, scale: config.scale + 1 });
+  }, [config, setConfig]);
+
+  const scaleDown = useCallback(() => {
+    setConfig({ ...config, scale: config.scale - 1 });
+  }, [config, setConfig]);
 
   return (
     <Container>
@@ -149,9 +149,10 @@ const ThemeDoc = () => {
       <Row>
         <Col direction="row" justify="flex-start" align="center">
           <Label>Scale</Label>
-          <RangeContainer>
-            <Range min={1} max={20} onChange={handleScale} />
-          </RangeContainer>
+          <ScalesContainer>
+            <Scale onClick={scaleDown}>-</Scale>
+            <Scale onClick={scaleUp}>+</Scale>
+          </ScalesContainer>
         </Col>
       </Row>
 
@@ -331,9 +332,9 @@ const StaticColor = styled.div`
   margin: 0 5px;
 `;
 
-const RangeContainer = styled.div`
-  width: 390px;
-  margin-left: 4px;
+const ScalesContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const ContainerCard = styled(StyledCard)`
@@ -376,4 +377,26 @@ const OptionLabel = styled.div`
         return null;
     }
   }};
+`;
+
+const Scale = styled.div`
+  width: 32px;
+  height: 32px;
+  background: ${({ theme }) => theme.p100};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: ${({ theme }) => theme.p400};
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 300ms;
+
+  &:hover {
+    background: ${({ theme }) => theme.p200};
+  }
+
+  &:first-child {
+    margin-right: 10px;
+  }
 `;
