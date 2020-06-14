@@ -1,55 +1,44 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-class Collapsible extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
-    open: PropTypes.bool.isRequired,
-    toggleOpen: PropTypes.func.isRequired
-  };
+const Collapsible = props => {
+  const [height, setHeight] = useState('auto');
+  const [isOpen, setIsOpen] = useState(true);
 
-  state = {
-    height: 'auto',
-    open: true
-  };
+  const { open, children, className } = props;
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.open !== this.props.open) {
-      this.setState({ open: this.props.open });
-    }
-  }
+  useEffect(() => {
+    setIsOpen(open);
+  }, [open]);
 
-  handleRef = el => {
+  const handleRef = useCallback(el => {
     if (el) {
       const { height } = el.getBoundingClientRect();
-
-      this.setState({ height: `${height}px` }, () => {
-        if (!this.props.open) {
-          this.setState({ open: false });
-        }
-      });
+      setHeight(`${height}px`);
+      setIsOpen(false);
     }
-  };
+  }, []);
 
-  render() {
-    const { height, open } = this.state;
-    const { children, className } = this.props;
+  let calcHeight = isOpen ? height : 0;
+  return (
+    <Content
+      className={className}
+      height={calcHeight}
+      open={isOpen}
+      ref={handleRef}
+    >
+      {children}
+    </Content>
+  );
+};
 
-    let calcHeight = open ? height : 0;
-    return (
-      <Content
-        className={className}
-        height={calcHeight}
-        open={open}
-        ref={this.handleRef}
-      >
-        {children}
-      </Content>
-    );
-  }
-}
+Collapsible.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  open: PropTypes.bool.isRequired,
+  toggleOpen: PropTypes.func.isRequired
+};
 
 export default Collapsible;
 
