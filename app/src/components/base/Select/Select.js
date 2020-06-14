@@ -462,7 +462,7 @@ export default class Select extends React.Component {
             />
           )}
 
-          <Fade show={open}>
+          <StyledFade show={open}>
             <CurrentHoveredIndexContext.Provider
               value={currentHoveredOptionIndex}
             >
@@ -494,7 +494,7 @@ export default class Select extends React.Component {
                 spinnerColor={spinnerColor}
               />
             </CurrentHoveredIndexContext.Provider>
-          </Fade>
+          </StyledFade>
         </Container>
       </ClickOut>
     );
@@ -528,4 +528,14 @@ const Container = styled.div`
       pointer-events: none;
       opacity: 0.5;
     `};
+`;
+
+const StyledFade = styled(Fade)`
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  min-height: 20px;
+  max-height: ${({ maxHeight }) => maxHeight};
 `;
