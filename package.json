@@ -1,6 +1,6 @@
 {
   "name": "@datorama/app-components",
-  "version": "0.37.0",
+  "version": "0.37.1",
   "description": "Datorama React components library",
   "author": "Shay Keinan",
   "repository": "https://github.com/datorama/app-components",
@@ -12,7 +12,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "styled-components": "^4.3.2"
+    "styled-components": "^5.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -37,7 +37,7 @@
     "replace": "^1.2.0",
     "rimraf": "3.0.0",
     "style-loader": "^1.0.0",
-    "styled-components": "5.0.0",
+    "styled-components": "5.1.1",
     "terser-webpack-plugin": "2.3.2",
     "url-loader": "^4.1.0",
     "warpjs": "^1.0.8",
