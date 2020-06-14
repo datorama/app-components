@@ -9,7 +9,7 @@ const Stepper = props => {
   const { steps, currentStep, selectStep, className } = props;
   const [hovered, setHovered] = useState(null);
 
-  const toggleHover = useCallback(id => () => setHovered(id), []);
+  const toggleHover = useCallback(id => setHovered(id), []);
 
   return (
     <Container className={className}>
@@ -20,8 +20,8 @@ const Stepper = props => {
               key={step.id}
               disabled={!step.enabled}
               onClick={() => selectStep(step.id)}
-              onMouseEnter={toggleHover(step.id)}
-              onMouseLeave={toggleHover(null)}
+              onMouseEnter={() => toggleHover(step.id)}
+              onMouseLeave={() => toggleHover(null)}
             >
               <StyledBullet
                 hovered={
@@ -48,8 +48,6 @@ const Stepper = props => {
 
 Stepper.defaultProps = { steps: [] };
 
-export default Stepper;
-
 export const stepShape = PropTypes.shape({
   id: PropTypes.number,
   label: PropTypes.string,
@@ -63,6 +61,8 @@ Stepper.propTypes = {
   selectStep: PropTypes.func,
   className: PropTypes.string
 };
+
+export default Stepper;
 
 const Container = styled.div`
   display: flex;
