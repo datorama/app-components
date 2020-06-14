@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -7,36 +7,30 @@ import Collapsible from './Collapsible';
 // icons
 import ArrowDown from '../icons/ArrowDown.icon';
 
-class Collapse extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
-    label: PropTypes.string
-  };
+const Collapse = props => {
+  const [open, setOpen] = useState(false);
+  const { children, className, label } = props;
 
-  state = {
-    open: false
-  };
+  const toggleOpen = useCallback(() => setOpen(open => !open), []);
 
-  toggleOpen = () => this.setState(prevState => ({ open: !prevState.open }));
+  return (
+    <Container className={className}>
+      <Header onClick={toggleOpen}>
+        <StyledArrow open={open} />
+        {label}
+      </Header>
+      <Collapsible open={open} toggleOpen={toggleOpen}>
+        {children}
+      </Collapsible>
+    </Container>
+  );
+};
 
-  render() {
-    const { open } = this.state;
-    const { children, className, label } = this.props;
-
-    return (
-      <Container className={className}>
-        <Header onClick={this.toggleOpen}>
-          <StyledArrow open={open} />
-          {label}
-        </Header>
-        <Collapsible open={open} toggleOpen={this.toggleOpen}>
-          {children}
-        </Collapsible>
-      </Container>
-    );
-  }
-}
+Collapse.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  label: PropTypes.string
+};
 
 export default Collapse;
 
