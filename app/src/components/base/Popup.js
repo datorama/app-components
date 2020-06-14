@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
@@ -14,86 +14,99 @@ const RIGHT = 'RIGHT';
 // const TOP_LEFT = 'TOP_LEFT';
 // const TOP_RIGHT = 'TOP_RIGHT';
 
-export default class Popup extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    open: PropTypes.bool,
-    className: PropTypes.string,
-    contentRenderer: PropTypes.func,
-    position: PropTypes.string,
-    withClose: PropTypes.bool,
-    toggleOpen: PropTypes.func,
-    fixed: PropTypes.bool,
-    menuRef: PropTypes.shape({})
-  };
+const Popup = props => {
+  const {
+    children,
+    className,
+    open,
+    position,
+    contentRenderer,
+    withClose,
+    toggleOpen,
+    fixed,
+    menuRef
+  } = props;
 
-  static defaultProps = { position: BOTTOM };
+  const [coordinate, setCoordinate] = useState({ x: 0, y: 0 });
 
-  state = {
-    x: 0,
-    y: 0
-  };
+  const handleMouseMove = useCallback(
+    e => setCoordinate({ x: e.clientX, y: e.clientY }),
+    []
+  );
 
-  componentDidUpdate(prevProps) {
-    if (this.props.fixed) {
-      if (this.props.open && !prevProps.open) {
-        window.addEventListener('mousemove', this.handleMouseMove);
-      }
-
-      if (!this.props.open && prevProps.open) {
-        window.removeEventListener('mousemove', this.handleMouseMove);
-      }
+  useEffect(() => {
+    if (fixed) {
+      if (open) window.addEventListener('mousemove', handleMouseMove);
+      else window.removeEventListener('mousemove', handleMouseMove);
     }
-  }
 
-  componentWillUnmount() {
-    window.removeEventListener('mousemove', this.handleMouseMove);
-  }
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [fixed, open, handleMouseMove]);
 
-  handleMouseMove = e => this.setState({ x: e.clientX, y: e.clientY });
-
-  menu() {
-    const {
-      open,
-      position,
-      contentRenderer,
-      withClose,
-      toggleOpen,
-      fixed,
-      menuRef
-    } = this.props;
-    const { x, y } = this.state;
-
-    return (
-      <StyledMenu
-        visible={open}
-        className="pop-menu"
-        position={position}
+  return (
+    <Container className={className}>
+      {children}
+      <Menu
+        open={open}
         fixed={fixed}
-        x={x}
-        y={y}
-        ref={menuRef}
-      >
-        {contentRenderer()}
-        {withClose && <CloseIcon onClick={toggleOpen} />}
-      </StyledMenu>
-    );
-  }
+        x={coordinate.x}
+        y={coordinate.y}
+        menuRef={menuRef}
+        contentRenderer={contentRenderer}
+        withClose={withClose}
+        toggleOpen={toggleOpen}
+        position={position}
+      />
+    </Container>
+  );
+};
 
-  render() {
-    const { children, className, fixed } = this.props;
+Popup.propTypes = {
+  children: PropTypes.node,
+  open: PropTypes.bool,
+  className: PropTypes.string,
+  contentRenderer: PropTypes.func,
+  position: PropTypes.string,
+  withClose: PropTypes.bool,
+  toggleOpen: PropTypes.func,
+  fixed: PropTypes.bool,
+  menuRef: PropTypes.shape({})
+};
 
-    return (
-      <Container className={className}>
-        {children}
+const Menu = ({
+  open,
+  position,
+  fixed,
+  x,
+  y,
+  menuRef,
+  contentRenderer,
+  withClose,
+  toggleOpen
+}) => {
+  const menu = (
+    <StyledMenu
+      visible={open}
+      className="pop-menu"
+      position={position}
+      fixed={fixed}
+      x={x}
+      y={y}
+      ref={menuRef}
+    >
+      {contentRenderer()}
+      {withClose && <CloseIcon onClick={toggleOpen} />}
+    </StyledMenu>
+  );
 
-        {fixed
-          ? ReactDOM.createPortal(this.menu(), document.body)
-          : this.menu()}
-      </Container>
-    );
-  }
-}
+  return fixed ? ReactDOM.createPortal(menu, document.body) : menu;
+};
+
+Popup.defaultProps = { position: BOTTOM };
+
+export default Popup;
 
 const StyledMenu = styled.div.attrs(({ fixed, x, y }) => ({
   style: fixed ? { top: y, left: x } : {}

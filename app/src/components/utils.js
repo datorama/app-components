@@ -1,3 +1,6 @@
+import { css } from 'styled-components';
+import * as typography from './typography';
+
 export const hexToRgba = (hex, opacity) => {
   if (typeof hex !== 'string') {
     return hex;
@@ -73,4 +76,139 @@ export const uuid = () => {
 
     return v.toString(16);
   });
+};
+
+export const getColors = (hex, arr, dark, prefix) => {
+  const result = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    result[`${prefix}${arr[i]}`] =
+      arr[i] === 400
+        ? hex
+        : shadeColor(hex, dark ? arr[arr.length - 1 - i] : arr[i]);
+  }
+
+  return result;
+};
+
+export const extendTheme = ({ theme, options }) => {
+  let newTheme = { ...theme };
+
+  // colors
+  if (options.primary) {
+    const arr = [0, 50, 100, 200, 300, 400, 500, 600, 700];
+
+    newTheme = {
+      ...newTheme,
+      ...getColors(options.primary, arr, options.dark, 'p')
+    };
+  }
+
+  if (options.accent) {
+    const arr = [100, 200, 300, 350, 400, 500, 600, 700, 800];
+
+    newTheme = {
+      ...newTheme,
+      ...getColors(options.accent, arr, options.dark, 'a')
+    };
+  }
+
+  // typography
+  newTheme.font = options.font || 'open-sans';
+
+  // scale
+  const scale = options.scale ? 1 + options.scale / 10 : 1;
+
+  newTheme.scale = scale;
+
+  // scale size
+  newTheme.size = {
+    SMALL: `${24 * scale}px`,
+    MEDIUM: `${30 * scale}px`,
+    LARGE: `${34 * scale}px`
+  };
+
+  // scale typography
+  const headline = css`
+    ${typography.headline};
+    font-size: ${34 * scale}px;
+  `;
+
+  const subHeadline = css`
+    ${typography.subHeadline};
+    font-size: ${18 * scale}px;
+  `;
+
+  const p = css`
+    ${typography.p};
+    font-size: ${14 * scale}px;
+  `;
+
+  const pBold = css`
+    ${typography.pBold};
+    font-size: ${14 * scale}px;
+  `;
+
+  const pLink = css`
+    ${typography.pLink};
+    font-size: ${14 * scale}px;
+  `;
+
+  const pNote = css`
+    ${typography.pNote};
+    font-size: ${14 * scale}px;
+  `;
+
+  const pItalic = css`
+    ${typography.pItalic};
+    font-size: ${14 * scale}px;
+  `;
+
+  const sm = css`
+    ${typography.sm};
+    font-size: ${12 * scale}px;
+  `;
+
+  const smBold = css`
+    ${typography.smBold};
+    font-size: ${12 * scale}px;
+  `;
+
+  const smLink = css`
+    ${typography.smLink};
+    font-size: ${12 * scale}px;
+  `;
+
+  const smNote = css`
+    ${typography.smNote};
+    font-size: ${12 * scale}px;
+  `;
+
+  const smItalic = css`
+    ${typography.smItalic};
+    font-size: ${12 * scale}px;
+  `;
+
+  const tooltip = css`
+    ${typography.tooltip};
+    font-size: ${11 * scale}px;
+  `;
+
+  newTheme.text = {
+    headline,
+    subHeadline,
+    p,
+    pBold,
+    pLink,
+    pNote,
+    pItalic,
+    sm,
+    smBold,
+    smLink,
+    smNote,
+    smItalic,
+    tooltip
+  };
+
+  return newTheme;
 };
