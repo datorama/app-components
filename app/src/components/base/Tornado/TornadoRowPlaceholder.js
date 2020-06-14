@@ -66,7 +66,7 @@ const TornadoRowPlaceholder = ({
             index * (CONSTANTS.ROW_HEIGHT + CONSTANTS.MARGIN) +
             +CONSTANTS.ROW_HEIGHT
           }
-          fontSize={14}
+          fontSize={13}
           fontWeight={600}
           color="#67696f"
           textAnchor="middle"
@@ -93,7 +93,7 @@ const TornadoRowPlaceholder = ({
 const PlaceholderContent = styled.g`
   transform-origin: 50% 50%;
   opacity: 0;
-  animation: appear 0.5s ease-out 1.2s forwards;
+  animation: appear 0.5s ease-out 1.7s forwards;
 `;
 
 const PlaceholderFilter = styled.g`
