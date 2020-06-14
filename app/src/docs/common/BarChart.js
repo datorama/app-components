@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const BarChart = () => {
-  const bars = [];
+  const [bars, setBars] = useState([]);
 
-  for (let i = 0; i < 50; i++) {
-    bars.push(
-      <Bar
-        key={i}
-        width={20}
-        height={200}
-        x={i * 24}
-        y={60 + Math.random() * 120}
-        rx={4}
-        ry={4}
-      />
-    );
-  }
+  useEffect(() => {
+    const tmpBars = [];
+
+    for (let i = 0; i < 50; i++) {
+      tmpBars.push(
+        <Bar
+          key={i}
+          width={20}
+          height={200}
+          x={i * 24}
+          y={60 + Math.random() * 120}
+          rx={4}
+          ry={4}
+        />
+      );
+    }
+
+    setBars(tmpBars);
+  }, []);
 
   return (
     <Container>

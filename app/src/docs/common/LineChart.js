@@ -1,13 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import * as d3 from 'd3-shape';
 
 const LineChart = ({ className, height = 25, lineWidth = 400 }) => {
-  const data = [];
+  const [data, setData] = useState([]);
 
-  for (let i = 0; i < 20; i++) {
-    data.push([i * 30, Math.random() * height]);
-  }
+  useEffect(() => {
+    const tmpData = [];
+
+    for (let i = 0; i < 20; i++) {
+      tmpData.push([i * 30, Math.random() * height]);
+    }
+
+    setData(tmpData);
+  }, [height]);
 
   const lineGenerator = useMemo(() => d3.line().curve(d3.curveCatmullRom), []);
   const lineData = lineGenerator(data);
