@@ -1,4 +1,10 @@
-import React, { Fragment } from 'react';
+import React, {
+  Fragment,
+  useState,
+  useEffect,
+  useCallback,
+  useMemo
+} from 'react';
 import styled, { css } from 'styled-components';
 import { range } from 'lodash/fp';
 import PropTypes from 'prop-types';
@@ -8,22 +14,13 @@ import { hexToRgba } from '../utils';
 import ArrowDown from '../icons/ArrowDown.icon';
 import DoubleArrowDown from '../icons/DoubleArrowDown.icon';
 
-export default class Pagination extends React.Component {
-  static propTypes = {
-    total: PropTypes.number.isRequired,
-    max: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
-    className: PropTypes.string
-  };
+const Pagination = props => {
+  const [current, setCurrent] = useState(1);
+  const [selected, setSelected] = useState(1);
+  const { total, max, className, onChange } = props;
+  const noControls = total <= max;
 
-  state = {
-    current: 1,
-    selected: 1
-  };
-
-  next = () => {
-    const { total, max } = this.props;
-    const { current, selected } = this.state;
+  const next = useCallback(() => {
     const next = current + 1;
     const nextSelected = selected + 1;
 
@@ -31,22 +28,11 @@ export default class Pagination extends React.Component {
       return;
     }
 
-    this.setState(
-      {
-        selected: nextSelected,
-        current: nextSelected > max && next < total - max + 2 ? next : current
-      },
-      this.update
-    );
-  };
+    setSelected(nextSelected);
+    setCurrent(nextSelected > max && next < total - max + 2 ? next : current);
+  }, [current, max, selected, total]);
 
-  update() {
-    this.props.onChange(this.state.selected);
-  }
-
-  prev = () => {
-    const { current, selected } = this.state;
-    const { total, max } = this.props;
+  const prev = useCallback(() => {
     const next = current - 1;
     const nextSelected = selected - 1;
 
@@ -59,42 +45,29 @@ export default class Pagination extends React.Component {
       updateCurrent = total - selected > max - 2;
     }
 
-    this.setState(
-      {
-        selected: nextSelected,
-        current: updateCurrent ? next : current
-      },
-      this.update
-    );
-  };
+    setSelected(nextSelected);
+    setCurrent(updateCurrent ? next : current);
+  }, [current, max, selected, total]);
 
-  setPage = selected => () => {
-    const { current } = this.state;
-    const { total, max } = this.props;
+  const setPage = useCallback(
+    selected => () => {
+      // update current
+      let next = current;
+      if (selected === 1) {
+        next = 1;
+      }
 
-    // update current
-    let next = current;
-    if (selected === 1) {
-      next = 1;
-    }
+      if (selected === total && total > max) {
+        next = total - max + 1;
+      }
 
-    if (selected === total && total > max) {
-      next = total - max + 1;
-    }
+      setSelected(selected);
+      setCurrent(next);
+    },
+    [current, max, total]
+  );
 
-    this.setState(
-      {
-        selected,
-        current: next
-      },
-      this.update
-    );
-  };
-
-  getPages() {
-    const { total, max } = this.props;
-    const { current, selected } = this.state;
-
+  const getPages = useMemo(() => {
     let pageRange = range(current, current + max);
 
     // show all
@@ -105,54 +78,61 @@ export default class Pagination extends React.Component {
     return pageRange.map(page => (
       <Button
         key={`page-${page}`}
-        onClick={this.setPage(page)}
+        onClick={setPage(page)}
         selected={page === selected}
       >
         {page}
       </Button>
     ));
-  }
+  }, [current, max, selected, setPage, total]);
 
-  render() {
-    const { max, total, className } = this.props;
-    const { selected } = this.state;
-    const noControls = total <= max;
+  useEffect(() => {
+    onChange(selected);
+  }, [current, selected, onChange]);
 
-    return (
-      <Container className={className}>
-        {!noControls && (
-          <Fragment>
-            <Button filled onClick={this.setPage(1)}>
-              <DoubleArrow rotate={90} />
-            </Button>
-            <Button filled onClick={this.prev}>
-              <Arrow rotate={90} />
-            </Button>
-          </Fragment>
-        )}
+  return (
+    <Container className={className}>
+      {!noControls && (
+        <Fragment>
+          <Button filled onClick={setPage(1)}>
+            <DoubleArrow rotate={90} />
+          </Button>
+          <Button filled onClick={prev}>
+            <Arrow rotate={90} />
+          </Button>
+        </Fragment>
+      )}
 
-        {this.getPages()}
+      {getPages}
 
-        {!noControls && (
-          <Fragment>
-            <Button filled onClick={this.next}>
-              <Arrow rotate={-90} />
-            </Button>
-            <Button filled onClick={this.setPage(total)}>
-              <DoubleArrow rotate={-90} />
-            </Button>
-          </Fragment>
-        )}
+      {!noControls && (
+        <Fragment>
+          <Button filled onClick={next}>
+            <Arrow rotate={-90} />
+          </Button>
+          <Button filled onClick={setPage(total)}>
+            <DoubleArrow rotate={-90} />
+          </Button>
+        </Fragment>
+      )}
 
-        <Divider />
+      <Divider />
 
-        <Info>
-          {selected} out of {total}
-        </Info>
-      </Container>
-    );
-  }
-}
+      <Info>
+        {selected} out of {total}
+      </Info>
+    </Container>
+  );
+};
+
+Pagination.propTypes = {
+  total: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string
+};
+
+export default Pagination;
 
 const Container = styled.div`
   display: flex;
