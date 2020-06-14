@@ -1,61 +1,54 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-class Sticky extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
-    onChange: PropTypes.func
-  };
+const Sticky = props => {
+  const [position, setPosition] = useState('relative');
+  const skeletonEl = useRef();
+  const { className, children, onChange } = props;
 
-  state = {
-    position: 'relative'
-  };
+  const handleScroll = useCallback(() => {
+    if (skeletonEl) {
+      const { top } = skeletonEl.current.getBoundingClientRect();
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = () => {
-    if (this.el) {
-      const { top } = this.el.getBoundingClientRect();
-
-      if (top <= 0 && this.state.position !== 'fixed') {
-        this.setState({ position: 'fixed' }, this.update);
+      if (top <= 0 && position !== 'fixed') {
+        setPosition('fixed');
+        if (onChange) {
+          onChange && onChange({ fixed: true });
+        }
       }
 
-      if (top > 0 && this.state.position !== 'relative') {
-        this.setState({ position: 'relative' }, this.update);
+      if (top > 0 && position !== 'relative') {
+        setPosition('relative');
+        if (onChange) {
+          onChange && onChange({ fixed: false });
+        }
       }
     }
-  };
+  }, [position, onChange]);
 
-  update() {
-    const { onChange } = this.props;
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
 
-    if (onChange) {
-      onChange({ fixed: this.state.position === 'fixed' });
-    }
-  }
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
 
-  render() {
-    const { position } = this.state;
-    const { className, children } = this.props;
+  return (
+    <Skeleton ref={skeletonEl}>
+      <Strip position={position} className={className}>
+        {children}
+      </Strip>
+    </Skeleton>
+  );
+};
 
-    return (
-      <Skeleton ref={el => (this.el = el)}>
-        <Strip position={position} className={className}>
-          {children}
-        </Strip>
-      </Skeleton>
-    );
-  }
-}
+Sticky.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  onChange: PropTypes.func
+};
 
 export default Sticky;
 
