@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const Fade = ({ show, children }) => {
+const Fade = ({ show, children, className }) => {
   const [shouldRender, setRender] = useState(show);
 
   useEffect(() => {
@@ -18,6 +18,7 @@ const Fade = ({ show, children }) => {
       <Container
         animation={`${show ? 'menuFadeIn' : 'menuFadeOut'} 300ms`}
         onAnimationEnd={onAnimationEnd}
+        className={className}
       >
         {children}
       </Container>

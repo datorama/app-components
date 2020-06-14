@@ -159,8 +159,7 @@ SelectMenu.propTypes = {
 
 const Container = styled.div`
   position: absolute;
-  z-index: 1;
-  top: calc(100% + 4px);
+  top: 0;
   left: 0;
   width: 100%;
   min-height: 20px;
