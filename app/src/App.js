@@ -1,13 +1,13 @@
-import React, { Component, Fragment, useState } from 'react';
+import React, { Fragment, useCallback, useState, createContext } from 'react';
 import styled, { css, ThemeProvider } from 'styled-components';
-import { isEmpty } from 'lodash/fp';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import CustomColor from './generators/CustomColor';
 import Highlighter from 'react-highlight-words';
+import { extendTheme } from './components/utils';
+import { AppTheme } from './components/index';
 
 // notifications
-import { lightTheme, darkTheme, TextInput } from './components/index';
+import { lightTheme, TextInput, darkTheme } from './components/index';
 import { NotificationsProvider } from './components/base/Notifications';
 
 // docs
@@ -19,6 +19,7 @@ import Layout from './docs/Layout.doc';
 import Datepicker from './docs/Datepicker.doc';
 import ClickOut from './docs/ClickOut.doc';
 import Typography from './docs/Typography.doc';
+import Theme from './docs/Theme.doc';
 import Button from './docs/Button.doc';
 import Animations from './docs/Animations.doc';
 import Card from './docs/Card.doc';
@@ -48,6 +49,58 @@ import GoalsChart from './docs/GoalsChart';
 import Filters from './docs/Filters.doc';
 import Tornado from './docs/Tornado.doc';
 
+const list = [
+  {
+    key: 'getting-started',
+    label: 'Getting Started',
+    path: 'getting-started'
+  },
+
+  { key: 'style', label: 'Style', type: 'title' },
+  { key: 'animations', label: 'Animations', path: 'animations' },
+  { key: 'colors', label: 'Colors', path: 'colors' },
+  { key: 'layout', label: 'Layout', path: 'layout' },
+  { key: 'typography', label: 'Typography', path: 'typography' },
+  { key: 'theme', label: 'Theme Customization', path: 'theme' },
+
+  { key: 'components', label: 'Components', type: 'title' },
+  { key: 'button', label: 'Button', path: 'button' },
+  { key: 'card', label: 'Card', path: 'card' },
+  { key: 'carousel', label: 'Carousel', path: 'carousel' },
+  { key: 'collapse', label: 'Collapse', path: 'collapse' },
+  { key: 'date-picker', label: 'Date Picker', path: 'datepicker' },
+  { key: 'ellipsis', label: 'Ellipsis', path: 'ellipsis' },
+  { key: 'modal', label: 'Modal', path: 'modal' },
+  { key: 'notifications', label: 'Notifications', path: 'notifications' },
+  { key: 'pagination', label: 'Pagination', path: 'pagination' },
+  { key: 'progress', label: 'Progress', path: 'progress' },
+  { key: 'range-input', label: 'Range Input', path: 'range' },
+  { key: 'select', label: 'Select', path: 'select' },
+  { key: 'spinner', label: 'Spinner', path: 'spinner' },
+  { key: 'stepper', label: 'Stepper', path: 'stepper' },
+  { key: 'sticky', label: 'Sticky', path: 'sticky' },
+  { key: 'table', label: 'Table', path: 'table' },
+  { key: 'tabs', label: 'Tabs', path: 'tabs' },
+  { key: 'tag', label: 'Tag', path: 'tag' },
+  { key: 'text-input', label: 'Text Input', path: 'text-input' },
+  { key: 'toggles', label: 'Toggles', path: 'toggles' },
+  { key: 'tooltip', label: 'Tooltip', path: 'tooltip' },
+  { key: 'filters', label: 'Filters', path: 'filters' },
+
+  { key: 'charts', label: 'Charts', type: 'title' },
+  { key: 'goals-chart', label: 'Goals Chart', path: 'goals-chart' },
+  { key: 'gauge', label: 'Gauge Chart', path: 'gauge' },
+  { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
+  { key: 'tornado', label: 'Tornado', path: 'tornado' },
+
+  { key: 'pages', label: 'Pages', type: 'title' },
+  { key: 'error-page', label: 'Error Page', path: 'error-page' },
+
+  { key: 'utils', label: 'Utils', type: 'title' },
+  { key: 'click-out', label: 'Click Out', path: 'click-out' },
+  { key: 'drag-drop', label: 'Drag and Drop', path: 'drag-drop' }
+];
+
 const Navigation = ({ list, history, location, onClick }) => {
   const [term, setTerm] = useState('');
 
@@ -55,7 +108,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.36.0</Version>
+        <Version>0.37.0</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -99,134 +152,33 @@ const Navigation = ({ list, history, location, onClick }) => {
 
 const ConnectedNavigation = withRouter(Navigation);
 
-class App extends Component {
-  state = {
-    light: true,
-    colorsOpen: false,
-    customTheme: {}
-  };
+export const Context = createContext();
 
-  toggleTheme = () => this.setState(prevState => ({ light: !prevState.light }));
+const App = () => {
+  const [themeConfig, setThemeConfig] = useState({
+    scale: 1
+  });
 
-  updateTheme = customTheme =>
-    this.setState({
-      customTheme: {
-        ...this.state.customTheme,
-        ...customTheme
-      }
-    });
-
-  afterNavigate = () => {
+  const afterNavigate = useCallback(() => {
     window.scroll(0, 0);
-    this.setState({ colorsOpen: false });
-  };
+  }, []);
 
-  render() {
-    const { light, colorsOpen, customTheme } = this.state;
-    let theme = light ? lightTheme : darkTheme;
+  const theme = themeConfig.dark ? darkTheme : lightTheme;
+  const extendedTheme = extendTheme({ theme: theme, options: themeConfig });
 
-    if (!isEmpty(customTheme)) {
-      if (light) {
-        theme = {
-          ...theme,
-          ...customTheme
-        };
-      } else {
-        theme = {
-          ...theme,
-          a100: customTheme.a800,
-          a200: customTheme.a700,
-          a300: customTheme.a600,
-          a350: customTheme.a500,
-          a400: customTheme.a400,
-          a500: customTheme.a350,
-          a600: customTheme.a300,
-          a700: customTheme.a200,
-          a800: customTheme.a100
-        };
-      }
-    }
-
-    const list = [
-      {
-        key: 'getting-started',
-        label: 'Getting Started',
-        path: 'getting-started'
-      },
-
-      { key: 'style', label: 'Style', type: 'title' },
-      { key: 'animations', label: 'Animations', path: 'animations' },
-      { key: 'colors', label: 'Colors', path: 'colors' },
-      { key: 'layout', label: 'Layout', path: 'layout' },
-      { key: 'typography', label: 'Typography', path: 'typography' },
-
-      { key: 'components', label: 'Components', type: 'title' },
-      { key: 'button', label: 'Button', path: 'button' },
-      { key: 'card', label: 'Card', path: 'card' },
-      { key: 'carousel', label: 'Carousel', path: 'carousel' },
-      { key: 'collapse', label: 'Collapse', path: 'collapse' },
-      { key: 'date-picker', label: 'Date Picker', path: 'datepicker' },
-      { key: 'ellipsis', label: 'Ellipsis', path: 'ellipsis' },
-      { key: 'modal', label: 'Modal', path: 'modal' },
-      { key: 'notifications', label: 'Notifications', path: 'notifications' },
-      { key: 'pagination', label: 'Pagination', path: 'pagination' },
-      { key: 'progress', label: 'Progress', path: 'progress' },
-      { key: 'range-input', label: 'Range Input', path: 'range' },
-      { key: 'select', label: 'Select', path: 'select' },
-      { key: 'spinner', label: 'Spinner', path: 'spinner' },
-      { key: 'stepper', label: 'Stepper', path: 'stepper' },
-      { key: 'sticky', label: 'Sticky', path: 'sticky' },
-      { key: 'table', label: 'Table', path: 'table' },
-      { key: 'tabs', label: 'Tabs', path: 'tabs' },
-      { key: 'tag', label: 'Tag', path: 'tag' },
-      { key: 'text-input', label: 'Text Input', path: 'text-input' },
-      { key: 'toggles', label: 'Toggles', path: 'toggles' },
-      { key: 'tooltip', label: 'Tooltip', path: 'tooltip' },
-      { key: 'filters', label: 'Filters', path: 'filters' },
-      { key: 'tornado', label: 'Tornado', path: 'tornado' },
-
-      { key: 'charts', label: 'Charts', type: 'title' },
-      { key: 'goals-chart', label: 'Goals Chart', path: 'goals-chart' },
-      { key: 'gauge', label: 'Gauge Chart', path: 'gauge' },
-      { key: 'snail-chart', label: 'Snail Chart', path: 'snail-chart' },
-
-      { key: 'pages', label: 'Pages', type: 'title' },
-      { key: 'error-page', label: 'Error Page', path: 'error-page' },
-
-      { key: 'utils', label: 'Utils', type: 'title' },
-      { key: 'click-out', label: 'Click Out', path: 'click-out' },
-      { key: 'drag-drop', label: 'Drag and Drop', path: 'drag-drop' }
-    ];
-
-    return (
-      <Router>
-        <ThemeProvider theme={theme}>
+  return (
+    <Router>
+      <AppTheme provider={ThemeProvider} theme={extendedTheme}>
+        <Context.Provider
+          value={{ config: themeConfig, setConfig: setThemeConfig }}
+        >
           <NotificationsProvider>
-            <CustomColor
-              open={colorsOpen}
-              theme={theme}
-              light={light}
-              updateTheme={this.updateTheme}
-            />
             <Container>
-              <Sidebar light={light}>
-                <ConnectedNavigation list={list} onClick={this.afterNavigate} />
+              <Sidebar background={extendedTheme.p0}>
+                <ConnectedNavigation list={list} onClick={afterNavigate} />
               </Sidebar>
 
-              <ThemeButton selected={!light} onClick={this.toggleTheme}>
-                <ContrastIcon />
-              </ThemeButton>
-
-              <ColorsButton
-                selected={colorsOpen}
-                onClick={() =>
-                  this.setState({ colorsOpen: !this.state.colorsOpen })
-                }
-              >
-                <DropIcon />
-              </ColorsButton>
-
-              <Content light={light}>
+              <Content background={extendedTheme.p0}>
                 <Route exact path="/" component={Home} />
                 <Route
                   exact
@@ -238,6 +190,7 @@ class App extends Component {
                 <Route exact path="/typography" component={Typography} />
                 <Route exact path="/layout" component={Layout} />
                 <Route exact path="/animations" component={Animations} />
+                <Route exact path="/theme" component={Theme} />
 
                 <Route exact path="/button" component={Button} />
                 <Route exact path="/datepicker" component={Datepicker} />
@@ -272,11 +225,11 @@ class App extends Component {
               </Content>
             </Container>
           </NotificationsProvider>
-        </ThemeProvider>
-      </Router>
-    );
-  }
-}
+        </Context.Provider>
+      </AppTheme>
+    </Router>
+  );
+};
 
 export default App;
 
@@ -290,30 +243,17 @@ const Container = styled.div`
 
 const Sidebar = styled.div`
   width: 300px;
-  background: #fff;
+  background: ${({ background }) => background};
   box-sizing: border-box;
-  border-right: 1px solid #eeeeee;
+  border-right: 1px solid ${({ theme }) => theme.p100};
   padding: 40px;
-
-  ${({ light }) =>
-    !light &&
-    css`
-      background: #272727;
-      border-color: #404040;
-    `};
 `;
 
 const Content = styled.div`
   width: calc(100vw - 300px);
   min-height: 100vh;
   box-sizing: border-box;
-  background: #fff;
-
-  ${({ light }) =>
-    !light &&
-    css`
-      background: #272727;
-    `};
+  background: ${({ background }) => background};
 `;
 
 const Header = styled.div`
@@ -390,52 +330,6 @@ const MenuLine = styled.div`
     css`
       opacity: 1;
     `}
-`;
-
-const ThemeButton = styled.div`
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 10;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: ${({ theme }) => theme.p300};
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: sll 500ms;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0);
-  opacity: 0.3;
-
-  ${({ selected }) =>
-    selected &&
-    css`
-      opacity: 0.7;
-    `};
-
-  &:hover {
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-  }
-`;
-
-const DropIcon = styled.div`
-  width: 30px;
-  height: 30px;
-  background: url(${require('./docs/assets/drop.svg')}) no-repeat;
-  background-size: contain;
-`;
-
-const ContrastIcon = styled.div`
-  width: 22px;
-  height: 22px;
-  background: url(${require('./docs/assets/dark-light.svg')}) no-repeat;
-  background-size: contain;
-`;
-
-const ColorsButton = styled(ThemeButton)`
-  right: 70px;
 `;
 
 const Version = styled.div`
