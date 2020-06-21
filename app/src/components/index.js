@@ -168,6 +168,8 @@ export const lightPrimary = libColors.lightPrimary;
 export const lightAccent = libColors.lightAccent;
 export const darkPrimary = libColors.darkPrimary;
 export const darkAccent = libColors.darkAccent;
+export const lightSecondary = libColors.lightSecondary;
+export const darkSecondary = libColors.darkSecondary;
 
 export const reds = libColors.reds;
 export const greens = libColors.greens;

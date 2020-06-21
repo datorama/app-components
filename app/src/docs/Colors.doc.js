@@ -7,6 +7,8 @@ import {
   Row,
   Col,
   lightPrimary,
+  lightSecondary,
+  darkSecondary,
   lightAccent,
   darkPrimary,
   darkAccent,
@@ -74,6 +76,18 @@ const Colors = () => {
       </Row>
 
       <Row>
+        <Col direction="row" justify="space-between">
+          {keys(lightSecondary).map(key => (
+            <Color
+              key={`light-${key}`}
+              color={lightSecondary[key]}
+              label={key}
+            />
+          ))}
+        </Col>
+      </Row>
+
+      <Row>
         <Col>
           <SectionTitle>dark theme</SectionTitle>
         </Col>
@@ -95,6 +109,20 @@ const Colors = () => {
             .reverse()
             .map(key => (
               <Color key={`dark-${key}`} color={darkAccent[key]} label={key} />
+            ))}
+        </Col>
+      </Row>
+
+      <Row>
+        <Col direction="row" justify="space-between">
+          {keys(darkSecondary)
+            .reverse()
+            .map(key => (
+              <Color
+                key={`dark-${key}`}
+                color={darkSecondary[key]}
+                label={key}
+              />
             ))}
         </Col>
       </Row>
