@@ -63,6 +63,16 @@ const ThemeDoc = () => {
     [config, setConfig]
   );
 
+  const handleSecondary = useCallback(
+    color => {
+      setConfig({
+        ...config,
+        secondary: color.hex
+      });
+    },
+    [config, setConfig]
+  );
+
   const optionLabelRenderer = useCallback(
     ({ value, label }) => <OptionLabel font={value}>{label}</OptionLabel>,
     []
@@ -120,6 +130,25 @@ const ThemeDoc = () => {
           <StaticColor hex={theme.p500} />
           <StaticColor hex={theme.p600} />
           <StaticColor hex={theme.p700} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col direction="row" justify="flex-start" align="center">
+          <Label>Secondary color</Label>
+          <ColorPicker
+            color={config.secondary || theme.s400}
+            onChange={handleSecondary}
+          />
+          <StaticColor hex={theme.s0} />
+          <StaticColor hex={theme.s50} />
+          <StaticColor hex={theme.s100} />
+          <StaticColor hex={theme.s200} />
+          <StaticColor hex={theme.s300} />
+          <StaticColor hex={theme.s400} />
+          <StaticColor hex={theme.s500} />
+          <StaticColor hex={theme.s600} />
+          <StaticColor hex={theme.s700} />
         </Col>
       </Row>
 
@@ -247,20 +276,20 @@ const ThemeDoc = () => {
                   {
                     label: 'first label',
                     percentage: 75,
-                    color: theme.a300,
-                    hoverColor: theme.a600
+                    color: theme.s300,
+                    hoverColor: theme.s600
                   },
                   {
                     label: 'second label',
                     percentage: 63,
-                    color: theme.a400,
-                    hoverColor: theme.a600
+                    color: theme.s400,
+                    hoverColor: theme.s600
                   },
                   {
                     label: 'third label',
                     percentage: 50,
-                    color: theme.a500,
-                    hoverColor: theme.a600
+                    color: theme.s500,
+                    hoverColor: theme.s600
                   }
                 ]}
               />

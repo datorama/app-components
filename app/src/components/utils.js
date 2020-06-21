@@ -104,6 +104,15 @@ export const extendTheme = ({ theme, options }) => {
     };
   }
 
+  if (options.secondary) {
+    const arr = [0, 50, 100, 200, 300, 400, 500, 600, 700];
+
+    newTheme = {
+      ...newTheme,
+      ...getColors(options.secondary, arr, options.dark, 's')
+    };
+  }
+
   if (options.accent) {
     const arr = [100, 200, 300, 350, 400, 500, 600, 700, 800];
 
