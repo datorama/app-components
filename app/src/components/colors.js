@@ -11,6 +11,18 @@ export const lightPrimary = {
   p700: '#2E2F30'
 };
 
+export const lightSecondary = {
+  s0: '#d1bff4',
+  s50: '#b599ed',
+  s100: '#7d4de0',
+  s200: '#7d4de0',
+  s300: '#4500d3',
+  s400: '#34009e',
+  s500: '#260074',
+  s600: '#1f005f',
+  s700: '#110035'
+};
+
 export const lightAccent = {
   a100: '#E3F2FD',
   a200: '#BBDEFB',
@@ -34,6 +46,18 @@ export const darkPrimary = {
   p100: '#4F5053',
   p50: '#37383A',
   p0: '#2E2F30'
+};
+
+export const darkSecondary = {
+  s700: '#d1bff4',
+  s600: '#b599ed',
+  s500: '#7d4de0',
+  s400: '#7d4de0',
+  s300: '#4500d3',
+  s200: '#34009e',
+  s100: '#260074',
+  s50: '#1f005f',
+  s0: '#110035'
 };
 
 export const darkAccent = {
@@ -98,14 +122,17 @@ export const oranges = {
 
 export const darkTheme = {
   ...darkPrimary,
+  ...darkSecondary,
   ...darkAccent,
   ...reds,
   ...greens,
   ...yellows,
   ...oranges
 };
+
 export const lightTheme = {
   ...lightPrimary,
+  ...lightSecondary,
   ...lightAccent,
   ...reds,
   ...greens,
@@ -116,8 +143,7 @@ export const lightTheme = {
 export const list = {
   ...lightAccent,
   ...lightPrimary,
-  ...darkAccent,
-  ...darkPrimary,
+  ...lightSecondary,
   ...reds,
   ...greens,
   ...yellows,
