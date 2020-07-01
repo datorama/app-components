@@ -77,6 +77,7 @@ const Input = styled.input`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding: 0;
 
   &:focus {
     text-overflow: clip;

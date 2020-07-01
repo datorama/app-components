@@ -501,7 +501,7 @@ const StyledCalendar = styled(Calendar)`
   width: 14px;
   height: 14px;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 5px;
 
   path {
     fill: ${({ theme }) => theme.p600};
@@ -509,7 +509,7 @@ const StyledCalendar = styled(Calendar)`
 `;
 
 const Separator = styled.span`
-  margin: 0 10px;
+  margin: 0;
 `;
 
 const StyledArrowDown = styled(ArrowDown)`
