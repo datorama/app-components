@@ -65,9 +65,7 @@ export { default as GoalsChart } from './base/charts/GoalsChart';
 export { default as Gauge } from './base/charts/Gauge';
 export {
   default as EmptyState,
-  MODE as EMPTY_STATE_MODE,
-  SIZE as EMPTY_STATE_SIZE,
-  TYPE as EMPTY_STATE_TYPE
+  EMPTY_STATE_ENUMS
 } from './base/EmptyState/EmptyState';
 
 const loadFonts = font => {

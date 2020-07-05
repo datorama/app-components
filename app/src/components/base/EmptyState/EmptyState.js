@@ -85,7 +85,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.p600};
+  background-color: ${({ theme }) => theme.p0};
 `;
 
 const Content = styled.div`
@@ -111,5 +111,6 @@ const Illustration = styled.img`
   width: 100%;
 `;
 
-export { MODE, SIZE, TYPE, TEXT };
+const EMPTY_STATE_ENUMS = { MODE, SIZE, TYPE, TEXT };
+export { EMPTY_STATE_ENUMS };
 export default memo(EmptyState);
