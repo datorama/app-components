@@ -6,19 +6,21 @@ import { Row, Col } from '../components/index';
 import Snippet from './Snippet';
 import styled from 'styled-components';
 
-const basic = `
-<div style={{ height: 300, display: 'flex' }}>
-  <div>
-    <EmptyState type={EMPTY_STATE_ENUMS.TYPE.TOO_MUCH_DATA} size={EMPTY_STATE_ENUMS.SIZE.M} mode={EMPTY_STATE_ENUMS.MODE.DARK} />
-  </div>
-  
-  <div>
-    <EmptyState type={EMPTY_STATE_ENUMS.TYPE.NO_DATA} size={EMPTY_STATE_ENUMS.SIZE.M} mode={EMPTY_STATE_ENUMS.MODE.DARK} />
-  </div>
-  
-  <div>
-    <EmptyState type={EMPTY_STATE_ENUMS.TYPE.ERROR} size={EMPTY_STATE_ENUMS.SIZE.M} mode={EMPTY_STATE_ENUMS.MODE.DARK} />
-  </div>
+const tooMuch = `
+<div style={{ height: 300 }}>
+  <EmptyState type={EMPTY_STATE_ENUMS.TYPE.TOO_MUCH_DATA} size={EMPTY_STATE_ENUMS.SIZE.M} mode={EMPTY_STATE_ENUMS.MODE.DARK} />
+</div>
+`;
+
+const noData = `
+<div style={{ height: 300 }}>
+  <EmptyState type={EMPTY_STATE_ENUMS.TYPE.NO_DATA} size={EMPTY_STATE_ENUMS.SIZE.M} mode={EMPTY_STATE_ENUMS.MODE.DARK} />
+</div>
+`;
+
+const error = `
+<div style={{ height: 300 }}>
+  <EmptyState type={EMPTY_STATE_ENUMS.TYPE.ERROR} size={EMPTY_STATE_ENUMS.SIZE.M} mode={EMPTY_STATE_ENUMS.MODE.DARK} />
 </div>
 `;
 
@@ -75,13 +77,37 @@ const EmptyStateDoc = () => {
     >
       <Row>
         <Col>
-          <SectionTitle>Basic</SectionTitle>
+          <SectionTitle>Too much data</SectionTitle>
         </Col>
       </Row>
 
       <Row align="stretch">
         <Col>
-          <Snippet snippet={basic} />
+          <Snippet snippet={tooMuch} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <SectionTitle>No data</SectionTitle>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={noData} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <SectionTitle>Error</SectionTitle>
+        </Col>
+      </Row>
+
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={error} />
         </Col>
       </Row>
 
