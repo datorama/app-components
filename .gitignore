@@ -81,4 +81,4 @@ fabric.properties
 .idea/
 /dist/index.js.LICENSE
 
-/storybook-static
+/.out
