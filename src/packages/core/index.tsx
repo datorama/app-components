@@ -79,3 +79,6 @@ export const oranges = libColors.oranges;
 export const Container = layout.Container;
 export const Row = layout.Row;
 export const Col = layout.Col;
+
+// COMPONENTS
+export {default as Button} from './Button';
