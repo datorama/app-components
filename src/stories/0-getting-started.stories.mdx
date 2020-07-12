@@ -1,0 +1,76 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting Started" />
+
+# Getting Started
+
+`App-Components` is a toolkit for developing applications with ReactJS.
+
+Quickly prototype your ideas or build your entire app with our responsive grid system, extensive prebuilt components, and powerful utilities built on ReactJS.
+
+Develop a single underlying system that unifies the user experience across platforms, devices, and input methods.
+
+## Installation
+
+Add the `app-components` package to your project by running
+
+```shell script
+npm i --save @datorama/app-components
+```
+
+Or if you are using Yarn:
+
+```shell script
+yarn add @datorama/cpp-components
+```
+
+Include the `app-components` styles:
+
+````css
+@import '~@datorama/app-components/dist/index.css';
+````
+
+## Theming
+
+The theme specifies the color of the components, darkness of the surfaces, level of shadow, etc.
+
+To promote greater consistency between apps, light and dark theme types are available to choose from. By default, components use the light theme type.
+
+### Theme Provider
+
+You need to use the ThemeProvider component in order to inject a theme into your application
+
+````jsx harmony
+import {AppTheme, lightTheme} from '@datorama/app-components';
+import {ThemeProvider} from 'styled-components';
+
+const App = () => (
+  <AppTheme provider={ThemeProvider} theme={lightTheme}>
+    ...
+  </AppTheme>
+);
+````
+
+### Extend Theme
+
+You can override the theme colors, typography and animations as you wish or simply use our theme helper (`extendTheme`):
+
+````jsx harmony
+import {AppTheme, lightTheme, extendTheme} from '@datorama/app-components';
+import {ThemeProvider} from 'styled-components';
+
+const options = {
+  primary: '#00ff00', // optional
+  secondary: '#ff0000', // optional
+  accent: '#000', // optional
+  font: 'open-sans', // optional
+  scale: 1 // optional
+};
+const myTheme = extendTheme({ theme: lightTheme, options });
+
+const App = () => (
+  <AppTheme provider={ThemeProvider} theme={myTheme}>
+    ...
+  </AppTheme>
+);
+````
