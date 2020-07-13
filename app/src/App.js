@@ -1,10 +1,18 @@
-import React, { Fragment, useCallback, useState, createContext } from 'react';
+import React, {
+  Fragment,
+  useCallback,
+  useState,
+  createContext,
+  useEffect
+} from 'react';
 import styled, { css, ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Highlighter from 'react-highlight-words';
 import { extendTheme } from './components/utils';
 import { AppTheme } from './components/index';
+
+import ThemePreview from './components/base/ThemePreview';
 
 // notifications
 import { lightTheme, TextInput, darkTheme } from './components/index';
@@ -158,27 +166,32 @@ const App = () => {
   const [themeConfig, setThemeConfig] = useState({
     scale: 1
   });
+  const [theme, setTheme] = useState(lightTheme);
 
   const afterNavigate = useCallback(() => {
     window.scroll(0, 0);
   }, []);
 
-  const theme = themeConfig.dark ? darkTheme : lightTheme;
-  const extendedTheme = extendTheme({ theme: theme, options: themeConfig });
+  useEffect(() => {
+    const newTheme = themeConfig.dark ? darkTheme : lightTheme;
+
+    setTheme(extendTheme({ theme: newTheme, options: themeConfig }));
+  }, [themeConfig]);
 
   return (
     <Router>
-      <AppTheme provider={ThemeProvider} theme={extendedTheme}>
+      <AppTheme provider={ThemeProvider} theme={theme}>
         <Context.Provider
           value={{ config: themeConfig, setConfig: setThemeConfig }}
         >
           <NotificationsProvider>
             <Container>
-              <Sidebar background={extendedTheme.p0}>
+              <StyledPreview onChange={setThemeConfig} />
+              <Sidebar background={theme.p0}>
                 <ConnectedNavigation list={list} onClick={afterNavigate} />
               </Sidebar>
 
-              <Content background={extendedTheme.p0}>
+              <Content background={theme.p0}>
                 <Route exact path="/" component={Home} />
                 <Route
                   exact
@@ -341,4 +354,11 @@ const Version = styled.div`
 const StyledTextInput = styled(TextInput)`
   margin-top: 10px;
   width: 100%;
+`;
+
+const StyledPreview = styled(ThemePreview)`
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
 `;

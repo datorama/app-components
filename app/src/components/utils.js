@@ -126,7 +126,11 @@ export const extendTheme = ({ theme, options }) => {
   newTheme.font = options.font || 'open-sans';
 
   // scale
-  const scale = options.scale ? 1 + options.scale / 10 : 1;
+  let scale = options.scale || 1;
+
+  if (scale > 1) {
+    scale = 1 + options.scale / 10;
+  }
 
   newTheme.scale = scale;
 
