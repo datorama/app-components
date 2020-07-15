@@ -95,9 +95,13 @@ class Datepicker extends Component {
         return;
       }
 
+      const convertedDateRange = convertToMomentRange(this.props.dateRange);
+
       this.setState({
-        selection: convertToMomentRange(this.props.dateRange),
-        selectedPreset: []
+        selection: convertedDateRange,
+        committedSelection: convertedDateRange,
+        selectedPreset: [],
+        committedSelectedPreset: []
       });
     }
   }
