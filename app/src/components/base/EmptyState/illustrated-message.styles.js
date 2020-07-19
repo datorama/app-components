@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import { SIZE } from './empty-state.constants';
+import { SIZE } from './illustrated-message.constants';
 
 export const TEXT = {
   TITLE: {

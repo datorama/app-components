@@ -64,9 +64,8 @@ export { default as SnailChart } from './base/charts/SnailChart';
 export { default as GoalsChart } from './base/charts/GoalsChart';
 export { default as Gauge } from './base/charts/Gauge';
 export {
-  default as EmptyState,
-  EMPTY_STATE_ENUMS
-} from './base/EmptyState/EmptyState';
+  default as IllustratedMessage
+} from './base/EmptyState/IllustratedMessage';
 
 const loadFonts = font => {
   const head = document.head || document.getElementsByTagName('head')[0],

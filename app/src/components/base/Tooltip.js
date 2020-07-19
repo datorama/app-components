@@ -10,7 +10,11 @@ import TipIcon from '../icons/TipLine.icon';
 class Tooltip extends Component {
   static propTypes = {
     children: PropTypes.node,
-    title: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+    title: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.func,
+      PropTypes.bool
+    ]),
     long: PropTypes.bool,
     onClickInfo: PropTypes.func,
     position: PropTypes.string,
