@@ -179,6 +179,10 @@ const Container = styled.span``;
 
 const StyledPopup = styled(Popup)`
   white-space: nowrap;
+
+  .pop-menu {
+    background: ${({ theme }) => theme.p400};
+  }
 `;
 
 const StyledTip = styled(TipIcon)`

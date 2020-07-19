@@ -38,6 +38,7 @@ export { default as Ellipsis } from './base/Ellipsis';
 export { default as Table } from './base/Table';
 export { default as Filters } from './base/Filters/Filters';
 export { default as Tornado } from './base/Tornado/Tornado';
+export { default as ThemePreview } from './base/ThemePreview';
 export {
   TopTornadoLabel,
   BottomTornadoStatsLabel
