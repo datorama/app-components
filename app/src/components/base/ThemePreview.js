@@ -88,10 +88,13 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const Color = styled.div`
+const Color = styled.div.attrs(props => ({
+  style: {
+    background: props.background
+  }
+}))`
   width: 22px;
   height: 22px;
-  background: ${({ background }) => background};
   margin: 0 4px;
   cursor: pointer;
 

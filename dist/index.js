@@ -2227,10 +2227,9 @@
   border: 1px solid ${({theme:e})=>e.p200};
   border-radius: 2px;
   align-items: center;
-`,Ei=l.a.div`
+`,Ei=l.a.div.attrs(e=>({style:{background:e.background}}))`
   width: 22px;
   height: 22px;
-  background: ${({background:e})=>e};
   margin: 0 4px;
   cursor: pointer;
 

@@ -1,16 +1,11 @@
-import React, {
-  Fragment,
-  useCallback,
-  useState,
-  createContext,
-  useEffect
-} from 'react';
+import React, { Fragment, useCallback, useState, createContext } from 'react';
 import styled, { css, ThemeProvider } from 'styled-components';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Highlighter from 'react-highlight-words';
 import { extendTheme } from './components/utils';
 import { AppTheme } from './components/index';
+import { debounce } from 'lodash/fp';
 
 import ThemePreview from './components/base/ThemePreview';
 
@@ -168,15 +163,19 @@ const App = () => {
   });
   const [theme, setTheme] = useState(lightTheme);
 
+  const updateConfig = useCallback(
+    debounce(500, options => {
+      const newTheme = options.dark ? darkTheme : lightTheme;
+
+      setThemeConfig(options);
+      setTheme(extendTheme({ theme: newTheme, options }));
+    }),
+    []
+  );
+
   const afterNavigate = useCallback(() => {
     window.scroll(0, 0);
   }, []);
-
-  useEffect(() => {
-    const newTheme = themeConfig.dark ? darkTheme : lightTheme;
-
-    setTheme(extendTheme({ theme: newTheme, options: themeConfig }));
-  }, [themeConfig]);
 
   return (
     <Router>
@@ -186,7 +185,7 @@ const App = () => {
         >
           <NotificationsProvider>
             <Container>
-              <StyledPreview onChange={setThemeConfig} />
+              <StyledPreview onChange={updateConfig} />
               <Sidebar background={theme.p0}>
                 <ConnectedNavigation list={list} onClick={afterNavigate} />
               </Sidebar>
