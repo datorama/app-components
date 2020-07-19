@@ -43,21 +43,21 @@ const Outer = styled.div`
 `;
 
 const Inner = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 4px;
-	width: 0;
-	background: ${({ theme, color }) => color || theme.a400};
-	max-width: ${({ percentage }) => `${percentage}%`}
-	transition: all 100ms;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0;
+  background: ${({ theme, color }) => color || theme.a400};
+  max-width: ${({ percentage }) => `${percentage}%`};
+  transition: all 100ms;
   animation: 1000ms ease-out 0s 1 stretchRight forwards;
-  
+
   @keyframes stretchRight {
-		100% {
-			width: 100%;
-		}
-	}
+    100% {
+      width: 100%;
+    }
+  }
 `;
 
 const Strip = styled.div`
