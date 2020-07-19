@@ -51,6 +51,7 @@ import Gauge from './docs/Gauge.doc';
 import GoalsChart from './docs/GoalsChart';
 import Filters from './docs/Filters.doc';
 import Tornado from './docs/Tornado.doc';
+import IllustratedMessage from './docs/IllustratedMessage.doc';
 
 const list = [
   {
@@ -98,6 +99,11 @@ const list = [
 
   { key: 'pages', label: 'Pages', type: 'title' },
   { key: 'error-page', label: 'Error Page', path: 'error-page' },
+  {
+    key: 'illustrated-message',
+    label: 'Illustrated Message',
+    path: 'illustrated-message'
+  },
 
   { key: 'utils', label: 'Utils', type: 'title' },
   { key: 'click-out', label: 'Click Out', path: 'click-out' },
@@ -111,7 +117,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.40.1</Version>
+        <Version>0.40.2</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -226,6 +232,11 @@ const App = () => {
                 <Route exact path="/tornado" component={Tornado} />
                 <Route exact path="/sticky" component={Sticky} />
                 <Route exact path="/error-page" component={ErrorPage} />
+                <Route
+                  exact
+                  path="/illustrated-message"
+                  component={IllustratedMessage}
+                />
                 <Route exact path="/snail-chart" component={SnailChart} />
                 <Route exact path="/goals-chart" component={GoalsChart} />
                 <Route exact path="/ellipsis" component={Ellipsis} />

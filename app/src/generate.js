@@ -22,6 +22,9 @@ const excludes = [
   'tornado.stub.js',
   'tornado.utils.js',
 
+  'illustrated-message.constants.js',
+  'illustrated-message.styles.js',
+
   'notifications.styles.js',
   'notifications.utils.js',
   'date.utils'
