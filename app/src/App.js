@@ -5,6 +5,9 @@ import { withRouter } from 'react-router';
 import Highlighter from 'react-highlight-words';
 import { extendTheme } from './components/utils';
 import { AppTheme } from './components/index';
+import { debounce } from 'lodash/fp';
+
+import ThemePreview from './components/base/ThemePreview';
 
 // notifications
 import { lightTheme, TextInput, darkTheme } from './components/index';
@@ -108,7 +111,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.39.3</Version>
+        <Version>0.40.0</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -158,27 +161,36 @@ const App = () => {
   const [themeConfig, setThemeConfig] = useState({
     scale: 1
   });
+  const [theme, setTheme] = useState(lightTheme);
+
+  const updateConfig = useCallback(
+    debounce(500, options => {
+      const newTheme = options.dark ? darkTheme : lightTheme;
+
+      setThemeConfig(options);
+      setTheme(extendTheme({ theme: newTheme, options }));
+    }),
+    []
+  );
 
   const afterNavigate = useCallback(() => {
     window.scroll(0, 0);
   }, []);
 
-  const theme = themeConfig.dark ? darkTheme : lightTheme;
-  const extendedTheme = extendTheme({ theme: theme, options: themeConfig });
-
   return (
     <Router>
-      <AppTheme provider={ThemeProvider} theme={extendedTheme}>
+      <AppTheme provider={ThemeProvider} theme={theme}>
         <Context.Provider
           value={{ config: themeConfig, setConfig: setThemeConfig }}
         >
           <NotificationsProvider>
             <Container>
-              <Sidebar background={extendedTheme.p0}>
+              <StyledPreview onChange={updateConfig} />
+              <Sidebar background={theme.p0}>
                 <ConnectedNavigation list={list} onClick={afterNavigate} />
               </Sidebar>
 
-              <Content background={extendedTheme.p0}>
+              <Content background={theme.p0}>
                 <Route exact path="/" component={Home} />
                 <Route
                   exact
@@ -341,4 +353,11 @@ const Version = styled.div`
 const StyledTextInput = styled(TextInput)`
   margin-top: 10px;
   width: 100%;
+`;
+
+const StyledPreview = styled(ThemePreview)`
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
 `;
