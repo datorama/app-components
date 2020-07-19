@@ -24,13 +24,13 @@ const Checkbox = ({
       partial={partial}
       className={`${className} checkbox ${checked ? 'checked' : 'unchecked'}`}
     >
-      {partial && (
+      {partial ? (
         <StyledLineIcon selected={checked} round={round} disabled={disabled} />
-      )}
-      {!partial && (
+      ) : (
         <StyledCheckIcon selected={checked} round={round} disabled={disabled} />
       )}
     </CheckboxContainer>
+
     {label && <Label disabled={disabled}>{label}</Label>}
   </Strip>
 );
@@ -104,6 +104,7 @@ export const iconStyles = css`
   transition: all 400ms;
   transform: translateY(-5px);
   opacity: 0;
+  pointer-events: none;
 
   ${({ selected }) =>
     selected &&
