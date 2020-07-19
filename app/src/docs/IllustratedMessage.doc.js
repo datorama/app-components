@@ -63,7 +63,7 @@ const error = `
                         size={size}
                         mode={mode}
                         illustration={ILLUSTRATION[type][mode][size]}
-                        style={{ height: 250 }}>
+                        style={{ height: 300, padding: '10px 0' }}>
         <IllustratedMessage.Illustration />
         
         <IllustratedMessage.Title>{TITLE[type]}</IllustratedMessage.Title>
