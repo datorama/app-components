@@ -1109,21 +1109,21 @@
   position: relative;
   overflow: hidden;
 `,Jn=l.a.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 4px;
-	width: 0;
-	background: ${({theme:e,color:t})=>t||e.a400};
-	max-width: ${({percentage:e})=>`${e}%`}
-	transition: all 100ms;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0;
+  background: ${({theme:e,color:t})=>t||e.a400};
+  max-width: ${({percentage:e})=>`${e}%`};
+  transition: all 100ms;
   animation: 1000ms ease-out 0s 1 stretchRight forwards;
-  
+
   @keyframes stretchRight {
-		100% {
-			width: 100%;
-		}
-	}
+    100% {
+      width: 100%;
+    }
+  }
 `,er=l.a.div`
   display: flex;
   align-items: center;
@@ -1167,7 +1167,7 @@
   fill: ${({theme:e})=>e.p300};
   text-anchor: middle;
   alignment-baseline: middle;
-`,ur=e=>{const{min:t,max:n,initialValue:r,disabled:a,showValue:s,className:l,onChange:c}=e,u=void 0!==r?Math.max((r-t)/(n-t)*100):0,[p,d]=Object(o.useState)(u),[f,h]=Object(o.useState)(u),[m,g]=Object(o.useState)(!1),[b,y]=Object(o.useState)(r||t),v=Object(o.useRef)(),x=Object(o.useCallback)(({translateX:e})=>{const{width:t}=v.current.getBoundingClientRect(),n=Math.min(100,f+e/t*100),r=Math.max(0,n);d(r)},[v,f]);Object(o.useEffect)(()=>{const e=Math.round(p/100*(n-t))+t;y(e),c(e)},[n,t,p,c]);const w=Object(o.useCallback)(()=>g(!0),[g]),O=Object(o.useCallback)(()=>{g(!1),d(p)},[p]),C=Object(o.useCallback)(e=>{const{clientX:t}=e,{x:n,width:r}=v.current.getBoundingClientRect(),a=Math.round((t-n)/r*100);a!==b&&(d(a),h(a))},[v,b]);return i.a.createElement(dr,{disabled:a,className:l,onClick:C},i.a.createElement(fr,{ref:v,className:"outer",disabled:a},i.a.createElement(hr,{width:p,className:"inner"})),i.a.createElement(lt,{onDragStart:w,onDrag:x,onDragEnd:O,controlled:!0},i.a.createElement(mr,{className:"thumb",left:p,dragging:m,disabled:a})),i.a.createElement(br,{left:p,visible:s||m,className:"value"},b),i.a.createElement(gr,{left:"-20px",className:"label"},t),i.a.createElement(gr,{left:"calc(100% - 20px)",className:"label"},n))};ur.propTypes={min:oe.a.number,max:oe.a.number,initialValue:oe.a.number,disabled:oe.a.bool,showValue:oe.a.bool,className:oe.a.string,onChange:oe.a.func};var pr=ur;const dr=l.a.div`
+`,ur=e=>{const{min:t,max:n,initialValue:r,disabled:a,showValue:s,className:l,onChange:c}=e,u=void 0!==r?Math.max((r-t)/(n-t)*100):0,[p,d]=Object(o.useState)(u),[f,h]=Object(o.useState)(u),[m,g]=Object(o.useState)(!1),[b,y]=Object(o.useState)(r||t),v=Object(o.useRef)(),x=Object(o.useCallback)(({translateX:e})=>{const{width:t}=v.current.getBoundingClientRect(),n=Math.min(100,f+e/t*100),r=Math.max(0,n);d(r)},[v,f]);Object(o.useEffect)(()=>{const e=Math.round(p/100*(n-t))+t;y(e),c(e)},[n,t,p,c]);const w=Object(o.useCallback)(()=>g(!0),[g]),O=Object(o.useCallback)(()=>{g(!1),d(p),h(p)},[p]),C=Object(o.useCallback)(e=>{const{clientX:t}=e,{x:n,width:r}=v.current.getBoundingClientRect(),a=Math.round((t-n)/r*100);a!==b&&(d(a),h(a))},[v,b]);return i.a.createElement(dr,{disabled:a,className:l,onClick:C},i.a.createElement(fr,{ref:v,className:"outer",disabled:a},i.a.createElement(hr,{width:p,className:"inner"})),i.a.createElement(lt,{onDragStart:w,onDrag:x,onDragEnd:O,controlled:!0},i.a.createElement(mr,{className:"thumb",left:p,dragging:m,disabled:a})),i.a.createElement(br,{left:p,visible:s||m,className:"value"},b),i.a.createElement(gr,{left:"-20px",className:"label"},t),i.a.createElement(gr,{left:"calc(100% - 20px)",className:"label"},n))};ur.propTypes={min:oe.a.number,max:oe.a.number,initialValue:oe.a.number,disabled:oe.a.bool,showValue:oe.a.bool,className:oe.a.string,onChange:oe.a.func};var pr=ur;const dr=l.a.div`
   width: 100%;
   display: flex;
   position: relative;
