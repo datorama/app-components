@@ -52,6 +52,7 @@ const Range = props => {
   const handleDragEnd = useCallback(() => {
     setDragging(false);
     setPercentage(percentage);
+    setLastPercentage(percentage);
   }, [percentage]);
 
   const handleClick = useCallback(
