@@ -27,6 +27,7 @@ export default class Select extends React.Component {
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func,
+    onClose: PropTypes.func,
     placeholder: PropTypes.string,
     sortBy: PropTypes.string,
     sortable: PropTypes.bool,
