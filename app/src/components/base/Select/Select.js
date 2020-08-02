@@ -27,6 +27,7 @@ export default class Select extends React.Component {
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func,
+    onClose: PropTypes.func,
     placeholder: PropTypes.string,
     sortBy: PropTypes.string,
     sortable: PropTypes.bool,
@@ -41,6 +42,7 @@ export default class Select extends React.Component {
     optionRenderer: PropTypes.func,
     optionLabelRenderer: PropTypes.func,
     placeholderRenderer: PropTypes.func,
+    noResultsRenderer: PropTypes.func,
     menuRenderer: PropTypes.func,
     maxItems: PropTypes.number,
     closeOnSelect: PropTypes.bool,
@@ -412,7 +414,8 @@ export default class Select extends React.Component {
       maxTags,
       onKeyDown,
       onKeyUp,
-      spinnerColor
+      spinnerColor,
+      noResultsRenderer
     } = this.props;
     const {
       open,
@@ -492,6 +495,7 @@ export default class Select extends React.Component {
                 toggleOpen={this.toggleOpen}
                 loading={loading}
                 spinnerColor={spinnerColor}
+                noResultsRenderer={noResultsRenderer}
               />
             </CurrentHoveredIndexContext.Provider>
           </StyledFade>

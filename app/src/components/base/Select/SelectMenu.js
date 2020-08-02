@@ -39,10 +39,12 @@ const SelectionMenu = props => {
     onKeyDown,
     onKeyUp,
     loading,
-    spinnerColor
+    spinnerColor,
+    noResultsRenderer
   } = props;
 
   let maxHeight = 400;
+
   if (multi) {
     maxHeight += 5;
   }
@@ -92,7 +94,12 @@ const SelectionMenu = props => {
             value={searchTerm}
           />
 
-          {!total && <SelectNoResults className="menu-no-results" />}
+          {!total &&
+            (noResultsRenderer ? (
+              noResultsRenderer()
+            ) : (
+              <SelectNoResults className="menu-no-results" />
+            ))}
 
           <SelectOptions
             options={options}
@@ -147,6 +154,7 @@ SelectMenu.propTypes = {
   maxItems: PropTypes.number,
   searchPlaceholder: PropTypes.string,
   optionLabelRenderer: PropTypes.func,
+  noResultsRenderer: PropTypes.func,
   small: PropTypes.bool,
   large: PropTypes.bool,
   inlineSearch: PropTypes.bool,
