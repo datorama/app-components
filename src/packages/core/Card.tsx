@@ -1,13 +1,13 @@
 import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 
-type propTypes = {
+interface Card {
   className?: string,
   onClick?: () => any,
   children: ReactNode
-};
+}
 
-const Card = (props: propTypes) => (
+const Card = (props: Card) => (
   <Container
     className={props.className}
     clickable={!!props.onClick}
@@ -19,11 +19,7 @@ const Card = (props: propTypes) => (
 
 export default Card;
 
-type containerTypes = {
-  clickable?: boolean
-};
-
-const Container = styled.div<containerTypes>`
+const Container = styled.div<{clickable?: boolean}>`
   background: ${({theme}) => theme.p0};
   width: 100%;
   border-radius: 2px;

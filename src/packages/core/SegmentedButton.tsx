@@ -6,17 +6,17 @@ interface SectionType {
   id: number | string,
   label: string | ReactNode,
   className?: string,
-  disabled?: boolean
+  isDisabled?: boolean
 }
 
-type Props = {
+interface SegmentedButton {
   sections: SectionType[],
-  selected: number | string,
+  selected?: number | string,
   onClick: (id: number | string) => any,
   className?: string
-};
+}
 
-const SegmentedButton = ({sections, selected, onClick, className}: Props) => (
+const SegmentedButton = ({sections, selected, onClick, className}: SegmentedButton) => (
   <Sections className={className}>
     {sections.map((section, index) => {
       let type = 'default';
@@ -30,11 +30,11 @@ const SegmentedButton = ({sections, selected, onClick, className}: Props) => (
 
       return (
         <Section
-          disabled={!!section.disabled}
+          isDisabled={!!section.isDisabled}
           type={type}
           className={section.className}
           selected={section.id === selected}
-          onClick={section.disabled ? noop : () => onClick(section.id)}
+          onClick={section.isDisabled ? noop : () => onClick(section.id)}
           key={`section-${section.id}`}
         >
           {section.label}
@@ -51,7 +51,7 @@ const Sections = styled.div`
   align-items: center;
 `;
 
-const Section = styled.div<{ type: string, selected: boolean, disabled: boolean }>`
+const Section = styled.div<{ type: string, selected: boolean, isDisabled: boolean }>`
   height: ${({theme}) => theme.size.LARGE};
   padding: 0 14px;
   background: ${({theme}) => hexToRgba(theme.p300, 10)};
@@ -95,8 +95,8 @@ const Section = styled.div<{ type: string, selected: boolean, disabled: boolean 
     color: ${({theme, selected}) => (selected ? '#fff' : theme.p400)};
   }
 
-  ${({theme, disabled}) =>
-  disabled && `
+  ${({theme, isDisabled}) =>
+  isDisabled && `
       background: ${hexToRgba(theme.p300, 10)};
       color: ${hexToRgba(theme.p300, 50)};
 
