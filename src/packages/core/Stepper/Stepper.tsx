@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, {useState, useCallback, useMemo} from "react";
 import styled, { css } from "styled-components";
 
 import StepperBullet from "packages/core/Stepper/StepperBullet";

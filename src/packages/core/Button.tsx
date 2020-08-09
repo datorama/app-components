@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import {hexToRgba} from '../../common/utils';
 
 interface Button {
-  onClick: () => any,
-  children: ReactNode,
-  isSmall?: boolean,
-  isSecondary?: boolean,
-  isRound?: boolean,
-  isDisabled?: boolean,
-  className?: string
+  onClick: () => any;
+  children: ReactNode;
+  isSmall?: boolean;
+  isSecondary?: boolean;
+  isRound?: boolean;
+  isDisabled?: boolean;
+  className?: string;
 }
 
 const Button = (props: Button) => (

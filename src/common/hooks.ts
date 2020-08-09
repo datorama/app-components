@@ -1,4 +1,5 @@
-import {RefObject, useEffect, useState, useCallback} from 'react';
+import {RefObject, useEffect, useState, useCallback, useContext} from 'react';
+import {ThemeContext} from 'styled-components';
 
 type OutsideClickEvent = MouseEvent | TouchEvent;
 
@@ -52,5 +53,11 @@ export const useWindowSize = () => {
   }, [handleResize]);
 
   return windowSize;
+};
+
+export const useTheme = () => {
+  const theme = useContext(ThemeContext);
+
+  return theme || {};
 };
 

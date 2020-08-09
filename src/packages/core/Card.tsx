@@ -2,9 +2,9 @@ import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 
 interface Card {
-  className?: string,
-  onClick?: () => any,
-  children: ReactNode
+  className?: string;
+  onClick?: () => any;
+  children: ReactNode;
 }
 
 const Card = (props: Card) => (
