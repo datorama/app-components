@@ -3,7 +3,7 @@ import React from "react";
 // Components
 import Collapse, { CollapseProps } from 'packages/core/Collapse/Collapse';
 
-export const DefaultCollapse = (props: CollapseProps) => {
+export const Default = (props: CollapseProps) => {
   return (
 		<Collapse label="collapse label" {...props}>
 			<div style={{

@@ -2,7 +2,7 @@ import React from "react";
 
 import RadialProgress, { RadialProgressProps } from 'packages/core/Progress/RadialProgress';
 
-export const DefaultRadialProgress = (props: RadialProgressProps) => {
+export const Default = (props: RadialProgressProps) => {
   return (
     <RadialProgress
       percentage={20}

@@ -3,12 +3,7 @@ import React, { useState } from "react";
 // Components
 import SegmentedButton from "packages/core/SegmentedButton";
 
-export default {
-  title: "Core/Segmented Button",
-  component: SegmentedButton,
-};
-
-const NormalStory = () => {
+export const Default = () => {
   const [selected, setSelected] = useState<string | number>(0);
 
   return (
@@ -33,4 +28,7 @@ const NormalStory = () => {
   );
 };
 
-export const normal = () => <NormalStory />;
+export default {
+  title: "Core/Segmented Button",
+  component: SegmentedButton,
+};

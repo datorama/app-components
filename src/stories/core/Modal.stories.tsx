@@ -5,7 +5,7 @@ import { useCallback, useState } from '@storybook/addons';
 import Modal from 'packages/core/Modal/Modal';
 import Button from 'packages/core/Button';
 
-export const DefaultModal = () => {
+export const Default = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => setIsOpen(open => !open), []);
 
