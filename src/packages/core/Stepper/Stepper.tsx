@@ -12,14 +12,14 @@ type StepType = {
   isTouched?: boolean;
 };
 
-interface Stepper {
+export interface StepperProps {
   steps: StepType[];
   currentStep: StepId;
   selectStep: (stepId: StepId) => void;
   className?: string;
 }
 
-const Stepper = (props: Stepper) => {
+const Stepper = (props: StepperProps) => {
   const { steps = [], currentStep, selectStep, className } = props;
   const [hovered, setHovered] = useState(null);
 

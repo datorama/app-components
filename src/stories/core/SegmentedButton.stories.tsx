@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 // Components
-import SegmentedButton from "packages/core/SegmentedButton";
+import SegmentedButton, { SegmentedButtonProps } from "packages/core/SegmentedButton";
 
-export const Default = () => {
+export const Default = (props: SegmentedButtonProps) => {
   const [selected, setSelected] = useState<string | number>(0);
 
   return (
@@ -24,6 +24,7 @@ export const Default = () => {
           label: "Yes",
         },
       ]}
+      {...props}
     />
   );
 };

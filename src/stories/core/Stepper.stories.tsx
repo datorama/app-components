@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 // Components
-import Stepper from "packages/core/Stepper/Stepper";
+import Stepper, { StepperProps } from "packages/core/Stepper/Stepper";
 
-export const DefaultStepper = () => {
+export const DefaultStepper = (props: StepperProps) => {
   const [currentStep, setCurrentStep] = useState<number | string>(0);
 
   return (
@@ -15,11 +15,12 @@ export const DefaultStepper = () => {
       ]}
       currentStep={currentStep}
       selectStep={setCurrentStep}
+      {...props}
     />
   );
 };
 
 export default {
   title: "Core/Stepper",
-  component: Stepper,
+  component: Stepper
 };
