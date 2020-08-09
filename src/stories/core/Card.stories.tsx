@@ -2,14 +2,9 @@ import React from 'react';
 import {action} from '@storybook/addon-actions';
 
 // Components
-import Card from '../../packages/core/Card'
+import Card from 'packages/core/Card'
 
-export default {
-  title: 'Core/Card',
-  component: Card
-};
-
-export const normal = () => (
+export const Default = () => (
   <Card>
     Default Card
   </Card>
@@ -20,3 +15,8 @@ export const clickable = () => (
     Clickable Card
   </Card>
 );
+
+export default {
+  title: 'Core/Card',
+  component: Card
+};

@@ -1,14 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
 // Components
-import SegmentedButton from '../../packages/core/SegmentedButton'
+import SegmentedButton from "packages/core/SegmentedButton";
 
-export default {
-  title: 'Core/SegmentedButton',
-  component: SegmentedButton
-};
-
-const NormalStory = () => {
+export const Default = () => {
   const [selected, setSelected] = useState<string | number>(0);
 
   return (
@@ -18,19 +13,22 @@ const NormalStory = () => {
       sections={[
         {
           id: 0,
-          label: 'No'
+          label: "No",
         },
         {
           id: 1,
-          label: 'Maybe'
+          label: "Maybe",
         },
         {
           id: 2,
-          label: 'Yes'
-        }
+          label: "Yes",
+        },
       ]}
     />
   );
 };
 
-export const normal = () => <NormalStory/>
+export default {
+  title: "Core/Segmented Button",
+  component: SegmentedButton,
+};

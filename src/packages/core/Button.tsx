@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { hexToRgba } from "common/utils";
 
-interface Button {
+export interface ButtonProps {
   onClick: () => void;
   children: ReactNode;
   isSmall?: boolean;
@@ -13,7 +13,7 @@ interface Button {
   className?: string;
 }
 
-const Button = (props: Button) => (
+const Button = (props: ButtonProps) => (
   <Container
     onClick={props.onClick}
     isSmall={props.isSmall}
@@ -32,8 +32,6 @@ Button.defaultProps = {
   isRound: false,
   isDisabled: false,
 };
-
-export default Button;
 
 const Container = styled.div<{
   isSmall?: boolean;
@@ -107,3 +105,5 @@ const Container = styled.div<{
       color: ${hexToRgba(theme.p300, 50)};
     `};
 `;
+
+export default Button;
