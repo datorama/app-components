@@ -14,12 +14,12 @@ export const DefaultModal = () => {
       <Modal
         isOpen={isOpen}
         toggleIsOpen={toggleOpen}
-        size={Modal.Size.medium}
+        size={Modal.Size.Medium}
         title="Modal Example"
         buttons={[
           ({ key }) => (<div key={key}>...</div>),
           {
-            type: Modal.ButtonType.secondary,
+            type: Modal.ButtonType.Secondary,
             label: 'cancel',
             onClick: () => {},
             isDisabled: true

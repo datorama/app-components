@@ -4,8 +4,8 @@ import styled from "styled-components";
 import Button from "packages/core/Button";
 
 export enum ButtonType {
-  secondary = "secondary",
-  primary = "primary",
+  Secondary = "secondary",
+  Primary = "primary",
 }
 
 export type ButtonObject = {
@@ -34,7 +34,7 @@ const ModalFooter: Function = ({ buttons = [], handleClick }: ModalFooter): Reac
       <StyledButton
         className="modal modal-footer modal-footer-button"
         key={`btn-${index}`}
-        isSecondary={button.type === ButtonType.secondary}
+        isSecondary={button.type === ButtonType.Secondary}
         isDisabled={button.isDisabled}
         onClick={handleClick(button.onClick)}
       >

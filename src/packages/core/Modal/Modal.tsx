@@ -14,10 +14,10 @@ import ModalFooter, { ButtonObject, ButtonRenderer, ButtonType } from "packages/
 import { hexToRgba } from "common/utils";
 
 enum Size {
-  small = "small",
-  medium = "medium",
-  large = "large",
-  full = "full",
+  Small = "small",
+  Medium = "medium",
+  Large = "large",
+  Full = "full",
 }
 
 interface Modal {
@@ -133,21 +133,21 @@ const StyledCard = styled(Card)<{ isVisible: boolean; size?: Size }>`
     isVisible ? theme.animation.fadeDown : theme.animation.fadeUpExit};
 
   ${({ size }) =>
-    size === "medium" &&
+    size === Size.Medium &&
     css`
       width: 560px;
       min-height: 240px;
     `};
 
   ${({ size }) =>
-    size === "large" &&
+    size === Size.Large &&
     css`
       width: 800px;
       min-height: 400px;
     `};
 
   ${({ size }) =>
-    size === "full" &&
+    size === Size.Full &&
     css`
       width: 80vw;
       height: 80vh;
