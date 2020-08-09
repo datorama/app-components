@@ -3,7 +3,7 @@ import React, { useState } from "react";
 // Components
 import Stepper, { StepperProps } from "packages/core/Stepper/Stepper";
 
-export const DefaultStepper = (props: StepperProps) => {
+export const Default = (props: StepperProps) => {
   const [currentStep, setCurrentStep] = useState<number | string>(0);
 
   return (

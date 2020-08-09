@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 
-interface Spinner {
+export interface SpinnerProps {
   color?: string;
   className?: string;
 }
 
-const Spinner = (props: Spinner) => {
+const Spinner = (props: SpinnerProps) => {
   return (
     <Svg
       color={props.color}

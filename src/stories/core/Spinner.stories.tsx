@@ -1,11 +1,15 @@
 import React from 'react';
 
 // Components
-import Spinner from '../../packages/core/Spinner'
+import Spinner, { SpinnerProps } from 'packages/core/Spinner'
 
 export default {
   title: 'Core/Spinner',
   component: Spinner
 };
 
-export const normal = () => <Spinner />;
+export const Default = (props: SpinnerProps) => {
+  return (
+    <Spinner {...props}/>
+  )
+};
