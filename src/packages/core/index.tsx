@@ -2,10 +2,10 @@ import React, {ReactNode} from 'react';
 import {ThemeProvider} from 'styled-components';
 
 // LIB CORE
-import * as libColors from '../../common/colors';
-import * as typography from '../../common/typography';
-import * as animation from '../../common/animations';
-import * as layout from '../../common/layout';
+import * as libColors from 'common/colors';
+import * as typography from 'common/typography';
+import { fade, fadeDown, fadeLeft, fadeOut, fadeRight, fadeRightExit, fadeUp, fadeUpExit, zoomIn, zoomOut } from 'common/animations';
+import * as layout from 'common/layout';
 
 // UTILS
 export {hexToRgba, shadeColor, uuid, extendTheme} from '../../common/utils';
@@ -48,7 +48,7 @@ export const lightTheme = {
   darkTheme: libColors.darkTheme,
   lightTheme: libColors.lightTheme,
   text: typography,
-  animation,
+  animation: { fade, fadeDown, fadeLeft, fadeOut, fadeRight, fadeRightExit, fadeUp, fadeUpExit, zoomIn, zoomOut },
   size
 };
 
@@ -58,7 +58,7 @@ export const darkTheme = {
   lightTheme: libColors.lightTheme,
   darkTheme: libColors.darkTheme,
   text: typography,
-  animation,
+  animation: { fade, fadeDown, fadeLeft, fadeOut, fadeRight, fadeRightExit, fadeUp, fadeUpExit, zoomIn, zoomOut },
   size
 };
 

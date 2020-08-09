@@ -1,6 +1,8 @@
 import {addParameters, addDecorator} from '@storybook/react';
-import StyleDecorator from './StyleDecorator';
 import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+
+import StyleDecorator from './StyleDecorator';
+import NotificationsDecorator from './NotificationsDecorator';
 
 addParameters({
 	viewMode: 'docs',
@@ -10,5 +12,6 @@ addParameters({
 	},
 });
 
+addDecorator(NotificationsDecorator);
 addDecorator(StyleDecorator);
 

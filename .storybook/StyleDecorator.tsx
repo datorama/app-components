@@ -3,9 +3,9 @@ import '../src/index.css';
 import {ThemeProvider} from 'styled-components';
 import {lightTheme} from '../src/packages/core';
 
-const StyleDecorator = (storyFn: any) => (
+const StyleDecorator = (Story: any) => (
   <ThemeProvider theme={lightTheme}>
-    {storyFn()}
+    <Story />
   </ThemeProvider>
 );
 
