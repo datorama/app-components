@@ -2,23 +2,23 @@ import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 import {hexToRgba} from '../../common/utils';
 
-type propTypes = {
+interface Button {
   onClick: () => any,
   children: ReactNode,
-  small: boolean,
-  secondary: boolean,
-  round: boolean,
-  disabled: boolean,
+  isSmall?: boolean,
+  isSecondary?: boolean,
+  isRound?: boolean,
+  isDisabled?: boolean,
   className?: string
-};
+}
 
-const Button = (props: propTypes) => (
+const Button = (props: Button) => (
   <Container
     onClick={props.onClick}
-    small={props.small}
-    secondary={props.secondary}
-    round={props.round}
-    disabled={props.disabled}
+    isSmall={props.isSmall}
+    isSecondary={props.isSecondary}
+    isRound={props.isRound}
+    isDisabled={props.isDisabled}
     className={props.className}
   >
     {props.children}
@@ -26,19 +26,19 @@ const Button = (props: propTypes) => (
 );
 
 Button.defaultProps = {
-  small: false,
-  secondary: false,
-  round: false,
-  disabled: false
+  isSmall: false,
+  isSecondary: false,
+  isRound: false,
+  isDisabled: false
 };
 
 export default Button;
 
 type containerTypes = {
-  small: boolean,
-  secondary: boolean,
-  round: boolean,
-  disabled: boolean
+  isSmall?: boolean,
+  isSecondary?: boolean,
+  isRound?: boolean,
+  isDisabled?: boolean
 };
 
 const Container = styled.div<containerTypes>`
@@ -55,8 +55,8 @@ const Container = styled.div<containerTypes>`
   transition: all 300ms;
   line-height: ${({theme}) => theme.size.LARGE};
 
-  ${({small, theme}) =>
-  small && `
+  ${({isSmall, theme}) =>
+  isSmall && `
       height: ${theme.size.SMALL};
       ${theme.text.smLink};
       line-height: ${theme.size.SMALL};
@@ -64,24 +64,24 @@ const Container = styled.div<containerTypes>`
       padding: 0 14px;
     `};
 
-  ${({secondary, theme}) =>
-  secondary && `
+  ${({isSecondary, theme}) =>
+  isSecondary && `
       background: ${hexToRgba(theme.p300, 15)};
       color: ${theme.p400};
     `};
 
-  ${({round, small}) =>
-  round && `
+  ${({isRound, isSmall}) =>
+  isRound && `
       padding: 0;
       border-radius: 50%;
-      width: ${small ? '24px' : '34px'};
+      width: ${isSmall ? '24px' : '34px'};
     `};
 
   &:hover {
     background: ${({theme}) => theme.a500};
 
-    ${({theme, secondary}) =>
-  secondary && `
+    ${({theme, isSecondary}) =>
+  isSecondary && `
         background: ${hexToRgba(theme.p300, 25)};
       `};
   }
@@ -89,14 +89,14 @@ const Container = styled.div<containerTypes>`
   &:active {
     background: ${({theme}) => theme.a600};
 
-    ${({theme, secondary}) =>
-  secondary && `
+    ${({theme, isSecondary}) =>
+  isSecondary && `
         background: ${hexToRgba(theme.p300, 35)};
       `};
   }
 
-  ${({disabled, theme}) =>
-  disabled && `
+  ${({isDisabled, theme}) =>
+  isDisabled && `
       pointer-events: none;
       background: ${hexToRgba(theme.p300, 10)};
       color: ${hexToRgba(theme.p300, 50)};
