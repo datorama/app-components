@@ -20,7 +20,7 @@ enum Size {
   Full = "full",
 }
 
-interface Modal {
+export interface ModalProps {
   children: ReactNode | ReactNode[];
   toggleIsOpen: () => void;
   isOpen: boolean;
@@ -42,7 +42,7 @@ const Modal = ({
   overlayColor,
   closeOnOverlayClick = true,
   toggleIsOpen,
-}: Modal) => {
+}: ModalProps) => {
   const [localIsOpen, setLocalIsOpen] = useState(false);
 
   useEffect(() => {

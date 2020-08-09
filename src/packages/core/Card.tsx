@@ -1,13 +1,13 @@
 import React, {ReactNode} from 'react';
 import styled from 'styled-components';
 
-interface Card {
+export interface CardProps {
   className?: string;
   onClick?: () => any;
   children: ReactNode;
 }
 
-const Card = (props: Card) => (
+const Card = (props: CardProps) => (
   <Container
     className={props.className}
     clickable={!!props.onClick}

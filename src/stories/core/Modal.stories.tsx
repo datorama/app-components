@@ -1,37 +1,38 @@
 import React from "react";
-import { useCallback, useState } from '@storybook/addons';
+import { useCallback, useState } from "@storybook/addons";
 
 // Components
-import Modal from 'packages/core/Modal/Modal';
-import Button from 'packages/core/Button';
+import Modal, { ModalProps } from "packages/core/Modal/Modal";
+import Button from "packages/core/Button";
 
-export const Default = () => {
+export const Default = (props: ModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = useCallback(() => setIsOpen(open => !open), []);
+  const toggleOpen = useCallback(() => setIsOpen((open) => !open), []);
 
   return (
-    <div>
+    <>
+      <Button onClick={toggleOpen}>Toggle Modal</Button>
+
       <Modal
         isOpen={isOpen}
         toggleIsOpen={toggleOpen}
         size={Modal.Size.Medium}
         title="Modal Example"
         buttons={[
-          ({ key }) => (<div key={key}>...</div>),
+          ({ key }: { key: string | number }) => <div key={key}>...</div>,
           {
             type: Modal.ButtonType.Secondary,
-            label: 'cancel',
+            label: "cancel",
             onClick: () => {},
-            isDisabled: true
+            isDisabled: true,
           },
-          { label: 'submit', onClick: () => {} }
+          { label: "submit", onClick: () => {} },
         ]}
+        {...props}
       >
         <div>Modal content</div>
       </Modal>
-
-      <Button onClick={toggleOpen}>Toggle Modal</Button>
-    </div>
+    </>
   );
 };
 

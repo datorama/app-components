@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { hexToRgba } from './index';
-import { useTheme } from '../../common/hooks';
 
-interface LinearProgress {
+import { hexToRgba } from 'common/utils';
+import { useTheme } from 'common/hooks';
+
+export interface LinearProgressProps {
   className?: string;
   color?: string;
 }
 
-const LinearProgress = (props: LinearProgress) => {
+const LinearProgress = (props: LinearProgressProps) => {
   const theme = useTheme();
 
   return (

@@ -2,10 +2,10 @@ import React from 'react';
 import {action} from '@storybook/addon-actions';
 
 // Components
-import Card from 'packages/core/Card'
+import Card, { CardProps } from 'packages/core/Card'
 
-export const Default = () => (
-  <Card>
+export const Default = (props: CardProps) => (
+  <Card {...props}>
     Default Card
   </Card>
 );
