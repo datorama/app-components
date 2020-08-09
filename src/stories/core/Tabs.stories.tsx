@@ -22,7 +22,7 @@ export const DefaultTabs = (props: TabsProps) => {
             { id: 2, label: 'Summary' }
           ]}
           selectedIndex={state}
-          contentRenderer={tab => (
+          contentRenderer={tab => tab ? (
             <div style={{
               fontSize: 12,
               boxSizing: 'border-box',
@@ -30,7 +30,7 @@ export const DefaultTabs = (props: TabsProps) => {
             }}>
               Content for tab {tab.label} - {tab.id}
             </div>
-          )}
+          ) : null}
           {...props}
         />
       )}
