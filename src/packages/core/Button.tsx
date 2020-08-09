@@ -35,14 +35,12 @@ Button.defaultProps = {
 
 export default Button;
 
-type containerTypes = {
+const Container = styled.div<{
   isSmall?: boolean;
   isSecondary?: boolean;
   isRound?: boolean;
   isDisabled?: boolean;
-};
-
-const Container = styled.div<containerTypes>`
+}>`
   padding: 0 16px;
   height: ${({ theme }) => theme.size.LARGE};
   background: ${({ theme }) => theme.a400};
