@@ -44,8 +44,6 @@ export default {
   component: Tabs,
   parameters: {
     docs: {
-      width: "100%",
-      markdown: true,
       storyDescription: `## Types
 
 | Name  | Type  |

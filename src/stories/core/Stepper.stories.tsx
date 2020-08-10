@@ -23,13 +23,11 @@ export default {
   component: Stepper,
   parameters: {
     docs: {
-      width: "100%",
-      markdown: true,
       storyDescription: `## Types
 
 | Name  | Type  |
 |---|---|
-| Step  | \`{ id: string \| number; label: string; isDisabled?: boolean }[]\` |
+| Step  | \`{ id: string \| number; label: string; isDisabled?: boolean }\` |
 | Justify  | \`flex-start \| center \| flex-end\` |
 
 ## Stories
