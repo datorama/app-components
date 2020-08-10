@@ -27,15 +27,18 @@ export default {
   argTypes: {
     steps: {
       control: 'object',
+      description: "Array of steps: `{ id: number | string; label: string; isEnabled: boolean; isTouched?: boolean; }[]`"
     },
     currentStep: {
-      control: { type: 'number', min: 0, max: 2 }
+      control: { type: 'number', min: 0, max: 2 },
+      description: "Current step index: `number`"
     },
     selectStep: {
-      table: { disable: true }
+      description: 'Callback on step selection: `(stepIndex: number) => void`'
     },
     className: {
-      control: 'text'
+      control: 'text',
+      description: 'Custom class name passed to main container'
     }
   }
 };
