@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import Tabs, { TabsProps, TabType } from "packages/core/Tabs";
+import Tabs, { TabsProps } from "packages/core/Tabs";
 
 export const Default = (props: TabsProps) => {
   return (
@@ -12,7 +12,7 @@ export const Default = (props: TabsProps) => {
 };
 
 Default.args = {
-  jsutify: 'center',
+  justify: 'center',
   tabs: [
     { id: 0, label: "Explore" },
     { id: 1, label: "Filters" },
@@ -20,7 +20,11 @@ Default.args = {
   ],
   selectedIndex: 0,
   onSelect: () => {},
-  contentRenderer: (tab: TabType) =>
+  contentRenderer: (tab: {
+    id: string | number;
+    label: string;
+    isDisabled?: boolean;
+  }) =>
     tab ? (
       <div
         style={{
@@ -39,6 +43,10 @@ export default {
   title: "Core/Tabs",
   component: Tabs,
   argTypes: {
+    'Type: Tab': {
+      control: '',
+      description: '`{ id: string | number; label: string; isDisabled?: boolean; }`',
+    },
     justify: {
       control: { type: 'select', options: ['flex-start', 'center', 'flex-end'] },
       description: 'Tabs position'

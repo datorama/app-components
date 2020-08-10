@@ -24,17 +24,36 @@ Default.args = {
 
 export default {
   title: "Core/Stepper",
+  component: Stepper,
   argTypes: {
+    'Type: Step': {
+      type: "",
+      description: "`{\n" +
+        "  id: StepId;\n" +
+        "  label: string;\n" +
+        "  isEnabled: boolean;\n" +
+        "  isTouched?: boolean;\n" +
+        "}`"
+    },
     steps: {
+      type: {
+        required: true
+      },
       control: 'object',
-      description: "Array of steps: `{ id: number | string; label: string; isEnabled: boolean; isTouched?: boolean; }[]`"
+      description: "Array of steps",
     },
     currentStep: {
+      type: {
+        required: true
+      },
       control: { type: 'number', min: 0, max: 2 },
-      description: "Current step index: `number`"
+      description: "Current step index"
     },
     selectStep: {
-      description: 'Callback on step selection: `(stepIndex: number) => void`'
+      type: {
+        required: true
+      },
+      description: 'Callback on step selection'
     },
     className: {
       control: 'text',

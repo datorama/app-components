@@ -1,29 +1,24 @@
 import React, { useState, useCallback, useEffect } from "react";
 import styled, { css } from "styled-components";
 
-export type TabType = {
-  id: string | number;
-  label: string;
-  isDisabled?: boolean;
-};
-
 type Justify = "flex-start" | "center" | "flex-end";
+type Tab = { id: string | number; label: string; isDisabled?: boolean };
 
 export interface TabsProps {
   className?: string;
-  contentRenderer?: (tab: TabType) => React.ReactNode;
+  contentRenderer?: (tab: Tab) => React.ReactNode;
   labelRenderer?: ({
     isSelected,
     tab,
   }: {
     isSelected: boolean;
-    tab: TabType;
+    tab: Tab;
   }) => React.ReactNode;
   justify?: Justify;
   onSelect: (id: string | number) => void;
   selectedIndex: number;
   gap?: number;
-  tabs: TabType[];
+  tabs: Tab[];
 }
 
 const Tabs = (props: TabsProps) => {
@@ -72,7 +67,7 @@ const Tabs = (props: TabsProps) => {
             const isSelected = tab.id === selectedIndex;
 
             return (
-              <Tab
+              <TabWrapper
                 gap={gap / 2}
                 className={`tab-${tab.id}`}
                 ref={handleTabRef}
@@ -86,7 +81,7 @@ const Tabs = (props: TabsProps) => {
                     {tab.label}
                   </Label>
                 )}
-              </Tab>
+              </TabWrapper>
             );
           })}
           <Line
@@ -130,7 +125,7 @@ const Content = styled.div`
   padding: 20px 0;
 `;
 
-const Tab = styled.div<{ gap: number }>`
+const TabWrapper = styled.div<{ gap: number }>`
   width: auto;
   display: flex;
   align-items: center;

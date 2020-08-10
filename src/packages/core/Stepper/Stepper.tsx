@@ -3,19 +3,17 @@ import styled, { css } from "styled-components";
 
 import StepperBullet from "packages/core/Stepper/StepperBullet";
 
-type StepId = number | string;
-
-type StepType = {
-  id: StepId;
+type Step = {
+  id: number | string;
   label: string;
   isEnabled: boolean;
   isTouched?: boolean;
 };
 
 export interface StepperProps {
-  steps: StepType[];
-  currentStep: StepId;
-  selectStep: (stepId: StepId) => void;
+  steps: Step[];
+  currentStep: number | string;
+  selectStep: (stepId: number | string) => void;
   className?: string;
 }
 
@@ -28,7 +26,7 @@ const Stepper = (props: StepperProps) => {
   const content = useMemo(
     () =>
       steps.map((step, index) => (
-        <Step
+        <StepWrapper
           key={step.id}
           isDisabled={!step.isEnabled}
           onClick={() => selectStep(step.id)}
@@ -52,7 +50,7 @@ const Stepper = (props: StepperProps) => {
           </Label>
 
           {index !== steps.length - 1 && <Divider />}
-        </Step>
+        </StepWrapper>
       )),
     [currentStep, hovered, selectStep, steps, toggleHover]
   );
@@ -67,7 +65,7 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Step = styled.div<{ isDisabled: boolean }>`
+const StepWrapper = styled.div<{ isDisabled: boolean }>`
   display: flex;
   align-items: center;
   cursor: pointer;
