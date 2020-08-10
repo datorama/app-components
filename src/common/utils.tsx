@@ -1,11 +1,12 @@
-import { css } from 'styled-components';
-import { ThemeContext } from 'styled-components';
+import React from 'react';
+import { css } from "styled-components";
+import { ThemeContext } from "styled-components";
 
-import * as typography from 'common/typography';
-import { useContext } from 'react';
+import * as typography from "common/typography";
+import { useContext } from "react";
 
 export const hexToRgba = (hex: string, opacity: number) => {
-  hex = hex.replace('#', '');
+  hex = hex.replace("#", "");
 
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
@@ -18,27 +19,27 @@ const getShadePercent = (varNum: number) => {
   const accent = varNum.toString();
 
   switch (accent) {
-    case '0':
+    case "0":
       return 1;
-    case '50':
+    case "50":
       return 0.9;
-    case '100':
+    case "100":
       return 0.75;
-    case '200':
+    case "200":
       return 0.6;
-    case '300':
+    case "300":
       return 0.3;
-    case '350':
+    case "350":
       return 0.3;
-    case '400':
+    case "400":
       return 0;
-    case '500':
+    case "500":
       return -0.25;
-    case '600':
+    case "600":
       return -0.45;
-    case '700':
+    case "700":
       return -0.55;
-    case '800':
+    case "800":
       return -0.75;
     default:
       return 1;
@@ -47,8 +48,8 @@ const getShadePercent = (varNum: number) => {
 
 export const shadeColor = (argColor: string, varNum: number) => {
   let color = argColor;
-  if (color.toUpperCase() === '#FFF') {
-    color = '#ffffff';
+  if (color.toUpperCase() === "#FFF") {
+    color = "#ffffff";
   }
 
   const percent = getShadePercent(varNum);
@@ -70,19 +71,24 @@ export const shadeColor = (argColor: string, varNum: number) => {
 };
 
 export const uuid = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0,
-      v = c === 'x' ? r : (r & 0x3) | 0x8;
+      v = c === "x" ? r : (r & 0x3) | 0x8;
 
     return v.toString(16);
   });
 };
 
 interface Colors {
-  [key: string]: string
+  [key: string]: string;
 }
 
-export const getColors = (hex: string, arr: Array<number>, dark: boolean, prefix: string) => {
+export const getColors = (
+  hex: string,
+  arr: Array<number>,
+  dark: boolean,
+  prefix: string
+) => {
   const result: Colors = {};
 
   for (let i = 0; i < arr.length; i++) {
@@ -96,15 +102,15 @@ export const getColors = (hex: string, arr: Array<number>, dark: boolean, prefix
 };
 
 type extendConfig = {
-  theme: object,
+  theme: object;
   options: {
-    primary?: string,
-    secondary?: string,
-    dark: boolean,
-    accent?: string,
-    font?: string,
-    scale?: number
-  }
+    primary?: string;
+    secondary?: string;
+    dark: boolean;
+    accent?: string;
+    font?: string;
+    scale?: number;
+  };
 };
 
 export const extendTheme = ({ theme, options }: extendConfig) => {
@@ -116,7 +122,7 @@ export const extendTheme = ({ theme, options }: extendConfig) => {
 
     newTheme = {
       ...newTheme,
-      ...getColors(options.primary, arr, options.dark, 'p')
+      ...getColors(options.primary, arr, options.dark, "p"),
     };
   }
 
@@ -125,7 +131,7 @@ export const extendTheme = ({ theme, options }: extendConfig) => {
 
     newTheme = {
       ...newTheme,
-      ...getColors(options.secondary, arr, options.dark, 's')
+      ...getColors(options.secondary, arr, options.dark, "s"),
     };
   }
 
@@ -134,12 +140,12 @@ export const extendTheme = ({ theme, options }: extendConfig) => {
 
     newTheme = {
       ...newTheme,
-      ...getColors(options.accent, arr, options.dark, 'a')
+      ...getColors(options.accent, arr, options.dark, "a"),
     };
   }
 
   // typography
-  newTheme.font = options.font || 'open-sans';
+  newTheme.font = options.font || "open-sans";
 
   // scale
   const scale = options.scale ? 1 + options.scale / 10 : 1;
@@ -150,7 +156,7 @@ export const extendTheme = ({ theme, options }: extendConfig) => {
   newTheme.size = {
     SMALL: `${24 * scale}px`,
     MEDIUM: `${30 * scale}px`,
-    LARGE: `${34 * scale}px`
+    LARGE: `${34 * scale}px`,
   };
 
   // scale typography
@@ -232,7 +238,7 @@ export const extendTheme = ({ theme, options }: extendConfig) => {
     smLink,
     smNote,
     smItalic,
-    tooltip
+    tooltip,
   };
 
   return newTheme;
@@ -241,13 +247,3 @@ export const extendTheme = ({ theme, options }: extendConfig) => {
 export const noop = () => null;
 
 export const useTheme = () => useContext(ThemeContext);
-// ${types.map(({ label, type }) => "| " + label + "  | " + type + " |")}
-
-export const generateTypesTable = (types: { label: string; type: string; }[]) => `## Types
-
-| Name  | Type  |
-|---|---|
-${types.map(({ label, type }) => `| ${label} | \`${type}\` |`)}
-
-## Stories
-`

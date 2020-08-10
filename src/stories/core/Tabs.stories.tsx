@@ -42,11 +42,21 @@ Default.args = {
 export default {
   title: "Core/Tabs",
   component: Tabs,
-  argTypes: {
-    'Type: Tab': {
-      control: '',
-      description: '`{ id: string | number; label: string; isDisabled?: boolean; }`',
+  parameters: {
+    docs: {
+      width: "100%",
+      markdown: true,
+      storyDescription: `## Types
+
+| Name  | Type  |
+|---|---|
+| Tab  | \`{ id: number \| string; label: string; isEnabled: boolean; isTouched?: boolean; }\` |
+
+## Stories
+`,
     },
+  },
+  argTypes: {
     justify: {
       control: { type: 'select', options: ['flex-start', 'center', 'flex-end'] },
       description: 'Tabs position'

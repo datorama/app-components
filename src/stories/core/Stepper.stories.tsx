@@ -3,8 +3,6 @@ import React from "react";
 // Components
 import Stepper, { StepperProps } from "packages/core/Stepper/Stepper";
 
-import { generateTypesTable } from 'common/utils';
-
 export const Default = (props: StepperProps) => {
   return <Stepper {...props} />;
 };
@@ -27,7 +25,15 @@ export default {
     docs: {
       width: "100%",
       markdown: true,
-      storyDescription: generateTypesTable([{ label: 'Step', type: "{ id: number \| string; label: string; isEnabled: boolean; isTouched?: boolean; }" }]),
+      storyDescription: `## Types
+
+| Name  | Type  |
+|---|---|
+| Step  | \`{ id: string \| number; label: string; isDisabled?: boolean }[]\` |
+| Justify  | \`flex-start \| center \| flex-end\` |
+
+## Stories
+`,
     },
   },
   argTypes: {

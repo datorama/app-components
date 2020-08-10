@@ -148,6 +148,10 @@ body {
     width: 100%;
 }
 
-.sbdocs-table td {
-    text-align: center;
+.sbdocs-table tr {
+    background-color: white !important;
+}
+
+.sbdocs-table th {
+    text-align: left;
 }
