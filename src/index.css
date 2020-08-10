@@ -194,9 +194,13 @@ body {
   border-top-color: #e6e6e6;
 }
 
-.types-table-body-tr :first-child {
+.types-table-body-tr div:first-child {
   width: 20%;
   font-weight: bold;
+}
+
+.types-table-body-tr code {
+  padding-left: 20px;
 }
 
 .types-table-title {

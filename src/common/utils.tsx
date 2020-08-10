@@ -1,6 +1,7 @@
 import { css } from "styled-components";
 import { ThemeContext } from "styled-components";
 import { DocsContainer } from "@storybook/addon-docs/blocks";
+import Highlight from "react-highlight.js";
 
 import * as typography from "common/typography";
 import React, { ReactNode, useContext } from "react";
@@ -258,9 +259,7 @@ export const withTypesTable = (types: { label: string; type: string }[]) => ({
   <DocsContainer context={context}>
     {children}
 
-    <div className="types-table-title">
-      Types
-    </div>
+    <div className="types-table-title">Types</div>
 
     <div className="types-table-wrapper">
       <table className="types-table">
@@ -275,7 +274,9 @@ export const withTypesTable = (types: { label: string; type: string }[]) => ({
           {types.map(({ label, type }) => (
             <tr className="types-table-body-tr" key={label}>
               <td className="types-table-td ">{label}</td>
-              <td className="types-table-td ">{type}</td>
+              <td className="types-table-td ">
+                <Highlight language="typescript">{type}</Highlight>
+              </td>
             </tr>
           ))}
         </tbody>

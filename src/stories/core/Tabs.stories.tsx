@@ -44,8 +44,12 @@ export default {
       container: withTypesTable([
         {
           label: "Tab",
-          type:
-            "{ id: number | string; label: string; isEnabled: boolean; isTouched?: boolean; }",
+          type: `{ 
+  id: number | string;
+  label: string;
+  isEnabled: boolean;
+  isTouched?: boolean;
+}`,
         },
         {
           label: "Justify",

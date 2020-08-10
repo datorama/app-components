@@ -28,8 +28,12 @@ export default {
       container: withTypesTable([
         {
           label: "Step",
-          type:
-            "{ id: number | string; label: string; isEnabled: boolean; isTouched?: boolean; }",
+          type: `{
+  id: number | string;
+  label: string;
+  isEnabled: boolean;
+  isTouched?: boolean;
+}`,
         },
       ]),
     },
