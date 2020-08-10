@@ -8,7 +8,7 @@ type Step = { id: number | string; label: string; isEnabled: boolean; isTouched?
 export interface StepperProps {
   steps: Step[];
   currentStep: number | string;
-  selectStep: (stepId: number | string) => void;
+  selectStep: (stepId: number) => void;
   className?: string;
 }
 
