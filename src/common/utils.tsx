@@ -309,3 +309,7 @@ export const opaquerColor = (color: string, amount: number) => Color(color).opaq
 
 export const rotateColor = (color: string, amount: number) => Color(color).rotate(amount).hsl().string();
 
+export const isLight = (color: string) => Color(color).isLight();
+
+export const isDark = (color: string) => Color(color).isDark();
+
