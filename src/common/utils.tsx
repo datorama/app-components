@@ -289,4 +289,23 @@ export const withTypesTable = (types: { label: string; type: string }[]) => ({
 
 export const fadeColor = (color: string, amount: number) => Color(color).fade(amount).hsl().string();
 
+export const lightenColor = (color: string, amount: number) => Color(color).lighten(amount).hsl().string();
+
+export const darkenColor = (color: string, amount: number) => Color(color).darken(amount).hsl().string();
+
+export const lightnessColor = (color: string, amount: number) => Color(color).lightness(amount).hsl().string();
+
+export const saturateColor = (color: string, amount: number) => Color(color).saturate(amount).hsl().string();
+
+export const desaturateColor = (color: string, amount: number) => Color(color).desaturate(amount).hsl().string();
+
+export const grayscaleColor = (color: string, amount: number) => Color(color).grayscale().hsl().string();
+
+export const whitenColor = (color: string, amount: number) => Color(color).whiten(amount).hsl().string();
+
+export const blackenColor = (color: string, amount: number) => Color(color).blacken(amount).hsl().string();
+
+export const opaquerColor = (color: string, amount: number) => Color(color).opaquer(amount).hsl().string();
+
+export const rotateColor = (color: string, amount: number) => Color(color).rotate(amount).hsl().string();
 
