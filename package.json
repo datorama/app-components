@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@storybook/addon-knobs": "^5.3.19",
     "lodash": "^4.17.19",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
