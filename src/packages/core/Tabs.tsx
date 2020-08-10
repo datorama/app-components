@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import styled, { css } from "styled-components";
 
-type TabType = {
+export type TabType = {
   id: string | number;
   label: string;
   isDisabled?: boolean;
