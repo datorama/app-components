@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Components
 import Stepper, { StepperProps } from "packages/core/Stepper/Stepper";
@@ -6,7 +6,11 @@ import Stepper, { StepperProps } from "packages/core/Stepper/Stepper";
 import { withTypesTable } from "common/utils";
 
 export const Default = (props: StepperProps) => {
-  return <Stepper {...props} />;
+  const [currentStep, setCurrentStep] = useState(props.currentStep);
+
+  return (
+    <Stepper {...props} currentStep={currentStep} selectStep={setCurrentStep} />
+  );
 };
 
 Default.args = {
