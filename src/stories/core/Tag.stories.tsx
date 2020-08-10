@@ -12,7 +12,20 @@ export const Default = (props: TagProps) => {
   );
 };
 
+Default.args = {
+  onClick: () => {},
+  isDisabled: false,
+  isSelected: false
+};
+
 export default {
   title: "Core/Tag",
-  component: Tag
+  component: Tag,
+  argTypes: {
+    color: {
+      control: {
+        type: 'color'
+      }
+    }
+  },
 };
