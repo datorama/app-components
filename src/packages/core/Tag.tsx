@@ -17,7 +17,7 @@ const Tag = (props: TagProps) => (
     onClick={props.onClick}
     color={props.color}
     isDisabled={props.isDisabled}
-    isSelected={props.isSelected}
+    isSelected={props.isDisabled ? false : props.isSelected}
   >
     {props.children}
   </Container>
