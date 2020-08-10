@@ -15,4 +15,12 @@ export const Default = (props: RadialProgressProps) => {
 export default {
   title: "Core/Radial Progress",
   component: RadialProgress,
+  argTypes: {
+    color: {
+      control: { type: 'color' }
+    },
+    percentage: {},
+    radius: {},
+    className: {}
+  }
 };

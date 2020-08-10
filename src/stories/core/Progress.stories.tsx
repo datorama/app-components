@@ -10,4 +10,13 @@ export const Default = (props: ProgressProps) => {
 export default {
   title: "Core/Progress",
   component: Progress,
+  argTypes: {
+    label: {},
+    color: {
+      control: { type: 'color' }
+    },
+    percentage: {},
+    isDisabled: {},
+    className: {}
+  }
 };

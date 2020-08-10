@@ -16,7 +16,7 @@ export const Default = (props: ModalProps) => {
       <Modal
         isOpen={isOpen}
         toggleIsOpen={toggleOpen}
-        size={Modal.Size.Medium}
+        size="medium"
         title="Modal Example"
         buttons={[
           ({ key }: { key: string | number }) => <div key={key}>...</div>,
@@ -39,4 +39,33 @@ export const Default = (props: ModalProps) => {
 export default {
   title: "Core/Modal",
   component: Modal,
+  argTypes: {
+    buttons: {
+      description: "Array of Button objects or ButtonRenderer functions"
+    },
+    toggleIsOpen: {
+      description: "Callback called on Modal's open state toggle"
+    },
+    size: {
+      description: "Modal's size"
+    },
+    overlayColor: {
+      control: { type: 'color' }
+    },
+    closeOnOverlayClick: {
+      descriptions: 'Should Modal close when clicking outside of its content'
+    },
+    isOpen: {
+      type: 'boolean'
+    },
+    title: {
+      type: 'text'
+    },
+    children: {
+      type: null
+    },
+    className: {
+      control: null
+    },
+  },
 };

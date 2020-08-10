@@ -9,16 +9,15 @@ import styled, { css } from "styled-components";
 import { throttle, noop } from "lodash/fp";
 
 import Card from "packages/core/Card";
-import ModalFooter, { ButtonObject, ButtonRenderer, ButtonType } from "packages/core/Modal/ModalFooter";
+import ModalFooter, {
+  ButtonObject,
+  ButtonRenderer,
+  ButtonType,
+} from "packages/core/Modal/ModalFooter";
 
 import { hexToRgba } from "common/utils";
 
-enum Size {
-  Small = "small",
-  Medium = "medium",
-  Large = "large",
-  Full = "full",
-}
+type Size = "small" | "medium" | "large" | "full";
 
 export interface ModalProps {
   children: ReactNode | ReactNode[];
@@ -27,7 +26,7 @@ export interface ModalProps {
   title: string;
   className?: string;
   buttons?: (ButtonObject | ButtonRenderer)[];
-  size?: Size;
+  size?: "small" | "medium" | "large" | "full";
   overlayColor?: string;
   closeOnOverlayClick?: boolean;
 }
@@ -133,21 +132,21 @@ const StyledCard = styled(Card)<{ isVisible: boolean; size?: Size }>`
     isVisible ? theme.animation.fadeDown : theme.animation.fadeUpExit};
 
   ${({ size }) =>
-    size === Size.Medium &&
+    size === "medium" &&
     css`
       width: 560px;
       min-height: 240px;
     `};
 
   ${({ size }) =>
-    size === Size.Large &&
+    size === "large" &&
     css`
       width: 800px;
       min-height: 400px;
     `};
 
   ${({ size }) =>
-    size === Size.Full &&
+    size === "full" &&
     css`
       width: 80vw;
       height: 80vh;
@@ -225,7 +224,6 @@ const CloseIcon = styled.div`
   }
 `;
 
-Modal.Size = Size;
 Modal.ButtonType = ButtonType;
 
 export default Modal;
