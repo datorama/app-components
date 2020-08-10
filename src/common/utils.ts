@@ -241,4 +241,13 @@ export const extendTheme = ({ theme, options }: extendConfig) => {
 export const noop = () => null;
 
 export const useTheme = () => useContext(ThemeContext);
+// ${types.map(({ label, type }) => "| " + label + "  | " + type + " |")}
 
+export const generateTypesTable = (types: { label: string; type: string; }[]) => `## Types
+
+| Name  | Type  |
+|---|---|
+${types.map(({ label, type }) => `| ${label} | \`${type}\` |`)}
+
+## Stories
+`

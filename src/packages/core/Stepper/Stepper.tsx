@@ -3,12 +3,7 @@ import styled, { css } from "styled-components";
 
 import StepperBullet from "packages/core/Stepper/StepperBullet";
 
-type Step = {
-  id: number | string;
-  label: string;
-  isEnabled: boolean;
-  isTouched?: boolean;
-};
+type Step = { id: number | string; label: string; isEnabled: boolean; isTouched?: boolean; };
 
 export interface StepperProps {
   steps: Step[];

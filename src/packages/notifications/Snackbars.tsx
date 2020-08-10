@@ -6,14 +6,14 @@ import {
   SnackbarTitle,
   CloseIcon,
   Snackbar,
-} from "packages/core/Notifications/notifications.styles";
+} from "packages/notifications/notifications.styles";
 
 import {
   useNotifications,
   useNotification,
   getIcon,
   SnackbarItem as SnackbarItemProps,
-} from "packages/core/Notifications/notifications.utils";
+} from "packages/notifications/notifications.utils";
 
 const Context = React.createContext<{
   addSnackbar: (item: SnackbarItemProps) => void;

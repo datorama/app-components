@@ -3,12 +3,10 @@ import React from "react";
 // Components
 import Stepper, { StepperProps } from "packages/core/Stepper/Stepper";
 
+import { generateTypesTable } from 'common/utils';
+
 export const Default = (props: StepperProps) => {
-  return (
-    <Stepper
-      {...props}
-    />
-  );
+  return <Stepper {...props} />;
 };
 
 Default.args = {
@@ -19,45 +17,43 @@ Default.args = {
   ],
   currentStep: 0,
   selectStep: () => {},
-  className: ' '
+  className: " ",
 };
 
 export default {
   title: "Core/Stepper",
   component: Stepper,
-  argTypes: {
-    'Type: Step': {
-      type: "",
-      description: "`{\n" +
-        "  id: StepId;\n" +
-        "  label: string;\n" +
-        "  isEnabled: boolean;\n" +
-        "  isTouched?: boolean;\n" +
-        "}`"
+  parameters: {
+    docs: {
+      width: "100%",
+      markdown: true,
+      storyDescription: generateTypesTable([{ label: 'Step', type: "{ id: number \| string; label: string; isEnabled: boolean; isTouched?: boolean; }" }]),
     },
+  },
+  argTypes: {
     steps: {
       type: {
-        required: true
+        required: true,
       },
-      control: 'object',
+      control: "object",
       description: "Array of steps",
     },
     currentStep: {
       type: {
-        required: true
+        required: true,
       },
-      control: { type: 'number', min: 0, max: 2 },
-      description: "Current step index"
+      control: { type: "number", min: 0, max: 2 },
+      description: "Current step index",
     },
     selectStep: {
       type: {
-        required: true
+        required: true,
       },
-      description: 'Callback on step selection'
+      description: "Callback on step selection",
     },
     className: {
-      control: 'text',
-      description: 'Custom class name passed to main container'
-    }
-  }
+      control: "text",
+      description: "Custom class name passed to main container",
+    },
+  },
 };

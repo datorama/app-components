@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { NotificationsProvider } from '../src/packages/core/Notifications'
+import { NotificationsProvider } from '../src/packages/notifications'
 
 const NotificationsDecorator = (Story: any) => (
   <NotificationsProvider>

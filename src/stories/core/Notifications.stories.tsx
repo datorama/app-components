@@ -6,7 +6,7 @@ import {
   useToast,
   NotificationType,
   NotificationsProvider
-} from "packages/core/Notifications";
+} from "packages/notifications";
 import Button from "packages/core/Button";
 
 export const Default = () => {
