@@ -43,11 +43,11 @@ export default {
       description: "Array of steps",
     },
     currentStep: {
+      control: { type: "number", min: 0, max: 2 },
+      description: "Current step index",
       type: {
         required: true,
       },
-      control: { type: "number", min: 0, max: 2 },
-      description: "Current step index",
     },
     selectStep: {
       type: {

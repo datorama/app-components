@@ -7,8 +7,8 @@ type Step = { id: number | string; label: string; isEnabled: boolean; isTouched?
 
 export interface StepperProps {
   steps: Step[];
-  currentStep: number | string;
-  selectStep: (stepId: number) => void;
+  currentStep: number;
+  selectStep: (stepIndex: number) => void;
   className?: string;
 }
 
@@ -24,7 +24,7 @@ const Stepper = (props: StepperProps) => {
         <StepWrapper
           key={step.id}
           isDisabled={!step.isEnabled}
-          onClick={() => selectStep(step.id)}
+          onClick={() => selectStep(index)}
           onMouseEnter={() => toggleHover(step.id)}
           onMouseLeave={() => toggleHover(null)}
         >
