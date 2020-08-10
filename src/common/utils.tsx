@@ -299,7 +299,7 @@ export const saturateColor = (color: string, amount: number) => Color(color).sat
 
 export const desaturateColor = (color: string, amount: number) => Color(color).desaturate(amount).hsl().string();
 
-export const grayscaleColor = (color: string, amount: number) => Color(color).grayscale().hsl().string();
+export const grayscaleColor = (color: string) => Color(color).grayscale().hsl().string();
 
 export const whitenColor = (color: string, amount: number) => Color(color).whiten(amount).hsl().string();
 

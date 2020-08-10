@@ -1,0 +1,118 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+<Meta title="utils/colors" />
+
+# Utils: Color utils
+
+## Convert hex to rgba
+
+````javascript
+import { hexToRgba } from '@datorama/app-component';
+
+// hex and opacity (0 - 100)
+const color = hexToRgba('#ff0000', 50); // rgba(255, 0, 0, 0.5)
+````
+
+## Fade
+
+````javascript
+import { fadeColor } from '@datorama/app-component';
+
+const color = fadeColor('#ff0000', 0.5);
+````
+
+## Opaquer
+
+````javascript
+import { opaquerColor } from '@datorama/app-component';
+
+const color = opaquerColor('#ff0000', 0.5);
+````
+
+## Lighten
+
+````javascript
+import { lightenColor } from '@datorama/app-component';
+
+const color = lightenColor('#ff0000', 0.3);
+````
+
+## Darken
+
+````javascript
+import { darkenColor } from '@datorama/app-component';
+
+const color = darkenColor('#ff0000', 0.1);
+````
+
+## Saturate
+
+````javascript
+import { saturateColor } from '@datorama/app-component';
+
+const color = saturateColor('#ff0000', 0.1);
+````
+
+## Desaturate
+
+````javascript
+import { desaturateColor } from '@datorama/app-component';
+
+const color = desaturateColor('#ff0000', 0.1);
+````
+
+## Grayscale
+
+````javascript
+import { grayscaleColor } from '@datorama/app-component';
+
+const color = grayscaleColor('#ff0000');
+````
+
+## Lightness
+
+````javascript
+import { lightnessColor } from '@datorama/app-component';
+
+const color = lightnessColor('#ff0000', 0.5);
+````
+
+## Whiten
+
+````javascript
+import { whitenColor } from '@datorama/app-component';
+
+const color = whitenColor('#ff0000', 0.5);
+````
+
+## Blacken
+
+````javascript
+import { blackenColor } from '@datorama/app-component';
+
+const color = blackenColor('#ff0000', 0.5);
+````
+
+## Rotate
+
+````javascript
+import { rotateColor } from '@datorama/app-component';
+
+const color = rotateColor('#ff0000', 90);
+````
+
+## isLight
+
+````javascript
+import { isLight } from '@datorama/app-component';
+
+const color = isLight('#ff0000');
+````
+
+## isDark
+
+````javascript
+import { isDark } from '@datorama/app-component';
+
+const color = isDark('#ff0000');
+````

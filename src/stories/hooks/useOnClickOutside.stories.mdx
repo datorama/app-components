@@ -1,0 +1,21 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks';
+
+<Meta title="hooks/useOnClickOutside" />
+
+# ReactJS Hooks: useOnClickOutside
+
+````jsx harmony
+import React, {useRef, useState} from 'react';
+import {useOnClickOutside} from '@datorama/app-components';
+
+const Comp = () => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  const handleClickOut = () => setOpen(false);
+  
+  // (ref, handler, isActive) 
+  useOnClickOutside(ref, handleClickOut, open);
+  
+  return <Popup ref={ref} />;
+};
+````
