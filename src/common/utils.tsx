@@ -1,9 +1,9 @@
-import React from 'react';
 import { css } from "styled-components";
 import { ThemeContext } from "styled-components";
+import { DocsContainer } from "@storybook/addon-docs/blocks";
 
 import * as typography from "common/typography";
-import { useContext } from "react";
+import React, { ReactNode, useContext } from "react";
 
 export const hexToRgba = (hex: string, opacity: number) => {
   hex = hex.replace("#", "");
@@ -247,3 +247,39 @@ export const extendTheme = ({ theme, options }: extendConfig) => {
 export const noop = () => null;
 
 export const useTheme = () => useContext(ThemeContext);
+
+export const withTypesTable = (types: { label: string; type: string }[]) => ({
+  children,
+  context,
+}: {
+  children: ReactNode;
+  context: any;
+}) => (
+  <DocsContainer context={context}>
+    {children}
+
+    <div className="types-table-title">
+      Types
+    </div>
+
+    <div className="types-table-wrapper">
+      <table className="types-table">
+        <thead className="docblock-argstable-head">
+          <tr className="types-table-th">
+            <th className="types-table-th">Name</th>
+            <th className="types-table-th">Type</th>
+          </tr>
+        </thead>
+
+        <tbody className="types-table-body">
+          {types.map(({ label, type }) => (
+            <tr className="types-table-body-tr" key={label}>
+              <td className="types-table-td ">{label}</td>
+              <td className="types-table-td ">{type}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </DocsContainer>
+);

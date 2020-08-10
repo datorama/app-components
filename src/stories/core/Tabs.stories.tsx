@@ -3,16 +3,14 @@ import React from "react";
 // Components
 import Tabs, { TabsProps } from "packages/core/Tabs";
 
+import { withTypesTable } from "common/utils";
+
 export const Default = (props: TabsProps) => {
-  return (
-    <Tabs
-      {...props}
-    />
-  );
+  return <Tabs {...props} />;
 };
 
 Default.args = {
-  justify: 'center',
+  justify: "center",
   tabs: [
     { id: 0, label: "Explore" },
     { id: 1, label: "Filters" },
@@ -35,54 +33,55 @@ Default.args = {
       >
         Content for tab {tab.label} - {tab.id}
       </div>
-    ) : null
+    ) : null,
 };
-
 
 export default {
   title: "Core/Tabs",
   component: Tabs,
   parameters: {
     docs: {
-      storyDescription: `## Types
-
-| Name  | Type  |
-|---|---|
-| Tab  | \`{ id: number \| string; label: string; isEnabled: boolean; isTouched?: boolean; }\` |
-
-## Stories
-`,
+      container: withTypesTable([
+        {
+          label: "Tab",
+          type:
+            "{ id: number | string; label: string; isEnabled: boolean; isTouched?: boolean; }",
+        },
+      ]),
     },
   },
   argTypes: {
     justify: {
-      control: { type: 'select', options: ['flex-start', 'center', 'flex-end'] },
-      description: 'Tabs position'
+      control: {
+        type: "select",
+        options: ["flex-start", "center", "flex-end"],
+      },
+      description: "Tabs position",
     },
     tabs: {
-      control: 'object',
-      description: "Array of tabs"
+      control: "object",
+      description: "Array of tabs",
     },
     onSelect: {
-      description: "Callback on tab selection"
+      description: "Callback on tab selection",
     },
     selectedIndex: {
-      control:  { type: 'number', min: 0, max: 2 },
-      description: "Current tab index"
+      control: { type: "number", min: 0, max: 2 },
+      description: "Current tab index",
     },
     contentRenderer: {
-      description: "Tab content renderer"
+      description: "Tab content renderer",
     },
     className: {
-      description: "Custom class name passed to Tabs main container"
+      description: "Custom class name passed to Tabs main container",
     },
     labelRenderer: {
-      description: "Custom label renderer"
+      description: "Custom label renderer",
     },
     gap: {
       description: "Gap between tabs",
       optional: true,
-      control: { type: "number", min: 0, max: 200 }
-    }
-  }
+      control: { type: "number", min: 0, max: 200 },
+    },
+  },
 };
