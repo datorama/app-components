@@ -5,6 +5,7 @@
   "dependencies": {
     "@storybook/addon-controls": "^6.0.0-beta.15",
     "@types/react-highlight.js": "^1.0.0",
+    "color": "^3.1.2",
     "highlightjs": "^9.16.2",
     "lodash": "^4.17.19",
     "react": "^16.13.1",
@@ -48,16 +49,17 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
+    "@types/color": "^3.0.1",
     "@types/jest": "^24.9.1",
     "@types/lodash": "^4.14.159",
     "@types/node": "^12.12.50",
     "@types/react": "^16.9.42",
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.1",
-    "husky": "4.2.5",
-    "lint-staged": "10.2.11",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-prettier": "3.1.4",
+    "husky": "4.2.5",
+    "lint-staged": "10.2.11",
     "prettier": "2.0.5"
   },
   "husky": {

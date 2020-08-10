@@ -2,9 +2,11 @@ import { css } from "styled-components";
 import { ThemeContext } from "styled-components";
 import { DocsContainer } from "@storybook/addon-docs/blocks";
 import Highlight from "react-highlight.js";
+import Color from 'color';
 
 import * as typography from "common/typography";
 import React, { ReactNode, useContext } from "react";
+
 
 export const hexToRgba = (hex: string, opacity: number) => {
   hex = hex.replace("#", "");
@@ -284,3 +286,7 @@ export const withTypesTable = (types: { label: string; type: string }[]) => ({
     </div>
   </DocsContainer>
 );
+
+export const fadeColor = (color: string, amount: number) => Color(color).fade(amount).hsl().string();
+
+

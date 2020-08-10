@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { hexToRgba } from 'common/utils';
+import { fadeColor } from 'common/utils';
 import { useTheme } from 'common/hooks';
 
 export interface LinearProgressProps {
@@ -25,7 +25,7 @@ const Outer = styled.div<{color: string}>`
   position: relative;
   width: 100%;
   height: 2px;
-  background: ${({ color }) => hexToRgba(color, 40)};
+  background: ${({ color }) => fadeColor(color, 0.8)};
   overflow: hidden;
 `;
 
