@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Components
 import Tabs, { TabsProps } from "packages/core/Tabs";
@@ -6,7 +6,15 @@ import Tabs, { TabsProps } from "packages/core/Tabs";
 import { withTypesTable } from "common/utils";
 
 export const Default = (props: TabsProps) => {
-  return <Tabs {...props} />;
+  const [selectedIndex, setSelectedIndex] = useState(props.selectedIndex);
+
+  return (
+    <Tabs
+      {...props}
+      selectedIndex={selectedIndex}
+      onSelect={setSelectedIndex}
+    />
+  );
 };
 
 Default.args = {
@@ -53,8 +61,7 @@ export default {
         },
         {
           label: "Justify",
-          type:
-            "flex-start | center | flex-end",
+          type: "flex-start | center | flex-end",
         },
       ]),
     },

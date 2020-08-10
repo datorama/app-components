@@ -15,7 +15,7 @@ export interface TabsProps {
     tab: Tab;
   }) => React.ReactNode;
   justify?: Justify;
-  onSelect: (id: string | number) => void;
+  onSelect: (index: number) => void;
   selectedIndex: number;
   gap?: number;
   tabs: Tab[];
@@ -61,9 +61,9 @@ const Tabs = (props: TabsProps) => {
     <Container className={className}>
       <Header justify={justify}>
         <InnerHeader>
-          {tabs.map((tab) => {
+          {tabs.map((tab, index) => {
             const key = `tab-${tab.id}`;
-            const handleClick = () => onSelect(tab.id);
+            const handleClick = () => onSelect(index);
             const isSelected = tab.id === selectedIndex;
 
             return (
