@@ -47,6 +47,11 @@ export default {
           type:
             "{ id: number | string; label: string; isEnabled: boolean; isTouched?: boolean; }",
         },
+        {
+          label: "Justify",
+          type:
+            "flex-start | center | flex-end",
+        },
       ]),
     },
   },
