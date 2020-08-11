@@ -12,5 +12,8 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-controls",
     "@storybook/addon-toolbars/register",
+    "@storybook/theming",
+    "storybook-dark-mode/register",
+    "@storybook/api",
   ],
 };
