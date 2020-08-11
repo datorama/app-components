@@ -150,7 +150,7 @@ export const GlobalStyleDark = createGlobalStyle`
   font-family: "Nunito Sans", -apple-system, ".SFNSText-Regular",
     "San Francisco", BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica,
     Arial, sans-serif;
-  color: #333333;
+  color: white;
   font-weight: 900;
 }
 
