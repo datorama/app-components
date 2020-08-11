@@ -30,7 +30,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 `;
 
 const Card = styled.div`
