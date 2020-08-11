@@ -1,8 +1,8 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 
-// Components
 import TagGroup, { TagGroupProps } from "packages/core/TagGroup";
+
 import { withTypesTable } from "common/utils";
 
 export const Default = (props: TagGroupProps) => (
