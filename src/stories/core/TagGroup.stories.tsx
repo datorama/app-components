@@ -18,7 +18,7 @@ Default.args = {
 };
 
 export default {
-  title: "Core/TagGroup",
+  title: "Core/Tag Group",
   component: TagGroup,
   argTypes: {
     color: {
