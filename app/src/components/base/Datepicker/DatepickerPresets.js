@@ -9,7 +9,7 @@ import ArrowDown from '../../icons/ArrowDown.icon';
 
 // components
 import Select from '../Select/Select';
-import { convertToMomentRange } from './date.utils';
+import { transformCustomPresets } from './date.utils';
 
 const CustomHeader = ({ open, toggleOpen, placeholder, values }) => (
   <Header onClick={toggleOpen}>
@@ -266,15 +266,9 @@ class DatepickerPresets extends Component {
     ];
 
     if (!isEmpty(customPresets)) {
-      const options = customPresets.map(customPreset => ({
-        ...customPreset,
-        dateRange: convertToMomentRange(customPreset.dateRange)
-      }));
+      const options = transformCustomPresets(customPresets);
 
-      this.presetsOptions.push({
-        label: 'Custom',
-        options
-      });
+      this.presetsOptions = options;
     }
   }
 

@@ -49,31 +49,56 @@ const withCustomPresets = `
 () => {
 const customPresets = [
   {
-    value: 'last2Days',
+    range: 'last2Days',
     label: 'Last 2 days',
-    dateRange: {
-      startDate: moment()
+    order: 0,
+    startDate: moment()
         .subtract(2, 'days')
         .toDate(),
-      endDate: moment()
-        .subtract(1, 'days')
-        .toDate()
-    }
+    endDate: moment()
+       .subtract(1, 'days')
+       .toDate()
   },
   {
-    value: 'previous2Months',
+    range: 'previous2Months',
     label: 'Previous 2 months',
-    dateRange: {
-      startDate: moment()
-        .startOf('month')
-        .subtract(2, 'months')
+    order: 1,
+    startDate: moment()
+       .startOf('month')
+       .subtract(2, 'months')
+       .toDate(),
+    endDate: moment()
+       .startOf('month')
+       .subtract(1, 'month')
+       .endOf('month')
+       .toDate()
+  },
+  {
+    range: 'last2Days',
+    label: 'Last 2 days',
+    order: 0,
+    group: 'foo',
+    startDate: moment()
+        .subtract(2, 'days')
         .toDate(),
-      endDate: moment()
-        .startOf('month')
-        .subtract(1, 'month')
-        .endOf('month')
-        .toDate()
-    }
+    endDate: moment()
+       .subtract(1, 'days')
+       .toDate()
+  },
+  {
+    range: 'previous2Months',
+    label: 'Previous 2 months',
+    order: 1,
+    group: 'foo',
+    startDate: moment()
+       .startOf('month')
+       .subtract(2, 'months')
+       .toDate(),
+    endDate: moment()
+       .startOf('month')
+       .subtract(1, 'month')
+       .endOf('month')
+       .toDate()
   }
 ];
 
