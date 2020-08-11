@@ -41,6 +41,7 @@
     "@storybook/addon-actions": "^6.0.0-rc.30",
     "@storybook/addon-docs": "^6.0.0-rc.30",
     "@storybook/addon-links": "^6.0.0-rc.30",
+    "@storybook/client-api": "^6.0.0-rc.30",
     "@storybook/theming": "^6.0.0-rc.30",
     "@storybook/api": "^6.0.0-rc.30",
     "storybook-dark-mode": "^0.6.1",
