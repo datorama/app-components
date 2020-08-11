@@ -6,7 +6,7 @@ import {
   StyledSuccessIcon,
   StyledWarningIcon,
   StyledAlertIcon,
-} from "packages/notifications/notifications.styles";
+} from "packages/core/Notifications/notifications.styles";
 
 interface NotificationItem {
   id: number | string;

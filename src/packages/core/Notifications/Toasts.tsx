@@ -7,14 +7,14 @@ import {
   Title,
   CloseIcon,
   Toast,
-} from "packages/notifications/notifications.styles";
+} from "packages/core/Notifications/notifications.styles";
 
 import {
   useNotifications,
   useNotification,
   getIcon,
   ToastItem as ToastItemProps,
-} from "packages/notifications/notifications.utils";
+} from "packages/core/Notifications/notifications.utils";
 
 const Context = React.createContext<{
   addToast: (toastItem: ToastItemProps) => void;

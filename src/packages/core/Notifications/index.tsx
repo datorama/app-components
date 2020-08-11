@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 
-import { ToastsProvider, useToast } from 'packages/notifications/Toasts';
-import { SnackbarProvider, useSnackbar } from 'packages/notifications/Snackbars';
-import { NotificationType } from 'packages/notifications/notifications.utils';
+import { ToastsProvider, useToast } from 'packages/core/Notifications/Toasts';
+import { SnackbarProvider, useSnackbar } from 'packages/core/Notifications/Snackbars';
+import { NotificationType } from 'packages/core/Notifications/notifications.utils';
 
 const NotificationsProvider = ({ children }: { children: ReactNode }) => (
   <ToastsProvider>
