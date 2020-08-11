@@ -7,7 +7,7 @@ import {
   Title,
   CloseIcon,
   Toast,
-} from "packages/core/Notifications/notifications.styles";
+} from 'packages/core/Notifications/notifications.styles';
 
 import {
   useNotifications,
