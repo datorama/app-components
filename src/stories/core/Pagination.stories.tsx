@@ -9,5 +9,21 @@ export const Default = (props: PaginationProps) => {
 
 export default {
   title: "Core/Pagination",
-  component: Pagination
+  component: Pagination,
+  argTypes: {
+    total: {
+      control: 'number',
+      description: "Number of pages"
+    },
+    max: {
+      control: 'number',
+      description: "Number of visible pages"
+    },
+    onChange: {},
+    className: {
+      table: {
+
+      }
+    }
+  }
 };

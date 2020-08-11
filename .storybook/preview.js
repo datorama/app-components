@@ -9,8 +9,17 @@ addParameters({
 	docs: {
 		container: DocsContainer,
 		page: DocsPage,
-	},
+	}
 });
+
+export const globalTypes = {
+	theme: {
+		name: 'Theme',
+		description: 'Global theme for components',
+		defaultValue: 'Light',
+		toolbar: { icon: 'circlehollow', label: 'Theme', items: ['Light','Dark'] },
+	}
+};
 
 addDecorator(NotificationsDecorator);
 addDecorator(StyleDecorator);

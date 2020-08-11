@@ -5,6 +5,8 @@ import { useCallback, useState } from "@storybook/addons";
 import Modal, { ModalProps } from "packages/core/Modal/Modal";
 import Button from "packages/core/Button";
 
+import { withTypesTable } from 'common/utils';
+
 export const Default = (props: ModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => setIsOpen((open) => !open), []);
@@ -39,6 +41,33 @@ export const Default = (props: ModalProps) => {
 export default {
   title: "Core/Modal",
   component: Modal,
+  parameters: {
+    docs: {
+      container: withTypesTable([
+        {
+          label: "Button",
+          type: `{
+  type?: ButtonType;
+  isDisabled?: boolean;
+  onClick: () => void;
+  label: string;
+}`,
+        },
+        {
+          label: "ButtonType",
+          type: `primary | secondary`,
+        },
+        {
+          label: "ButtonRenderer",
+          type: `({ key }: { key: string; }) => ReactNode`,
+        },
+        {
+          label: "Size",
+          type: `small | medium | large | full`,
+        },
+      ]),
+    },
+  },
   argTypes: {
     buttons: {
       description: "Array of Button objects or ButtonRenderer functions"
