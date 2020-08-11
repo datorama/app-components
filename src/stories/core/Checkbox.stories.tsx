@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Checkbox, { CheckboxProps } from "packages/core/Checkbox";
 
 export const Default = (props: CheckboxProps) => {
-  return <Checkbox {...props} />;
+  const [isChecked, setIsChecked] = useState(props.isChecked);
+
+  return (
+    <Checkbox
+      {...props}
+      isChecked={isChecked}
+      onClick={() => setIsChecked((curr) => !curr)}
+    />
+  );
 };
 
 Default.args = {
@@ -30,7 +38,7 @@ export const RoundCheckbox = (props: CheckboxProps) => <Default {...props} />;
 RoundCheckbox.args = {
   onClick: () => {},
   isChecked: true,
-  label: "Partial",
+  label: "Round",
   isRound: true,
 };
 

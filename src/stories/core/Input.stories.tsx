@@ -1,20 +1,13 @@
-import React, {useState, useCallback} from "react";
-import {noop} from 'lodash/fp';
+import React, { useState, useCallback } from "react";
+import { noop } from "lodash/fp";
 
-// Components
-import Input, {InputProps} from "packages/core/Input";
+import Input, { InputProps } from "packages/core/Input";
 
 export const Default = (props: InputProps) => {
-  const [value, setValue] = useState('');
-  const handleChange = useCallback(e => setValue(e.target.value), []);
+  const [value, setValue] = useState("");
+  const handleChange = useCallback((e) => setValue(e.target.value), []);
 
-  return (
-    <Input
-      onChange={handleChange}
-      {...props}
-      value={value}
-    />
-  );
+  return <Input onChange={handleChange} {...props} value={value} />;
 };
 
 export const Disabled = () => (
