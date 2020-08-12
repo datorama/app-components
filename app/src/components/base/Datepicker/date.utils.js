@@ -34,3 +34,21 @@ export const transformCustomPresets = customPresets => {
   ])(customPresets);
   return res;
 };
+
+export const getSelectedPresetOption = (options, value) => {
+  if (!value || !options.length) return [];
+
+  return options.reduce((acc, option) => {
+    if (option.value === value) {
+      acc.push(option);
+    }
+    if (option.options) {
+      option.options.forEach(option => {
+        if (option.value === value) {
+          acc.push(option);
+        }
+      });
+    }
+    return acc;
+  }, []);
+};

@@ -31,16 +31,17 @@ class Datepicker extends Component {
       startDate: PropTypes.instanceOf(Date),
       endDate: PropTypes.instanceOf(Date)
     }),
+    selectedPreset: PropTypes.string,
     firstDayOfWeek: PropTypes.number,
     dateFormat: PropTypes.string,
     customPresets: PropTypes.arrayOf(
       PropTypes.shape({
-        value: PropTypes.string,
+        range: PropTypes.string,
         label: PropTypes.string,
-        dateRange: PropTypes.shape({
-          startDate: PropTypes.instanceOf(Date),
-          endDate: PropTypes.instanceOf(Date)
-        })
+        startDate: PropTypes.instanceOf(Date),
+        endDate: PropTypes.instanceOf(Date),
+        group: PropTypes.string,
+        order: PropTypes.number
       })
     ),
     bodyRenderer: PropTypes.func,
@@ -261,8 +262,17 @@ class Datepicker extends Component {
           selecting: false,
           open: false
         },
-        () =>
-          this.props.onChange(convertToDateRange(this.state.committedSelection))
+        () => {
+          const { startDate, endDate } = convertToDateRange(
+            this.state.committedSelection
+          );
+
+          this.props.onChange({
+            startDate,
+            endDate,
+            selectedPreset: this.state.committedSelectedPreset
+          });
+        }
       );
     } else {
       this.cancel();
@@ -311,7 +321,13 @@ class Datepicker extends Component {
       {
         selecting: false,
         selection: preset[0].dateRange,
-        selectedPreset: preset
+        selectedPreset: preset,
+        ...(this.props.selectedPreset
+          ? {
+              committedSelection: preset[0].dateRange,
+              committedSelectedPreset: preset
+            }
+          : {})
       },
       () => {
         this.setOffset();
@@ -440,7 +456,9 @@ class Datepicker extends Component {
           >
             <DatepickerPresets
               onChange={this.setPreset}
-              selectedPreset={selectedPreset}
+              selectedPreset={
+                this.props.selectedPreset || this.state.selectedPreset
+              }
               firstDayOfWeek={firstDayOfWeek}
               customPresets={customPresets}
             />
