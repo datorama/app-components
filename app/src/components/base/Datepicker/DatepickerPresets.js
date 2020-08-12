@@ -22,16 +22,14 @@ class DatepickerPresets extends Component {
   static propTypes = {
     firstDayOfWeek: PropTypes.oneOf([0, 1]),
     onChange: PropTypes.func,
-    selectedPreset: PropTypes.oneOfType([
-      PropTypes.arrayOf(
-        PropTypes.shape({
-          label: PropTypes.string,
-          value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-          dateRange: PropTypes.object
-        })
-      ),
-      PropTypes.string
-    ]),
+    selectedPreset: PropTypes.arrayOf(
+      PropTypes.shape({
+        label: PropTypes.string,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        dateRange: PropTypes.object
+      })
+    ),
+    controlledSelectedPreset: PropTypes.string,
     customPresets: PropTypes.arrayOf(
       PropTypes.shape({
         range: PropTypes.string,
@@ -49,7 +47,7 @@ class DatepickerPresets extends Component {
   today = null;
 
   componentDidMount() {
-    const { firstDayOfWeek, selectedPreset } = this.props;
+    const { firstDayOfWeek, controlledSelectedPreset } = this.props;
 
     moment.updateLocale('en', {
       week: {
@@ -60,20 +58,28 @@ class DatepickerPresets extends Component {
 
     this.setPresets();
 
-    if (typeof selectedPreset === 'string') {
+    if (controlledSelectedPreset) {
+      const commitOnSet = true;
+
       this.props.onChange(
-        getSelectedPresetOption(this.presetsOptions, this.props.selectedPreset)
+        getSelectedPresetOption(this.presetsOptions, controlledSelectedPreset),
+        commitOnSet
       );
     }
   }
 
   componentDidUpdate(prevProps) {
     if (
-      typeof this.props.selectedPreset === 'string' &&
-      prevProps.selectedPreset !== this.props.selectedPreset
+      prevProps.controlledSelectedPreset !== this.props.controlledSelectedPreset
     ) {
+      const commitOnSet = true;
+
       this.props.onChange(
-        getSelectedPresetOption(this.presetsOptions, this.props.selectedPreset)
+        getSelectedPresetOption(
+          this.presetsOptions,
+          this.props.controlledSelectedPreset
+        ),
+        commitOnSet
       );
     }
   }
@@ -293,18 +299,13 @@ class DatepickerPresets extends Component {
   render() {
     const { onChange, selectedPreset } = this.props;
 
-    const selectedPresetOption =
-      typeof this.props.selectedPreset === 'string'
-        ? getSelectedPresetOption(this.presetsOptions, selectedPreset)
-        : selectedPreset;
-
     return (
       <Container>
         <Select
           sortable={false}
           placeholder="Presets"
           options={this.presetsOptions}
-          values={selectedPresetOption}
+          values={selectedPreset}
           headerRenderer={CustomHeader}
           onChange={onChange}
         />
