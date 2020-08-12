@@ -7,12 +7,12 @@ import Check from "packages/core/Icons/Check";
 import Line from "packages/core/Icons/Line";
 
 export interface CheckboxProps {
-  isChecked: boolean;
-  onClick: () => void;
-  isDisabled: boolean;
-  isRound: boolean;
-  label: string;
-  isPartial: boolean;
+  isChecked?: boolean;
+  onClick?: () => void;
+  isDisabled?: boolean;
+  isRound?: boolean;
+  label?: string;
+  isPartial?: boolean;
   className?: string;
 }
 
