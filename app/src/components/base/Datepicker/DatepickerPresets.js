@@ -70,6 +70,7 @@ class DatepickerPresets extends Component {
 
   componentDidUpdate(prevProps) {
     if (
+      this.props.controlledSelectedPreset &&
       prevProps.controlledSelectedPreset !== this.props.controlledSelectedPreset
     ) {
       const commitOnSet = true;
