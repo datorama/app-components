@@ -286,9 +286,7 @@ class DatepickerPresets extends Component {
     ];
 
     if (!isEmpty(customPresets)) {
-      const options = transformCustomPresets(customPresets);
-
-      this.presetsOptions = options;
+      this.presetsOptions = transformCustomPresets(customPresets);
     }
   }
 

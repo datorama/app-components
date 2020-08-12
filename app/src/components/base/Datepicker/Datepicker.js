@@ -456,9 +456,7 @@ class Datepicker extends Component {
           >
             <DatepickerPresets
               onChange={this.setPreset}
-              selectedPreset={
-                this.props.selectedPreset || this.state.selectedPreset
-              }
+              selectedPreset={this.props.selectedPreset || selectedPreset}
               firstDayOfWeek={firstDayOfWeek}
               customPresets={customPresets}
             />
