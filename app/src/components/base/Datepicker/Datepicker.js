@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import { set, isEmpty } from 'lodash/fp';
+import { set, isEmpty, get } from 'lodash/fp';
 
 // icons
 import Arrow from '../../icons/ArrowDate.icon';
@@ -270,7 +270,10 @@ class Datepicker extends Component {
           this.props.onChange({
             startDate,
             endDate,
-            selectedPreset: this.state.committedSelectedPreset
+            selectedPreset: get(
+              [0, 'value'],
+              this.state.committedSelectedPreset
+            )
           });
         }
       );
@@ -316,13 +319,13 @@ class Datepicker extends Component {
   selectMonth = selection => () =>
     this.setState({ selection, selecting: false, selectedPreset: [] });
 
-  setPreset = preset => {
+  setPreset = (preset, commitOnSet = false) => {
     this.setState(
       {
         selecting: false,
         selection: preset[0].dateRange,
         selectedPreset: preset,
-        ...(this.props.selectedPreset
+        ...(commitOnSet
           ? {
               committedSelection: preset[0].dateRange,
               committedSelectedPreset: preset
@@ -456,7 +459,8 @@ class Datepicker extends Component {
           >
             <DatepickerPresets
               onChange={this.setPreset}
-              selectedPreset={this.props.selectedPreset || selectedPreset}
+              selectedPreset={selectedPreset}
+              controlledSelectedPreset={this.props.selectedPreset}
               firstDayOfWeek={firstDayOfWeek}
               customPresets={customPresets}
             />
