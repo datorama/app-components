@@ -9,7 +9,7 @@ import ArrowDown from '../../icons/ArrowDown.icon';
 
 // components
 import Select from '../Select/Select';
-import { convertToMomentRange } from './date.utils';
+import { transformCustomPresets, getSelectedPresetOption } from './date.utils';
 
 const CustomHeader = ({ open, toggleOpen, placeholder, values }) => (
   <Header onClick={toggleOpen}>
@@ -22,21 +22,24 @@ class DatepickerPresets extends Component {
   static propTypes = {
     firstDayOfWeek: PropTypes.oneOf([0, 1]),
     onChange: PropTypes.func,
-    selectedPreset: PropTypes.arrayOf(
-      PropTypes.shape({
-        label: PropTypes.string,
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        dateRange: PropTypes.object
-      })
-    ),
+    selectedPreset: PropTypes.oneOfType([
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string,
+          value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+          dateRange: PropTypes.object
+        })
+      ),
+      PropTypes.string
+    ]),
     customPresets: PropTypes.arrayOf(
       PropTypes.shape({
-        value: PropTypes.string,
+        range: PropTypes.string,
         label: PropTypes.string,
-        dateRange: PropTypes.shape({
-          startDate: PropTypes.instanceOf(Date),
-          endDate: PropTypes.instanceOf(Date)
-        })
+        startDate: PropTypes.instanceOf(Date),
+        endDate: PropTypes.instanceOf(Date),
+        group: PropTypes.string,
+        order: PropTypes.number
       })
     )
   };
@@ -46,7 +49,7 @@ class DatepickerPresets extends Component {
   today = null;
 
   componentDidMount() {
-    const { firstDayOfWeek } = this.props;
+    const { firstDayOfWeek, selectedPreset } = this.props;
 
     moment.updateLocale('en', {
       week: {
@@ -56,6 +59,23 @@ class DatepickerPresets extends Component {
     });
 
     this.setPresets();
+
+    if (typeof selectedPreset === 'string') {
+      this.props.onChange(
+        getSelectedPresetOption(this.presetsOptions, this.props.selectedPreset)
+      );
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      typeof this.props.selectedPreset === 'string' &&
+      prevProps.selectedPreset !== this.props.selectedPreset
+    ) {
+      this.props.onChange(
+        getSelectedPresetOption(this.presetsOptions, this.props.selectedPreset)
+      );
+    }
   }
 
   setPresets() {
@@ -266,20 +286,17 @@ class DatepickerPresets extends Component {
     ];
 
     if (!isEmpty(customPresets)) {
-      const options = customPresets.map(customPreset => ({
-        ...customPreset,
-        dateRange: convertToMomentRange(customPreset.dateRange)
-      }));
-
-      this.presetsOptions.push({
-        label: 'Custom',
-        options
-      });
+      this.presetsOptions = transformCustomPresets(customPresets);
     }
   }
 
   render() {
     const { onChange, selectedPreset } = this.props;
+
+    const selectedPresetOption =
+      typeof this.props.selectedPreset === 'string'
+        ? getSelectedPresetOption(this.presetsOptions, selectedPreset)
+        : selectedPreset;
 
     return (
       <Container>
@@ -287,7 +304,7 @@ class DatepickerPresets extends Component {
           sortable={false}
           placeholder="Presets"
           options={this.presetsOptions}
-          values={selectedPreset}
+          values={selectedPresetOption}
           headerRenderer={CustomHeader}
           onChange={onChange}
         />
