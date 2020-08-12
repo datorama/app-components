@@ -1,10 +1,11 @@
 import React from "react";
-import Progress, { ProgressProps } from 'packages/core/Progress/Progress';
+import Progress, { ProgressProps } from "packages/core/Progress/Progress";
 
-export const Default = (props: ProgressProps) => {
-  return (
-    <Progress label="20%" percentage={20} {...props}/>
-  );
+export const Default = (props: ProgressProps) => <Progress {...props} />;
+;
+Default.arg = {
+  label: "20%",
+  percentage: 20,
 };
 
 export default {
@@ -13,10 +14,10 @@ export default {
   argTypes: {
     label: {},
     color: {
-      control: { type: 'color' }
+      control: { type: "color" },
     },
     percentage: {},
     isDisabled: {},
-    className: {}
-  }
+    className: {},
+  },
 };

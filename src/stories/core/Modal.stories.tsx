@@ -5,37 +5,36 @@ import { useCallback, useState } from "@storybook/addons";
 import Modal, { ModalProps } from "packages/core/Modal/Modal";
 import Button from "packages/core/Button";
 
-import { withTypesTable } from 'common/utils';
+import { withTypesTable } from "common/utils";
 
 export const Default = (props: ModalProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(props.isOpen);
   const toggleOpen = useCallback(() => setIsOpen((open) => !open), []);
 
   return (
     <>
       <Button onClick={toggleOpen}>Toggle Modal</Button>
 
-      <Modal
-        isOpen={isOpen}
-        toggleIsOpen={toggleOpen}
-        size="medium"
-        title="Modal Example"
-        buttons={[
-          ({ key }: { key: string | number }) => <div key={key}>...</div>,
-          {
-            type: Modal.ButtonType.Secondary,
-            label: "cancel",
-            onClick: () => {},
-            isDisabled: true,
-          },
-          { label: "submit", onClick: () => {} },
-        ]}
-        {...props}
-      >
+      <Modal {...props} isOpen={isOpen} toggleIsOpen={toggleOpen}>
         <div>Modal content</div>
       </Modal>
     </>
   );
+};
+
+Default.args = {
+  buttons: [
+    ({ key }: { key: string | number }) => <div key={key}>...</div>,
+    {
+      type: Modal.ButtonType.Secondary,
+      label: "cancel",
+      onClick: () => {},
+      isDisabled: true,
+    },
+    { label: "submit", onClick: () => {} },
+  ],
+  size: "medium",
+  title: "Modal Example",
 };
 
 export default {
@@ -70,31 +69,31 @@ export default {
   },
   argTypes: {
     buttons: {
-      description: "Array of Button objects or ButtonRenderer functions"
+      description: "Array of Button objects or ButtonRenderer functions",
     },
     toggleIsOpen: {
-      description: "Callback called on Modal's open state toggle"
+      description: "Callback called on Modal's open state toggle",
     },
     size: {
-      description: "Modal's size"
+      description: "Modal's size",
     },
     overlayColor: {
-      control: { type: 'color' }
+      control: { type: "color" },
     },
     closeOnOverlayClick: {
-      descriptions: 'Should Modal close when clicking outside of its content'
+      descriptions: "Should Modal close when clicking outside of its content",
     },
     isOpen: {
-      type: 'boolean'
+      type: "boolean",
     },
     title: {
-      type: 'text'
+      type: "text",
     },
     children: {
-      type: null
+      type: null,
     },
     className: {
-      control: null
+      control: null,
     },
   },
 };

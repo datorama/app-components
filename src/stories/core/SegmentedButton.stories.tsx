@@ -8,25 +8,28 @@ export const Default = (props: SegmentedButtonProps) => {
 
   return (
     <SegmentedButton
+      {...props}
       onClick={setSelected}
       selected={selected}
-      sections={[
-        {
-          id: 0,
-          label: "No",
-        },
-        {
-          id: 1,
-          label: "Maybe",
-        },
-        {
-          id: 2,
-          label: "Yes",
-        },
-      ]}
-      {...props}
     />
   );
+};
+
+Default.args = {
+  sections: [
+    {
+      id: 0,
+      label: "No",
+    },
+    {
+      id: 1,
+      label: "Maybe",
+    },
+    {
+      id: 2,
+      label: "Yes",
+    },
+  ],
 };
 
 export default {

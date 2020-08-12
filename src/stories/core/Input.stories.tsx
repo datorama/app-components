@@ -4,10 +4,14 @@ import { noop } from "lodash/fp";
 import Input, { InputProps } from "packages/core/Input";
 
 export const Default = (props: InputProps) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(props.value);
   const handleChange = useCallback((e) => setValue(e.target.value), []);
 
-  return <Input onChange={handleChange} {...props} value={value} />;
+  return <Input {...props} value={value} onChange={handleChange}/>;
+};
+
+Default.args = {
+  value: ''
 };
 
 export const Disabled = () => (

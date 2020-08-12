@@ -5,12 +5,10 @@ import TagGroup, { TagGroupProps } from "packages/core/TagGroup";
 
 import { withTypesTable } from "common/utils";
 
-export const Default = (props: TagGroupProps) => (
-  <TagGroup onChange={action("clicked")} {...props} />
-);
+export const Default = (props: TagGroupProps) => <TagGroup {...props} />;
 
 Default.args = {
-  onChange: () => {},
+  onChange: action("clicked"),
   isDisabled: false,
   tags: [
     { id: "marketing", label: "Marketing" },

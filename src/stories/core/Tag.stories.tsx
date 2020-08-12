@@ -4,18 +4,12 @@ import { action } from "@storybook/addon-actions";
 // Components
 import Tag, { TagProps } from "packages/core/Tag";
 
-export const Default = (props: TagProps) => {
-  return (
-    <Tag onClick={action("clicked")} {...props}>
-      Default Tag
-    </Tag>
-  );
-};
+export const Default = (props: TagProps) => <Tag {...props}>Default Tag</Tag>;
 
 Default.args = {
-  onClick: () => {},
+  onClick: action("clicked"),
   isDisabled: false,
-  isSelected: false
+  isSelected: false,
 };
 
 export default {
@@ -24,8 +18,8 @@ export default {
   argTypes: {
     color: {
       control: {
-        type: 'color'
-      }
-    }
+        type: "color",
+      },
+    },
   },
 };

@@ -1,10 +1,18 @@
 import React from "react";
 
 // Components
-import Pagination, { PaginationProps } from "packages/core/Pagination/Pagination";
+import Pagination, {
+  PaginationProps,
+} from "packages/core/Pagination/Pagination";
 
 export const Default = (props: PaginationProps) => {
-  return <Pagination max={4} total={256} onChange={console.log} {...props} />;
+  return <Pagination {...props} />;
+};
+
+Default.args = {
+  max: 4,
+  total: 256,
+  onChange: console.log,
 };
 
 export default {
@@ -12,18 +20,16 @@ export default {
   component: Pagination,
   argTypes: {
     total: {
-      control: 'number',
-      description: "Number of pages"
+      control: "number",
+      description: "Number of pages",
     },
     max: {
-      control: 'number',
-      description: "Number of visible pages"
+      control: "number",
+      description: "Number of visible pages",
     },
     onChange: {},
     className: {
-      table: {
-
-      }
-    }
-  }
+      table: {},
+    },
+  },
 };
