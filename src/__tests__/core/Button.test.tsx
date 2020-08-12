@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 
-import { AppTheme, lightTheme, Button } from '../../packages/core';
+import { AppTheme, lightTheme, Button } from 'packages/core';
 import { ThemeProvider } from 'styled-components';
 
 describe('Button', () => {

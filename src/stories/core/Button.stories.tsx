@@ -6,7 +6,7 @@ import Button, { ButtonProps } from "packages/core/Button";
 
 export const Default = (props: ButtonProps) => {
   return (
-    <Button onClick={action("clicked")} {...props}>
+    <Button {...props} onClick={action("clicked")}>
       Default Button
     </Button>
   );
