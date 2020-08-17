@@ -101,8 +101,12 @@ class Datepicker extends Component {
       this.setState({
         selection: convertedDateRange,
         committedSelection: convertedDateRange,
-        selectedPreset: [],
-        committedSelectedPreset: []
+        selectedPreset: !!this.props.selectedPreset
+          ? this.state.selectedPreset
+          : [],
+        committedSelectedPreset: !!this.props.selectedPreset
+          ? this.state.committedSelectedPreset
+          : []
       });
     }
   }
