@@ -28,8 +28,14 @@ class Datepicker extends Component {
     className: PropTypes.string,
     months: PropTypes.number,
     dateRange: PropTypes.shape({
-      startDate: PropTypes.instanceOf(Date),
-      endDate: PropTypes.instanceOf(Date)
+      startDate: PropTypes.oneOfType([
+        PropTypes.instanceOf(Date),
+        PropTypes.string
+      ]),
+      endDate: PropTypes.oneOfType([
+        PropTypes.instanceOf(Date),
+        PropTypes.string
+      ])
     }),
     selectedPreset: PropTypes.string,
     firstDayOfWeek: PropTypes.number,
@@ -38,8 +44,14 @@ class Datepicker extends Component {
       PropTypes.shape({
         range: PropTypes.string,
         label: PropTypes.string,
-        startDate: PropTypes.instanceOf(Date),
-        endDate: PropTypes.instanceOf(Date),
+        startDate: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.string
+        ]),
+        endDate: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.string
+        ]),
         group: PropTypes.string,
         order: PropTypes.number
       })
@@ -89,11 +101,17 @@ class Datepicker extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (
+      this.props.selectedPreset &&
+      prevProps.selectedPreset !== this.props.selectedPreset
+    ) {
+      // delegate handling the change to DatepickerPresets component
+      return;
+    }
+
     if (prevProps.dateRange !== this.props.dateRange) {
       if (this.isLocalUpdate) {
         this.isLocalUpdate = false;
-
-        return;
       }
 
       const convertedDateRange = convertToMomentRange(this.props.dateRange);

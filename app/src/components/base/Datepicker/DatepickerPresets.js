@@ -34,8 +34,14 @@ class DatepickerPresets extends Component {
       PropTypes.shape({
         range: PropTypes.string,
         label: PropTypes.string,
-        startDate: PropTypes.instanceOf(Date),
-        endDate: PropTypes.instanceOf(Date),
+        startDate: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.string
+        ]),
+        endDate: PropTypes.oneOfType([
+          PropTypes.instanceOf(Date),
+          PropTypes.string
+        ]),
         group: PropTypes.string,
         order: PropTypes.number
       })
