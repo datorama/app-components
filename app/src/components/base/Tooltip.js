@@ -21,11 +21,13 @@ class Tooltip extends Component {
     fixed: PropTypes.bool,
     className: PropTypes.string,
     delay: PropTypes.number,
-    withClose: PropTypes.bool
+    withClose: PropTypes.bool,
+    withIcon: PropTypes.bool
   };
 
   static defaultProps = {
-    withClose: true
+    withClose: true,
+    withIcon: true
   };
 
   state = {
@@ -139,7 +141,13 @@ class Tooltip extends Component {
   }
 
   longTooltip() {
-    const { position = 'TOP', className, withClose } = this.props;
+    const {
+      position = 'TOP',
+      className,
+      withClose,
+      withIcon,
+      children
+    } = this.props;
     const { open, offset } = this.state;
 
     return (
@@ -148,7 +156,7 @@ class Tooltip extends Component {
         contentRenderer={this.title}
         position={position}
         withClose={withClose}
-        toggleOpen={this.toggleOpen('close-icon')}
+        toggleOpen={this.toggleOpen(withIcon ? 'close-icon' : 'content')}
         className={className}
         menuRef={this.tooltipRef}
         offset={offset}
@@ -157,7 +165,7 @@ class Tooltip extends Component {
           onMouseEnter={this.toggleOpen('icon')}
           onMouseLeave={this.toggleOpen('icon')}
         >
-          <StyledTip />
+          {withIcon ? <StyledTip /> : children}
         </Container>
       </StyledLong>
     );
