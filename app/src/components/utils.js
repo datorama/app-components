@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import * as typography from './typography';
+import { isEmpty } from 'lodash/fp';
 
 export const hexToRgba = (hex, opacity) => {
   if (typeof hex !== 'string') {
@@ -109,7 +110,7 @@ export const extendTheme = ({ theme, options }) => {
 
     newTheme = {
       ...newTheme,
-      ...getColors(options.primary, arr, options.dark, 'p')
+      ...getColors(options.primary, arr, options.isDark, 'p')
     };
   }
 
@@ -118,7 +119,7 @@ export const extendTheme = ({ theme, options }) => {
 
     newTheme = {
       ...newTheme,
-      ...getColors(options.secondary, arr, options.dark, 's')
+      ...getColors(options.secondary, arr, options.isDark, 's')
     };
   }
 
@@ -127,12 +128,29 @@ export const extendTheme = ({ theme, options }) => {
 
     newTheme = {
       ...newTheme,
-      ...getColors(options.accent, arr, options.dark, 'a')
+      ...getColors(options.accent, arr, options.isDark, 'a')
     };
   }
 
+  // handle custom colors
+  if (!isEmpty(options.customColors)) {
+    for (let i = 0; i < options.customColors.length; i++) {
+      const prefix = `c${i + 1}`;
+
+      newTheme[prefix] = hexToPalette({
+        hex: options.customColors[i],
+        isDark: options.isDark
+      });
+    }
+  }
+
   // typography
-  newTheme.font = options.font || 'open-sans';
+  const defaultFont = {
+    url: 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700',
+    family: "'Open Sans', sans-serif"
+  };
+
+  newTheme.font = !isEmpty(options.font) ? options.font : defaultFont;
 
   // scale
   let scale = options.scale || 1;
