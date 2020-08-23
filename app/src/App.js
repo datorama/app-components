@@ -22,7 +22,6 @@ import Layout from './docs/Layout.doc';
 import Datepicker from './docs/Datepicker.doc';
 import ClickOut from './docs/ClickOut.doc';
 import Typography from './docs/Typography.doc';
-import Theme from './docs/Theme.doc';
 import Button from './docs/Button.doc';
 import Animations from './docs/Animations.doc';
 import Card from './docs/Card.doc';
@@ -65,7 +64,6 @@ const list = [
   { key: 'colors', label: 'Colors', path: 'colors' },
   { key: 'layout', label: 'Layout', path: 'layout' },
   { key: 'typography', label: 'Typography', path: 'typography' },
-  { key: 'theme', label: 'Theme Customization', path: 'theme' },
 
   { key: 'components', label: 'Components', type: 'title' },
   { key: 'button', label: 'Button', path: 'button' },
@@ -117,7 +115,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.42.0</Version>
+        <Version>0.42.1</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -208,7 +206,6 @@ const App = () => {
                 <Route exact path="/typography" component={Typography} />
                 <Route exact path="/layout" component={Layout} />
                 <Route exact path="/animations" component={Animations} />
-                <Route exact path="/theme" component={Theme} />
 
                 <Route exact path="/button" component={Button} />
                 <Route exact path="/datepicker" component={Datepicker} />

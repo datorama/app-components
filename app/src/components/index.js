@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
+import { isEmpty } from 'lodash/fp';
 
 // LIB CORE
 import * as libColors from './colors';
@@ -8,7 +9,13 @@ import * as animation from './animations';
 import * as layout from './layout';
 
 // UTILS
-export { hexToRgba, shadeColor, uuid, extendTheme } from './utils';
+export {
+  hexToRgba,
+  shadeColor,
+  uuid,
+  extendTheme,
+  hexToPalette
+} from './utils';
 
 // BASE COMPONENTS
 export { default as Button } from './base/Button';
@@ -71,50 +78,16 @@ export {
 const loadFonts = font => {
   const head = document.head || document.getElementsByTagName('head')[0],
     style = document.createElement('style');
-  let css = '';
 
   head.appendChild(style);
 
-  switch (font) {
-    case 'roboto':
-      css = `
-          @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+  const css = `
+          @import url('${font.url}');
 
           body, input, select, textarea, button {
-            font-family: 'Roboto', sans-serif;
+            font-family: ${font.family};
           }
         `;
-      break;
-
-    case 'lato':
-      css = `
-          @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-
-          body, input, select, textarea, button {
-            font-family: 'Lato', sans-serif;
-          }
-        `;
-      break;
-
-    case 'merriweather':
-      css = `
-          @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap');
-
-          body, input, select, textarea, button {
-            font-family: 'Merriweather', serif;
-          }
-        `;
-      break;
-
-    default:
-      css = `
-          @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
-
-          body, input, select, textarea, button {
-            font-family: 'Open Sans', sans-serif;
-          }
-        `;
-  }
 
   style.type = 'text/css';
   if (style.styleSheet) {
@@ -127,7 +100,9 @@ const loadFonts = font => {
 
 export const AppTheme = ({ provider: Provider, theme, children }) => {
   useEffect(() => {
-    loadFonts(theme.font);
+    if (!isEmpty(theme.font)) {
+      loadFonts(theme.font);
+    }
   }, [theme]);
 
   return (
