@@ -78,6 +78,15 @@ export const uuid = () => {
   });
 };
 
+export const hexToPalette = ({ hex, isDark, prefix }) => {
+  return getColors(
+    hex,
+    [100, 200, 300, 400, 500, 600, 700],
+    isDark,
+    prefix || ''
+  );
+};
+
 export const getColors = (hex, arr, dark, prefix) => {
   const result = {};
 
