@@ -418,7 +418,7 @@ class TornadoChart extends Component {
 export default TornadoChart;
 
 const Container = styled.div`
-  background: #fff;
+  background: ${({ theme }) => theme.p0};
   position: relative;
   width: 100%;
   height: ${({ height }) => `${height}px`};
@@ -460,7 +460,7 @@ const Path = styled.path`
 
 const Label = styled.text`
   font-size: 12px;
-  fill: rgb(55, 56, 58);
+  fill: ${({ theme }) => theme.p600};
   text-anchor: middle;
   transition: all 300ms;
   pointer-events: none;

@@ -44,7 +44,7 @@ const Revenue = styled.div`
   margin-bottom: 8px;
 `;
 const Orders = styled.div`
-  color: rgb(158, 160, 165);
+  color: ${({ theme }) => theme.p300};
   font-size: 14px;
   font-weight: 600;
 `;
