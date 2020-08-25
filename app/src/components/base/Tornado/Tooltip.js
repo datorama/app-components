@@ -41,6 +41,6 @@ const StyledPopup = styled(Popup)`
 
 const Text = styled.span`
   font-size: 11px;
-  color: #fff;
+  color: ${({ theme }) => theme.p0};
   font-weight: 300;
 `;

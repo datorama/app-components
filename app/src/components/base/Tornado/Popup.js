@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { hexToRgba } from '../../utils';
+
 // positions
 const BOTTOM = 'BOTTOM';
 const TOP = 'TOP';
@@ -84,7 +86,7 @@ const Menu = styled.div`
   opacity: 0;
   transition: all 300ms;
 
-  background: rgba(0, 0, 0, 0.6);
+  background: ${({ theme }) => hexToRgba(theme.p700, 60)};
 
   ${({ visible }) =>
     visible &&

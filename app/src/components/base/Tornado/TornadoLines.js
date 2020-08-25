@@ -63,7 +63,7 @@ TornadoLines.propTypes = {
 export default TornadoLines;
 
 const Line = styled.line`
-  stroke: #f2f2f4;
+  stroke: ${({ theme }) => theme.p50};
   stroke-width: 2px;
   opacity: 0;
   visibility: hidden;
@@ -79,13 +79,13 @@ const Line = styled.line`
 `;
 
 const LineLabel = styled.text`
-  fill: #666a6b;
+  fill: ${({ theme }) => theme.p300};
   font-size: 14px;
   font-weight: 300;
   ${({ bold }) =>
     bold &&
     css`
-      fill: #383838;
+      fill: ${({ theme }) => theme.p500};
       font-weight: 600;
     `};
 

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import * as CONSTANTS from './tornado.constants';
 import { forEach } from 'lodash/fp';
 
+import { hexToRgba } from '../../utils';
+
 const TornadoEllipses = ({ loading, numRows }) => {
   const ellipses = [];
 
@@ -39,7 +41,7 @@ TornadoEllipses.propTypes = {
 export default TornadoEllipses;
 
 const Ellipse = styled.ellipse`
-  fill: ${({ fill }) => fill || 'rgba(204, 206, 211, 0.75)'};
+  fill: ${({ fill, theme }) => fill || hexToRgba(theme.p200, 75)};
   transition: all 500ms;
   opacity: ${({ opacity }) => opacity};
 `;
