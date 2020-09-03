@@ -22,7 +22,8 @@ const Modal = props => {
     size,
     overlayColor,
     closeOnOverlayClick = true,
-    toggleOpen
+    toggleOpen,
+    overlayStyle = {}
   } = props;
 
   useEffect(() => {
@@ -51,12 +52,21 @@ const Modal = props => {
   return (
     <Fragment>
       <Overlay
+        className="modal-overlay"
         open={localOpen}
         onClick={closeOnOverlayClick ? throttledToggle : noop}
         visible={open}
         color={overlayColor}
+        style={overlayStyle}
       />
-      <Container open={localOpen} className={className} visible>
+
+      <Container
+        open={localOpen}
+        className={
+          className ? `modal-container ${className}` : 'modal-container'
+        }
+        visible
+      >
         <StyledCard
           open={localOpen}
           className="modal-card"
@@ -90,7 +100,8 @@ Modal.propTypes = {
   ).isRequired,
   size: PropTypes.oneOf(['small', 'medium', 'large', 'full']),
   overlayColor: PropTypes.string,
-  closeOnOverlayClick: PropTypes.bool
+  closeOnOverlayClick: PropTypes.bool,
+  overlayStyle: PropTypes.object
 };
 
 export default Modal;
