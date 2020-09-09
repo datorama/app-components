@@ -41,6 +41,8 @@ const getShadePercent = varNum => {
       return -0.55;
     case '800':
       return -0.75;
+    case '900':
+      return -0.9;
     default:
       return 1;
   }
@@ -82,7 +84,7 @@ export const uuid = () => {
 export const hexToPalette = ({ hex, isDark, prefix }) => {
   return getColors(
     hex,
-    [100, 200, 300, 400, 500, 600, 700],
+    [100, 200, 300, 400, 500, 600, 700, 800, 900],
     isDark,
     prefix || ''
   );
@@ -135,10 +137,10 @@ export const extendTheme = ({ theme, options }) => {
   // handle custom colors
   if (!isEmpty(options.customColors)) {
     for (let i = 0; i < options.customColors.length; i++) {
-      const prefix = `c${i + 1}`;
+      const prefix = options.customColors[i].colorName;
 
       newTheme[prefix] = hexToPalette({
-        hex: options.customColors[i],
+        hex: options.customColors[i].colorValue,
         isDark: options.isDark
       });
     }
