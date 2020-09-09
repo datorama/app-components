@@ -82,7 +82,7 @@ const loadFonts = font => {
   head.appendChild(style);
 
   const css = `
-          @import url('${font.url}');
+          ${font.url? `@import url('${font.url}');`:''} 
 
           body, input, select, textarea, button {
             font-family: ${font.family};
