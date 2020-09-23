@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import Warp from 'warpjs';
 import { get, sum, isNumber, size } from 'lodash/fp';
 import PropTypes from 'prop-types';
@@ -80,7 +80,7 @@ class TornadoChart extends Component {
     this.setState({ hoveringConnector });
 
   row(width, index) {
-    const { rows, selectedIndex } = this.props;
+    const { rows, selectedIndex, theme } = this.props;
 
     if (rows[index].placeholderMessage) {
       return (
@@ -115,7 +115,9 @@ class TornadoChart extends Component {
       const rectYpos = index * (CONSTANTS.ROW_HEIGHT + CONSTANTS.MARGIN);
       const rectLoadingYpos = 3 * (CONSTANTS.ROW_HEIGHT + CONSTANTS.MARGIN);
       const column = [];
-      const fill = loading ? '#444' : CONSTANTS.MAIN_COLORS[cellIndex % 6];
+      const fill = loading
+        ? '#444'
+        : CONSTANTS.MAIN_COLORS(theme)[cellIndex % 6];
 
       // horizontal row cells
       column.push(
@@ -189,7 +191,7 @@ class TornadoChart extends Component {
           >
             <Path
               d={path}
-              fill={CONSTANTS.CONNECTOR_COLORS[cellIndex % 6]}
+              fill={CONSTANTS.CONNECTOR_COLORS(theme)[cellIndex % 6]}
               visible={
                 (hoveredIndex === cellIndex || selectedIndex === cellIndex) &&
                 init
@@ -415,7 +417,7 @@ class TornadoChart extends Component {
   }
 }
 
-export default TornadoChart;
+export default withTheme(TornadoChart);
 
 const Container = styled.div`
   background: ${({ theme }) => theme.p0};

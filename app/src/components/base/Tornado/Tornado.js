@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 import { fill, size, isNil } from 'lodash/fp';
 
@@ -7,7 +7,7 @@ import { MAIN_COLORS } from './tornado.constants';
 
 import TornadoChart from './TornadoChart';
 
-export default class Tornado extends React.Component {
+class Tornado extends React.Component {
   static propTypes = {
     className: PropTypes.string,
     data: PropTypes.shape({
@@ -54,7 +54,7 @@ export default class Tornado extends React.Component {
   }
 
   topStrip() {
-    const { data, topLabelRenderer = () => {} } = this.props;
+    const { data, topLabelRenderer = () => {}, theme } = this.props;
     const { selectedIndex } = this.state;
 
     return (
@@ -67,7 +67,7 @@ export default class Tornado extends React.Component {
           >
             {topLabelRenderer({
               text: label,
-              pathColor: MAIN_COLORS[i % 5],
+              pathColor: MAIN_COLORS(theme)[i % 5],
               isSelected: selectedIndex === i
             })}
           </Col>
@@ -77,7 +77,7 @@ export default class Tornado extends React.Component {
   }
 
   bottomStrip() {
-    const { data, bottomStatsRenderer = () => {} } = this.props;
+    const { data, theme, bottomStatsRenderer = () => {} } = this.props;
     const { selectedIndex } = this.state;
 
     return (
@@ -91,7 +91,7 @@ export default class Tornado extends React.Component {
           >
             {bottomStatsRenderer({
               stats: stat,
-              pathColor: MAIN_COLORS[i],
+              pathColor: MAIN_COLORS(theme)[i],
               isSelected: selectedIndex === i
             })}
           </BottomCol>
@@ -185,3 +185,5 @@ const BottomCol = styled(Col)`
   align-items: flex-start;
   justify-content: flex-start;
 `;
+
+export default withTheme(Tornado);
