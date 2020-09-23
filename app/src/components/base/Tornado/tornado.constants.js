@@ -28,23 +28,3 @@ export const CONNECTOR_COLORS = theme => [
   shadeColor(theme.a300, 500),
   shadeColor(theme.a200, 500)
 ];
-
-const CUSTOM_ACCENT = {
-  a0: '#fff',
-  a50: '#ebf6f6',
-  a100: '#8ff2e2',
-  a200: '#7ff0de',
-  a300: '#00e2bd',
-  a400: '#14c3b6',
-  a500: '#00b7a8',
-  a600: '#009290',
-  a700: '#007478',
-
-  c100: '#00e2bd',
-  c200: '#02b8a5',
-  c300: '#029d8d',
-  c400: '#5aad97',
-  c500: '#006b66',
-  c600: '#04b094',
-  c700: '#055e5c'
-};
