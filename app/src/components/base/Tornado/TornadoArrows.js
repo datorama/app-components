@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import * as CONSTANTS from './tornado.constants';
 import { normalize } from './tornado.utils';
+import { useTheme } from '../../hooks/theme.hooks';
 
 const calcArrowPos = (total, index, centered, containerWidth) => {
   if (containerWidth) {
@@ -34,6 +35,8 @@ const TornadoArrows = props => {
 
   const firstRow = normalize(rows[0].data, BASE[0]);
   const lastRow = normalize(rows[numRows - 1].data, BASE[numRows - 1]);
+
+  const theme = useTheme();
 
   const topTo = [OFFSET[0], 40];
 
@@ -66,24 +69,24 @@ const TornadoArrows = props => {
         d={`M ${topFrom[0]},${topFrom[1]} l 0,20 L ${topTo[0]},${
           topTo[1]
         } l 0,20`}
-        color={CONSTANTS.MAIN_COLORS[selectedIndex % 6]}
+        color={CONSTANTS.MAIN_COLORS(theme)[selectedIndex % 6]}
       />
       <Arrow
         id="tornado-top-line-arrow"
         d={`M ${topTo[0] - 8}, ${topTo[1] + 20} l 16 0, l -8 8 z`}
-        color={CONSTANTS.MAIN_COLORS[selectedIndex % 6]}
+        color={CONSTANTS.MAIN_COLORS(theme)[selectedIndex % 6]}
       />
       <ArrowLine
         id="tornado-bottom-line"
         d={`M ${bottomFrom[0]},${bottomFrom[1]} l 0,20 L ${bottomTo[0]},${
           bottomTo[1]
         } l 0,20`}
-        color={CONSTANTS.MAIN_COLORS[selectedIndex % 6]}
+        color={CONSTANTS.MAIN_COLORS(theme)[selectedIndex % 6]}
       />
       <Arrow
         id="tornado-bottom-line-arrow"
         d={`M ${bottomTo[0] - 8}, ${bottomTo[1] + 20} l 16 0, l -8 8 z`}
-        color={CONSTANTS.MAIN_COLORS[selectedIndex % 6]}
+        color={CONSTANTS.MAIN_COLORS(theme)[selectedIndex % 6]}
       />
     </Svg>
   );
