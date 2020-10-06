@@ -84,7 +84,7 @@ export const uuid = () => {
 export const hexToPalette = ({ hex, isDark, prefix }) => {
   return getColors(
     hex,
-    [100, 200, 300, 400, 500, 600, 700, 800, 900],
+    [100, 200, 300, 350, 400, 500, 600, 700, 800],
     isDark,
     prefix || ''
   );
@@ -117,7 +117,7 @@ export const extendTheme = ({ theme, options }) => {
   }
 
   if (options.secondary) {
-    const arr = [0, 50, 100, 200, 300, 400, 500, 600, 700];
+    const arr = [100, 200, 300, 350, 400, 500, 600, 700, 800];
 
     newTheme = {
       ...newTheme,
