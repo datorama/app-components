@@ -21,7 +21,7 @@ const ThemePreview = ({ className, onChange }) => {
         primary,
         secondary,
         accent,
-        dark
+        isDark: dark
       });
     }
   }, [dark, accent, primary, secondary, onChange]);

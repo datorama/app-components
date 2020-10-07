@@ -10,7 +10,7 @@ import { debounce } from 'lodash/fp';
 import ThemePreview from './components/base/ThemePreview';
 
 // notifications
-import { lightTheme, TextInput, darkTheme } from './components/index';
+import { lightTheme, TextInput } from './components/index';
 import { NotificationsProvider } from './components/base/Notifications';
 
 // docs
@@ -115,7 +115,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.44.0</Version>
+        <Version>0.45.0</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -169,10 +169,8 @@ const App = () => {
 
   const updateConfig = useCallback(
     debounce(500, options => {
-      const newTheme = options.dark ? darkTheme : lightTheme;
-
       setThemeConfig(options);
-      setTheme(extendTheme({ theme: newTheme, options }));
+      setTheme(extendTheme(options));
     }),
     []
   );

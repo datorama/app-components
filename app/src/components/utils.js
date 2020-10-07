@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 import * as typography from './typography';
 import { isEmpty } from 'lodash/fp';
+import { lightTheme, darkTheme } from './index';
 
 export const hexToRgba = (hex, opacity) => {
   if (typeof hex !== 'string') {
@@ -84,7 +85,7 @@ export const uuid = () => {
 export const hexToPalette = ({ hex, isDark, prefix }) => {
   return getColors(
     hex,
-    [100, 200, 300, 400, 500, 600, 700, 800, 900],
+    [100, 200, 300, 350, 400, 500, 600, 700, 800],
     isDark,
     prefix || ''
   );
@@ -103,8 +104,8 @@ export const getColors = (hex, arr, dark, prefix) => {
   return result;
 };
 
-export const extendTheme = ({ theme, options }) => {
-  let newTheme = { ...theme };
+export const extendTheme = options => {
+  let newTheme = options.isDark ? darkTheme : lightTheme;
 
   // colors
   if (options.primary) {
@@ -117,7 +118,7 @@ export const extendTheme = ({ theme, options }) => {
   }
 
   if (options.secondary) {
-    const arr = [0, 50, 100, 200, 300, 400, 500, 600, 700];
+    const arr = [100, 200, 300, 350, 400, 500, 600, 700, 800];
 
     newTheme = {
       ...newTheme,
