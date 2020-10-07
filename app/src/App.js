@@ -115,7 +115,7 @@ const Navigation = ({ list, history, location, onClick }) => {
     <Fragment>
       <Header>
         <Title onClick={() => history.push('/')}>Apps design system</Title>
-        <Version>0.45.0</Version>
+        <Version>0.45.1</Version>
         <StyledTextInput
           placeholder="search..."
           onChange={e => setTerm(e.target.value)}
@@ -170,7 +170,7 @@ const App = () => {
   const updateConfig = useCallback(
     debounce(500, options => {
       setThemeConfig(options);
-      setTheme(extendTheme(options));
+      setTheme(extendTheme(lightTheme, options));
     }),
     []
   );

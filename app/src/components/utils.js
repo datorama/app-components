@@ -1,7 +1,6 @@
 import { css } from 'styled-components';
 import * as typography from './typography';
 import { isEmpty } from 'lodash/fp';
-import { lightTheme, darkTheme } from './index';
 
 export const hexToRgba = (hex, opacity) => {
   if (typeof hex !== 'string') {
@@ -104,8 +103,8 @@ export const getColors = (hex, arr, dark, prefix) => {
   return result;
 };
 
-export const extendTheme = options => {
-  let newTheme = options.isDark ? darkTheme : lightTheme;
+export const extendTheme = (theme, options) => {
+  let newTheme = theme;
 
   // colors
   if (options.primary) {
