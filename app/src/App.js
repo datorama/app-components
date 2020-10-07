@@ -10,7 +10,7 @@ import { debounce } from 'lodash/fp';
 import ThemePreview from './components/base/ThemePreview';
 
 // notifications
-import { lightTheme, TextInput, darkTheme } from './components/index';
+import { lightTheme, TextInput } from './components/index';
 import { NotificationsProvider } from './components/base/Notifications';
 
 // docs
@@ -169,10 +169,8 @@ const App = () => {
 
   const updateConfig = useCallback(
     debounce(500, options => {
-      const newTheme = options.dark ? darkTheme : lightTheme;
-
       setThemeConfig(options);
-      setTheme(extendTheme({ theme: newTheme, options }));
+      setTheme(extendTheme(options));
     }),
     []
   );
