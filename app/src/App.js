@@ -170,7 +170,7 @@ const App = () => {
   const updateConfig = useCallback(
     debounce(500, options => {
       setThemeConfig(options);
-      setTheme(extendTheme(options));
+      setTheme(extendTheme(lightTheme, options));
     }),
     []
   );
