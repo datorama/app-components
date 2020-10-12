@@ -1,2 +1,8 @@
-# Defining code owners for a specific branch in this repo
+# This file can be modified by tmp-leadership or devops teams only #
+/.github/CODEOWNERS @datorama/devops @datorama/automation-infra
+
+# Jenkinsfiles are owned by devops teams unless required otherwise.
+Jenkinsfile* @datorama/devops @datorama/automation-infra
+*.groovy @datorama/devops @datorama/automation-infra
+
 * crazypixel@gmail.com
