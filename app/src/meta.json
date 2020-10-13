@@ -277,6 +277,42 @@
   },
   {
     "description": "",
+    "displayName": "Collapsible",
+    "methods": [],
+    "props": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "open": {
+        "type": {
+          "name": "bool"
+        },
+        "required": true,
+        "description": ""
+      },
+      "toggleOpen": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Collapsible.js"
+  },
+  {
+    "description": "",
     "displayName": "ClickOut",
     "methods": [
       {
@@ -328,42 +364,6 @@
       }
     },
     "filename": "/components/base/ClickOut.js"
-  },
-  {
-    "description": "",
-    "displayName": "Collapsible",
-    "methods": [],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "open": {
-        "type": {
-          "name": "bool"
-        },
-        "required": true,
-        "description": ""
-      },
-      "toggleOpen": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Collapsible.js"
   },
   {
     "description": "",
@@ -473,55 +473,6 @@
       }
     },
     "filename": "/components/base/Ellipsis.js"
-  },
-  {
-    "description": "",
-    "displayName": "Droppable",
-    "methods": [
-      {
-        "name": "setHover",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "hovering",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "id": {
-        "type": {
-          "name": "string"
-        },
-        "required": true,
-        "description": ""
-      },
-      "setHover": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Droppable.js"
   },
   {
     "description": "",
@@ -647,25 +598,52 @@
   },
   {
     "description": "",
-    "displayName": "Fade",
-    "methods": [],
+    "displayName": "Droppable",
+    "methods": [
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "hovering",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
     "props": {
-      "show": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
       "children": {
         "type": {
           "name": "node"
         },
         "required": false,
         "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": true,
+        "description": ""
+      },
+      "setHover": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
       }
     },
-    "filename": "/components/base/Fade.js"
+    "filename": "/components/base/Droppable.js"
   },
   {
     "description": "",
@@ -691,85 +669,25 @@
   },
   {
     "description": "",
-    "displayName": "MultiProgress",
-    "methods": [
-      {
-        "name": "setHover",
-        "docblock": null,
-        "modifiers": [],
-        "params": [
-          {
-            "name": "hoveredIndex",
-            "type": null
-          }
-        ],
-        "returns": null
-      }
-    ],
+    "displayName": "Fade",
+    "methods": [],
     "props": {
-      "values": {
+      "show": {
         "type": {
-          "name": "array"
-        },
-        "required": true,
-        "description": ""
-      },
-      "radius": {
-        "type": {
-          "name": "number"
+          "name": "bool"
         },
         "required": false,
         "description": ""
       },
-      "strokeWidth": {
+      "children": {
         "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "10",
-          "computed": false
-        }
-      },
-      "innerRadius": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "20",
-          "computed": false
-        }
-      },
-      "gap": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": "",
-        "defaultValue": {
-          "value": "20",
-          "computed": false
-        }
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "meterColor": {
-        "type": {
-          "name": "string"
+          "name": "node"
         },
         "required": false,
         "description": ""
       }
     },
-    "filename": "/components/base/MultiProgress.js"
+    "filename": "/components/base/Fade.js"
   },
   {
     "description": "",
@@ -880,6 +798,124 @@
   },
   {
     "description": "",
+    "displayName": "MultiProgress",
+    "methods": [
+      {
+        "name": "setHover",
+        "docblock": null,
+        "modifiers": [],
+        "params": [
+          {
+            "name": "hoveredIndex",
+            "type": null
+          }
+        ],
+        "returns": null
+      }
+    ],
+    "props": {
+      "values": {
+        "type": {
+          "name": "array"
+        },
+        "required": true,
+        "description": ""
+      },
+      "radius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "strokeWidth": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "10",
+          "computed": false
+        }
+      },
+      "innerRadius": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "20",
+          "computed": false
+        }
+      },
+      "gap": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "",
+        "defaultValue": {
+          "value": "20",
+          "computed": false
+        }
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "meterColor": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/MultiProgress.js"
+  },
+  {
+    "description": "",
+    "displayName": "Pagination",
+    "methods": [],
+    "props": {
+      "total": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "max": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Pagination.js"
+  },
+  {
+    "description": "",
     "displayName": "Popup",
     "methods": [],
     "props": {
@@ -953,42 +989,6 @@
       }
     },
     "filename": "/components/base/Popup.js"
-  },
-  {
-    "description": "",
-    "displayName": "Pagination",
-    "methods": [],
-    "props": {
-      "total": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "max": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Pagination.js"
   },
   {
     "description": "",
@@ -1085,6 +1085,63 @@
   },
   {
     "description": "",
+    "displayName": "Range",
+    "methods": [],
+    "props": {
+      "min": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "max": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "initialValue": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "showValue": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Range.js"
+  },
+  {
+    "description": "",
     "displayName": "SegmentedButton",
     "methods": [],
     "props": {
@@ -1163,85 +1220,6 @@
       }
     },
     "filename": "/components/base/SegmentedButton.js"
-  },
-  {
-    "description": "",
-    "displayName": "Range",
-    "methods": [],
-    "props": {
-      "min": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "max": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "initialValue": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "showValue": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Range.js"
-  },
-  {
-    "description": "",
-    "displayName": "Spinner",
-    "methods": [],
-    "props": {
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Spinner.js"
   },
   {
     "description": "",
@@ -1332,6 +1310,28 @@
   },
   {
     "description": "",
+    "displayName": "Spinner",
+    "methods": [],
+    "props": {
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Spinner.js"
+  },
+  {
+    "description": "",
     "displayName": "Sticky",
     "methods": [],
     "props": {
@@ -1358,6 +1358,122 @@
       }
     },
     "filename": "/components/base/Sticky.js"
+  },
+  {
+    "description": "",
+    "displayName": "Tag",
+    "methods": [],
+    "props": {
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tag.js"
+  },
+  {
+    "description": "",
+    "displayName": "TagGroup",
+    "methods": [],
+    "props": {
+      "color": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "tags": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "id": {
+                "name": "string",
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "selected": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "string"
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/TagGroup.js"
   },
   {
     "description": "",
@@ -1491,235 +1607,6 @@
   },
   {
     "description": "",
-    "displayName": "Tabs",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "contentRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "labelRenderer": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "justify": {
-        "type": {
-          "name": "enum",
-          "value": [
-            {
-              "value": "'flex-start'",
-              "computed": false
-            },
-            {
-              "value": "'center'",
-              "computed": false
-            },
-            {
-              "value": "'flex-end'",
-              "computed": false
-            }
-          ]
-        },
-        "required": false,
-        "description": ""
-      },
-      "onSelect": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selectedIndex": {
-        "type": {
-          "name": "number"
-        },
-        "required": true,
-        "description": ""
-      },
-      "gap": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "tabs": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "id": {
-                "name": "number",
-                "required": false
-              },
-              "label": {
-                "name": "string",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": true,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tabs.js"
-  },
-  {
-    "description": "",
-    "displayName": "Tag",
-    "methods": [],
-    "props": {
-      "label": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tag.js"
-  },
-  {
-    "description": "",
-    "displayName": "TagGroup",
-    "methods": [],
-    "props": {
-      "color": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "tags": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "id": {
-                "name": "string",
-                "required": false
-              },
-              "label": {
-                "name": "string",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "selected": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "string"
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/TagGroup.js"
-  },
-  {
-    "description": "",
-    "displayName": "ThemePreview",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onChange": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/ThemePreview.js"
-  },
-  {
-    "description": "",
     "displayName": "TextInput",
     "methods": [],
     "props": {
@@ -1823,6 +1710,162 @@
       }
     },
     "filename": "/components/base/TextInput.js"
+  },
+  {
+    "description": "",
+    "displayName": "Toggle",
+    "methods": [],
+    "props": {
+      "checked": {
+        "type": {
+          "name": "bool"
+        },
+        "required": true,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": true,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "label": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Toggle.js"
+  },
+  {
+    "description": "",
+    "displayName": "Tabs",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "contentRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "labelRenderer": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "justify": {
+        "type": {
+          "name": "enum",
+          "value": [
+            {
+              "value": "'flex-start'",
+              "computed": false
+            },
+            {
+              "value": "'center'",
+              "computed": false
+            },
+            {
+              "value": "'flex-end'",
+              "computed": false
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "onSelect": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "selectedIndex": {
+        "type": {
+          "name": "number"
+        },
+        "required": true,
+        "description": ""
+      },
+      "gap": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "tabs": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "id": {
+                "name": "number",
+                "required": false
+              },
+              "label": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": true,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tabs.js"
+  },
+  {
+    "description": "",
+    "displayName": "ThemePreview",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onChange": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/ThemePreview.js"
   },
   {
     "description": "",
@@ -2087,6 +2130,63 @@
   },
   {
     "description": "",
+    "displayName": "Widget",
+    "methods": [],
+    "props": {
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "disabled": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "error": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onTryAgain": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "empty": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Widget.js"
+  },
+  {
+    "description": "",
     "displayName": "VirtualScroll",
     "methods": [],
     "props": {
@@ -2148,106 +2248,6 @@
       }
     },
     "filename": "/components/base/VirtualScroll.js"
-  },
-  {
-    "description": "",
-    "displayName": "Toggle",
-    "methods": [],
-    "props": {
-      "checked": {
-        "type": {
-          "name": "bool"
-        },
-        "required": true,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": true,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "label": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Toggle.js"
-  },
-  {
-    "description": "",
-    "displayName": "Widget",
-    "methods": [],
-    "props": {
-      "loading": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "disabled": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "error": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onTryAgain": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "empty": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Widget.js"
   },
   {
     "description": "",
@@ -2544,18 +2544,6 @@
   },
   {
     "description": "",
-    "displayName": "ToastsProvider",
-    "methods": [],
-    "filename": "/components/base/Notifications/Toasts.js"
-  },
-  {
-    "description": "",
-    "displayName": "NotificationsProvider",
-    "methods": [],
-    "filename": "/components/base/Notifications/index.js"
-  },
-  {
-    "description": "",
     "displayName": "SnackbarProvider",
     "methods": [],
     "props": {
@@ -2571,68 +2559,15 @@
   },
   {
     "description": "",
-    "displayName": "Tooltip",
-    "methods": [
-      {
-        "name": "title",
-        "docblock": null,
-        "modifiers": [],
-        "params": [],
-        "returns": null
-      }
-    ],
-    "props": {
-      "children": {
-        "type": {
-          "name": "node"
-        },
-        "required": false,
-        "description": ""
-      },
-      "title": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "long": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClickInfo": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "position": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "fixed": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      },
-      "visible": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/Tornado/Tooltip.js"
+    "displayName": "ToastsProvider",
+    "methods": [],
+    "filename": "/components/base/Notifications/Toasts.js"
+  },
+  {
+    "description": "",
+    "displayName": "NotificationsProvider",
+    "methods": [],
+    "filename": "/components/base/Notifications/index.js"
   },
   {
     "description": "",
@@ -2837,10 +2772,60 @@
   },
   {
     "description": "",
-    "displayName": "TornadoEllipses",
-    "methods": [],
+    "displayName": "Tooltip",
+    "methods": [
+      {
+        "name": "title",
+        "docblock": null,
+        "modifiers": [],
+        "params": [],
+        "returns": null
+      }
+    ],
     "props": {
-      "loading": {
+      "children": {
+        "type": {
+          "name": "node"
+        },
+        "required": false,
+        "description": ""
+      },
+      "title": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "long": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClickInfo": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "position": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "fixed": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "visible": {
         "type": {
           "name": "bool"
         },
@@ -2848,7 +2833,7 @@
         "description": ""
       }
     },
-    "filename": "/components/base/Tornado/TornadoEllipses.js"
+    "filename": "/components/base/Tornado/Tooltip.js"
   },
   {
     "description": "",
@@ -2923,6 +2908,21 @@
   },
   {
     "description": "",
+    "displayName": "TornadoEllipses",
+    "methods": [],
+    "props": {
+      "loading": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/Tornado/TornadoEllipses.js"
+  },
+  {
+    "description": "",
     "displayName": "TornadoLines",
     "methods": [],
     "props": {
@@ -2980,15 +2980,15 @@
   },
   {
     "description": "",
-    "displayName": "BottomTornadoStatsLabel",
-    "methods": [],
-    "filename": "/components/base/Tornado/retail-labels.js"
-  },
-  {
-    "description": "",
     "displayName": "TornadoRowPlaceholder",
     "methods": [],
     "filename": "/components/base/Tornado/TornadoRowPlaceholder.js"
+  },
+  {
+    "description": "",
+    "displayName": "BottomTornadoStatsLabel",
+    "methods": [],
+    "filename": "/components/base/Tornado/retail-labels.js"
   },
   {
     "description": "",
@@ -3061,84 +3061,6 @@
       }
     },
     "filename": "/components/base/charts/Gauge.js"
-  },
-  {
-    "description": "",
-    "displayName": "SnailChart",
-    "methods": [],
-    "props": {
-      "className": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "linecap": {
-        "type": {
-          "name": "string"
-        },
-        "required": false,
-        "description": ""
-      },
-      "dividers": {
-        "type": {
-          "name": "number"
-        },
-        "required": false,
-        "description": ""
-      },
-      "data": {
-        "type": {
-          "name": "arrayOf",
-          "value": {
-            "name": "shape",
-            "value": {
-              "label": {
-                "name": "string",
-                "required": false
-              },
-              "percentage": {
-                "name": "number",
-                "required": false
-              },
-              "color": {
-                "name": "string",
-                "required": false
-              },
-              "hoverColor": {
-                "name": "string",
-                "required": false
-              }
-            }
-          }
-        },
-        "required": false,
-        "description": ""
-      },
-      "onMouseEnter": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onMouseLeave": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      },
-      "onClick": {
-        "type": {
-          "name": "func"
-        },
-        "required": false,
-        "description": ""
-      }
-    },
-    "filename": "/components/base/charts/SnailChart.js"
   },
   {
     "description": "",
@@ -3325,6 +3247,84 @@
       }
     },
     "filename": "/components/base/charts/GoalsChart.js"
+  },
+  {
+    "description": "",
+    "displayName": "SnailChart",
+    "methods": [],
+    "props": {
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "linecap": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "dividers": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "data": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "shape",
+            "value": {
+              "label": {
+                "name": "string",
+                "required": false
+              },
+              "percentage": {
+                "name": "number",
+                "required": false
+              },
+              "color": {
+                "name": "string",
+                "required": false
+              },
+              "hoverColor": {
+                "name": "string",
+                "required": false
+              }
+            }
+          }
+        },
+        "required": false,
+        "description": ""
+      },
+      "onMouseEnter": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onMouseLeave": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      },
+      "onClick": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": ""
+      }
+    },
+    "filename": "/components/base/charts/SnailChart.js"
   },
   {
     "description": "",
@@ -4507,6 +4507,18 @@
   },
   {
     "description": "",
+    "displayName": "GoalsChartAxis",
+    "methods": [],
+    "filename": "/components/base/charts/goals-chart/GoalsChartAxis.js"
+  },
+  {
+    "description": "",
+    "displayName": "GoalsChartValue",
+    "methods": [],
+    "filename": "/components/base/charts/goals-chart/GoalsChartValue.js"
+  },
+  {
+    "description": "",
     "displayName": "GoalsChartPoints",
     "methods": [],
     "props": {
@@ -4522,6 +4534,12 @@
   },
   {
     "description": "",
+    "displayName": "HorizAxis",
+    "methods": [],
+    "filename": "/components/base/charts/goals-chart/HorizAxis.js"
+  },
+  {
+    "description": "",
     "displayName": "GoalsChartHoverPoints",
     "methods": [],
     "filename": "/components/base/charts/goals-chart/GoalsChartHoverPoints.js"
@@ -4531,23 +4549,5 @@
     "displayName": "GoalsChartDrag",
     "methods": [],
     "filename": "/components/base/charts/goals-chart/GoalsChartDrag.js"
-  },
-  {
-    "description": "",
-    "displayName": "GoalsChartAxis",
-    "methods": [],
-    "filename": "/components/base/charts/goals-chart/GoalsChartAxis.js"
-  },
-  {
-    "description": "",
-    "displayName": "GoalsChartValue",
-    "methods": [],
-    "filename": "/components/base/charts/goals-chart/GoalsChartValue.js"
-  },
-  {
-    "description": "",
-    "displayName": "HorizAxis",
-    "methods": [],
-    "filename": "/components/base/charts/goals-chart/HorizAxis.js"
   }
 ]

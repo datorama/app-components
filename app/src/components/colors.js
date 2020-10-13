@@ -12,15 +12,15 @@ export const lightPrimary = {
 };
 
 export const lightSecondary = {
-  s0: '#d1bff4',
-  s50: '#b599ed',
-  s100: '#7d4de0',
-  s200: '#7d4de0',
-  s300: '#4500d3',
-  s400: '#34009e',
-  s500: '#260074',
-  s600: '#1f005f',
-  s700: '#110035'
+  s100: '#d1bff4',
+  s200: '#b599ed',
+  s300: '#7d4de0',
+  s350: '#7d4de0',
+  s400: '#4500d3',
+  s500: '#34009e',
+  s600: '#260074',
+  s700: '#1f005f',
+  s800: '#110035'
 };
 
 export const lightAccent = {
@@ -49,15 +49,15 @@ export const darkPrimary = {
 };
 
 export const darkSecondary = {
-  s700: '#d1bff4',
-  s600: '#b599ed',
+  s800: '#d1bff4',
+  s700: '#b599ed',
+  s600: '#7d4de0',
   s500: '#7d4de0',
-  s400: '#7d4de0',
-  s300: '#4500d3',
-  s200: '#34009e',
-  s100: '#260074',
-  s50: '#1f005f',
-  s0: '#110035'
+  s400: '#4500d3',
+  s350: '#34009e',
+  s300: '#260074',
+  s200: '#1f005f',
+  s100: '#110035'
 };
 
 export const darkAccent = {
