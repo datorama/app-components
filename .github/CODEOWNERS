@@ -1,8 +1,4 @@
 # This file can be modified by tmp-leadership or devops teams only #
-/.github/CODEOWNERS @datorama/tmp-leadership @datorama/devops @datorama/automation-infra
-
-# Jenkinsfiles are owned by devops teams unless required otherwise.
-Jenkinsfile* @datorama/devops @datorama/automation-infra
-*.groovy @datorama/devops @datorama/automation-infra
+/.github/CODEOWNERS
 
 * crazypixel@gmail.com
