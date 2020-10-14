@@ -217,7 +217,8 @@ Filters.propTypes = {
   max: PropTypes.number,
   className: PropTypes.string,
   initialState: PropTypes.array,
-  searchableOperator: PropTypes.bool
+  searchableOperator: PropTypes.bool,
+  defaultOperator: PropTypes.string
 };
 
 export default Filters;
