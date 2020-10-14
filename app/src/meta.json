@@ -2538,6 +2538,13 @@
           "value": "false",
           "computed": false
         }
+      },
+      "defaultOperator": {
+        "type": {
+          "name": "CONTAINS/NOT_CONTAINS"
+        },
+        "required": false,
+        "description": "New lines have a default operator. options are CONTAINS/NOT_CONTAINS"
       }
     },
     "filename": "/components/base/Filters/Filters.js"
