@@ -19,6 +19,7 @@ const snippet = `
       onChange={console.log}
       min={1}
       max={3}
+      defaultOperator={'CONTAINS'}
       initialState={[
         { val: 'Tel Aviv', dimension: 'CITY', operator: 'CONTAINS' },
         { val: 'Purple', dimension: 'COLOR', operator: 'NOT_CONTAINS' },
