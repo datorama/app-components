@@ -12,9 +12,9 @@ import Filter from './Filter';
 import InfoIcon from '../../icons/Info.icon';
 import PlusIcon from '../../icons/Plus.icon';
 
-const emptyState = id => ({
+const emptyState = ({ id, operator }) => ({
   dimension: [],
-  operator: [],
+  operator: operator ? [operator] : [],
   value: '',
   id: id || uuid()
 });
@@ -43,7 +43,8 @@ const Filters = ({
   min,
   max,
   initialState,
-  searchableOperator = false
+  searchableOperator = false,
+  defaultOperator
 }) => {
   const [state, setState] = useState({
     rows: initialState
@@ -77,15 +78,19 @@ const Filters = ({
   );
 
   const addFilter = useCallback(() => {
-    const rows = [...state.rows, emptyState()];
-
+    const rows = [
+      ...state.rows,
+      emptyState({
+        operator: operators.find(operator => operator.value === defaultOperator)
+      })
+    ];
     setState({
       ...state,
       rows
     });
 
     updateParent(rows);
-  }, [state, updateParent]);
+  }, [state, updateParent, defaultOperator]);
 
   const handleRemove = useCallback(
     index => {
@@ -93,7 +98,7 @@ const Filters = ({
         setState({ ...state, exiting: index });
       } else {
         const rows = state.rows.map((row, i) =>
-          i === index ? emptyState(row.id) : row
+          i === index ? emptyState({ id: row.id }) : row
         );
 
         setState({
@@ -212,7 +217,8 @@ Filters.propTypes = {
   max: PropTypes.number,
   className: PropTypes.string,
   initialState: PropTypes.array,
-  searchableOperator: PropTypes.bool
+  searchableOperator: PropTypes.bool,
+  defaultOperator: PropTypes.string
 };
 
 export default Filters;
