@@ -66,7 +66,8 @@ export default class Select extends React.Component {
     currentHoveredOptionValue: null,
     currentHoveredOptionIndex: 0,
     inputFocused: false,
-    disableSearch: false
+    disableSearch: false,
+    isLastValueChangeTriggeredLocally: false
   };
 
   filteredOptions = [];
@@ -77,6 +78,10 @@ export default class Select extends React.Component {
       this.props.values !== prevProps.values
     ) {
       this.setState({ localValues: this.props.values });
+    }
+
+    if (this.state.isLastValueChangeTriggeredLocally) {
+      this.setState({ isLastValueChangeTriggeredLocally: false });
     }
   }
 
@@ -319,6 +324,7 @@ export default class Select extends React.Component {
   };
 
   onSelect = option => {
+    this.setState({ isLastValueChangeTriggeredLocally: true });
     const { multi } = this.props;
     const { localValues } = this.state;
 
@@ -422,7 +428,8 @@ export default class Select extends React.Component {
       searchTerm,
       localValues,
       currentHoveredOptionValue,
-      currentHoveredOptionIndex
+      currentHoveredOptionIndex,
+      isLastValueChangeTriggeredLocally
     } = this.state;
 
     return (
@@ -462,6 +469,9 @@ export default class Select extends React.Component {
               toggleFocus={this.toggleFocus}
               onKeyDown={onKeyDown}
               onKeyUp={onKeyUp}
+              isLastValueChangeTriggeredLocally={
+                isLastValueChangeTriggeredLocally
+              }
             />
           )}
 
