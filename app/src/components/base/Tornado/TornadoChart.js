@@ -234,10 +234,10 @@ class TornadoChart extends Component {
           const conLabelY =
             centroid.y + 20 * Math.sin(centroid.x / CONSTANTS.INTER_SIN) + 5;
 
-          const columnHeadValue = get([0, 'data', cellIndex], rows);
+          const currentValue = get([index, 'data', cellIndex], rows);
           const nextValue = get([index + 1, 'data', cellIndex], rows);
-          const connectorLabel = columnHeadValue
-            ? (nextValue / columnHeadValue) * 100
+          const connectorLabel = currentValue
+            ? (nextValue / currentValue) * 100
             : 0;
 
           if (
