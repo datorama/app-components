@@ -62,7 +62,6 @@ class InlineSearch extends Component {
   };
 
   deleteTag = option => {
-    this.setState({ isLastValueChangeTriggeredLocally: true });
     this.props.onSelect(option);
   };
 
