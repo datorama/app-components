@@ -22,11 +22,15 @@ class InlineSearch extends Component {
     onSelect: PropTypes.func,
     toggleFocus: PropTypes.func,
     onKeyDown: PropTypes.func,
-    onKeyUp: PropTypes.func
+    onKeyUp: PropTypes.func,
+    isLastValueChangeTriggeredLocally: PropTypes.bool
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.values !== prevProps.values) {
+    if (
+      this.props.isLastValueChangeTriggeredLocally &&
+      this.props.values !== prevProps.values
+    ) {
       this.focus();
     }
   }
@@ -57,6 +61,11 @@ class InlineSearch extends Component {
     this.props.onSearch(el);
   };
 
+  deleteTag = option => {
+    this.setState({ isLastValueChangeTriggeredLocally: true });
+    this.props.onSelect(option);
+  };
+
   render() {
     const { small, onKeyDown, onKeyUp } = this.props;
     const tags = [];
@@ -66,7 +75,7 @@ class InlineSearch extends Component {
         tags.push(
           <SmallTag key={`small-tag-${option.value}`} title={option.label}>
             <SmallTagLabel small={small}>{option.label}</SmallTagLabel>
-            <CloseIcon onClick={() => this.props.onSelect(option)} />
+            <CloseIcon onClick={() => this.deleteTag(option)} />
           </SmallTag>
         );
       }
