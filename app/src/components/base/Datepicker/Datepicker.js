@@ -25,6 +25,7 @@ class Datepicker extends Component {
     onChange: PropTypes.func,
     onMenuEnter: PropTypes.func,
     onMenuLeave: PropTypes.func,
+    activeRange: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
     className: PropTypes.string,
     months: PropTypes.number,
     dateRange: PropTypes.shape({
@@ -131,7 +132,7 @@ class Datepicker extends Component {
 
   datesRenderer = (globalOffset = 0) => {
     const { offset, today, selection, selecting, hoveredDate } = this.state;
-    const { firstDayOfWeek, customColor } = this.props;
+    const { firstDayOfWeek, customColor, activeRange } = this.props;
     const { startDate, endDate } = selection;
     const dates = [];
     const monthStart = today.clone().startOf('month');
@@ -149,7 +150,7 @@ class Datepicker extends Component {
 
     // previews disabled dates
     for (let i = monthStart.day(); i > firstDayOfWeek; i--) {
-      dates.push(<DateContainer key={`date-placeholder-${i}`} disabled />);
+      dates.push(<DateContainer key={`date-placeholder-${i}`} isDisabled />);
     }
 
     for (let i = 1; i <= total; i++) {
@@ -165,6 +166,19 @@ class Datepicker extends Component {
       const isEnd = current.isSame(endDate, 'day');
       const sameDay = startDate.isSame(endDate, 'day') || !endDate;
 
+      let isNotInRange = false;
+      if (activeRange && activeRange.length) {
+        const activeStart = moment(activeRange[0]).startOf('day');
+        const activeEnd = moment(activeRange[1]).startOf('day');
+
+        if (
+          current.startOf('day').isBefore(activeStart) ||
+          current.startOf('day').isAfter(activeEnd)
+        ) {
+          isNotInRange = true;
+        }
+      }
+
       dates.push(
         <DateContainer
           key={`date-${i}`}
@@ -175,6 +189,7 @@ class Datepicker extends Component {
           isStart={isStart}
           isEnd={isEnd}
           customColor={customColor}
+          isNotInRange={isNotInRange}
         >
           <DateIcon
             today={current.isSame(today, 'day')}
@@ -361,13 +376,27 @@ class Datepicker extends Component {
   };
 
   onChangeDate = (type, value) => {
-    const { dateFormat } = this.props;
+    const { dateFormat, activeRange } = this.props;
     const parsed = moment(value, dateFormat);
 
     if (parsed.isValid()) {
       this.setState(prevState => {
         const { selection } = prevState;
-        const newSelection = set([type], moment(value, dateFormat), selection);
+
+        let dateValue = moment(value, dateFormat);
+        if (activeRange && activeRange.length) {
+          const activeStart = moment(activeRange[0]).startOf('day');
+          const activeEnd = moment(activeRange[1]).startOf('day');
+
+          if (dateValue.startOf('day').isBefore(activeStart)) {
+            dateValue = activeStart;
+          }
+
+          if (dateValue.startOf('day').isAfter(activeEnd)) {
+            dateValue = activeEnd;
+          }
+        }
+        const newSelection = set([type], dateValue, selection);
 
         return { selection: newSelection };
       });
@@ -681,10 +710,19 @@ const DateContainer = styled.div`
       pointer-events: none;
     `};
 
-  ${({ disabled }) =>
-    disabled &&
+  ${({ isDisabled }) =>
+    isDisabled &&
     css`
       pointer-events: none;
+    `};
+
+  ${({ isNotInRange, theme }) =>
+    isNotInRange &&
+    css`
+      pointer-events: none;
+      div {
+        color: ${theme.p200} !important;
+      }
     `};
 `;
 

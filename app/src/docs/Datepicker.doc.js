@@ -45,6 +45,17 @@ const withCustomDateFormat = `
 };
 `;
 
+const activeRange = `
+() => {
+  const start = moment().subtract(10, 'days').toDate();
+  const end = moment().add(10, 'days').toDate();
+  
+  return (
+    <Datepicker activeRange={[start, end]} />
+  );
+};
+`;
+
 const withCustomPresets = `
 () => {
 const customPresets = [
@@ -139,6 +150,17 @@ const DatePickerDoc = () => {
       <Row align="stretch">
         <Col>
           <Snippet snippet={withCustomPresets} />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col>
+          <SectionTitle>Active range</SectionTitle>
+        </Col>
+      </Row>
+      <Row align="stretch">
+        <Col>
+          <Snippet snippet={activeRange} />
         </Col>
       </Row>
     </Base>
