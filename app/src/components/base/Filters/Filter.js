@@ -33,6 +33,8 @@ const Filter = props => {
   } = props;
 
   const initialValue = useRef(rowData.value);
+  const prevDimension = useRef(rowData.dimension);
+
   const [selectedDropDownValue, setSelectedDropDownValue] = useState([]);
 
   const { dropDowns, dimensionsWithDropDowns } = useMemo(() => {
@@ -55,15 +57,18 @@ const Filter = props => {
     [rowData, dropDowns]
   );
 
-  useEffect(function handleDimensionStateChange() {
-    if (initialValue && useDropDown) {
-      const selectedValue = find(
-        op => op.value === initialValue.current,
-        dimensionDropDownOptions
-      );
-      setSelectedDropDownValue(selectedValue ? [selectedValue] : []);
-    }
-  }, []);
+  useEffect(
+    function initializeDropDown() {
+      if (initialValue && useDropDown) {
+        const selectedValue = find(
+          op => op.value === initialValue.current,
+          dimensionDropDownOptions
+        );
+        setSelectedDropDownValue(selectedValue ? [selectedValue] : []);
+      }
+    },
+    [dropDownOptions]
+  );
 
   const removeFilter = useCallback(() => {
     onRemove(index);
@@ -71,7 +76,11 @@ const Filter = props => {
 
   const handleDimensionChange = useCallback(
     values => {
-      const deleteValue = dimensionsWithDropDowns.includes(values[0].value);
+      /*** delete the filter value if switching to or from a dimension that has a dropdown instead of free text ***/
+      const deleteValue =
+        dimensionsWithDropDowns.includes(values[0].value) ||
+        dimensionsWithDropDowns.includes(prevDimension.current[0].value);
+      prevDimension.current = values;
       onChange({ key: 'dimension', value: values, index }, deleteValue);
     },
     [index, onChange, dimensionsWithDropDowns]
