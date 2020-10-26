@@ -227,7 +227,8 @@ Filters.propTypes = {
   className: PropTypes.string,
   initialState: PropTypes.array,
   searchableOperator: PropTypes.bool,
-  defaultOperator: PropTypes.string
+  defaultOperator: PropTypes.string,
+  dropDownOptions: PropTypes.array
 };
 
 export default Filters;
