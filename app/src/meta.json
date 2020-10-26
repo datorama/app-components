@@ -3061,6 +3061,9 @@
         "description": ""
       },
       "dropDownOptions": {
+        "type": {
+          "name": "array"
+        },
         "defaultValue": {
           "value": "[]",
           "computed": false
