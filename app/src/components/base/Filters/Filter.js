@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -15,6 +15,7 @@ export const operators = [
 const Filter = props => {
   const {
     dimensions,
+    dropDownOptions,
     onRemove,
     index,
     total,
@@ -24,15 +25,40 @@ const Filter = props => {
     className
   } = props;
 
+  const [selectedDropDownValue, setSelectedDropDownValue] = useState([]);
+
+  const { dropDowns, dimensionsWithDropDowns } = useMemo(() => {
+    const result = [];
+    for (const dropdownOption of dropDownOptions) {
+      result[dropdownOption.dimension] = dropdownOption.options;
+    }
+    return { dropDowns: result, dimensionsWithDropDowns: Object.keys(result) };
+  }, [dropDownOptions]);
+
+  const useDropDown = useMemo(
+    () =>
+      rowData.dimension &&
+      dimensionsWithDropDowns.includes(rowData.dimension[0].value),
+    [rowData, dimensionsWithDropDowns]
+  );
+
+  const dimensionDropDownOptions = useMemo(
+    () => rowData.dimension && dropDowns[rowData.dimension[0].value],
+    [rowData, dropDowns]
+  );
+
   const removeFilter = useCallback(() => {
     onRemove(index);
   }, [index, onRemove]);
 
   const handleDimensionChange = useCallback(
     values => {
+      if (dimensionsWithDropDowns.includes(values[0].value)) {
+        onChange({ key: 'value', value: '', index });
+      }
       onChange({ key: 'dimension', value: values, index });
     },
-    [index, onChange]
+    [index, onChange, dimensionsWithDropDowns]
   );
 
   const handleOperatorChange = useCallback(
@@ -45,6 +71,14 @@ const Filter = props => {
   const handleValueChange = useCallback(
     e => {
       onChange({ key: 'value', value: e.target.value, index });
+    },
+    [index, onChange]
+  );
+
+  const handleDropDownValueChange = useCallback(
+    values => {
+      setSelectedDropDownValue(values);
+      onChange({ key: 'value', value: values[0].value, index });
     },
     [index, onChange]
   );
@@ -69,11 +103,23 @@ const Filter = props => {
           searchable={searchableOperator}
         />
       </OperatorContainer>
-      <StyledInput
-        placeholder="Free text"
-        onChange={handleValueChange}
-        value={rowData.value}
-      />
+
+      {useDropDown ? (
+        <StyledSelect
+          className="select-dimension-drop-down"
+          options={dimensionDropDownOptions}
+          onChange={handleDropDownValueChange}
+          values={selectedDropDownValue}
+          placeholder="Select..."
+          searchable
+        ></StyledSelect>
+      ) : (
+        <StyledInput
+          placeholder="Free text"
+          onChange={handleValueChange}
+          value={rowData.value}
+        />
+      )}
       <TrashContainer className="trash-icon" onClick={removeFilter}>
         <StyledTrashIcon />
       </TrashContainer>

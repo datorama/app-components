@@ -14,6 +14,7 @@ import PlusIcon from '../../icons/Plus.icon';
 
 const emptyState = ({ id, operator }) => ({
   dimension: [],
+  dropDownOptions: [],
   operator: operator ? [operator] : [],
   value: '',
   id: id || uuid()
@@ -39,6 +40,7 @@ const FooterInfo = ({ max }) => (
 const Filters = ({
   className,
   dimensions,
+  dropDownOptions = [],
   onChange,
   min,
   max,
@@ -180,6 +182,7 @@ const Filters = ({
               index={index}
               total={state.rows.length}
               dimensions={dimensions}
+              dropDownOptions={dropDownOptions}
               onRemove={handleRemove}
               onChange={handleFilterChange}
               rowData={row}
