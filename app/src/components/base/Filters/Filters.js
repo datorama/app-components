@@ -115,11 +115,17 @@ const Filters = ({
   );
 
   const handleFilterChange = useCallback(
-    ({ key, value, index }) => {
-      const rows = state.rows.map((row, i) => ({
-        ...row,
-        [key]: i === index ? value : row[key]
-      }));
+    ({ key, value, index }, deleteValue = false) => {
+      const rows = state.rows.map((row, i) => {
+        const updatedRow = {
+          ...row,
+          [key]: i === index ? value : row[key]
+        };
+        if (i === index && deleteValue) {
+          updatedRow.value = '';
+        }
+        return updatedRow;
+      });
 
       setState({
         ...state,

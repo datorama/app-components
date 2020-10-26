@@ -53,10 +53,8 @@ const Filter = props => {
 
   const handleDimensionChange = useCallback(
     values => {
-      if (dimensionsWithDropDowns.includes(values[0].value)) {
-        onChange({ key: 'value', value: '', index });
-      }
-      onChange({ key: 'dimension', value: values, index });
+      const deleteValue = dimensionsWithDropDowns.includes(values[0].value);
+      onChange({ key: 'dimension', value: values, index }, deleteValue);
     },
     [index, onChange, dimensionsWithDropDowns]
   );
