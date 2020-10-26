@@ -1,6 +1,13 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { find } from 'lodash/fp';
 
 // COMPONENTS
 import Select from '../Select/Select';
@@ -25,6 +32,7 @@ const Filter = props => {
     className
   } = props;
 
+  const initialValue = useRef(rowData.value);
   const [selectedDropDownValue, setSelectedDropDownValue] = useState([]);
 
   const { dropDowns, dimensionsWithDropDowns } = useMemo(() => {
@@ -46,6 +54,16 @@ const Filter = props => {
     () => rowData.dimension && dropDowns[rowData.dimension[0].value],
     [rowData, dropDowns]
   );
+
+  useEffect(function handleDimensionStateChange() {
+    if (initialValue && useDropDown) {
+      const selectedValue = find(
+        op => op.value === initialValue.current,
+        dimensionDropDownOptions
+      );
+      setSelectedDropDownValue(selectedValue ? [selectedValue] : []);
+    }
+  }, []);
 
   const removeFilter = useCallback(() => {
     onRemove(index);

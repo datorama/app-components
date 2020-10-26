@@ -29,8 +29,9 @@ const snippet = `
         ] }
       ]}
       initialState={[
-        { val: 'Tel Aviv', dimension: 'CITY', operator: 'CONTAINS' },
         { val: 'Purple', dimension: 'COLOR', operator: 'NOT_CONTAINS' },
+        { val: 'Tel Aviv', dimension: 'CITY', operator: 'CONTAINS' },
+        { val: 'ISRAEL', dimension: 'COUNTRY', operator: 'CONTAINS' },
       ]}
     />
   );
