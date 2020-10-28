@@ -8,9 +8,10 @@
     "lint": "eslint '*/**/*.{ts,tsx,js,jsx}' --fix",
     "lint:debug": "eslint '*/**/*.{ts,tsx,js,jsx}' --color --debug",
     "test": "jest",
-    "build": "build-storybook",
-    "build:package": "rm -rf dist && npx rollup -c",
-    "start": "npm i -g serve && serve -c storybook-static"
+    "build": "build-storybook -o public",
+    "heroku-postbuild": "npm i -g serve",
+    "heroku-cleanup": "serve -c public",
+    "build:package": "rm -rf dist && npx rollup -c"
   },
   "author": "Datorama Marketplace",
   "license": "MIT",
