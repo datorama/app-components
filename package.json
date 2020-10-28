@@ -8,10 +8,8 @@
     "lint": "eslint '*/**/*.{ts,tsx,js,jsx}' --fix",
     "lint:debug": "eslint '*/**/*.{ts,tsx,js,jsx}' --color --debug",
     "test": "jest",
-    "build:storybook": "build-storybook",
+    "build": "build-storybook",
     "build:package": "rm -rf dist && npx rollup -c",
-    "heroku-prebuild": "npm install",
-    "heroku-postbuild": "npm run build:storybook",
     "start": "serve -s storybook-static"
   },
   "author": "Datorama Marketplace",
