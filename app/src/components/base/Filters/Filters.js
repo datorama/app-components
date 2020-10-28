@@ -14,6 +14,7 @@ import PlusIcon from '../../icons/Plus.icon';
 
 const emptyState = ({ id, operator }) => ({
   dimension: [],
+  dropDownOptions: [],
   operator: operator ? [operator] : [],
   value: '',
   id: id || uuid()
@@ -39,6 +40,7 @@ const FooterInfo = ({ max }) => (
 const Filters = ({
   className,
   dimensions,
+  dropDownOptions = [],
   onChange,
   min,
   max,
@@ -113,11 +115,17 @@ const Filters = ({
   );
 
   const handleFilterChange = useCallback(
-    ({ key, value, index }) => {
-      const rows = state.rows.map((row, i) => ({
-        ...row,
-        [key]: i === index ? value : row[key]
-      }));
+    ({ key, value, index }, deleteValue = false) => {
+      const rows = state.rows.map((row, i) => {
+        const updatedRow = {
+          ...row,
+          [key]: i === index ? value : row[key]
+        };
+        if (i === index && deleteValue) {
+          updatedRow.value = '';
+        }
+        return updatedRow;
+      });
 
       setState({
         ...state,
@@ -180,6 +188,7 @@ const Filters = ({
               index={index}
               total={state.rows.length}
               dimensions={dimensions}
+              dropDownOptions={dropDownOptions}
               onRemove={handleRemove}
               onChange={handleFilterChange}
               rowData={row}
@@ -218,7 +227,8 @@ Filters.propTypes = {
   className: PropTypes.string,
   initialState: PropTypes.array,
   searchableOperator: PropTypes.bool,
-  defaultOperator: PropTypes.string
+  defaultOperator: PropTypes.string,
+  dropDownOptions: PropTypes.array
 };
 
 export default Filters;

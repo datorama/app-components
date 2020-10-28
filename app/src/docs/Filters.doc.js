@@ -9,7 +9,7 @@ const snippet = `
 () => {
   const dimensions = [
     { value: 'COUNTRY', label: 'Country' },
-    { value: 'CITY', label: 'city' },
+    { value: 'CITY', label: 'City' },
     { value: 'COLOR', label: 'Color' },
   ];
   
@@ -20,9 +20,18 @@ const snippet = `
       min={1}
       max={3}
       defaultOperator={'CONTAINS'}
+      dropDownOptions={[
+        { dimension:'COUNTRY', 
+          options:[
+          { value: 'ISRAEL', label: 'Israel'}, 
+          { value: 'UK', label: 'United Kingdom'}, 
+          { value: 'FRANCE', label: 'France'}
+        ] }
+      ]}
       initialState={[
-        { val: 'Tel Aviv', dimension: 'CITY', operator: 'CONTAINS' },
         { val: 'Purple', dimension: 'COLOR', operator: 'NOT_CONTAINS' },
+        { val: 'Tel Aviv', dimension: 'CITY', operator: 'CONTAINS' },
+        { val: 'ISRAEL', dimension: 'COUNTRY', operator: 'CONTAINS' },
       ]}
     />
   );

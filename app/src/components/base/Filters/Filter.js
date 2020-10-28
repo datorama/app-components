@@ -1,6 +1,13 @@
-import React, { useCallback } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { find } from 'lodash/fp';
 
 // COMPONENTS
 import Select from '../Select/Select';
@@ -15,6 +22,7 @@ export const operators = [
 const Filter = props => {
   const {
     dimensions,
+    dropDownOptions,
     onRemove,
     index,
     total,
@@ -24,15 +32,58 @@ const Filter = props => {
     className
   } = props;
 
+  const initialValue = useRef(rowData.value);
+  const prevDimension = useRef(rowData.dimension);
+
+  const [selectedDropDownValue, setSelectedDropDownValue] = useState([]);
+
+  const { dropDowns, dimensionsWithDropDowns } = useMemo(() => {
+    const result = [];
+    for (const dropdownOption of dropDownOptions) {
+      result[dropdownOption.dimension] = dropdownOption.options;
+    }
+    return { dropDowns: result, dimensionsWithDropDowns: Object.keys(result) };
+  }, [dropDownOptions]);
+
+  const useDropDown = useMemo(
+    () =>
+      rowData.dimension &&
+      dimensionsWithDropDowns.includes(rowData.dimension[0].value),
+    [rowData, dimensionsWithDropDowns]
+  );
+
+  const dimensionDropDownOptions = useMemo(
+    () => rowData.dimension && dropDowns[rowData.dimension[0].value],
+    [rowData, dropDowns]
+  );
+
+  useEffect(
+    function initializeDropDown() {
+      if (initialValue && useDropDown) {
+        const selectedValue = find(
+          op => op.value === initialValue.current,
+          dimensionDropDownOptions
+        );
+        setSelectedDropDownValue(selectedValue ? [selectedValue] : []);
+      }
+    },
+    [dropDownOptions]
+  );
+
   const removeFilter = useCallback(() => {
     onRemove(index);
   }, [index, onRemove]);
 
   const handleDimensionChange = useCallback(
     values => {
-      onChange({ key: 'dimension', value: values, index });
+      /*** delete the filter value if switching to or from a dimension that has a dropdown instead of free text ***/
+      const deleteValue =
+        dimensionsWithDropDowns.includes(values[0].value) ||
+        dimensionsWithDropDowns.includes(prevDimension.current[0].value);
+      prevDimension.current = values;
+      onChange({ key: 'dimension', value: values, index }, deleteValue);
     },
-    [index, onChange]
+    [index, onChange, dimensionsWithDropDowns]
   );
 
   const handleOperatorChange = useCallback(
@@ -45,6 +96,14 @@ const Filter = props => {
   const handleValueChange = useCallback(
     e => {
       onChange({ key: 'value', value: e.target.value, index });
+    },
+    [index, onChange]
+  );
+
+  const handleDropDownValueChange = useCallback(
+    values => {
+      setSelectedDropDownValue(values);
+      onChange({ key: 'value', value: values[0].value, index });
     },
     [index, onChange]
   );
@@ -69,11 +128,23 @@ const Filter = props => {
           searchable={searchableOperator}
         />
       </OperatorContainer>
-      <StyledInput
-        placeholder="Free text"
-        onChange={handleValueChange}
-        value={rowData.value}
-      />
+
+      {useDropDown ? (
+        <StyledSelect
+          className="select-dimension-drop-down"
+          options={dimensionDropDownOptions}
+          onChange={handleDropDownValueChange}
+          values={selectedDropDownValue}
+          placeholder="Select..."
+          searchable
+        ></StyledSelect>
+      ) : (
+        <StyledInput
+          placeholder="Free text"
+          onChange={handleValueChange}
+          value={rowData.value}
+        />
+      )}
       <TrashContainer className="trash-icon" onClick={removeFilter}>
         <StyledTrashIcon />
       </TrashContainer>
