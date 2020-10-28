@@ -6,7 +6,9 @@ node_modules
 
 # builds
 build
+dist
 .rpt2_cache
+storybook-static
 
 # misc
 .DS_Store

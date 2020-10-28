@@ -7,12 +7,11 @@
 ![GitHub issues](https://img.shields.io/github/issues-raw/datorama/app-components.svg)
 ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/datorama/app-components/dev/react.svg)
 
-## Install
+## Installation
 ```bash
 npm install --save @datorama/app-components
 ```
 
-#### Set up global theme
 ```jsx
 import { AppTheme, lightTheme } from '@datorama/app-components';
 import { ThemeProvider } from 'styled-components';
@@ -27,4 +26,41 @@ const App = () => (
 // @import '~@datorama/app-components/dist/index.css';
 ```
 
-#### Documentation
+## Local Development
+
+Clone the repo, install packages and run;
+
+```bash
+npm run storybook
+```
+
+## Publish a new release
+
+First, Make sure that everything is working, well documented and backward compatible.
+Clean up all the lint issues after running
+
+```bash
+npm run lint
+``` 
+
+In your pull request bump the package version (`minor`, `major` or `patch`) by running:
+
+```bash
+npm version **** 
+```
+
+After the pull request is merged to master, checkout to master and run:
+
+```bash
+npm run build:package
+```
+
+and to publish it to NPM:
+
+```bash
+npm publish
+```
+
+## Importing images
+
+With the current Rollup loader all images are loaded as components!

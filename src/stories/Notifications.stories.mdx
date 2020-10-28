@@ -1,0 +1,33 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Notifications } from './NotificationsPreview';
+
+<Meta title="core/notifications" />
+
+# Notifications
+
+A context provider for `Toast` and `Snackbar`.
+To use it - wrap you component with `NotificationsProvider` and use the `useSnackbar` and `useToast` in order to dispatch new notifications.
+
+````javascript
+import { useToast } from '@datorama/app-components';
+
+const MyComp = () => {
+  const { addToast } = useToast();
+  const config = {
+      type: 'info', // [info, alert, success, warning]
+      title: 'Notification title',
+      subtitle: 'Notification Subtitle',
+      timeout: 2000,
+      top: 0 // snackbar top offset
+    };
+  const dispatchToast = useCallback(() => {
+    addToast(config);  
+  }, [addToast, config]); 
+
+  return <Button onClick={addToast}>Add Toast</Button>;
+};
+````
+
+<Canvas>
+  <Notifications />
+</Canvas>
