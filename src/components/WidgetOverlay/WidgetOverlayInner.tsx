@@ -34,7 +34,7 @@ const WidgetOverlayInner = (props: Props) => {
       return ILLUSTRATION[TYPE.ERROR][themeMode][getSize(width)];
     }
 
-    return null;
+    return '';
   }, [isEmpty, isError, width]);
 
   const title = useMemo(() => {
@@ -67,8 +67,9 @@ const WidgetOverlayInner = (props: Props) => {
 
   return (
     <Container>
-      <img
+      <Illustration
         style={{ width: Math.min(290, width), height: Math.min(190, height) }}
+        // @ts-ignore
         src={illustration}
       />
       <Title>{title}</Title>
@@ -88,6 +89,8 @@ const Container = styled.div`
   box-sizing: border-box;
   padding: 10px;
 `;
+
+const Illustration = styled.img``;
 
 const Title = styled.div`
   font-size: 16px;
