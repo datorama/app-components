@@ -75,6 +75,7 @@ export {
 export { SnailChart } from './components/SnailChart';
 export { GoalsChart } from './components/GoalsChart/GoalsChart';
 export { Gauge } from './components/Gauge';
+export { Grid } from './components/Grid/Grid';
 
 // Pending Deprecation
 export { IllustratedMessage } from './components/IllustratedMessage/IllustratedMessage';
