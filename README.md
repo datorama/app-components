@@ -23,7 +23,7 @@ const App = () => (
 );
 
 // CSS
-// @import '~@datorama/app-components/dist/index.css';
+// @import '~@datorama/app-components/index.css';
 ```
 
 ## Local Development
@@ -55,11 +55,13 @@ After the pull request is merged to master, checkout to master and run:
 npm run build:package
 ```
 
-and to publish it to NPM:
+and to publish it to NPM - make sure your'e in the root folder and run:
 
 ```bash
-npm publish
+npm publish:package
 ```
+
+Alternatively, you can go to the dist folder and run `npm publish`.
 
 ## Importing images
 

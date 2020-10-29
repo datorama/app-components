@@ -27,7 +27,10 @@ const plugins = [
   image(),
   css({ output: 'dist/bundle.css' }),
   copy({
-    targets: [{ src: 'src/index.css', dest: 'dist' }],
+    targets: [
+      { src: 'src/index.css', dest: 'dist' },
+      { src: 'package.json', dest: 'dist' },
+    ],
   }),
   terser(),
   bundleSize(),
