@@ -1,0 +1,40 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting Started" />
+
+# Getting Started
+
+App-Components is a toolkit for developing Datorama Applications with ReactJS.
+            
+
+## Setup
+
+Install the package in your project:
+
+````shell script
+// NPM
+npm i --save @datorama/app-components
+
+// Yarn
+yarn add @datorama/app-components
+````
+
+Add the theme context:
+
+````javascript
+import { AppTheme, lightTheme } from '@datorama/app-components';
+import { ThemeProvider } from 'styled-components';
+
+const App = () => (
+  <AppTheme theme={lightTheme} provider={ThemeProvider}>
+   { /* your app goes here*/ }
+  </AppTheme>
+);
+````
+
+Add common styles:
+
+````css
+// add to the main css file
+@import '~@datorama/app-components/dist/index.css';
+````

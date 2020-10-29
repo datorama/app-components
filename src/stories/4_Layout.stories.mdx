@@ -1,0 +1,81 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Row, Col, Container } from '../constants/layout.constants';
+
+<Meta title="Flex-box Layout" />
+
+# Flex-box Layout
+
+A 12 column grid layout using flex-box
+<br /><br />
+
+## Auto width layout
+
+```html
+<Container>
+  <Row>
+    <Col />
+    <Col />
+    <Col />
+  </Row>
+</Container>
+```
+
+## Columns size
+
+```html
+<Container>
+  <Row>
+    <Col size={4}/>
+    <Col size={6} />
+    <Col size={2} />
+  </Row>
+</Container>
+```
+
+## Columns offset
+
+```html
+<Container>
+  <Row>
+    <Col offset={2} size={4}/>
+    <Col size={6} />
+  </Row>
+</Container>
+```
+
+## Column distribution
+
+```html
+<Container justify="flex-end">
+  <Row>
+    <Col offset={2} size={4}/>
+    <Col size={6} />
+  </Row>
+</Container>
+```
+
+## Break points
+
+````javascript
+/*
+  the default break points are
+  xs: max 576px
+  sm: max 768px
+  md: max 992px
+  lg: max 1200px
+  xl: min 1200px
+*/
+````
+
+```html
+<Container style={{ background: theme.p100 }}>
+  <Row>
+    <Col size={6} md={12}>
+      ...
+    </Col>
+    <Col size={6} md={12}>
+      ...
+    </Col>
+  </Row>
+</Container>
+```
