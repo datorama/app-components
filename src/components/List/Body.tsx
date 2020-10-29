@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import {
   CellRenderer,
   DataArray,
+  EmptyStateRenderer,
+  ErrorStateRenderer,
   HeadersType,
   RowRenderer,
 } from './List.types';
@@ -15,6 +17,7 @@ import { AutoSizer, List, ScrollParams } from 'react-virtualized';
 import NoResults from './NoResults';
 import ErrorMessage from './ErrorMessage';
 import Mock from './Mock';
+import { Spinner } from '../Spinner';
 
 export interface RowRendererProps {
   key: string;
@@ -44,17 +47,18 @@ const rowRenderer = (props: RowRendererProps) => {
   } = props;
 
   return (
-    <Row key={key} style={style}>
+    <Row key={key} style={style} className="list-row">
       {headers.map((header, i) => (
         <Col
           key={`${header.dataKey}-${i}`}
           width={parentWidth * ratio[i]}
           height={rowHeight}
+          className="list-col"
         >
           {cellRenderer ? (
             cellRenderer({ value: get(header.dataKey, data[index]) })
           ) : (
-            <Label>
+            <Label className="label">
               <Highlighter
                 highlightClassName="list-highlight"
                 searchWords={[searchTerm]}
@@ -80,6 +84,10 @@ interface TableBodyProps {
   isLoading?: boolean;
   rowRenderer?: RowRenderer;
   cellRenderer?: CellRenderer;
+  emptyStateRenderer?: EmptyStateRenderer;
+  errorStateRenderer?: ErrorStateRenderer;
+  onReachedEnd?: () => void;
+  isBottomLoaderActive?: boolean;
 }
 
 const Body = (props: TableBodyProps) => {
@@ -93,6 +101,10 @@ const Body = (props: TableBodyProps) => {
     isError,
     isLoading,
     cellRenderer,
+    emptyStateRenderer,
+    errorStateRenderer,
+    onReachedEnd,
+    isBottomLoaderActive,
   } = props;
   const rendererExtensions = {
     ratio,
@@ -103,7 +115,19 @@ const Body = (props: TableBodyProps) => {
     cellRenderer,
   };
 
+  const handleOnRowsRendered = useCallback(
+    (e) => {
+      if (e.stopIndex === data.length - 1 && onReachedEnd) {
+        onReachedEnd();
+      }
+    },
+    [data, onReachedEnd]
+  );
+
   if (isError) {
+    if (errorStateRenderer) {
+      return errorStateRenderer();
+    }
     return <ErrorMessage />;
   }
 
@@ -112,37 +136,51 @@ const Body = (props: TableBodyProps) => {
   }
 
   if (searchTerm && !data.length) {
+    if (emptyStateRenderer) {
+      return emptyStateRenderer({ type: 'NO_RESULTS' });
+    }
     return <NoResults title="No results found" />;
   }
 
   if (!searchTerm && !data.length) {
+    if (emptyStateRenderer) {
+      return emptyStateRenderer({ type: 'NO_DATA' });
+    }
     return <NoResults title="No data" />;
   }
 
   return (
     <AutoSizer>
       {({ height, width }) => (
-        <List
-          onScroll={setScroll}
-          height={height}
-          style={{ outline: 'none' }}
-          rowCount={data.length}
-          rowHeight={rowHeight}
-          rowRenderer={(headerProps) => {
-            const params = {
-              ...headerProps,
-              parentWidth: width,
-              ...rendererExtensions,
-            };
+        <>
+          <List
+            onScroll={setScroll}
+            height={isBottomLoaderActive ? height - rowHeight : height}
+            style={{ outline: 'none' }}
+            rowCount={data.length}
+            rowHeight={rowHeight}
+            onRowsRendered={handleOnRowsRendered}
+            rowRenderer={(headerProps) => {
+              const params = {
+                ...headerProps,
+                parentWidth: width,
+                ...rendererExtensions,
+              };
 
-            if (props.rowRenderer) {
-              return props.rowRenderer(params);
-            }
+              if (props.rowRenderer) {
+                return props.rowRenderer(params);
+              }
 
-            return rowRenderer(params);
-          }}
-          width={width}
-        />
+              return rowRenderer(params);
+            }}
+            width={width}
+          />
+          {isBottomLoaderActive ? (
+            <BottomSpinner height={rowHeight} width={width}>
+              <Spinner />
+            </BottomSpinner>
+          ) : null}
+        </>
       )}
     </AutoSizer>
   );
@@ -156,4 +194,16 @@ const Row = styled.div`
   width: 100%;
   box-sizing: border-box;
   border-bottom: 1px solid ${({ theme }) => theme.p100};
+
+  &:hover {
+    background: ${({ theme }) => theme.p50};
+  }
+`;
+
+const BottomSpinner = styled.div<{ width: number; height: number }>`
+  width: ${({ width }) => `${width}px`};
+  height: ${({ height }) => `${height}px`};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

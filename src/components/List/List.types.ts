@@ -24,3 +24,5 @@ export type ActionsRenderer = ({
 export type RowRenderer = (params: RowRendererProps) => ReactNode;
 export type CellRenderer = ({ value }: { value: string | number }) => ReactNode;
 export type HeaderCellRenderer = ({ label }: { label: string }) => ReactNode;
+export type EmptyStateRenderer = ({ type }: { type: string }) => ReactNode;
+export type ErrorStateRenderer = () => ReactNode;

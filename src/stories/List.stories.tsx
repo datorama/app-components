@@ -4,7 +4,15 @@ import { List } from '../components/List/List';
 export default {
   title: 'core/List',
   component: List,
-  argTypes: {},
+  argTypes: {
+    footerRenderer: { control: 'none' },
+    actionsRenderer: { control: 'none' },
+    rowRenderer: { control: 'none' },
+    cellRenderer: { control: 'none' },
+    headerCellRenderer: { control: 'none' },
+    emptyStateRenderer: { control: 'none' },
+    errorStateRenderer: { control: 'none' },
+  },
 };
 
 const Template = (args) => <List {...args} />;

@@ -11,6 +11,8 @@ import {
   RowRenderer,
   CellRenderer,
   HeaderCellRenderer,
+  EmptyStateRenderer,
+  ErrorStateRenderer,
 } from './List.types';
 import { get, orderBy, isBoolean, unset } from 'lodash/fp';
 
@@ -32,6 +34,12 @@ export interface Props {
   rowRenderer?: RowRenderer;
   cellRenderer?: CellRenderer;
   headerCellRenderer?: HeaderCellRenderer;
+  isActionsActive?: boolean;
+  isFooterActive?: boolean;
+  emptyStateRenderer?: EmptyStateRenderer;
+  errorStateRenderer?: ErrorStateRenderer;
+  onReachedEnd?: () => void;
+  isBottomLoaderActive?: boolean;
 }
 
 const search = new JsSearch.Search('rowIndex');
@@ -47,6 +55,12 @@ export const List = (props: Props) => {
     rowRenderer,
     cellRenderer,
     headerCellRenderer,
+    isActionsActive,
+    isFooterActive,
+    emptyStateRenderer,
+    errorStateRenderer,
+    onReachedEnd,
+    isBottomLoaderActive,
   } = props;
   const [scroll, setScroll] = useState({ scrollTop: 0 });
   const [sortData, setSortData] = useState<SortDataType>({});
@@ -154,11 +168,15 @@ export const List = (props: Props) => {
 
   return (
     <Container className={props.className}>
-      {actionsRenderer ? (
-        actionsRenderer({ onSearchChange: setSearchTerm })
-      ) : (
-        <Actions onSearchChange={setSearchTerm} />
-      )}
+      {isActionsActive ? (
+        <>
+          {actionsRenderer ? (
+            actionsRenderer({ onSearchChange: setSearchTerm })
+          ) : (
+            <Actions onSearchChange={setSearchTerm} />
+          )}
+        </>
+      ) : null}
       <TableHeader
         scrollTop={scroll.scrollTop}
         headers={headers}
@@ -181,15 +199,23 @@ export const List = (props: Props) => {
           searchTerm={searchTerm}
           isError={isError}
           isLoading={isLoading}
+          emptyStateRenderer={emptyStateRenderer}
+          errorStateRenderer={errorStateRenderer}
           rowRenderer={rowRenderer}
           cellRenderer={cellRenderer}
+          onReachedEnd={onReachedEnd}
+          isBottomLoaderActive={isBottomLoaderActive}
         />
       </TableContainer>
-      {footerRenderer ? (
-        footerRenderer({ total: data.length })
-      ) : (
-        <Footer data={filteredData} />
-      )}
+      {isFooterActive ? (
+        <>
+          {footerRenderer ? (
+            footerRenderer({ total: data.length })
+          ) : (
+            <Footer data={filteredData} />
+          )}
+        </>
+      ) : null}
     </Container>
   );
 };
@@ -199,6 +225,8 @@ List.defaultProps = {
   isSortable: true,
   data: [],
   headers: [],
+  isActionsActive: true,
+  isFooterActive: true,
 };
 
 const Container = styled.div`

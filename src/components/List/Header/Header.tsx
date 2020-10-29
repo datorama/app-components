@@ -39,7 +39,12 @@ function headerRenderer(props: HeaderRendererProps) {
   } = props;
 
   return (
-    <HeaderContainer key={key} style={style} height={rowHeight}>
+    <HeaderContainer
+      key={key}
+      style={style}
+      height={rowHeight}
+      className="list-header-row"
+    >
       {headers.map((header, i) => (
         <HeaderCol
           key={header.dataKey}

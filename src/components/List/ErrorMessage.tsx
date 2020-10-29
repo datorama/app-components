@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 // Assets
-import ErrorImg from '../../assets/error/error-light.svg';
+import image from '../../assets/error/error-light.svg';
 
 const ErrorMessage = () => {
   return (
     <Container>
-      <StyledError />
+      <StyledError src={image} />
       <Title>Oops! Something went wrong</Title>
       <Subtitle>Please try again later</Subtitle>
     </Container>
@@ -25,7 +25,7 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const StyledError = styled(ErrorImg)`
+const StyledError = styled.img`
   width: 300px;
   height: 200px;
 `;

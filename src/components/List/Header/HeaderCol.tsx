@@ -69,7 +69,7 @@ const HeaderCol = (props: Props) => {
   );
 
   return (
-    <Col height={rowHeight} width={width}>
+    <Col height={rowHeight} width={width} className="list-header-col">
       <ClickArea
         onClick={isSortable ? handleSortClick : null}
         height={rowHeight}
