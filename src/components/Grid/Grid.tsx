@@ -239,7 +239,7 @@ const TableContainer = styled.div`
   width: 100%;
   height: 400px;
 
-  .list-highlight {
+  .grid-highlight {
     background: ${({ theme }) => theme.a200};
   }
 `;
