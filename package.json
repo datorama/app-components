@@ -3,6 +3,10 @@
   "version": "0.49.0",
   "description": "Datorama React components library",
   "homepage": "https://app-components.herokuapp.com",
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=6.0.0"
+  },
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "lint": "eslint '*/**/*.{ts,tsx,js,jsx}' --fix",
