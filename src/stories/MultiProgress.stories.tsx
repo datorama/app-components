@@ -5,7 +5,9 @@ import { lightTheme } from '../constants/themes.constants';
 export default {
   title: 'core/MultiProgress',
   component: MultiProgress,
-  argTypes: {},
+  argTypes: {
+    meterColor: { control: 'color' },
+  },
 };
 
 const Template = (args) => <MultiProgress {...args} />;

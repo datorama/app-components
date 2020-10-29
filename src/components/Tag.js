@@ -55,5 +55,6 @@ const Container = styled.div`
     css`
       pointer-events: none;
       color: ${hexToRgba(theme.lightTheme.p300, 50)};
+      background: ${hexToRgba(theme.p300, 10)};
     `};
 `;
