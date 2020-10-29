@@ -10,6 +10,7 @@ interface Props {
 
 const NoResults = (props: Props) => (
   <Container>
+    {/* @ts-ignore */}
     <StyledNoData src={image} />
     <Title>{props.title}</Title>
     <Subtitle>

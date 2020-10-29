@@ -7,6 +7,7 @@ import image from '../../assets/error/error-light.svg';
 const ErrorMessage = () => {
   return (
     <Container>
+      {/* @ts-ignore */}
       <StyledError src={image} />
       <Title>Oops! Something went wrong</Title>
       <Subtitle>Please try again later</Subtitle>
