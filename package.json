@@ -9,6 +9,7 @@
     "lint:debug": "eslint '*/**/*.{ts,tsx,js,jsx}' --color --debug",
     "test": "jest",
     "build": "build-storybook -o public",
+    "publish:package": "cd dist && npm publish",
     "build:package": "rm -rf dist && npx rollup -c",
     "start": "npx http-server ./public"
   },
@@ -56,9 +57,6 @@
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
-  "files": [
-    "dist"
-  ],
   "peerDependencies": {
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
