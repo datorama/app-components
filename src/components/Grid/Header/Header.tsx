@@ -4,7 +4,7 @@ import styled from 'styled-components';
 // Components
 import { AutoSizer, List } from 'react-virtualized';
 import HeaderCol from './HeaderCol';
-import { HeaderCellRenderer, HeadersType, SortDataType } from '../List.types';
+import { HeaderCellRenderer, HeadersType, SortDataType } from '../Grid.types';
 
 interface HeaderRendererProps {
   headers: HeadersType;
@@ -43,7 +43,7 @@ function headerRenderer(props: HeaderRendererProps) {
       key={key}
       style={style}
       height={rowHeight}
-      className="list-header-row"
+      className="grid-header-row"
     >
       {headers.map((header, i) => (
         <HeaderCol

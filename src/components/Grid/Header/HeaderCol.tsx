@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { isBoolean } from 'lodash/fp';
-import { HeaderCellRenderer } from '../List.types';
+import { HeaderCellRenderer } from '../Grid.types';
 
 // Components
 import { Col, Label } from '../common';
@@ -69,7 +69,7 @@ const HeaderCol = (props: Props) => {
   );
 
   return (
-    <Col height={rowHeight} width={width} className="list-header-col">
+    <Col height={rowHeight} width={width} className="grid-header-col">
       <ClickArea
         onClick={isSortable ? handleSortClick : null}
         height={rowHeight}

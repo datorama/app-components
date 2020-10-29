@@ -15,7 +15,7 @@ const Actions = (props: Props) => {
   );
 
   return (
-    <Container className="actions-container">
+    <Container className="grid-actions-container">
       <SearchInput onChange={handleChange} placeholder="Search" />
     </Container>
   );

@@ -13,7 +13,7 @@ import {
   HeaderCellRenderer,
   EmptyStateRenderer,
   ErrorStateRenderer,
-} from './List.types';
+} from './Grid.types';
 import { get, orderBy, isBoolean, unset } from 'lodash/fp';
 
 // Components
@@ -43,7 +43,7 @@ export interface Props {
 }
 
 const search = new JsSearch.Search('rowIndex');
-export const List = (props: Props) => {
+export const Grid = (props: Props) => {
   const {
     data,
     headers,
@@ -189,7 +189,7 @@ export const List = (props: Props) => {
         handleDrag={handleDrag}
         handleDragEnd={handleDragEnd}
       />
-      <TableContainer className="list-container">
+      <TableContainer className="grid-container">
         <Body
           data={filteredData}
           headers={headers}
@@ -220,7 +220,7 @@ export const List = (props: Props) => {
   );
 };
 
-List.defaultProps = {
+Grid.defaultProps = {
   rowHeight: 50,
   isSortable: true,
   data: [],

@@ -1,9 +1,9 @@
 import React from 'react';
-import { List } from '../components/List/List';
+import { Grid } from '../components/Grid/Grid';
 
 export default {
-  title: 'core/List',
-  component: List,
+  title: 'core/Grid',
+  component: Grid,
   argTypes: {
     footerRenderer: { control: 'none' },
     actionsRenderer: { control: 'none' },
@@ -15,7 +15,7 @@ export default {
   },
 };
 
-const Template = (args) => <List {...args} />;
+const Template = (args) => <Grid {...args} />;
 
 const data = [
   {

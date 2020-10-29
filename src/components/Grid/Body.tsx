@@ -7,7 +7,7 @@ import {
   ErrorStateRenderer,
   HeadersType,
   RowRenderer,
-} from './List.types';
+} from './Grid.types';
 import { get } from 'lodash/fp';
 import Highlighter from 'react-highlight-words';
 
@@ -47,20 +47,20 @@ const rowRenderer = (props: RowRendererProps) => {
   } = props;
 
   return (
-    <Row key={key} style={style} className="list-row">
+    <Row key={key} style={style} className="grid-row">
       {headers.map((header, i) => (
         <Col
           key={`${header.dataKey}-${i}`}
           width={parentWidth * ratio[i]}
           height={rowHeight}
-          className="list-col"
+          className="grid-col"
         >
           {cellRenderer ? (
             cellRenderer({ value: get(header.dataKey, data[index]) })
           ) : (
             <Label className="label">
               <Highlighter
-                highlightClassName="list-highlight"
+                highlightClassName="grid-highlight"
                 searchWords={[searchTerm]}
                 autoEscape={true}
                 textToHighlight={`${get(header.dataKey, data[index])}`}

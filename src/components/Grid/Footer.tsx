@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DataArray } from './List.types';
+import { DataArray } from './Grid.types';
 
 interface Props {
   data: DataArray;
