@@ -20,7 +20,7 @@ const Template = (args) => (
 const getDate = (offset: number) => {
   const today = new Date();
 
-  return today.setDate(today.getDate() + offset);
+  return new Date(today.setDate(today.getDate() + offset));
 };
 
 export const Primary = Template.bind({});

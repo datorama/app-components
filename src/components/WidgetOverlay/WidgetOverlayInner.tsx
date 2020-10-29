@@ -25,7 +25,7 @@ const WidgetOverlayInner = (props: Props) => {
   const { isError, isEmpty, width, height, isDark, isLoading } = props;
   const themeMode = isDark ? MODE.DARK : MODE.LIGHT;
 
-  const Illustration = useMemo(() => {
+  const illustration = useMemo(() => {
     if (isEmpty) {
       return ILLUSTRATION[TYPE.NO_DATA][themeMode][getSize(width)];
     }
@@ -67,8 +67,9 @@ const WidgetOverlayInner = (props: Props) => {
 
   return (
     <Container>
-      <Illustration
+      <img
         style={{ width: Math.min(290, width), height: Math.min(190, height) }}
+        src={illustration}
       />
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>

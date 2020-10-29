@@ -7,6 +7,9 @@ export default {
   component: Carousel,
   argTypes: {
     slides: { control: 'none' },
+    bulletBg: { control: 'color' },
+    bulletActiveBg: { control: 'color' },
+    bulletHoverBg: { control: 'color' },
   },
 };
 
