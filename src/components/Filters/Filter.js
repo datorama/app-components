@@ -48,12 +48,16 @@ export const Filter = (props) => {
   const useDropDown = useMemo(
     () =>
       rowData.dimension &&
+      rowData.dimension.length &&
       dimensionsWithDropDowns.includes(get('dimension[0].value', rowData)),
     [rowData, dimensionsWithDropDowns]
   );
 
   const dimensionDropDownOptions = useMemo(
-    () => rowData.dimension && dropDowns[get('dimension[0].value', rowData)],
+    () =>
+      rowData.dimension &&
+      rowData.dimension.length &&
+      dropDowns[get('dimension[0].value', rowData)],
     [rowData, dropDowns]
   );
 
@@ -78,8 +82,10 @@ export const Filter = (props) => {
     (values) => {
       /*** delete the filter value if switching to or from a dimension that has a dropdown instead of free text ***/
       const deleteValue =
-        dimensionsWithDropDowns.includes(values[0].value) ||
-        dimensionsWithDropDowns.includes(prevDimension.current[0].value);
+        values && values.length && prevDimension.current.length
+          ? dimensionsWithDropDowns.includes(values[0].value) ||
+            dimensionsWithDropDowns.includes(prevDimension.current[0].value)
+          : false;
       prevDimension.current = values;
       onChange({ key: 'dimension', value: values, index }, deleteValue);
     },
