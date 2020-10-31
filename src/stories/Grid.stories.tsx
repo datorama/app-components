@@ -12,6 +12,7 @@ export default {
     headerCellRenderer: { control: 'none' },
     emptyStateRenderer: { control: 'none' },
     errorStateRenderer: { control: 'none' },
+    onSort: { control: 'none' },
   },
 };
 
@@ -54,4 +55,5 @@ export const Primary = Template.bind({});
 Primary.args = {
   data,
   headers,
+  onSort: null,
 };

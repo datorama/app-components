@@ -13,6 +13,7 @@ import {
   HeaderCellRenderer,
   EmptyStateRenderer,
   ErrorStateRenderer,
+  SortParams,
 } from './Grid.types';
 import { get, orderBy, isBoolean, unset } from 'lodash/fp';
 
@@ -40,6 +41,7 @@ export interface Props {
   errorStateRenderer?: ErrorStateRenderer;
   onReachedEnd?: () => void;
   isBottomLoaderActive?: boolean;
+  onSort?: (params: SortParams) => void;
 }
 
 const search = new JsSearch.Search('rowIndex');
@@ -61,6 +63,7 @@ export const Grid = (props: Props) => {
     errorStateRenderer,
     onReachedEnd,
     isBottomLoaderActive,
+    onSort,
   } = props;
   const [scroll, setScroll] = useState({ scrollTop: 0 });
   const [sortData, setSortData] = useState<SortDataType>({});
@@ -113,10 +116,16 @@ export const Grid = (props: Props) => {
       }
     }
 
-    result = orderBy(sortKeys, sortOrder, result);
+    if (onSort) {
+      onSort(sortKeys.map((key, j) => ({ [key]: sortOrder[j] })));
+    }
+
+    if (!onSort) {
+      result = orderBy(sortKeys, sortOrder, result);
+    }
 
     setFilteredData(result);
-  }, [localData, searchTerm, sortData, search, isActionsActive]);
+  }, [localData, searchTerm, sortData, search, isActionsActive, onSort]);
 
   const handleSortClick = useCallback((dataKey) => {
     setSortData((prevSortData) => {

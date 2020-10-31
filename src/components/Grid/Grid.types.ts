@@ -48,3 +48,7 @@ export type EmptyStateRenderer = ({
 }) => ReactElement | null;
 
 export type ErrorStateRenderer = () => ReactElement | null;
+
+type SortParam = Record<string, 'asc' | 'desc'>;
+
+export type SortParams = SortParam[];
