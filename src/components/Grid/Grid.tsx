@@ -72,26 +72,31 @@ export const Grid = (props: Props) => {
 
   useEffect(() => {
     // set search indexes
-    for (let i = 0; i < headers.length; i++) {
-      search.addIndex(get('dataKey', headers[i]));
+    if (isActionsActive) {
+      for (let i = 0; i < headers.length; i++) {
+        search.addIndex(get('dataKey', headers[i]));
+      }
     }
+
     setDeltas(headers.map(() => 0));
     setRatio(headers.map(() => 1 / headers.length));
-  }, [headers, search]);
+  }, [headers, search, isActionsActive]);
 
   useEffect(() => {
-    // set search documents
     const extended = data.map((obj, rowIndex) => ({ ...obj, rowIndex }));
 
+    // set search documents
+    if (isActionsActive) {
+      search.addDocuments(extended);
+    }
     setLocalData(extended);
-    search.addDocuments(extended);
   }, [data]);
 
   useEffect(() => {
     let result = localData;
 
     // filter search results
-    if (searchTerm) {
+    if (searchTerm && isActionsActive) {
       result = search.search(searchTerm);
     }
 
@@ -111,7 +116,7 @@ export const Grid = (props: Props) => {
     result = orderBy(sortKeys, sortOrder, result);
 
     setFilteredData(result);
-  }, [localData, searchTerm, sortData, search]);
+  }, [localData, searchTerm, sortData, search, isActionsActive]);
 
   const handleSortClick = useCallback((dataKey) => {
     setSortData((prevSortData) => {

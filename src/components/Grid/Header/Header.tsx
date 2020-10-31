@@ -143,10 +143,10 @@ const Container = styled.div<{ isActive: boolean; height: number }>`
     isActive &&
     `
     box-shadow:
-      0 1.3px 1.2px -5px rgba(0, 0, 0, 0.024),
-      0 3.6px 3.3px -5px rgba(0, 0, 0, 0.035),
-      0 8.7px 7.8px -5px rgba(0, 0, 0, 0.046),
-      0 29px 26px -5px rgba(0, 0, 0, 0.07);
+      0 3.4px 2.4px rgba(0, 0, 0, 0.014),
+      0 9.5px 6.8px rgba(0, 0, 0, 0.02),
+      0 22.9px 16.3px rgba(0, 0, 0, 0.026),
+      0 76px 54px rgba(0, 0, 0, 0.04);
   `};
 `;
 
