@@ -43,6 +43,7 @@ npm run lint
 ``` 
 
 In your pull request bump the package version (`minor`, `major` or `patch`) by running:
+Add your release notes with the next version to the notes page. 
 
 ```bash
 npm version **** 
