@@ -17,7 +17,14 @@ interface Props {
 }
 
 export const Interaction = (props: Props) => {
-  const { width, height, data, strokeColor, strokeWidth, tooltipRenderer } = props;
+  const {
+    width,
+    height,
+    data,
+    strokeColor,
+    strokeWidth,
+    tooltipRenderer,
+  } = props;
   const min = minBy((d) => d.y, data);
   const max = maxBy((d) => d.y, data);
   const padding = 20;
@@ -33,7 +40,7 @@ export const Interaction = (props: Props) => {
   const handleMouseMove = useCallback(
     (e) => {
       const rect = e.target.getBoundingClientRect();
-      const step = width / data.length;
+      const step = (width - 2 * padding) / (data.length - 1);
       const index = Math.min(
         Math.round((e.clientX - rect.left) / step),
         data.length - 1
