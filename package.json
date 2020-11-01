@@ -1,6 +1,6 @@
 {
   "name": "@datorama/app-components",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Datorama React components library",
   "homepage": "https://app-components.herokuapp.com",
   "engines": {
@@ -30,6 +30,7 @@
     "@storybook/react": "^6.0.26",
     "@storybook/theming": "^6.0.26",
     "@svgr/rollup": "^5.4.0",
+    "@types/d3-scale": "^3.2.0",
     "@types/d3-shape": "^2.0.0",
     "@types/js-search": "^1.4.0",
     "@types/lodash": "^4.14.162",
@@ -75,7 +76,8 @@
     "js-search": "2.0.0",
     "react-highlight-words": "0.16.0",
     "react-virtualized": "9.22.2",
-    "warpjs": "1.0.8"
+    "warpjs": "1.0.8",
+    "d3-scale": "^3.2.3"
   },
   "publishConfig": {
     "access": "public"

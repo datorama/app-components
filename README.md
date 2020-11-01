@@ -2,7 +2,6 @@
 
 > Datorama React components library
 
-![Size](https://img.badgesize.io/datorama/app-components/master/dist/index.js?compression=gzip&label=Size%20(gzip)&color=blue)
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/datorama/app-components.svg)
 ![GitHub issues](https://img.shields.io/github/issues-raw/datorama/app-components.svg)
 ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/datorama/app-components/dev/react.svg)
@@ -44,6 +43,7 @@ npm run lint
 ``` 
 
 In your pull request bump the package version (`minor`, `major` or `patch`) by running:
+Add your release notes with the next version to the notes page. 
 
 ```bash
 npm version **** 
