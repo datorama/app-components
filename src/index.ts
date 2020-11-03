@@ -4,6 +4,7 @@ import * as layout from './constants/layout.constants';
 // UTILS
 export {
   hexToRgba,
+  resolutionQueryPresets,
   shadeColor,
   extendTheme,
   hexToPalette,
