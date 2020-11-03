@@ -66,3 +66,4 @@ Alternatively, you can go to the dist folder and run `npm publish`.
 ## Importing images
 
 With the current Rollup loader all images are loaded as components!
+
