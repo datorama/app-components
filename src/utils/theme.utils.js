@@ -94,6 +94,22 @@ export const getColors = (hex, arr, dark, prefix) => {
   return result;
 };
 
+const breakpoints = {
+  xSmall: { width: 1280, height: 800 },
+  small: { width: 1366, height: 768 },
+  medium: { width: 1400, height: 900 },
+  large: { width: 1920, height: 1080 },
+  xLarge: { width: 2560, height: 1440 },
+};
+
+export const resolutionQueryPresets = {
+  xsScreen: `screen and (min-width: ${breakpoints.xSmall.width}px) and (min-height: ${breakpoints.xSmall.height}px)`,
+  sScreen: `screen and (min-width: ${breakpoints.small.width}px) and (min-height: ${breakpoints.small.height}px)`,
+  mScreen: `screen and (min-width: ${breakpoints.medium.width}px) and (min-height: ${breakpoints.medium.height}px)`,
+  lScreen: `screen and (min-width: ${breakpoints.large.width}px) and (min-height: ${breakpoints.large.height}px)`,
+  xlScreen: `screen and (min-width: ${breakpoints.xLarge.width}px) and (min-height: ${breakpoints.xLarge.height}px)`,
+}
+
 export const extendTheme = (theme, options) => {
   let newTheme = theme;
 
@@ -153,6 +169,7 @@ export const extendTheme = (theme, options) => {
   }
 
   newTheme.scale = scale;
+  newTheme.breakpoints = breakpoints;
 
   // scale size
   newTheme.size = {
