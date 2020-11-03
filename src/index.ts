@@ -85,3 +85,4 @@ export { Droppable } from './components/Droppable';
 export { DragDropProvider } from './components/DragDropProvider';
 export { withToast, withSnackbar, ToastsProvider } from './components/Toasts';
 export { Table } from './components/Table';
+export { BasicLine } from './components/BasicLine/BasicLine';
