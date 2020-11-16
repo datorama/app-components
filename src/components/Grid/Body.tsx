@@ -30,6 +30,7 @@ export interface RowRendererProps {
   rowHeight: number;
   searchTerm: string;
   cellRenderer?: CellRenderer;
+  columnWidth?: number;
 }
 
 const rowRenderer = (props: RowRendererProps) => {
@@ -44,31 +45,36 @@ const rowRenderer = (props: RowRendererProps) => {
     rowHeight,
     searchTerm,
     cellRenderer,
+    columnWidth,
   } = props;
 
   return (
     <Row key={key} style={style} className="grid-row">
-      {headers.map((header, i) => (
-        <Col
-          key={`${header.dataKey}-${i}`}
-          width={parentWidth * ratio[i]}
-          height={rowHeight}
-          className="grid-col"
-        >
-          {cellRenderer ? (
-            cellRenderer({ value: get(header.dataKey, data[index]) })
-          ) : (
-            <Label className="label">
-              <Highlighter
-                highlightClassName="grid-highlight"
-                searchWords={[searchTerm]}
-                autoEscape={true}
-                textToHighlight={`${get(header.dataKey, data[index])}`}
-              />
-            </Label>
-          )}
-        </Col>
-      ))}
+      {headers.map((header, i) => {
+        const width = !!columnWidth ? columnWidth : parentWidth * ratio[i];
+
+        return (
+          <Col
+            key={`${header.dataKey}-${i}`}
+            width={width}
+            height={rowHeight}
+            className="grid-col"
+          >
+            {cellRenderer ? (
+              cellRenderer({ value: get(header.dataKey, data[index]) })
+            ) : (
+              <Label className="label">
+                <Highlighter
+                  highlightClassName="grid-highlight"
+                  searchWords={[searchTerm]}
+                  autoEscape={true}
+                  textToHighlight={`${get(header.dataKey, data[index])}`}
+                />
+              </Label>
+            )}
+          </Col>
+        );
+      })}
     </Row>
   );
 };
@@ -88,6 +94,7 @@ interface TableBodyProps {
   errorStateRenderer?: ErrorStateRenderer;
   onReachedEnd?: () => void;
   isBottomLoaderActive?: boolean;
+  width?: number;
 }
 
 const Body = (props: TableBodyProps) => {
@@ -105,6 +112,7 @@ const Body = (props: TableBodyProps) => {
     errorStateRenderer,
     onReachedEnd,
     isBottomLoaderActive,
+    width: columnWidth,
   } = props;
   const rendererExtensions = {
     ratio,
@@ -113,6 +121,7 @@ const Body = (props: TableBodyProps) => {
     rowHeight,
     searchTerm,
     cellRenderer,
+    columnWidth,
   };
 
   const handleOnRowsRendered = useCallback(

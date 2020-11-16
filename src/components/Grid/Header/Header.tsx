@@ -21,6 +21,7 @@ interface HeaderRendererProps {
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
   isResizeable: boolean;
+  columnWidth?: number;
 }
 
 function headerRenderer(props: HeaderRendererProps) {
@@ -38,6 +39,7 @@ function headerRenderer(props: HeaderRendererProps) {
     handleDragEnd,
     deltas,
     isResizeable,
+    columnWidth,
   } = props;
 
   return (
@@ -51,6 +53,9 @@ function headerRenderer(props: HeaderRendererProps) {
         const isColumnResizeable = isResizeable
           ? i !== headers.length - 1
           : false;
+        const width = !!columnWidth
+          ? columnWidth
+          : parentWidth * (ratio[i] + deltas[i]);
 
         return (
           <HeaderCol
@@ -68,7 +73,7 @@ function headerRenderer(props: HeaderRendererProps) {
             headerCellRenderer={headerCellRenderer}
             onDrag={handleDrag}
             onDragEnd={handleDragEnd}
-            width={parentWidth * (ratio[i] + deltas[i])}
+            width={width}
           />
         );
       })}
@@ -88,6 +93,7 @@ interface TableHeaderProps {
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
   isResizeable: boolean;
+  width?: number;
 }
 
 const Header = (props: TableHeaderProps) => {
@@ -103,6 +109,7 @@ const Header = (props: TableHeaderProps) => {
     handleDragEnd,
     deltas,
     isResizeable,
+    width: columnWidth,
   } = props;
 
   const rendererExtensions = {
@@ -116,27 +123,30 @@ const Header = (props: TableHeaderProps) => {
     handleDragEnd,
     deltas,
     isResizeable,
+    columnWidth,
   };
 
   return (
     <Container isActive={scrollTop > 0} height={rowHeight}>
       <AutoSizer>
-        {({ width }) => (
-          <List
-            style={{ outline: 'none' }}
-            height={rowHeight}
-            rowCount={1}
-            rowHeight={rowHeight}
-            rowRenderer={(headerProps) =>
-              headerRenderer({
-                ...headerProps,
-                parentWidth: width,
-                ...rendererExtensions,
-              })
-            }
-            width={width}
-          />
-        )}
+        {({ width }) => {
+          return (
+            <List
+              style={{ outline: 'none' }}
+              height={rowHeight}
+              rowCount={1}
+              rowHeight={rowHeight}
+              rowRenderer={(headerProps) =>
+                headerRenderer({
+                  ...headerProps,
+                  parentWidth: width,
+                  ...rendererExtensions,
+                })
+              }
+              width={width}
+            />
+          );
+        }}
       </AutoSizer>
     </Container>
   );
