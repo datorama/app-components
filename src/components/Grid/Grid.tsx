@@ -42,6 +42,7 @@ export interface Props {
   onReachedEnd?: () => void;
   isBottomLoaderActive?: boolean;
   onSort?: (params: SortParams) => void;
+  isResizeable: boolean;
 }
 
 const search = new JsSearch.Search('rowIndex');
@@ -64,6 +65,7 @@ export const Grid = (props: Props) => {
     onReachedEnd,
     isBottomLoaderActive,
     onSort,
+    isResizeable,
   } = props;
   const [scroll, setScroll] = useState({ scrollTop: 0 });
   const [sortData, setSortData] = useState<SortDataType>({});
@@ -202,6 +204,7 @@ export const Grid = (props: Props) => {
         deltas={deltas}
         handleDrag={handleDrag}
         handleDragEnd={handleDragEnd}
+        isResizeable={isResizeable}
       />
       <TableContainer className="grid-container">
         <Body
@@ -241,6 +244,7 @@ Grid.defaultProps = {
   headers: [],
   isActionsActive: true,
   isFooterActive: true,
+  isResizeable: true,
 };
 
 const Container = styled.div`
