@@ -123,7 +123,11 @@ const Header = (props: TableHeaderProps) => {
   };
 
   return (
-    <Container isActive={scrollTop > 0} height={rowHeight}>
+    <Container
+      isActive={scrollTop > 0}
+      height={rowHeight}
+      className="grid-header-container"
+    >
       <AutoSizer>
         {({ width }) => {
           return (
