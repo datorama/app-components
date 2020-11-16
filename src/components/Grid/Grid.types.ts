@@ -7,6 +7,7 @@ interface Header {
   label: string;
   dataKey: string;
   isSortable?: boolean;
+  width?: number;
 }
 
 export type HeadersType = Header[];

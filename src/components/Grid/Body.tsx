@@ -8,7 +8,7 @@ import {
   HeadersType,
   RowRenderer,
 } from './Grid.types';
-import { get } from 'lodash/fp';
+import { get, has } from 'lodash/fp';
 import Highlighter from 'react-highlight-words';
 
 // Components
@@ -30,7 +30,6 @@ export interface RowRendererProps {
   rowHeight: number;
   searchTerm: string;
   cellRenderer?: CellRenderer;
-  columnWidth?: number;
 }
 
 const rowRenderer = (props: RowRendererProps) => {
@@ -45,13 +44,14 @@ const rowRenderer = (props: RowRendererProps) => {
     rowHeight,
     searchTerm,
     cellRenderer,
-    columnWidth,
   } = props;
 
   return (
     <Row key={key} style={style} className="grid-row">
       {headers.map((header, i) => {
-        const width = !!columnWidth ? columnWidth : parentWidth * ratio[i];
+        const width = has('width', header)
+          ? header.width
+          : parentWidth * ratio[i];
 
         return (
           <Col
@@ -112,7 +112,6 @@ const Body = (props: TableBodyProps) => {
     errorStateRenderer,
     onReachedEnd,
     isBottomLoaderActive,
-    width: columnWidth,
   } = props;
   const rendererExtensions = {
     ratio,
@@ -121,7 +120,6 @@ const Body = (props: TableBodyProps) => {
     rowHeight,
     searchTerm,
     cellRenderer,
-    columnWidth,
   };
 
   const handleOnRowsRendered = useCallback(

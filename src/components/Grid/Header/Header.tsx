@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { has } from 'lodash/fp';
 
 // Components
 import { AutoSizer, List } from 'react-virtualized';
@@ -21,7 +22,6 @@ interface HeaderRendererProps {
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
   isResizable?: boolean;
-  columnWidth?: number;
 }
 
 function headerRenderer(props: HeaderRendererProps) {
@@ -39,7 +39,6 @@ function headerRenderer(props: HeaderRendererProps) {
     handleDragEnd,
     deltas,
     isResizable,
-    columnWidth,
   } = props;
 
   return (
@@ -53,8 +52,8 @@ function headerRenderer(props: HeaderRendererProps) {
         const isColumnResizeable = isResizable
           ? i !== headers.length - 1
           : false;
-        const width = !!columnWidth
-          ? columnWidth
+        const width = has('width', header)
+          ? header.width
           : parentWidth * (ratio[i] + deltas[i]);
 
         return (
@@ -93,7 +92,6 @@ interface TableHeaderProps {
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
   isResizable?: boolean;
-  width?: number;
 }
 
 const Header = (props: TableHeaderProps) => {
@@ -109,7 +107,6 @@ const Header = (props: TableHeaderProps) => {
     handleDragEnd,
     deltas,
     isResizable,
-    width: columnWidth,
   } = props;
 
   const rendererExtensions = {
@@ -123,7 +120,6 @@ const Header = (props: TableHeaderProps) => {
     handleDragEnd,
     deltas,
     isResizable,
-    columnWidth,
   };
 
   return (
