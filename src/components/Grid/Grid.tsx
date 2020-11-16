@@ -42,7 +42,7 @@ export interface Props {
   onReachedEnd?: () => void;
   isBottomLoaderActive?: boolean;
   onSort?: (params: SortParams) => void;
-  isResizable: boolean;
+  isResizable?: boolean;
   width?: number;
 }
 
