@@ -16,7 +16,7 @@ interface Props {
   index: number;
   label: string;
   isSortable?: boolean;
-  isResizeable: boolean;
+  isResizable: boolean;
   rowHeight: number;
   dataKey: string;
   onSortClick: (key: string) => void;
@@ -38,7 +38,7 @@ const HeaderCol = (props: Props) => {
     ratio,
     index,
     label,
-    isResizeable,
+    isResizable,
     rowHeight,
     isSortable,
     onSortClick,
@@ -86,7 +86,7 @@ const HeaderCol = (props: Props) => {
         ) : null}
       </ClickArea>
 
-      {isResizeable ? (
+      {isResizable ? (
         <Handle onDrag={handleDrag} onDragEnd={handleDragEnd} />
       ) : null}
     </Col>

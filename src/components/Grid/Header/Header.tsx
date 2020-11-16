@@ -20,7 +20,7 @@ interface HeaderRendererProps {
   deltas: number[];
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
-  isResizeable: boolean;
+  isResizable: boolean;
   columnWidth?: number;
 }
 
@@ -38,7 +38,7 @@ function headerRenderer(props: HeaderRendererProps) {
     handleDrag,
     handleDragEnd,
     deltas,
-    isResizeable,
+    isResizable,
     columnWidth,
   } = props;
 
@@ -50,7 +50,7 @@ function headerRenderer(props: HeaderRendererProps) {
       className="grid-header-row"
     >
       {headers.map((header, i) => {
-        const isColumnResizeable = isResizeable
+        const isColumnResizeable = isResizable
           ? i !== headers.length - 1
           : false;
         const width = !!columnWidth
@@ -65,7 +65,7 @@ function headerRenderer(props: HeaderRendererProps) {
             ratio={ratio}
             label={header.label}
             isSortable={header.isSortable}
-            isResizeable={isColumnResizeable}
+            isResizable={isColumnResizeable}
             rowHeight={rowHeight}
             dataKey={header.dataKey}
             onSortClick={onSortClick}
@@ -92,7 +92,7 @@ interface TableHeaderProps {
   deltas: number[];
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
-  isResizeable: boolean;
+  isResizable: boolean;
   width?: number;
 }
 
@@ -108,7 +108,7 @@ const Header = (props: TableHeaderProps) => {
     handleDrag,
     handleDragEnd,
     deltas,
-    isResizeable,
+    isResizable,
     width: columnWidth,
   } = props;
 
@@ -122,7 +122,7 @@ const Header = (props: TableHeaderProps) => {
     handleDrag,
     handleDragEnd,
     deltas,
-    isResizeable,
+    isResizable,
     columnWidth,
   };
 

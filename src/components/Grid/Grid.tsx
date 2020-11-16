@@ -42,7 +42,7 @@ export interface Props {
   onReachedEnd?: () => void;
   isBottomLoaderActive?: boolean;
   onSort?: (params: SortParams) => void;
-  isResizeable: boolean;
+  isResizable: boolean;
   width?: number;
 }
 
@@ -66,7 +66,7 @@ export const Grid = (props: Props) => {
     onReachedEnd,
     isBottomLoaderActive,
     onSort,
-    isResizeable,
+    isResizable,
     width,
   } = props;
   const [scroll, setScroll] = useState({ scrollTop: 0 });
@@ -206,7 +206,7 @@ export const Grid = (props: Props) => {
         deltas={deltas}
         handleDrag={handleDrag}
         handleDragEnd={handleDragEnd}
-        isResizeable={isResizeable}
+        isResizable={isResizable}
         width={width}
       />
       <TableContainer className="grid-container">
@@ -248,7 +248,7 @@ Grid.defaultProps = {
   headers: [],
   isActionsActive: true,
   isFooterActive: true,
-  isResizeable: true,
+  isResizable: true,
 };
 
 const Container = styled.div`
