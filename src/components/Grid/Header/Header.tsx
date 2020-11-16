@@ -20,7 +20,7 @@ interface HeaderRendererProps {
   deltas: number[];
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
-  isResizable: boolean;
+  isResizable?: boolean;
   columnWidth?: number;
 }
 
@@ -92,7 +92,7 @@ interface TableHeaderProps {
   deltas: number[];
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
-  isResizable: boolean;
+  isResizable?: boolean;
   width?: number;
 }
 

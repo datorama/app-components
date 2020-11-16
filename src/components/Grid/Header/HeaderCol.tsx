@@ -16,7 +16,7 @@ interface Props {
   index: number;
   label: string;
   isSortable?: boolean;
-  isResizable: boolean;
+  isResizable?: boolean;
   rowHeight: number;
   dataKey: string;
   onSortClick: (key: string) => void;
