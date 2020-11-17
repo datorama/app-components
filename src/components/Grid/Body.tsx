@@ -94,7 +94,6 @@ interface TableBodyProps {
   errorStateRenderer?: ErrorStateRenderer;
   onReachedEnd?: () => void;
   isBottomLoaderActive?: boolean;
-  width?: number;
 }
 
 const Body = (props: TableBodyProps) => {
