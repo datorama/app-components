@@ -129,24 +129,22 @@ const Header = (props: TableHeaderProps) => {
       className="grid-header-container"
     >
       <AutoSizer>
-        {({ width }) => {
-          return (
-            <List
-              style={{ outline: 'none' }}
-              height={rowHeight}
-              rowCount={1}
-              rowHeight={rowHeight}
-              rowRenderer={(headerProps) =>
-                headerRenderer({
-                  ...headerProps,
-                  parentWidth: width,
-                  ...rendererExtensions,
-                })
-              }
-              width={width}
-            />
-          );
-        }}
+        {({ width }) => (
+          <List
+            style={{ outline: 'none' }}
+            height={rowHeight}
+            rowCount={1}
+            rowHeight={rowHeight}
+            rowRenderer={(headerProps) =>
+              headerRenderer({
+                ...headerProps,
+                parentWidth: width,
+                ...rendererExtensions,
+              })
+            }
+            width={width}
+          />
+        )}
       </AutoSizer>
     </Container>
   );
