@@ -61,7 +61,10 @@ const rowRenderer = (props: RowRendererProps) => {
             className="grid-col"
           >
             {cellRenderer ? (
-              cellRenderer({ value: get(header.dataKey, data[index]) })
+              cellRenderer({
+                key: header.dataKey,
+                value: get(header.dataKey, data[index]),
+              })
             ) : (
               <Label className="label">
                 <Highlighter

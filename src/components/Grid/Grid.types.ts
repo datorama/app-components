@@ -31,8 +31,10 @@ export type ActionsRenderer = ({
 export type RowRenderer = (params: RowRendererProps) => ReactElement | null;
 
 export type CellRenderer = ({
+  key,
   value,
 }: {
+  key: string | number;
   value: string | number;
 }) => ReactElement | null;
 
