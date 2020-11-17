@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { has } from 'lodash/fp';
 
 // Components
 import { AutoSizer, List } from 'react-virtualized';
@@ -20,6 +21,7 @@ interface HeaderRendererProps {
   deltas: number[];
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
+  isResizable?: boolean;
 }
 
 function headerRenderer(props: HeaderRendererProps) {
@@ -36,6 +38,7 @@ function headerRenderer(props: HeaderRendererProps) {
     handleDrag,
     handleDragEnd,
     deltas,
+    isResizable,
   } = props;
 
   return (
@@ -45,25 +48,34 @@ function headerRenderer(props: HeaderRendererProps) {
       height={rowHeight}
       className="grid-header-row"
     >
-      {headers.map((header, i) => (
-        <HeaderCol
-          key={header.dataKey}
-          index={i}
-          parentWidth={parentWidth}
-          ratio={ratio}
-          label={header.label}
-          isSortable={header.isSortable}
-          isResizeable={i !== headers.length - 1}
-          rowHeight={rowHeight}
-          dataKey={header.dataKey}
-          onSortClick={onSortClick}
-          sortAscending={sortData[header.dataKey]}
-          headerCellRenderer={headerCellRenderer}
-          onDrag={handleDrag}
-          onDragEnd={handleDragEnd}
-          width={parentWidth * (ratio[i] + deltas[i])}
-        />
-      ))}
+      {headers.map((header, i) => {
+        const isColumnResizeable = isResizable
+          ? i !== headers.length - 1
+          : false;
+        const width = has('width', header)
+          ? header.width
+          : parentWidth * (ratio[i] + deltas[i]);
+
+        return (
+          <HeaderCol
+            key={header.dataKey}
+            index={i}
+            parentWidth={parentWidth}
+            ratio={ratio}
+            label={header.label}
+            isSortable={header.isSortable}
+            isResizable={isColumnResizeable}
+            rowHeight={rowHeight}
+            dataKey={header.dataKey}
+            onSortClick={onSortClick}
+            sortAscending={sortData[header.dataKey]}
+            headerCellRenderer={headerCellRenderer}
+            onDrag={handleDrag}
+            onDragEnd={handleDragEnd}
+            width={width}
+          />
+        );
+      })}
     </HeaderContainer>
   );
 }
@@ -79,6 +91,7 @@ interface TableHeaderProps {
   deltas: number[];
   handleDrag: (e, i: number, ratio: number[], parentWidth: number) => void;
   handleDragEnd: (e, i: number, parentWidth: number) => void;
+  isResizable?: boolean;
 }
 
 const Header = (props: TableHeaderProps) => {
@@ -93,6 +106,7 @@ const Header = (props: TableHeaderProps) => {
     handleDrag,
     handleDragEnd,
     deltas,
+    isResizable,
   } = props;
 
   const rendererExtensions = {
@@ -105,10 +119,15 @@ const Header = (props: TableHeaderProps) => {
     handleDrag,
     handleDragEnd,
     deltas,
+    isResizable,
   };
 
   return (
-    <Container isActive={scrollTop > 0} height={rowHeight}>
+    <Container
+      isActive={scrollTop > 0}
+      height={rowHeight}
+      className="grid-header-container"
+    >
       <AutoSizer>
         {({ width }) => (
           <List

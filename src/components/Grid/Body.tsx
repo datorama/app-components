@@ -8,7 +8,7 @@ import {
   HeadersType,
   RowRenderer,
 } from './Grid.types';
-import { get } from 'lodash/fp';
+import { get, has } from 'lodash/fp';
 import Highlighter from 'react-highlight-words';
 
 // Components
@@ -48,27 +48,33 @@ const rowRenderer = (props: RowRendererProps) => {
 
   return (
     <Row key={key} style={style} className="grid-row">
-      {headers.map((header, i) => (
-        <Col
-          key={`${header.dataKey}-${i}`}
-          width={parentWidth * ratio[i]}
-          height={rowHeight}
-          className="grid-col"
-        >
-          {cellRenderer ? (
-            cellRenderer({ value: get(header.dataKey, data[index]) })
-          ) : (
-            <Label className="label">
-              <Highlighter
-                highlightClassName="grid-highlight"
-                searchWords={[searchTerm]}
-                autoEscape={true}
-                textToHighlight={`${get(header.dataKey, data[index])}`}
-              />
-            </Label>
-          )}
-        </Col>
-      ))}
+      {headers.map((header, i) => {
+        const width = has('width', header)
+          ? header.width
+          : parentWidth * ratio[i];
+
+        return (
+          <Col
+            key={`${header.dataKey}-${i}`}
+            width={width}
+            height={rowHeight}
+            className="grid-col"
+          >
+            {cellRenderer ? (
+              cellRenderer({ value: get(header.dataKey, data[index]) })
+            ) : (
+              <Label className="label">
+                <Highlighter
+                  highlightClassName="grid-highlight"
+                  searchWords={[searchTerm]}
+                  autoEscape={true}
+                  textToHighlight={`${get(header.dataKey, data[index])}`}
+                />
+              </Label>
+            )}
+          </Col>
+        );
+      })}
     </Row>
   );
 };
