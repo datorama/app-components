@@ -14,6 +14,7 @@ interface Props {
   strokeWidth?: number;
   strokeColor?: string;
   tooltipRenderer?: (point: Record<string, any>) => ReactElement | null;
+  chartRect: DOMRect;
 }
 
 export const Interaction = (props: Props) => {
@@ -24,6 +25,7 @@ export const Interaction = (props: Props) => {
     strokeColor,
     strokeWidth,
     tooltipRenderer,
+    chartRect
   } = props;
   const min = minBy((d) => d.y, data);
   const max = maxBy((d) => d.y, data);
@@ -102,7 +104,7 @@ export const Interaction = (props: Props) => {
             strokeColor="#fff"
             fill={hexToRgba(strokeColor || lightTheme.a400, 60)}
           />
-          <ChartTooltip top={tipPos.top} left={tipPos.left}>
+          <ChartTooltip top={tipPos.top} left={tipPos.left} chartRect={chartRect}>
             {tooltipRenderer ? tooltipRenderer(data[hovered]) : data[hovered].y}
           </ChartTooltip>
         </g>
