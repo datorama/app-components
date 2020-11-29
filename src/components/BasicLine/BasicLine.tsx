@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { AutoSizer } from 'react-virtualized';
@@ -15,39 +15,51 @@ export interface Props {
   tooltipRenderer?: (point: Record<string, any>) => ReactElement | null;
 }
 
-export const BasicLine = (props: Props) => (
-  <AutoSizer>
-    {({ width, height }) => (
-      <Svg width={width} height={height}>
-        {props.data.length ? (
-          <>
-            <Area
-              width={width}
-              height={height}
-              data={props.data}
-              fillColor={props.fillColor}
-            />
-            <Line
-              width={width}
-              height={height}
-              data={props.data}
-              strokeColor={props.strokeColor}
-              strokeWidth={props.strokeWidth}
-            />
-            <Interaction
-              width={width}
-              height={height}
-              data={props.data}
-              strokeColor={props.strokeColor}
-              strokeWidth={props.strokeWidth}
-              tooltipRenderer={props.tooltipRenderer}
-            />
-          </>
-        ) : null}
-      </Svg>
-    )}
-  </AutoSizer>
-);
+export const BasicLine = (props: Props) => {
+  const [rect, setRect] = useState({});
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (ref && ref.current) {
+      setRect(ref.current.getBoundingClientRect());
+    }
+  }, [ref]);
+
+  return (
+    <AutoSizer>
+      {({ width, height }) => (
+        <Svg width={width} height={height} ref={ref}>
+          {props.data.length ? (
+            <>
+              <Area
+                width={width}
+                height={height}
+                data={props.data}
+                fillColor={props.fillColor}
+              />
+              <Line
+                width={width}
+                height={height}
+                data={props.data}
+                strokeColor={props.strokeColor}
+                strokeWidth={props.strokeWidth}
+              />
+              <Interaction
+                width={width}
+                height={height}
+                data={props.data}
+                strokeColor={props.strokeColor}
+                strokeWidth={props.strokeWidth}
+                tooltipRenderer={props.tooltipRenderer}
+                chartRect={rect}
+              />
+            </>
+          ) : null}
+        </Svg>
+      )}
+    </AutoSizer>
+  );
+};
 
 BasicLine.defaultProps = {
   data: [],
