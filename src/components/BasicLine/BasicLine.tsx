@@ -16,7 +16,7 @@ export interface Props {
 }
 
 export const BasicLine = (props: Props) => {
-  const [rect, setRect] = useState({});
+  const [rect, setRect] = useState(null);
   const ref = useRef(null);
 
   useEffect(() => {
