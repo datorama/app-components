@@ -33,9 +33,11 @@ export type RowRenderer = (params: RowRendererProps) => ReactElement | null;
 export type CellRenderer = ({
   key,
   value,
+  rowIndex,
 }: {
   key: string | number;
   value: string | number;
+  rowIndex: number;
 }) => ReactElement | null;
 
 export type HeaderCellRenderer = ({
