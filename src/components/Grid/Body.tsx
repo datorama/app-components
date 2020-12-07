@@ -62,6 +62,7 @@ const rowRenderer = (props: RowRendererProps) => {
           >
             {cellRenderer ? (
               cellRenderer({
+                rowIndex: index,
                 key: header.dataKey,
                 value: get(header.dataKey, data[index]),
               })
