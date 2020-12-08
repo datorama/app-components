@@ -45,7 +45,7 @@ export interface Props {
   isResizable?: boolean;
 }
 
-const search = new JsSearch.Search('rowIndex');
+let search = new JsSearch.Search('rowIndex');
 export const Grid = (props: Props) => {
   const {
     data,
@@ -76,6 +76,10 @@ export const Grid = (props: Props) => {
   const [deltas, setDeltas] = useState([]); // change while dragging. in percent
 
   useEffect(() => {
+    search = new JsSearch.Search('rowIndex');
+  }, [headers, data]);
+
+  useEffect(() => {
     // set search indexes
     if (isActionsActive) {
       for (let i = 0; i < headers.length; i++) {
@@ -92,6 +96,7 @@ export const Grid = (props: Props) => {
 
     // set search documents
     if (isActionsActive) {
+      (window as any).foo = search;
       search.addDocuments(extended);
     }
     setLocalData(extended);
