@@ -19,14 +19,14 @@ npm i --save @datorama/app-components
 yarn add @datorama/app-components
 ````
 
-Add the theme context:
+Add the theme and custom color prefixes contexts (the latter is optional, but needed for branding svgs if the theme includes custom colors - see the [global styles page](/story/utils-global-styles--page?path=/story/utils-global-styles--page)):
 
 ````javascript
 import { AppTheme, lightTheme } from '@datorama/app-components';
 import { ThemeProvider } from 'styled-components';
 
 const App = () => (
-  <AppTheme theme={lightTheme} provider={ThemeProvider}>
+  <AppTheme theme={lightTheme} provider={ThemeProvider} customColorPrefixes={["c1", "c2", "c3"]}>
    { /* your app goes here*/ }
   </AppTheme>
 );
