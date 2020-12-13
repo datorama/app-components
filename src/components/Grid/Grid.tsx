@@ -45,7 +45,19 @@ export interface Props {
   isResizable?: boolean;
 }
 
-const search = new JsSearch.Search('rowIndex');
+const createNewSearch = () => {
+  const searchInstance = new JsSearch.Search('rowIndex');
+
+  searchInstance.tokenizer = {
+    tokenize: (text) => text.split(' ').filter((term) => term),
+  };
+  searchInstance.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
+
+  return searchInstance;
+};
+
+let search = createNewSearch();
+
 export const Grid = (props: Props) => {
   const {
     data,
@@ -74,6 +86,10 @@ export const Grid = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [ratio, setRatio] = useState([]);
   const [deltas, setDeltas] = useState([]); // change while dragging. in percent
+
+  useEffect(() => {
+    search = createNewSearch();
+  }, [headers, data]);
 
   useEffect(() => {
     // set search indexes
