@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { isEmpty } from 'lodash/fp';
+import { GlobalStyles } from './GlobalStyles/GlobalStyles';
 
 const loadFonts = (font) => {
   const head = document.head || document.getElementsByTagName('head')[0],
@@ -26,7 +27,12 @@ const loadFonts = (font) => {
   }
 };
 
-export const AppTheme = ({ provider: Provider, theme, children }) => {
+export const AppTheme = ({
+  provider: Provider,
+  theme,
+  children,
+  customColorPrefixes,
+}) => {
   useEffect(() => {
     if (!isEmpty(theme.font)) {
       loadFonts(theme.font);
@@ -35,7 +41,13 @@ export const AppTheme = ({ provider: Provider, theme, children }) => {
 
   return (
     <Provider theme={theme}>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles
+          theme={theme}
+          customColorPrefixes={customColorPrefixes || []}
+        />
+        {children}
+      </ThemeProvider>
     </Provider>
   );
 };
