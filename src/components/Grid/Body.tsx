@@ -65,6 +65,7 @@ const rowRenderer = (props: RowRendererProps) => {
                 rowIndex: index,
                 key: header.dataKey,
                 value: get(header.dataKey, data[index]),
+                data,
               })
             ) : (
               <Label className="label">

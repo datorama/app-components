@@ -34,10 +34,12 @@ export type CellRenderer = ({
   key,
   value,
   rowIndex,
+  data,
 }: {
   key: string | number;
   value: string | number;
   rowIndex: number;
+  data: DataArray;
 }) => ReactElement | null;
 
 export type HeaderCellRenderer = ({
