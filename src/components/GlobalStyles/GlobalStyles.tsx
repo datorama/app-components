@@ -32,7 +32,12 @@ const generateSvgMixins = (
   theme: Record<string, any>,
   customColorPrefixes: string[]
 ) => {
-  const colorPrefixes = ['a', 's', 'p', ...customColorPrefixes];
+  const colorPrefixes = [
+    'a',
+    's',
+    'p',
+    ...customColorPrefixes.map((prefix) => `custom-${prefix}`),
+  ];
   let result: string[][] = [];
 
   for (const colorPrefix of colorPrefixes) {
@@ -57,6 +62,13 @@ export function generateGlobalStyles(
   theme: Record<string, any>,
   customColorPrefixes: string[]
 ): GlobalStyleComponent<any, DefaultTheme> {
+  console.error(
+    generateSvgMixins(
+      ['fill', 'stroke', 'stop-color'],
+      theme,
+      customColorPrefixes
+    )
+  );
   const globalStyles = createGlobalStyle`
     ${generateSvgMixins(
       ['fill', 'stroke', 'stop-color'],
