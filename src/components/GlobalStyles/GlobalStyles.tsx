@@ -62,13 +62,6 @@ export function generateGlobalStyles(
   theme: Record<string, any>,
   customColorPrefixes: string[]
 ): GlobalStyleComponent<any, DefaultTheme> {
-  console.error(
-    generateSvgMixins(
-      ['fill', 'stroke', 'stop-color'],
-      theme,
-      customColorPrefixes
-    )
-  );
   const globalStyles = createGlobalStyle`
     ${generateSvgMixins(
       ['fill', 'stroke', 'stop-color'],
