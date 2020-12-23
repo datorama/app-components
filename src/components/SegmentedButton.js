@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import * as PropTypes from 'prop-types';
 import { hexToRgba } from '../utils/theme.utils';
+import { Tooltip } from './Tooltip';
 
 export const SegmentedButton = ({ sections, selected, onClick, className }) => (
   <Sections className={className}>
@@ -15,20 +16,36 @@ export const SegmentedButton = ({ sections, selected, onClick, className }) => (
         type = 'end';
       }
 
+      const buttonArgs = { section, type, selected, onClick };
+
+      if (section.tooltip) {
+        return (
+          <Tooltip title={section.tooltip} key={`section-${section.id}`}>
+            <SegmentedButtonSection {...buttonArgs}></SegmentedButtonSection>
+          </Tooltip>
+        );
+      }
+
       return (
-        <Section
-          disabled={section.disabled}
-          type={type}
-          className={section.className}
-          selected={section.id === selected}
-          onClick={section.disabled ? null : () => onClick(section.id)}
+        <SegmentedButtonSection
+          {...buttonArgs}
           key={`section-${section.id}`}
-        >
-          {section.label}
-        </Section>
+        ></SegmentedButtonSection>
       );
     })}
   </Sections>
+);
+
+const SegmentedButtonSection = ({ section, type, selected, onClick }) => (
+  <Section
+    disabled={section.disabled}
+    type={type}
+    className={section.className}
+    selected={section.id === selected}
+    onClick={section.disabled ? null : () => onClick(section.id)}
+  >
+    {section.label}
+  </Section>
 );
 
 SegmentedButton.propTypes = {
@@ -38,11 +55,25 @@ SegmentedButton.propTypes = {
       label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
       className: PropTypes.string,
       disabled: PropTypes.bool,
+      tooltip: PropTypes.string,
     })
   ).isRequired,
   selected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onClick: PropTypes.func,
   className: PropTypes.string,
+};
+
+SegmentedButtonSection.propTypes = {
+  section: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    label: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    tooltip: PropTypes.string,
+  }).isRequired,
+  type: PropTypes.string.isRequired,
+  selected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onClick: PropTypes.func,
 };
 
 const Sections = styled.div`
