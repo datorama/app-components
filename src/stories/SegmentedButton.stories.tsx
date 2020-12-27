@@ -1,6 +1,6 @@
 import React from 'react';
-import { SegmentedButton } from '../components/SegmentedButton';
 import styled from 'styled-components';
+import { SegmentedButton } from '../components/SegmentedButton/SegmentedButton';
 
 export default {
   title: 'core/SegmentedButton',
@@ -23,6 +23,7 @@ Primary.args = {
     { id: 1, label: 'No' },
     { id: 2, label: 'Maybe', tooltip: "choose this option if you're not sure" },
   ],
+  borderRadius: '10px',
   selected: 0,
 };
 
