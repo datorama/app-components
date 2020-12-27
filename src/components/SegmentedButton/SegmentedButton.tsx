@@ -11,10 +11,10 @@ export interface SegmentedButtonSectionProps {
 }
 
 export interface SegmentedButtonProps {
+  onClick: (selectedId: number | string) => void;
   sections: SegmentedButtonSectionProps[];
   borderRadius?: string;
   className?: string;
-  onClick?: (selectedId: number | string) => void;
   selected?: number | string;
 }
 
