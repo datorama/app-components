@@ -4,6 +4,8 @@ import styled from 'styled-components';
 type GridProps = {
   gridGap?: number;
   gridTemplateRows?: string;
+  gridTemplateColumns?: string;
+  gridTemplateAreas?: string;
   justifyItems?: 'start' | 'end' | 'center' | 'stretch';
   alignItems?: 'start' | 'end' | 'center' | 'stretch';
   justifyContent?:
@@ -38,6 +40,8 @@ export const GridLayout = (props: Props) => {
     className,
     gridGap,
     gridTemplateRows,
+    gridTemplateColumns,
+    gridTemplateAreas,
     justifyContent,
     justifyItems,
     alignContent,
@@ -64,6 +68,8 @@ export const GridLayout = (props: Props) => {
       className={className}
       gridGap={gridGap}
       gridTemplateRows={gridTemplateRows}
+      gridTemplateColumns={gridTemplateColumns}
+      gridTemplateAreas={gridTemplateAreas}
       justifyContent={justifyContent}
       justifyItems={justifyItems}
       alignContent={alignContent}
@@ -89,8 +95,10 @@ const Container = styled.div<GridProps>`
   display: grid;
   grid-gap: ${({ gridGap }) => `${gridGap}px`};
 
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: ${({ gridTemplateColumns }) =>
+    gridTemplateColumns || 'repeat(12, 1fr)'};
   grid-template-rows: ${({ gridTemplateRows }) => gridTemplateRows};
+  grid-template-areas: ${({ gridTemplateAreas }) => gridTemplateAreas};
 
   justify-items: ${({ justifyItems }) => justifyItems};
   align-items: ${({ alignItems }) => alignItems};
