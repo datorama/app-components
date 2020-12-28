@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { hexToRgba, Tooltip } from '../..';
+import { hexToRgba } from '../../utils/theme.utils';
+import { Tooltip } from '../Tooltip';
 
 export interface SegmentedButtonSectionProps {
   id: number | string;
