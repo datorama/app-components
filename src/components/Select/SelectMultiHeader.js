@@ -8,29 +8,29 @@ import { optionsType } from './Select.types';
 import { Checkbox } from '../Checkbox';
 
 const SelectMultiHeader = (props) => {
-  const { values, multi, selectAll, total } = props;
+  const { values, multi, selectAll, total, options } = props;
 
   if (!multi || !total) {
     return null;
   }
 
-  const counts = `(${values.length}/${total})`;
-  let label = 'Select all';
+  const filtereValues = values.filter((selected) =>
+    options.some((option) => option.value === selected.value)
+  );
+  const counts = `(${filtereValues.length}/${options.length})`;
+  const allSelected = filtereValues.length === options.length;
+  const partialSelected =
+    filtereValues.length && filtereValues.length < options.length;
+  const isDeselectMode = !!allSelected || !!partialSelected;
+  const label = isDeselectMode ? 'Deselect all' : 'Select all';
 
-  let allSelected = false;
-  let partialSelected = values.length && values.length < total;
-
-  if (total === values.length) {
-    allSelected = true;
-  }
-
-  if (allSelected || partialSelected) {
-    label = 'Deselect all';
-  }
+  const handleSelect = () => {
+    selectAll(isDeselectMode);
+  };
 
   return (
     <Fragment>
-      <Option className="option" onClick={selectAll} margin="5px 0 0 0">
+      <Option className="option" onClick={handleSelect} margin="5px 0 0 0">
         <StyledCheckbox
           checked={!!allSelected || !!partialSelected}
           partial={!!partialSelected}
@@ -49,6 +49,7 @@ const SelectMultiHeader = (props) => {
 SelectMultiHeader.propTypes = {
   selectAll: PropTypes.func,
   values: optionsType,
+  options: optionsType,
   multi: PropTypes.bool,
   total: PropTypes.number,
 };
