@@ -2,7 +2,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import * as PropTypes from 'prop-types';
-import { find, orderBy, debounce, map, set, get } from 'lodash/fp';
+import { find, orderBy, debounce, map, set, get, unionBy } from 'lodash/fp';
 import {
   getOptionByValue,
   getOptionsSize,
@@ -347,13 +347,28 @@ export class Select extends React.Component {
     });
   };
 
-  selectAll = () => {
+  selectAll = (isDeselect) => {
     const { options } = this.props;
     const { localValues } = this.state;
+    const optionsSize = getOptionsSize(options);
+    const isFilteringUsed = this.filteredOptions.length < optionsSize;
 
     let result = [];
-    if (!localValues.length || localValues.length > getOptionsSize(options)) {
-      result = getAllOptions(options);
+
+    if (isDeselect) {
+      if (isFilteringUsed) {
+        result = localValues.filter((selection) =>
+          this.filteredOptions.every(
+            (option) => option.value !== selection.value
+          )
+        );
+      } else {
+        result = [];
+      }
+    } else {
+      result = getAllOptions(
+        unionBy((item) => item.value, this.filteredOptions, localValues)
+      );
     }
 
     this.applyChanges(result);
