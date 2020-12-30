@@ -34,7 +34,7 @@ export const oranges = libColors.oranges;
 // Components
 export { AppTheme } from './components/AppTheme';
 export { Button } from './components/Button';
-export { SegmentedButton } from './components/SegmentedButton';
+export { SegmentedButton } from './components/SegmentedButton/SegmentedButton';
 export { Card } from './components/Card';
 export { Carousel } from './components/Carousel';
 export { Checkbox } from './components/Checkbox';
@@ -76,6 +76,8 @@ export { SnailChart } from './components/SnailChart';
 export { GoalsChart } from './components/GoalsChart/GoalsChart';
 export { Gauge } from './components/Gauge';
 export { Grid } from './components/Grid/Grid';
+export { GridLayout } from './components/GridLayout/GridLayout';
+export { GridItem } from './components/GridLayout/GridItem';
 
 // Pending Deprecation
 export { IllustratedMessage } from './components/IllustratedMessage/IllustratedMessage';
