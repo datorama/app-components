@@ -1,6 +1,6 @@
 import typescript from 'rollup-plugin-typescript2';
 import pkg from './package.json';
-// import svgr from '@svgr/rollup';
+import svgr from '@svgr/rollup';
 import image from '@rollup/plugin-image';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import css from 'rollup-plugin-css-only';
@@ -23,8 +23,8 @@ const plugins = [
     include: ['*.ts+(|x)', '**/*.ts+(|x)', '*.js+(|x)', '**/*.js+(|x)'],
     exclude: ['node_modules'],
   }),
-  // svgr(),
   image(),
+  svgr(),
   css({ output: 'dist/bundle.css' }),
   copy({
     targets: [
