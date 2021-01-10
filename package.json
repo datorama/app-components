@@ -30,6 +30,7 @@
     "@storybook/react": "^6.0.26",
     "@storybook/theming": "^6.0.26",
     "@svgr/rollup": "^5.4.0",
+    "@svgr/webpack": "^5.4.0",
     "@types/d3-scale": "^3.2.0",
     "@types/d3-shape": "^2.0.0",
     "@types/js-search": "^1.4.0",
@@ -59,7 +60,8 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.28.0",
     "styled-components": "^5.2.0",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.3",
+    "url-loader": "^4.1.1"
   },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
