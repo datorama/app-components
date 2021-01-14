@@ -1,8 +1,8 @@
-import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Notes" />
 
-# App Components 
+# App Components
 
 <br /><br /><br />
 
@@ -15,15 +15,32 @@ The following components are pending deprecation and will be removed in next rel
 
 <br /><br />
 
+## 1.9.1
+- Fixed `timeout` parameter in notifications config. When set to `Infinity`, the notification will not be cleared automatically
+- Return `onClear(id)` & `onClearAll()` callbacks on `useToast()` & `useSnackbar()` hooks usage:
+
+```
+ const { addSnackbar, onClear, onClearAll } = useSnackbar();
+```
+
+- Return notification id on `addToast` & `addSnackbar` usage, allowing the user to clear a notification programatically:
+
+```
+const { addToast, onClear } = useToast();
+const id = addToast(config);
+...
+onClear(id);
+```
+
 ## 1.9.0
 Added svgr loader and a new  `Asset` component.
 
 ## 1.8.0
 Updated the `select` component - selecting/deselecting all is now using filtered result context.
-                                   
+
 
 ## 1.7.0
-Segmented Button is now typed. It can also accept an input of border radius, overriding the default (4px). 
+Segmented Button is now typed. It can also accept an input of border radius, overriding the default (4px).
 
 ## 1.6.0
 Added a new Grid layout containers.
@@ -44,7 +61,7 @@ Fix tokenization in the Grid component (js-search).
 
 ## 1.3.6
 
-Fixed issue with the `Grid` component - updating the fuzzy search documents when the headers or data is changing. 
+Fixed issue with the `Grid` component - updating the fuzzy search documents when the headers or data is changing.
 
 ## 1.3.5
 
