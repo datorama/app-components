@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Button } from '../components/Button';
 import {
   NotificationsProvider,
@@ -9,22 +9,34 @@ import styled, { ThemeProvider } from 'styled-components';
 import { lightTheme } from '../constants/themes.constants';
 
 const InnerComponent = () => {
-  const { addToast } = useToast();
-  const { addSnackbar } = useSnackbar();
+  const { addToast, onClearAll: onClearAllToast } = useToast();
+  const { addSnackbar, onClearAll: onClearAllSnackbar } = useSnackbar();
+
+  const lastNotificationId = useRef(null);
 
   const config = {
     type: 'info', // [info, alert, success, warning]
     title: 'Notification title',
     subtitle: 'Notification Subtitle',
-    timeout: 3000,
+    timeout: 5000,
     top: 0, // snackbar top offset
   };
+
+  const onAddSnackbar = useCallback(() => {
+    lastNotificationId.current = addSnackbar(config);
+  }, [addSnackbar, lastNotificationId, config]);
 
   return (
     <>
       <Button onClick={() => addToast(config)}>Trigger Toast</Button>
-      <StyledButton onClick={() => addSnackbar(config)}>
-        Trigger Snackbar
+      <StyledButton onClick={onAddSnackbar}>Trigger Snackbar</StyledButton>
+      <StyledButton
+        onClick={() => {
+          onClearAllToast();
+          onClearAllSnackbar();
+        }}
+      >
+        Clear All
       </StyledButton>
     </>
   );

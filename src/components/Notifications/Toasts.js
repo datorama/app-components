@@ -19,11 +19,25 @@ import {
 
 const Context = React.createContext();
 
-const ToastItem = ({ id, title, subtitle, type, index, clear }) => {
-  const { isLeaving } = useNotification(id, clear);
+const ToastItem = ({
+  id,
+  title,
+  subtitle,
+  type,
+  timeout,
+  index,
+  clear,
+  className,
+}) => {
+  const { isLeaving } = useNotification(id, clear, timeout);
 
   return (
-    <Toast key={`notif-${id}`} top={index * 80} leaving={isLeaving}>
+    <Toast
+      key={`notif-${id}`}
+      top={index * 80}
+      leaving={isLeaving}
+      className={className}
+    >
       <CloseIcon onClick={() => clear(id)} />
       {getIcon(type)}
 
@@ -36,7 +50,7 @@ const ToastItem = ({ id, title, subtitle, type, index, clear }) => {
 };
 
 export const ToastsProvider = ({ children }) => {
-  const { list, clear, addNotification } = useNotifications();
+  const { list, clear, addNotification, clearAll } = useNotifications();
 
   const toasts = useMemo(
     () =>
@@ -47,7 +61,13 @@ export const ToastsProvider = ({ children }) => {
   );
 
   return (
-    <Context.Provider value={{ addToast: addNotification }}>
+    <Context.Provider
+      value={{
+        addToast: addNotification,
+        onClearAll: clearAll,
+        onClear: clear,
+      }}
+    >
       <Fragment>
         {toasts}
 
