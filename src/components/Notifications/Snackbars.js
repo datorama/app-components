@@ -22,13 +22,14 @@ const SnackbarItem = ({
   id,
   title,
   type,
+  timeout = 5000,
   top = 0,
   speed = 150,
   className,
   index,
   clear,
 }) => {
-  const { isLeaving } = useNotification(id, clear);
+  const { isLeaving } = useNotification(id, clear, timeout);
 
   return (
     <Snackbar
@@ -48,7 +49,9 @@ const SnackbarItem = ({
 };
 
 export const SnackbarProvider = ({ children, throttle = 200 }) => {
-  const { list, clear, addNotification } = useNotifications({ throttle });
+  const { list, clear, addNotification, clearAll } = useNotifications({
+    throttle,
+  });
 
   const snackbars = useMemo(
     () =>
@@ -59,7 +62,13 @@ export const SnackbarProvider = ({ children, throttle = 200 }) => {
   );
 
   return (
-    <Context.Provider value={{ addSnackbar: addNotification }}>
+    <Context.Provider
+      value={{
+        addSnackbar: addNotification,
+        onClearAll: clearAll,
+        onClear: clear,
+      }}
+    >
       <Fragment>
         {snackbars}
 

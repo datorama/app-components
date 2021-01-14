@@ -19,10 +19,14 @@ export const useNotifications = ({ throttle = 0 } = {}) => {
     [setList]
   );
 
+  const clearAll = useCallback(() => setList([]), [setList]);
+
   const addNotification = useCallback((notification) => {
     const id = Math.random();
 
     setList((prevState) => [...prevState, { id, ...notification }]);
+
+    return id;
   }, []);
 
   return {
@@ -30,30 +34,33 @@ export const useNotifications = ({ throttle = 0 } = {}) => {
     setList,
     addNotification: fpThrottle(throttle, addNotification),
     clear,
+    clearAll,
   };
 };
 
-export const useNotification = (id, clear) => {
+export const useNotification = (id, clear, timeout) => {
   const [isLeaving, setIsLeaving] = useState(false);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    if (timeout === Infinity) return;
+
+    const clearDelay = setTimeout(() => {
       setIsLeaving(true);
-    }, 5000);
+    }, timeout);
 
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(clearDelay);
     };
-  }, []);
+  }, [timeout]);
 
   useEffect(() => {
     if (isLeaving) {
-      const timeout = setTimeout(() => {
+      const clearDelay = setTimeout(() => {
         clear(id);
       }, 500);
 
       return () => {
-        clearTimeout(timeout);
+        clearTimeout(clearDelay);
       };
     }
   }, [clear, id, isLeaving]);
