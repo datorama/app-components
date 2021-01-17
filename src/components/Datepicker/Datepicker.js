@@ -142,7 +142,11 @@ export class Datepicker extends Component {
 
     this.weekdays.forEach((day, index) => {
       dates.push(
-        <DateContainer key={`date-${day}-${index}`} type="title">
+        <DateContainer
+          key={`date-${day}-${index}`}
+          type="title"
+          className="dp date-container date-container-title"
+        >
           <DateIcon type="title">{day}</DateIcon>
         </DateContainer>
       );
@@ -150,7 +154,13 @@ export class Datepicker extends Component {
 
     // previews disabled dates
     for (let i = monthStart.day(); i > firstDayOfWeek; i--) {
-      dates.push(<DateContainer key={`date-placeholder-${i}`} isDisabled />);
+      dates.push(
+        <DateContainer
+          key={`date-placeholder-${i}`}
+          isDisabled
+          className="dp date-container date-container-placeholder"
+        />
+      );
     }
 
     for (let i = 1; i <= total; i++) {
@@ -179,6 +189,18 @@ export class Datepicker extends Component {
         }
       }
 
+      const isToday = current.isSame(today, 'day');
+
+      const classNames = ['dp', 'date-container'];
+
+      if (selected) classNames.push('date-container-selected');
+      if (sameDay) classNames.push('date-container-same-day');
+      if (isStart) classNames.push('date-container-start');
+      if (isEnd) classNames.push('date-container-end');
+      if (isNotInRange) classNames.push('date-container-not-in-range');
+      if (isToday) classNames.push('date-container-today');
+      if (!isEnd && !isStart) classNames.push('date-container-normal');
+
       dates.push(
         <DateContainer
           key={`date-${i}`}
@@ -190,11 +212,9 @@ export class Datepicker extends Component {
           isEnd={isEnd}
           customColor={customColor}
           isNotInRange={isNotInRange}
+          className={classNames.join(' ')}
         >
-          <DateIcon
-            today={current.isSame(today, 'day')}
-            type={isStart || isEnd ? 'edge' : 'normal'}
-          >
+          <DateIcon today={isToday} type={isStart || isEnd ? 'edge' : 'normal'}>
             {i}
           </DateIcon>
         </DateContainer>
@@ -202,8 +222,12 @@ export class Datepicker extends Component {
     }
 
     return (
-      <DatesContainer key={`month-${globalOffset}`}>
+      <DatesContainer
+        key={`month-${globalOffset}`}
+        className="dp dates-container"
+      >
         <MonthTitle
+          className="dp month-title"
           onClick={this.selectMonth({
             startDate: today
               .clone()
@@ -471,6 +495,7 @@ export class Datepicker extends Component {
           <DatepickerHeaderRow
             title={this.computeTooltipTitle()}
             onClick={this.toggleOpen}
+            className="dp dp-header-row"
           >
             <div>
               <StyledCalendar />
@@ -478,6 +503,7 @@ export class Datepicker extends Component {
             {isEmpty(selectedPreset) ? (
               <>
                 <DatePickerInput
+                  className="dp dp-input dp-input-start"
                   date={startDate}
                   dateFormat={dateFormat}
                   placeholder="start date"
@@ -485,8 +511,9 @@ export class Datepicker extends Component {
                   onKeyDown={this.onKeyDown}
                   onChange={(value) => this.onChangeDate('startDate', value)}
                 />
-                <Separator>-</Separator>
+                <Separator className="dp dp-input-separator">-</Separator>
                 <DatePickerInput
+                  className="dp dp-input dp-input-end"
                   date={endDate}
                   dateFormat={dateFormat}
                   placeholder="end date"
