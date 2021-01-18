@@ -32,34 +32,18 @@ export const Primary = (args) => (
 
 export const Advanced = (args) => (
   <StyledLayout {...args}>
-    <StyledLayoutItem column={{ sm: 'span 12', md: 'span 6', lg: 'span 1' }}>
-      Logo
-    </StyledLayoutItem>
-    <StyledLayoutItem column={{ sm: 'span 12', md: 'span 6', lg: 'span 11' }}>
-      Navigation
-    </StyledLayoutItem>
+    <StyledLayoutItem column="span 1">Logo</StyledLayoutItem>
+    <StyledLayoutItem column="span 11">Navigation</StyledLayoutItem>
 
     <StyledLayoutItem column="span 12">Hero</StyledLayoutItem>
 
-    <StyledLayoutItem column={{ md: 'span 12', lg: 'span 4' }}>
-      Third
-    </StyledLayoutItem>
-    <StyledLayoutItem column={{ md: 'span 12', lg: 'span 4' }}>
-      Third
-    </StyledLayoutItem>
-    <StyledLayoutItem column={{ md: 'span 12', lg: 'span 4' }}>
-      Third
-    </StyledLayoutItem>
+    <StyledLayoutItem column="span 12">Third</StyledLayoutItem>
+    <StyledLayoutItem column="span 12">Third</StyledLayoutItem>
+    <StyledLayoutItem column="span 12">Third</StyledLayoutItem>
 
-    <StyledLayoutItem column={{ md: 'span 12', lg: 'span 6' }}>
-      Sidebar
-    </StyledLayoutItem>
-    <StyledLayoutItem column={{ md: 'span 12', lg: '7 / 13' }}>
-      Half
-    </StyledLayoutItem>
-    <StyledLayoutItem column={{ md: 'span 12', lg: '7 / 13' }}>
-      Half
-    </StyledLayoutItem>
+    <StyledLayoutItem column="span 6">Sidebar</StyledLayoutItem>
+    <StyledLayoutItem column="7 / 13">Half</StyledLayoutItem>
+    <StyledLayoutItem column="7 / 13">Half</StyledLayoutItem>
   </StyledLayout>
 );
 

@@ -1,8 +1,7 @@
-import React, { ReactNode, useMemo } from 'react';
+import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
 type GridProps = {
-  gridGap?: number;
   gridTemplateRows?: string;
   gridTemplateColumns?: string;
   gridTemplateAreas?: string;
@@ -30,15 +29,12 @@ type GridProps = {
 export interface Props extends GridProps {
   children: ReactNode | ReactNode[];
   className?: string;
-  sm?: number;
-  md?: number;
 }
 
 export const GridLayout = (props: Props) => {
   const {
     children,
     className,
-    gridGap,
     gridTemplateRows,
     gridTemplateColumns,
     gridTemplateAreas,
@@ -47,26 +43,11 @@ export const GridLayout = (props: Props) => {
     alignContent,
     alignItems,
     gridAutoFlow,
-    sm,
-    md,
   } = props;
-
-  const childrenWithProps = useMemo(
-    () =>
-      React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child, { sm, md });
-        }
-
-        return child;
-      }),
-    [children, sm, md]
-  );
 
   return (
     <Container
       className={className}
-      gridGap={gridGap}
       gridTemplateRows={gridTemplateRows}
       gridTemplateColumns={gridTemplateColumns}
       gridTemplateAreas={gridTemplateAreas}
@@ -76,24 +57,23 @@ export const GridLayout = (props: Props) => {
       alignItems={alignItems}
       gridAutoFlow={gridAutoFlow}
     >
-      {childrenWithProps}
+      {children}
     </Container>
   );
 };
 
 GridLayout.defaultProps = {
-  gridGap: 8,
   justifyItems: 'stretch',
   alignItems: 'stretch',
   justifyContent: 'stretch',
   alignContent: 'stretch',
-  sm: 1000,
-  md: 1400,
 };
 
 const Container = styled.div<GridProps>`
   display: grid;
-  grid-gap: ${({ gridGap }) => `${gridGap}px`};
+  grid-gap: 24px;
+  box-sizing: content-box;
+  margin: 0 32px;
 
   grid-template-columns: ${({ gridTemplateColumns }) =>
     gridTemplateColumns || 'repeat(12, 1fr)'};
@@ -106,4 +86,8 @@ const Container = styled.div<GridProps>`
   justify-content: ${({ justifyContent }) => justifyContent};
   align-content: ${({ alignContent }) => alignContent};
   grid-auto-flow: ${({ gridAutoFlow }) => gridAutoFlow};
+
+  @media only screen and (max-width: 1408px) {
+    grid-gap: 16px;
+  }
 `;
