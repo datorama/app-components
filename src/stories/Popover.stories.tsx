@@ -1,15 +1,23 @@
 import React, { useState, useCallback, useRef } from 'react';
-import Popover, { DEFAULT_HEIGHT, DEFAULT_WIDTH } from '../components/Popover';
+import Popover, {
+  DEFAULT_HEIGHT,
+  DEFAULT_OFFSET,
+  DEFAULT_WIDTH,
+} from '../components/Popover';
 import { Button } from '../components/Button';
 
 export default {
   title: 'core/Popover',
   component: Popover,
   argTypes: {
+    offset: { control: 'number' },
+    triggerRef: { control: 'none' },
     bgColor: { control: 'color' },
     children: { control: 'text' },
     height: { control: 'number' },
     width: { control: 'number' },
+    hideClose: { control: 'boolean' },
+    isOpened: { control: 'none' },
     position: {
       control: {
         type: 'select',
@@ -58,5 +66,6 @@ export const Primary = Template.bind({});
 Primary.args = {
   children: 'Popover Content',
   width: DEFAULT_WIDTH,
-  height: DEFAULT_HEIGHT,
+  height: DEFAULT_HEIGHT * 2,
+  offset: DEFAULT_OFFSET,
 };
