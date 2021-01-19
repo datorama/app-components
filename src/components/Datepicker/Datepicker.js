@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import moment from 'moment';
 import * as PropTypes from 'prop-types';
-import { set, isEmpty, get, noop } from 'lodash/fp';
+import { set, isEmpty, get, noop, isFunction } from 'lodash/fp';
 
 // icons
 import Arrow from '../../assets/ArrowDate.icon';
@@ -57,6 +57,7 @@ export class Datepicker extends Component {
         order: PropTypes.number,
       })
     ),
+    headerRenderer: PropTypes.func,
     bodyRenderer: PropTypes.func,
     customColor: PropTypes.string,
   };
@@ -469,12 +470,68 @@ export class Datepicker extends Component {
     return `${startDate.format(dateFormat)} - ${endDate.format(dateFormat)}`;
   };
 
+  customHeaderRenderer = () => {
+    const { dateFormat, headerRenderer } = this.props;
+    const { selectedPreset, selection } = this.state;
+    const { startDate, endDate } = selection;
+
+    if (!isEmpty(selectedPreset)) {
+      return headerRenderer({
+        dateRange: selection,
+        preset: selectedPreset[0],
+        formattedTitle: this.getPresetTitle(selectedPreset[0]),
+      });
+    }
+
+    return headerRenderer({
+      dateRange: selection,
+      formattedTitle: `${moment(startDate).format(dateFormat)} - ${moment(
+        endDate
+      ).format(dateFormat)}`,
+    });
+  };
+
+  headerRenderer = () => {
+    const { dateFormat, headerRenderer } = this.props;
+    const { selectedPreset, selection } = this.state;
+    const { startDate, endDate } = selection;
+
+    if (isFunction(headerRenderer)) {
+      return this.customHeaderRenderer();
+    }
+
+    return isEmpty(selectedPreset) ? (
+      <>
+        <DatePickerInput
+          className="dp dp-input dp-input-start"
+          date={startDate}
+          dateFormat={dateFormat}
+          placeholder="Start date"
+          onClick={this.openPopup}
+          onKeyDown={this.onKeyDown}
+          onChange={(value) => this.onChangeDate('startDate', value)}
+        />
+        <Separator className="dp dp-input-separator">-</Separator>
+        <DatePickerInput
+          className="dp dp-input dp-input-end"
+          date={endDate}
+          dateFormat={dateFormat}
+          placeholder="End date"
+          onClick={this.openPopup}
+          onKeyDown={this.onKeyDown}
+          onChange={(value) => this.onChangeDate('endDate', value)}
+        />
+      </>
+    ) : (
+      <Ellipsis>{this.getPresetTitle(selectedPreset[0])}</Ellipsis>
+    );
+  };
+
   render() {
-    const { open, selectedPreset, selection } = this.state;
+    const { open, selectedPreset } = this.state;
     const {
       months,
       firstDayOfWeek,
-      dateFormat,
       onMenuEnter,
       onMenuLeave,
       customPresets,
@@ -482,7 +539,6 @@ export class Datepicker extends Component {
       customColor,
     } = this.props;
     const monthsElement = [];
-    const { startDate, endDate } = selection;
     const body = () => <Dates>{monthsElement}</Dates>;
 
     for (let i = 0; i < months; i++) {
@@ -500,31 +556,9 @@ export class Datepicker extends Component {
             <div>
               <StyledCalendar />
             </div>
-            {isEmpty(selectedPreset) ? (
-              <>
-                <DatePickerInput
-                  className="dp dp-input dp-input-start"
-                  date={startDate}
-                  dateFormat={dateFormat}
-                  placeholder="start date"
-                  onClick={this.openPopup}
-                  onKeyDown={this.onKeyDown}
-                  onChange={(value) => this.onChangeDate('startDate', value)}
-                />
-                <Separator className="dp dp-input-separator">-</Separator>
-                <DatePickerInput
-                  className="dp dp-input dp-input-end"
-                  date={endDate}
-                  dateFormat={dateFormat}
-                  placeholder="end date"
-                  onClick={this.openPopup}
-                  onKeyDown={this.onKeyDown}
-                  onChange={(value) => this.onChangeDate('endDate', value)}
-                />
-              </>
-            ) : (
-              <Ellipsis>{this.getPresetTitle(selectedPreset[0])}</Ellipsis>
-            )}
+
+            {this.headerRenderer()}
+
             <div>
               <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
             </div>
