@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
+
 import Popover, {
   DEFAULT_HEIGHT,
   DEFAULT_OFFSET,
@@ -10,14 +11,6 @@ export default {
   title: 'core/Popover',
   component: Popover,
   argTypes: {
-    offset: { control: 'number' },
-    triggerRef: { control: 'none' },
-    bgColor: { control: 'color' },
-    children: { control: 'text' },
-    height: { control: 'number' },
-    width: { control: 'number' },
-    hideClose: { control: 'boolean' },
-    isOpened: { control: 'none' },
     position: {
       control: {
         type: 'select',
@@ -37,16 +30,42 @@ export default {
         ],
       },
     },
+    offset: { control: 'number' },
+    bgColor: { control: 'color' },
+    height: { control: 'number' },
+    width: { control: 'number' },
+    hideClose: { control: 'boolean' },
+    enableDebounce: {
+      control: 'boolean',
+      description:
+        'enable debounce in order to improve performance on resize/scroll',
+    },
+    children: { control: 'text' },
+    isOpened: { control: 'none' },
+    triggerRef: { control: 'none' },
+    absolutePosition: {
+      control: 'array',
+      description:
+        'absolute position can be given. that way, the triggerRef positioning will be ignored',
+    },
   },
 };
 
 const Template = (args) => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleOpen = useCallback(() => setIsOpen(!isOpen), [isOpen]);
+  const closePopover = useCallback(() => setIsOpen(false), []);
+  const openPopover = useCallback(() => setIsOpen(true), []);
+
   const btnRef = useRef(null);
+
   return (
     <div>
-      <Popover {...args} triggerRef={btnRef} isOpened={isOpen} />
+      <Popover
+        {...args}
+        triggerRef={btnRef}
+        isOpened={isOpen}
+        onClose={closePopover}
+      />
       <div
         ref={btnRef}
         style={{
@@ -56,7 +75,7 @@ const Template = (args) => {
           left: '45%',
         }}
       >
-        <Button onClick={toggleOpen}>Toggle Popover</Button>
+        <Button onClick={openPopover}>Toggle Popover</Button>
       </div>
     </div>
   );
@@ -64,8 +83,9 @@ const Template = (args) => {
 
 export const Primary = Template.bind({});
 Primary.args = {
+  position: 'bottom',
   children: 'Popover Content',
   width: DEFAULT_WIDTH,
-  height: DEFAULT_HEIGHT * 2,
+  height: DEFAULT_HEIGHT,
   offset: DEFAULT_OFFSET,
 };

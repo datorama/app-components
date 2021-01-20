@@ -6,10 +6,13 @@ import { noop } from 'lodash/fp';
 import CloseIcon from '../../assets/Close.icon';
 
 import { hexToRgba } from '../../utils/theme.utils';
+
 import usePopover from './popover.hooks';
 
-export const DEFAULT_HEIGHT = 150;
-export const DEFAULT_WIDTH = 250;
+import { ClickOut } from '../..';
+
+export const DEFAULT_HEIGHT = 100;
+export const DEFAULT_WIDTH = 200;
 export const DEFAULT_OFFSET = 20;
 export const ARROW_SIZE = 8;
 
@@ -40,6 +43,10 @@ interface PopoverProps {
   className?: string;
   bgColor?: string;
   hideClose?: boolean;
+  ignoreClickOutside?: boolean;
+  enableDebounce?: boolean;
+  hideArrow?: boolean;
+  absolutePosition?: [number, number];
 }
 
 const Popover = ({
@@ -55,35 +62,49 @@ const Popover = ({
   offset = DEFAULT_OFFSET,
   bgColor,
   hideClose = false,
+  ignoreClickOutside = false,
+  enableDebounce = false,
+  hideArrow = false,
+  absolutePosition,
 }: PopoverProps) => {
-  const { open, renderPosition, renderArrowPosition, handleClose } = usePopover(
+  const {
+    open,
+    renderPosition,
+    renderArrowPosition,
+    handleClose,
+    handleClickOut,
+  } = usePopover(
     isOpened,
     onOpen,
     onClose,
     position,
     offset,
-    triggerRef,
     width,
-    height
+    height,
+    enableDebounce,
+    triggerRef,
+    absolutePosition
   );
-
   return (
     <>
       {createPortal(
         open ? (
-          <Container
-            bgColor={bgColor}
-            className={className}
-            height={height}
-            width={width}
-            position={renderPosition}
-            arrowPosition={renderArrowPosition}
-            popoverPosition={position}
-          >
-            <div className="arrow" />
-            {!hideClose && <StyledCloseIcon onClick={handleClose} />}
-            {children}
-          </Container>
+          <ClickOut onClick={ignoreClickOutside ? noop : handleClickOut}>
+            <Container
+              bgColor={bgColor}
+              className={className}
+              height={height}
+              width={width}
+              position={renderPosition}
+              arrowPosition={renderArrowPosition}
+              popoverPosition={position}
+              hideArrow={hideArrow}
+            >
+              <div className="arrow" />
+              {!hideClose && <StyledCloseIcon onClick={handleClose} />}
+              {children}
+            </Container>
+          </ClickOut>
         ) : null,
         document.body
       )}
@@ -98,6 +119,7 @@ const Container = styled.div<{
   arrowPosition: [number, number];
   bgColor?: string;
   popoverPosition: PopoverPosition;
+  hideArrow: boolean;
 }>`
   position: fixed;
   z-index: 3;
@@ -114,16 +136,22 @@ const Container = styled.div<{
 
   .arrow {
     position: absolute;
+
     top: ${({ arrowPosition }) => `${arrowPosition[1]}px`};
     left: ${({ arrowPosition }) => `${arrowPosition[0]}px`};
 
+    ${({ hideArrow }) =>
+      hideArrow &&
+      css`
+        display: none;
+      `}
     ${({ popoverPosition, bgColor, theme }) =>
       ['top', 'topLeft', 'topRight'].includes(popoverPosition) &&
       css`
         border-left: ${ARROW_SIZE}px solid transparent;
         border-right: ${ARROW_SIZE}px solid transparent;
         border-top: ${ARROW_SIZE}px solid ${bgColor || theme.p0};
-        filter: drop-shadow(0 2px 2px ${hexToRgba(theme.p700, 20)});
+        filter: drop-shadow(0px 6px 5px ${hexToRgba(theme.p700, 20)});
       `};
 
     ${({ popoverPosition, bgColor, theme }) =>
@@ -132,7 +160,7 @@ const Container = styled.div<{
         border-left: ${ARROW_SIZE}px solid transparent;
         border-right: ${ARROW_SIZE}px solid transparent;
         border-bottom: ${ARROW_SIZE}px solid ${bgColor || theme.p0};
-        filter: drop-shadow(0 -2px 2px ${hexToRgba(theme.p700, 20)});
+        filter: drop-shadow(0 -6px 5px ${hexToRgba(theme.p700, 20)});
       `};
 
     ${({ popoverPosition, bgColor, theme }) =>
@@ -141,7 +169,7 @@ const Container = styled.div<{
         border-top: ${ARROW_SIZE}px solid transparent;
         border-bottom: ${ARROW_SIZE}px solid transparent;
         border-left: ${ARROW_SIZE}px solid ${bgColor || theme.p0};
-        filter: drop-shadow(2px 0px 2px rgba(46, 47, 48, 0.2));
+        filter: drop-shadow(6px 0px 5px rgba(46, 47, 48, 0.2));
       `};
 
     ${({ popoverPosition, bgColor, theme }) =>
@@ -150,7 +178,7 @@ const Container = styled.div<{
         border-top: ${ARROW_SIZE}px solid transparent;
         border-bottom: ${ARROW_SIZE}px solid transparent;
         border-right: ${ARROW_SIZE}px solid ${bgColor || theme.p0};
-        filter: drop-shadow(-2px 0px 2px rgba(46, 47, 48, 0.2));
+        filter: drop-shadow(-6px 0px 5px rgba(46, 47, 48, 0.2));
       `};
 
     width: 0;

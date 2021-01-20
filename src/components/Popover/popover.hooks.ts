@@ -1,4 +1,6 @@
+import { debounce, get } from 'lodash/fp';
 import { RefObject, useCallback, useEffect, useState } from 'react';
+
 import { ARROW_SIZE, PopoverPosition } from '.';
 
 const usePopover = (
@@ -7,9 +9,11 @@ const usePopover = (
   onClose: () => void,
   position: PopoverPosition,
   offset: number,
-  triggerRef: RefObject<HTMLElement | SVGAElement>,
   width: number,
-  height: number
+  height: number,
+  enableDebounce: boolean,
+  triggerRef?: RefObject<HTMLElement | SVGAElement>,
+  absolutePosition?: [number, number]
 ) => {
   const [open, setOpen] = useState<boolean>(isOpened);
   const [renderPosition, setRenderPosition] = useState<[number, number]>([
@@ -20,52 +24,19 @@ const usePopover = (
     [number, number]
   >([0, 0]);
 
-  useEffect(() => {
-    setOpen(isOpened);
-    if (isOpened) {
-      onOpen();
-    }
-  }, [isOpened]);
-
   const handleClose = useCallback(() => {
     setOpen(false);
     onClose();
   }, [setOpen, onClose]);
 
-  const calcPositions = useCallback(() => {
-    if (triggerRef.current && isOpened) {
-      const {
-        height,
-        width,
-        x,
-        y,
-      } = triggerRef.current.getBoundingClientRect();
-
-      const { xPos, yPos, xPosArrow, yPosArrow } = getPosition(
-        width,
-        height,
-        x,
-        y
-      );
-      setRenderPosition([xPos, yPos]);
-      setRenderArrowPosition([xPosArrow, yPosArrow]);
-    }
-  }, [isOpened, triggerRef, position]);
-
   useEffect(() => {
-    window.addEventListener('resize', calcPositions);
-    window.addEventListener('scroll', calcPositions);
-    return () => {
-      window.removeEventListener('resize', calcPositions);
-      window.removeEventListener('scroll', calcPositions);
-    };
-  }, [calcPositions]);
-
-  useEffect(() => {
+    setOpen(isOpened);
     if (isOpened) {
-      calcPositions();
+      onOpen();
+    } else {
+      onClose();
     }
-  }, [position, isOpened]);
+  }, [isOpened, onOpen, onClose]);
 
   const getPosition = useCallback(
     (elWidth: number, elHeight: number, x: number, y: number) => {
@@ -76,82 +47,90 @@ const usePopover = (
         xPosArrow = 0,
         yPosArrow = 0;
 
-      const xPosBottom = middleX - width / 2;
       const yPosBottom = y + elHeight + offset;
-      const xPosTop = middleX - width / 2;
       const yPosTop = y - height - offset;
       const xPosRight = x + offset + elWidth;
       const xPosLeft = x - offset - width;
+      const xPosTopBottom = middleX - width / 2;
+      const yPosLeftRight = middleY - height / 2;
+      const yPosLeftRightTop = middleY - height + ARROW_SIZE * 2;
+      const xPosBottomTopLeft = middleX - width + ARROW_SIZE * 2;
+      const yPosRightLeftBottom = middleY - ARROW_SIZE * 2;
+
+      const xPosArrowTopBottom = width / 2 - ARROW_SIZE;
+      const xPosArrowBottomTopLeft = width - ARROW_SIZE * 3;
+      const yPosArrowLeftRightTop = height - ARROW_SIZE * 3;
+      const yPosArrowLeftRight = height / 2 - ARROW_SIZE;
 
       switch (position) {
         case 'bottom':
           yPos = yPosBottom;
-          xPos = xPosBottom;
-          xPosArrow = width / 2 - ARROW_SIZE;
+          xPos = xPosTopBottom;
+          xPosArrow = xPosArrowTopBottom;
           yPosArrow = -ARROW_SIZE;
           break;
         case 'bottomLeft':
           yPos = yPosBottom;
-          xPos = middleX - width;
-          xPosArrow = width - ARROW_SIZE * 3;
+          xPos = xPosBottomTopLeft;
+          xPosArrow = xPosArrowBottomTopLeft;
           yPosArrow = -ARROW_SIZE;
           break;
         case 'bottomRight':
           yPos = yPosBottom;
-          xPos = middleX;
+          xPos = middleX - ARROW_SIZE * 2;
           xPosArrow = ARROW_SIZE;
           yPosArrow = -ARROW_SIZE;
           break;
         case 'top':
           yPos = yPosTop;
-          xPos = xPosTop;
-          xPosArrow = width / 2 - ARROW_SIZE;
+          xPos = xPosTopBottom;
+          xPosArrow = xPosArrowTopBottom;
           yPosArrow = height;
           break;
         case 'topLeft':
           yPos = yPosTop;
-          xPos = middleX - width;
-          xPosArrow = width - ARROW_SIZE * 3;
+          xPos = xPosBottomTopLeft;
+          xPosArrow = xPosArrowBottomTopLeft;
           yPosArrow = height;
           break;
         case 'topRight':
           yPos = yPosTop;
-          xPos = middleX;
+          xPos = middleX - ARROW_SIZE * 2;
           xPosArrow = ARROW_SIZE;
           yPosArrow = height;
           break;
         case 'left':
-          yPos = middleY - height / 2;
+          yPos = yPosLeftRight;
           xPos = xPosLeft;
           xPosArrow = width;
-          yPosArrow = height / 2 - ARROW_SIZE / 2;
+          yPosArrow = yPosArrowLeftRight;
           break;
         case 'leftTop':
-          yPos = middleY - height;
+          yPos = yPosLeftRightTop;
           xPos = xPosLeft;
           xPosArrow = width;
-          yPosArrow = height - ARROW_SIZE * 3;
+          yPosArrow = yPosArrowLeftRightTop;
           break;
         case 'leftBottom':
-          yPos = middleY;
+          yPos = yPosRightLeftBottom;
           xPos = xPosLeft;
           xPosArrow = width;
           yPosArrow = ARROW_SIZE;
           break;
         case 'right':
-          yPos = middleY - height / 2;
+          yPos = yPosLeftRight;
           xPos = xPosRight;
           xPosArrow = -ARROW_SIZE;
-          yPosArrow = height / 2 - ARROW_SIZE / 2;
+          yPosArrow = yPosArrowLeftRight;
           break;
         case 'rightTop':
-          yPos = middleY - height;
+          yPos = yPosLeftRightTop;
           xPos = xPosRight;
           xPosArrow = -ARROW_SIZE;
-          yPosArrow = height - ARROW_SIZE * 3;
+          yPosArrow = yPosArrowLeftRightTop;
           break;
         case 'rightBottom':
-          yPos = middleY;
+          yPos = yPosRightLeftBottom;
           xPos = xPosRight;
           xPosArrow = -ARROW_SIZE;
           yPosArrow = ARROW_SIZE;
@@ -165,11 +144,66 @@ const usePopover = (
     [position, width, height, offset]
   );
 
+  const calcPositions = useCallback(() => {
+    try {
+      if (absolutePosition) {
+        setRenderPosition([absolutePosition[0], absolutePosition[1]]);
+      } else if (get('current', triggerRef) && isOpened) {
+        const {
+          height,
+          width,
+          x,
+          y,
+        } = triggerRef.current.getBoundingClientRect();
+
+        const { xPos, yPos, xPosArrow, yPosArrow } = getPosition(
+          width,
+          height,
+          x,
+          y
+        );
+        setRenderPosition([xPos, yPos]);
+        setRenderArrowPosition([xPosArrow, yPosArrow]);
+      } else {
+        throw Error(
+          'It was neither triggerRef nor absolutePosition provided, please provide at least one. (the fallback in that case will be [0, 0]'
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [isOpened, triggerRef, getPosition, absolutePosition]);
+
+  useEffect(() => {
+    const debouncedCalc = enableDebounce
+      ? debounce(200, calcPositions)
+      : calcPositions;
+    window.addEventListener('resize', debouncedCalc);
+    window.addEventListener('scroll', debouncedCalc);
+    return () => {
+      window.removeEventListener('resize', debouncedCalc);
+      window.removeEventListener('scroll', debouncedCalc);
+    };
+  }, [calcPositions, enableDebounce]);
+
+  useEffect(() => {
+    if (isOpened) {
+      calcPositions();
+    }
+  }, [position, isOpened, calcPositions]);
+
+  const handleClickOut = useCallback(() => {
+    if (open) {
+      handleClose();
+    }
+  }, [open, handleClose]);
+
   return {
     open,
     renderPosition,
     renderArrowPosition,
     handleClose,
+    handleClickOut,
   };
 };
 
