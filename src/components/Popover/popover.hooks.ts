@@ -145,32 +145,34 @@ const usePopover = (
   );
 
   const calcPositions = useCallback(() => {
-    try {
-      if (absolutePosition) {
-        setRenderPosition([absolutePosition[0], absolutePosition[1]]);
-      } else if (get('current', triggerRef) && isOpened) {
-        const {
-          height,
-          width,
-          x,
-          y,
-        } = triggerRef.current.getBoundingClientRect();
+    if (isOpened) {
+      try {
+        if (absolutePosition) {
+          setRenderPosition([absolutePosition[0], absolutePosition[1]]);
+        } else if (get('current', triggerRef)) {
+          const {
+            height,
+            width,
+            x,
+            y,
+          } = triggerRef.current.getBoundingClientRect();
 
-        const { xPos, yPos, xPosArrow, yPosArrow } = getPosition(
-          width,
-          height,
-          x,
-          y
-        );
-        setRenderPosition([xPos, yPos]);
-        setRenderArrowPosition([xPosArrow, yPosArrow]);
-      } else {
-        throw Error(
-          'It was neither triggerRef nor absolutePosition provided, please provide at least one. (the fallback in that case will be [0, 0]'
-        );
+          const { xPos, yPos, xPosArrow, yPosArrow } = getPosition(
+            width,
+            height,
+            x,
+            y
+          );
+          setRenderPosition([xPos, yPos]);
+          setRenderArrowPosition([xPosArrow, yPosArrow]);
+        } else {
+          throw Error(
+            'It was neither triggerRef nor absolutePosition provided, please provide at least one. (the fallback in that case will be [0, 0]'
+          );
+        }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.error(err);
     }
   }, [isOpened, triggerRef, getPosition, absolutePosition]);
 

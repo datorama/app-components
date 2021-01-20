@@ -1,7 +1,7 @@
 import React, { ReactNode, RefObject } from 'react';
 import styled, { css } from 'styled-components';
 import { createPortal } from 'react-dom';
-import { noop } from 'lodash/fp';
+import { isNil, noop } from 'lodash/fp';
 
 import CloseIcon from '../../assets/Close.icon';
 
@@ -99,6 +99,7 @@ const Popover = ({
               arrowPosition={renderArrowPosition}
               popoverPosition={position}
               hideArrow={hideArrow}
+              isAbsolutePositionUsed={!isNil(absolutePosition)}
             >
               <div className="arrow" />
               {!hideClose && <StyledCloseIcon onClick={handleClose} />}
@@ -120,6 +121,7 @@ const Container = styled.div<{
   bgColor?: string;
   popoverPosition: PopoverPosition;
   hideArrow: boolean;
+  isAbsolutePositionUsed: boolean;
 }>`
   position: fixed;
   z-index: 3;
@@ -140,8 +142,8 @@ const Container = styled.div<{
     top: ${({ arrowPosition }) => `${arrowPosition[1]}px`};
     left: ${({ arrowPosition }) => `${arrowPosition[0]}px`};
 
-    ${({ hideArrow }) =>
-      hideArrow &&
+    ${({ hideArrow, isAbsolutePositionUsed }) =>
+      (hideArrow || isAbsolutePositionUsed) &&
       css`
         display: none;
       `}
