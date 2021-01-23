@@ -71,8 +71,8 @@ const Template = (args) => {
         style={{
           display: 'inline-block',
           position: 'absolute',
-          top: '50%',
-          left: '45%',
+          top: '30%',
+          left: '30%',
         }}
       >
         <Button onClick={openPopover}>Toggle Popover</Button>

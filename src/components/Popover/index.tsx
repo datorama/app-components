@@ -73,6 +73,7 @@ const Popover = ({
     renderArrowPosition,
     handleClose,
     handleClickOut,
+    popoverPosition,
   } = usePopover(
     isOpened,
     onOpen,
@@ -85,6 +86,7 @@ const Popover = ({
     triggerRef,
     absolutePosition
   );
+
   return (
     <>
       {createPortal(
@@ -97,7 +99,7 @@ const Popover = ({
               width={width}
               position={renderPosition}
               arrowPosition={renderArrowPosition}
-              popoverPosition={position}
+              popoverPosition={popoverPosition}
               hideArrow={hideArrow}
               isAbsolutePositionUsed={!isNil(absolutePosition)}
             >
@@ -113,7 +115,7 @@ const Popover = ({
   );
 };
 
-const Container = styled.div<{
+type ContainerProps = {
   height: number;
   width: number;
   position: [number, number];
@@ -122,16 +124,23 @@ const Container = styled.div<{
   popoverPosition: PopoverPosition;
   hideArrow: boolean;
   isAbsolutePositionUsed: boolean;
-}>`
+};
+
+const Container = styled.div.attrs(
+  ({ height, width, position }: ContainerProps) => ({
+    style: {
+      top: `${position[1]}px`,
+      left: `${position[0]}px`,
+      height: `${height}px`,
+      width: `${width}px`,
+    },
+  })
+)<ContainerProps>`
   position: fixed;
   z-index: 3;
-  top: ${({ position }) => `${position[1]}px`};
-  left: ${({ position }) => `${position[0]}px`};
   background: ${({ theme }) => theme.p0};
   border-radius: 5px;
   box-shadow: ${({ theme }) => `0px 2px 14px 0px ${hexToRgba(theme.p700, 20)}`};
-  height: ${({ height }) => `${height}px`};
-  width: ${({ width }) => `${width}px`};
   padding: 16px;
   box-sizing: border-box;
   background-color: ${({ bgColor, theme }) => bgColor || theme.p0};

@@ -1,4 +1,4 @@
-import { debounce, get } from 'lodash/fp';
+import { debounce } from 'lodash/fp';
 import { RefObject, useCallback, useEffect, useState } from 'react';
 
 import { ARROW_SIZE, PopoverPosition } from '.';
@@ -15,6 +15,9 @@ const usePopover = (
   triggerRef?: RefObject<HTMLElement | SVGAElement>,
   absolutePosition?: [number, number]
 ) => {
+  const [popoverPosition, setPopoverPosition] = useState<PopoverPosition>(
+    position
+  );
   const [open, setOpen] = useState<boolean>(isOpened);
   const [renderPosition, setRenderPosition] = useState<[number, number]>([
     0,
@@ -55,6 +58,7 @@ const usePopover = (
       const yPosLeftRight = middleY - height / 2;
       const yPosLeftRightTop = middleY - height + ARROW_SIZE * 2;
       const xPosBottomTopLeft = middleX - width + ARROW_SIZE * 2;
+      const xPosBottomTopRight = middleX - ARROW_SIZE * 2;
       const yPosRightLeftBottom = middleY - ARROW_SIZE * 2;
 
       const xPosArrowTopBottom = width / 2 - ARROW_SIZE;
@@ -62,78 +66,200 @@ const usePopover = (
       const yPosArrowLeftRightTop = height - ARROW_SIZE * 3;
       const yPosArrowLeftRight = height / 2 - ARROW_SIZE;
 
-      switch (position) {
+      const noRoomOnBottom = (yBottom: number) => yBottom > window.innerHeight;
+      const noRoomOnTop = (yTop: number) => yTop <= 0;
+      const noRoomOnLeft = (xLeft: number) => xLeft <= 0;
+      const noRoomOnRight = (xRight: number) => xRight > window.innerWidth;
+
+      const noRoomLeftForVerticalReposition =
+        height * 2 + elHeight + offset * 2 > window.innerHeight;
+      const noRoomLeftForHorizontalReposition =
+        width * 2 + elWidth + offset * 2 > window.innerWidth;
+
+      switch (popoverPosition) {
         case 'bottom':
-          yPos = yPosBottom;
-          xPos = xPosTopBottom;
-          xPosArrow = xPosArrowTopBottom;
-          yPosArrow = -ARROW_SIZE;
+          if (
+            noRoomOnBottom(yPosBottom + height) &&
+            !noRoomLeftForVerticalReposition
+          ) {
+            setPopoverPosition('top');
+          } else {
+            yPos = yPosBottom;
+            xPos = xPosTopBottom;
+            xPosArrow = xPosArrowTopBottom;
+            yPosArrow = -ARROW_SIZE;
+          }
           break;
         case 'bottomLeft':
-          yPos = yPosBottom;
-          xPos = xPosBottomTopLeft;
-          xPosArrow = xPosArrowBottomTopLeft;
-          yPosArrow = -ARROW_SIZE;
+          if (
+            noRoomOnBottom(yPosBottom + height) &&
+            !noRoomLeftForVerticalReposition
+          ) {
+            setPopoverPosition('topLeft');
+          } else if (
+            noRoomOnLeft(xPosBottomTopLeft) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('bottomRight');
+          } else {
+            yPos = yPosBottom;
+            xPos = xPosBottomTopLeft;
+            xPosArrow = xPosArrowBottomTopLeft;
+            yPosArrow = -ARROW_SIZE;
+          }
           break;
         case 'bottomRight':
-          yPos = yPosBottom;
-          xPos = middleX - ARROW_SIZE * 2;
-          xPosArrow = ARROW_SIZE;
-          yPosArrow = -ARROW_SIZE;
+          if (
+            noRoomOnBottom(yPosBottom + height) &&
+            !noRoomLeftForVerticalReposition
+          ) {
+            setPopoverPosition('topRight');
+          } else if (
+            noRoomOnRight(xPosBottomTopRight + width) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('bottomLeft');
+          } else {
+            yPos = yPosBottom;
+            xPos = xPosBottomTopRight;
+            xPosArrow = ARROW_SIZE;
+            yPosArrow = -ARROW_SIZE;
+          }
           break;
         case 'top':
-          yPos = yPosTop;
-          xPos = xPosTopBottom;
-          xPosArrow = xPosArrowTopBottom;
-          yPosArrow = height;
+          if (noRoomOnTop(yPosTop) && !noRoomLeftForVerticalReposition) {
+            setPopoverPosition('bottom');
+          } else {
+            yPos = yPosTop;
+            xPos = xPosTopBottom;
+            xPosArrow = xPosArrowTopBottom;
+            yPosArrow = height;
+          }
           break;
         case 'topLeft':
-          yPos = yPosTop;
-          xPos = xPosBottomTopLeft;
-          xPosArrow = xPosArrowBottomTopLeft;
-          yPosArrow = height;
+          if (noRoomOnTop(yPosTop) && !noRoomLeftForVerticalReposition) {
+            setPopoverPosition('bottomLeft');
+          } else if (
+            noRoomOnLeft(xPosBottomTopLeft) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('topRight');
+          } else {
+            yPos = yPosTop;
+            xPos = xPosBottomTopLeft;
+            xPosArrow = xPosArrowBottomTopLeft;
+            yPosArrow = height;
+          }
           break;
         case 'topRight':
-          yPos = yPosTop;
-          xPos = middleX - ARROW_SIZE * 2;
-          xPosArrow = ARROW_SIZE;
-          yPosArrow = height;
+          if (noRoomOnTop(yPosTop) && !noRoomLeftForVerticalReposition) {
+            setPopoverPosition('bottomRight');
+          } else if (
+            noRoomOnRight(xPosBottomTopRight + width) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('topLeft');
+          } else {
+            yPos = yPosTop;
+            xPos = xPosBottomTopRight;
+            xPosArrow = ARROW_SIZE;
+            yPosArrow = height;
+          }
           break;
         case 'left':
-          yPos = yPosLeftRight;
-          xPos = xPosLeft;
-          xPosArrow = width;
-          yPosArrow = yPosArrowLeftRight;
+          if (noRoomOnLeft(xPosLeft) && !noRoomLeftForHorizontalReposition) {
+            setPopoverPosition('right');
+          } else {
+            yPos = yPosLeftRight;
+            xPos = xPosLeft;
+            xPosArrow = width;
+            yPosArrow = yPosArrowLeftRight;
+          }
           break;
         case 'leftTop':
-          yPos = yPosLeftRightTop;
-          xPos = xPosLeft;
-          xPosArrow = width;
-          yPosArrow = yPosArrowLeftRightTop;
+          if (
+            noRoomOnTop(yPosLeftRightTop) &&
+            !noRoomLeftForVerticalReposition
+          ) {
+            setPopoverPosition('leftBottom');
+          } else if (
+            noRoomOnLeft(xPosLeft) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('rightTop');
+          } else {
+            yPos = yPosLeftRightTop;
+            xPos = xPosLeft;
+            xPosArrow = width;
+            yPosArrow = yPosArrowLeftRightTop;
+          }
           break;
         case 'leftBottom':
-          yPos = yPosRightLeftBottom;
-          xPos = xPosLeft;
-          xPosArrow = width;
-          yPosArrow = ARROW_SIZE;
+          if (
+            noRoomOnBottom(yPosRightLeftBottom + height) &&
+            !noRoomLeftForVerticalReposition
+          ) {
+            setPopoverPosition('leftTop');
+          } else if (
+            noRoomOnLeft(xPosLeft) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('rightBottom');
+          } else {
+            yPos = yPosRightLeftBottom;
+            xPos = xPosLeft;
+            xPosArrow = width;
+            yPosArrow = ARROW_SIZE;
+          }
           break;
         case 'right':
-          yPos = yPosLeftRight;
-          xPos = xPosRight;
-          xPosArrow = -ARROW_SIZE;
-          yPosArrow = yPosArrowLeftRight;
+          if (
+            noRoomOnRight(xPosRight + width) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('left');
+          } else {
+            yPos = yPosLeftRight;
+            xPos = xPosRight;
+            xPosArrow = -ARROW_SIZE;
+            yPosArrow = yPosArrowLeftRight;
+          }
           break;
         case 'rightTop':
-          yPos = yPosLeftRightTop;
-          xPos = xPosRight;
-          xPosArrow = -ARROW_SIZE;
-          yPosArrow = yPosArrowLeftRightTop;
+          if (
+            noRoomOnTop(yPosLeftRightTop) &&
+            !noRoomLeftForVerticalReposition
+          ) {
+            setPopoverPosition('rightBottom');
+          } else if (
+            noRoomOnRight(xPosRight + width) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('leftTop');
+          } else {
+            yPos = yPosLeftRightTop;
+            xPos = xPosRight;
+            xPosArrow = -ARROW_SIZE;
+            yPosArrow = yPosArrowLeftRightTop;
+          }
           break;
         case 'rightBottom':
-          yPos = yPosRightLeftBottom;
-          xPos = xPosRight;
-          xPosArrow = -ARROW_SIZE;
-          yPosArrow = ARROW_SIZE;
+          if (
+            noRoomOnBottom(yPosRightLeftBottom + height) &&
+            !noRoomLeftForVerticalReposition
+          ) {
+            setPopoverPosition('rightTop');
+          } else if (
+            noRoomOnRight(xPosRight + width) &&
+            !noRoomLeftForHorizontalReposition
+          ) {
+            setPopoverPosition('leftBottom');
+          } else {
+            yPos = yPosRightLeftBottom;
+            xPos = xPosRight;
+            xPosArrow = -ARROW_SIZE;
+            yPosArrow = ARROW_SIZE;
+          }
           break;
         default:
           break;
@@ -141,7 +267,7 @@ const usePopover = (
 
       return { xPos, yPos, xPosArrow, yPosArrow };
     },
-    [position, width, height, offset]
+    [popoverPosition, width, height, offset]
   );
 
   const calcPositions = useCallback(() => {
@@ -149,7 +275,7 @@ const usePopover = (
       try {
         if (absolutePosition) {
           setRenderPosition([absolutePosition[0], absolutePosition[1]]);
-        } else if (get('current', triggerRef)) {
+        } else if (triggerRef && triggerRef.current) {
           const {
             height,
             width,
@@ -189,10 +315,12 @@ const usePopover = (
   }, [calcPositions, enableDebounce]);
 
   useEffect(() => {
-    if (isOpened) {
-      calcPositions();
-    }
-  }, [position, isOpened, calcPositions]);
+    calcPositions();
+  }, [calcPositions]);
+
+  useEffect(() => {
+    setPopoverPosition(position);
+  }, [position]);
 
   const handleClickOut = useCallback(() => {
     if (open) {
@@ -206,6 +334,7 @@ const usePopover = (
     renderArrowPosition,
     handleClose,
     handleClickOut,
+    popoverPosition,
   };
 };
 
