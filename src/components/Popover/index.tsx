@@ -44,7 +44,6 @@ interface PopoverProps {
   bgColor?: string;
   hideClose?: boolean;
   ignoreClickOutside?: boolean;
-  enableDebounce?: boolean;
   hideArrow?: boolean;
   absolutePosition?: [number, number];
 }
@@ -63,7 +62,6 @@ const Popover = ({
   bgColor,
   hideClose = false,
   ignoreClickOutside = false,
-  enableDebounce = false,
   hideArrow = false,
   absolutePosition,
 }: PopoverProps) => {
@@ -82,7 +80,6 @@ const Popover = ({
     offset,
     width,
     height,
-    enableDebounce,
     triggerRef,
     absolutePosition
   );
@@ -104,7 +101,9 @@ const Popover = ({
               isAbsolutePositionUsed={!isNil(absolutePosition)}
             >
               <div className="arrow" />
-              {!hideClose && <StyledCloseIcon onClick={handleClose} />}
+              {!hideClose && (
+                <CloseIcon className="close-icon" onClick={handleClose} />
+              )}
               {children}
             </Container>
           </ClickOut>
@@ -195,13 +194,13 @@ const Container = styled.div.attrs(
     width: 0;
     height: 0;
   }
-`;
 
-const StyledCloseIcon = styled(CloseIcon)`
-  cursor: pointer;
-  position: absolute;
-  right: 4px;
-  top: 8px;
+  .close-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 4px;
+    top: 8px;
+  }
 `;
 
 export default Popover;
