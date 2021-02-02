@@ -44,8 +44,12 @@ export type CellRenderer = ({
 
 export type HeaderCellRenderer = ({
   label,
+  index,
+  dataKey,
 }: {
   label: string;
+  index: number;
+  dataKey: string;
 }) => ReactElement | null;
 
 export type EmptyStateRenderer = ({

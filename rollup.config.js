@@ -42,7 +42,7 @@ export default [
     output: {
       file: pkg.module,
       format: 'esm',
-      sourcemap: true,
+      sourcemap: false,
     },
     plugins,
     external,
@@ -52,7 +52,7 @@ export default [
     output: {
       file: pkg.main,
       format: 'cjs',
-      sourcemap: true,
+      sourcemap: false,
     },
     plugins,
     external,
