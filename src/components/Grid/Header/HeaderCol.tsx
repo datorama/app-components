@@ -76,7 +76,7 @@ const HeaderCol = (props: Props) => {
         width={width - 10}
       >
         {headerCellRenderer ? (
-          headerCellRenderer({ label })
+          headerCellRenderer({ label, index, dataKey })
         ) : (
           <Label>{label}</Label>
         )}
