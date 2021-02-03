@@ -43,6 +43,7 @@ export interface Props {
   isBottomLoaderActive?: boolean;
   onSort?: (params: SortParams) => void;
   isResizable?: boolean;
+  extendedSearchHeaders?: string[];
 }
 
 const createNewSearch = () => {
@@ -78,6 +79,7 @@ export const Grid = (props: Props) => {
     isBottomLoaderActive,
     onSort,
     isResizable,
+    extendedSearchHeaders,
   } = props;
   const [scroll, setScroll] = useState({ scrollTop: 0 });
   const [sortData, setSortData] = useState<SortDataType>({});
@@ -94,8 +96,15 @@ export const Grid = (props: Props) => {
   useEffect(() => {
     // set search indexes
     if (isActionsActive) {
-      for (let i = 0; i < headers.length; i++) {
-        search.addIndex(get('dataKey', headers[i]));
+      const searchHeaders = [
+        ...headers,
+        ...(extendedSearchHeaders?.map((searchHeader) => ({
+          dataKey: searchHeader,
+        })) || []),
+      ];
+
+      for (let i = 0; i < searchHeaders.length; i++) {
+        search.addIndex(get('dataKey', searchHeaders[i]));
       }
     }
 
