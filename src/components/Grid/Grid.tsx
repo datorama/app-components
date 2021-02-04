@@ -43,6 +43,7 @@ export interface Props {
   isBottomLoaderActive?: boolean;
   onSort?: (params: SortParams) => void;
   isResizable?: boolean;
+  onRowClick?: ({ index: number }) => void;
 }
 
 const createNewSearch = () => {
@@ -78,6 +79,7 @@ export const Grid = (props: Props) => {
     isBottomLoaderActive,
     onSort,
     isResizable,
+    onRowClick,
   } = props;
   const [scroll, setScroll] = useState({ scrollTop: 0 });
   const [sortData, setSortData] = useState<SortDataType>({});
@@ -238,6 +240,7 @@ export const Grid = (props: Props) => {
           cellRenderer={cellRenderer}
           onReachedEnd={onReachedEnd}
           isBottomLoaderActive={isBottomLoaderActive}
+          onRowClick={onRowClick}
         />
       </TableContainer>
       {isFooterActive ? (
