@@ -30,6 +30,7 @@ export interface RowRendererProps {
   rowHeight: number;
   searchTerm: string;
   cellRenderer?: CellRenderer;
+  onRowClick?: ({ index: number }) => void;
 }
 
 const rowRenderer = (props: RowRendererProps) => {
@@ -44,10 +45,17 @@ const rowRenderer = (props: RowRendererProps) => {
     rowHeight,
     searchTerm,
     cellRenderer,
+    onRowClick,
   } = props;
 
+  const handleRowClick = () => {
+    if (onRowClick) {
+      onRowClick({ index });
+    }
+  };
+
   return (
-    <Row key={key} style={style} className="grid-row">
+    <Row key={key} style={style} className="grid-row" onClick={handleRowClick}>
       {headers.map((header, i) => {
         const width = has('width', header)
           ? header.width
@@ -99,6 +107,7 @@ interface TableBodyProps {
   errorStateRenderer?: ErrorStateRenderer;
   onReachedEnd?: () => void;
   isBottomLoaderActive?: boolean;
+  onRowClick?: ({ index: number }) => void;
 }
 
 const Body = (props: TableBodyProps) => {
@@ -116,6 +125,7 @@ const Body = (props: TableBodyProps) => {
     errorStateRenderer,
     onReachedEnd,
     isBottomLoaderActive,
+    onRowClick,
   } = props;
   const rendererExtensions = {
     ratio,
@@ -124,6 +134,7 @@ const Body = (props: TableBodyProps) => {
     rowHeight,
     searchTerm,
     cellRenderer,
+    onRowClick,
   };
 
   const handleOnRowsRendered = useCallback(
