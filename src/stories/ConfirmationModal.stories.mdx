@@ -1,0 +1,58 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { ConfirmationModal } from './ConfirmationModalPreview';
+
+<Meta title="utils/Confirmation Modal"/>
+
+# Confirmation Modal
+
+A util hooks for displaying a Promise-based confirmation modal
+
+Usage:
+
+`const { isOpen, toggleOpen, asyncConfirmation, onResolve } = useConfirmationModal(shouldConfirm: boolean)`
+
+
+- Pass `isOpen` & `toggleOpen` to a Modal component
+- Use `onResolve(true) / onResolve(false)` in Modal's buttons
+
+
+- Use `const isConfirmed = await asyncConfirmation()` inside an action you'd like to confirm, and a modal will show up
+- `isConfirmed` will be resolved as `true`/`false`, based on the callback used in Modal's buttons: `onResolve(true)` or `onResolve(false)`
+
+
+- Toggle confirmation by passing `true`/`false` to `useConfirmationModal` hook. If `false`, confirmation modal won't be displayed and `asyncConfirmation` will be resolved as `true` by default
+
+<Canvas>
+	<ConfirmationModal/>
+</Canvas>
+
+````javascript
+import { useConfirmationModal, Modal } from '@datorama/app-components';
+
+const Component = () => {
+	const { isOpen, toggleOpen, onResolve, asyncConfirmationCheck } = useConfirmationModal(true);
+
+	const onClick = useCallback(async () => {
+		const isConfirmed = await asyncConfirmationCheck();
+
+		if (!isConfirmed) return;
+
+		// continue
+	}, [asyncConfirmationCheck])
+
+  return (
+  	<div>
+		<Modal
+			{...modalProps}
+			toggleOpen={toggleOpen}
+			open={isOpen}
+			buttons={[
+				{ type: 'secondary', label: 'Cancel', onClick: () => onResolve(false) },
+				{ type: 'primary', label: 'Confirm', onClick: () => onResolve(true) }
+			]} />
+
+		<Button onClick={onClick}>Action</Button>
+  	</div>
+  );
+}
+````
