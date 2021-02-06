@@ -48,11 +48,11 @@ const InnerComponent = () => {
       </Modal>
 
       <Counter>{counter}</Counter>
-      <StyledButton onClick={raiseCounter}>Add</StyledButton>
+      <StyledButton onClick={raiseCounter}>+1</StyledButton>
 
       <Checkbox
         checked={shouldConfirm}
-        label="Should confirm"
+        label="Require confirmation"
         onClick={() => setShouldConfirm((curr) => !curr)}
       />
     </Container>
