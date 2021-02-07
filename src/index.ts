@@ -79,6 +79,9 @@ export { Grid } from './components/Grid/Grid';
 export { GridLayout } from './components/GridLayout/GridLayout';
 export { GridItem } from './components/GridLayout/GridItem';
 
+// Hooks
+export { useConfirmationModal } from './hooks/confirmation-modal.hooks';
+
 // Pending Deprecation
 export { IllustratedMessage } from './components/IllustratedMessage/IllustratedMessage';
 export { Ellipsis } from './components/Ellipsis';
