@@ -1,6 +1,20 @@
 import { RefObject, useCallback, useEffect, useState } from 'react';
 
-import { ARROW_SIZE, PopoverPosition } from '.';
+export const ARROW_SIZE = 8;
+
+export type PopoverPosition =
+  | 'bottom'
+  | 'bottomLeft'
+  | 'bottomRight'
+  | 'top'
+  | 'topLeft'
+  | 'topRight'
+  | 'left'
+  | 'leftTop'
+  | 'leftBottom'
+  | 'right'
+  | 'rightTop'
+  | 'rightBottom';
 
 const usePopover = (
   isOpened: boolean,
