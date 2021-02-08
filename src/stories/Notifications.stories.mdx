@@ -1,7 +1,7 @@
-import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
 import { Notifications } from './NotificationsPreview';
 
-<Meta title="core/notifications" />
+<Meta title="core/Notifications" />
 
 # Notifications
 
@@ -21,8 +21,8 @@ const MyComp = () => {
       top: 0 // snackbar top offset
     };
   const dispatchToast = useCallback(() => {
-    addToast(config);  
-  }, [addToast, config]); 
+    addToast(config);
+  }, [addToast, config]);
 
   return <Button onClick={addToast}>Add Toast</Button>;
 };

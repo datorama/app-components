@@ -78,6 +78,10 @@ export { Gauge } from './components/Gauge';
 export { Grid } from './components/Grid/Grid';
 export { GridLayout } from './components/GridLayout/GridLayout';
 export { GridItem } from './components/GridLayout/GridItem';
+export { Popover } from './components/Popover';
+
+// Hooks
+export { useConfirmationModal } from './hooks/confirmation-modal.hooks';
 
 // Pending Deprecation
 export { IllustratedMessage } from './components/IllustratedMessage/IllustratedMessage';
