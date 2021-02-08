@@ -7,29 +7,13 @@ import CloseIcon from '../../assets/Close.icon';
 
 import { hexToRgba } from '../../utils/theme.utils';
 
-import usePopover from './popover.hooks';
+import usePopover, { ARROW_SIZE, PopoverPosition } from './popover.hooks';
 
 import { ClickOut } from '../ClickOut';
 
 export const DEFAULT_HEIGHT = 100;
 export const DEFAULT_WIDTH = 200;
 export const DEFAULT_OFFSET = 20;
-export const ARROW_SIZE = 8;
-
-export type PopoverPosition =
-  | 'bottom'
-  | 'bottomLeft'
-  | 'bottomRight'
-  | 'top'
-  | 'topLeft'
-  | 'topRight'
-  | 'left'
-  | 'leftTop'
-  | 'leftBottom'
-  | 'right'
-  | 'rightTop'
-  | 'rightBottom';
-
 interface PopoverProps {
   triggerRef: RefObject<HTMLElement | SVGAElement>;
   children: ReactNode;
