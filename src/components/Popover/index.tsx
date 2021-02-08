@@ -48,7 +48,7 @@ interface PopoverProps {
   absolutePosition?: [number, number];
 }
 
-const Popover = ({
+export const Popover = ({
   children,
   triggerRef,
   height = DEFAULT_HEIGHT,
