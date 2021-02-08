@@ -9,7 +9,7 @@ import { hexToRgba } from '../../utils/theme.utils';
 
 import usePopover from './popover.hooks';
 
-import { ClickOut } from '../..';
+import { ClickOut } from '../ClickOut';
 
 export const DEFAULT_HEIGHT = 100;
 export const DEFAULT_WIDTH = 200;
