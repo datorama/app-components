@@ -52,9 +52,7 @@ function headerRenderer(props: HeaderRendererProps) {
         const isColumnResizeable = isResizable
           ? i !== headers.length - 1
           : false;
-        const width = has('width', header)
-          ? header.width
-          : parentWidth * (ratio[i] + deltas[i]);
+        const width = parentWidth * (ratio[i] + deltas[i]);
 
         return (
           <HeaderCol

@@ -57,9 +57,7 @@ const rowRenderer = (props: RowRendererProps) => {
   return (
     <Row key={key} style={style} className="grid-row" onClick={handleRowClick}>
       {headers.map((header, i) => {
-        const width = has('width', header)
-          ? header.width
-          : parentWidth * ratio[i];
+        const width = parentWidth * ratio[i];
 
         return (
           <Col

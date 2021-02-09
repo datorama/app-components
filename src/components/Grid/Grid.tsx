@@ -1,7 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import 'react-virtualized/styles.css';
 import * as JsSearch from 'js-search';
+import { get, orderBy, isBoolean, unset, sumBy } from 'lodash/fp';
+
 import {
   DataArray,
   HeadersType,
@@ -15,7 +17,8 @@ import {
   ErrorStateRenderer,
   SortParams,
 } from './Grid.types';
-import { get, orderBy, isBoolean, unset } from 'lodash/fp';
+
+import { useElementDimensions } from '../../hooks/next.common.hooks';
 
 // Components
 import Actions from './Actions';
@@ -60,6 +63,39 @@ const createNewSearch = () => {
 
 let search = createNewSearch();
 
+const getInitialColWidthRatio = (
+  headers: HeadersType,
+  containerWidth: number
+) => {
+  const { numCellsWithPresetWidth, sumOfPresetWidths } = headers.reduce(
+    (
+      acc: { numCellsWithPresetWidth: number; sumOfPresetWidths: number },
+      header
+    ) => {
+      if (header.width) {
+        acc.numCellsWithPresetWidth++;
+        acc.sumOfPresetWidths += header.width;
+      }
+      return acc;
+    },
+    { numCellsWithPresetWidth: 0, sumOfPresetWidths: 0 }
+  );
+
+  const numCellsWithoutPresetWidth = headers.length - numCellsWithPresetWidth;
+
+  return headers.map(({ width }) => {
+    if (width) {
+      return width / containerWidth;
+    } else {
+      return (
+        (containerWidth - sumOfPresetWidths) /
+        numCellsWithoutPresetWidth /
+        containerWidth
+      );
+    }
+  });
+};
+
 export const Grid = (props: Props) => {
   const {
     data,
@@ -91,6 +127,10 @@ export const Grid = (props: Props) => {
   const [ratio, setRatio] = useState([]);
   const [deltas, setDeltas] = useState([]); // change while dragging. in percent
 
+  const gridContainerRef = useRef<HTMLDivElement>(null);
+
+  const { width: gridContainerWidth } = useElementDimensions(gridContainerRef);
+
   useEffect(() => {
     search = createNewSearch();
   }, [headers, data]);
@@ -111,8 +151,8 @@ export const Grid = (props: Props) => {
     }
 
     setDeltas(headers.map(() => 0));
-    setRatio(headers.map(() => 1 / headers.length));
-  }, [headers, search, isActionsActive]);
+    setRatio(getInitialColWidthRatio(headers, gridContainerWidth));
+  }, [headers, search, isActionsActive, gridContainerWidth]);
 
   useEffect(() => {
     const extended = data.map((obj, rowIndex) => ({ ...obj, rowIndex }));
@@ -210,7 +250,7 @@ export const Grid = (props: Props) => {
   );
 
   return (
-    <Container className={props.className}>
+    <Container className={props.className} ref={gridContainerRef}>
       {isActionsActive ? (
         <>
           {actionsRenderer ? (
