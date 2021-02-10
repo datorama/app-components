@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import 'react-virtualized/styles.css';
 import * as JsSearch from 'js-search';
-import { get, orderBy, isBoolean, unset, sumBy } from 'lodash/fp';
+import { get, orderBy, isBoolean, unset } from 'lodash/fp';
 
 import {
   DataArray,
@@ -48,6 +48,7 @@ export interface Props {
   isResizable?: boolean;
   extendedSearchHeaders?: string[];
   onRowClick?: ({ index: number }) => void;
+  onColumnsResize?: (HeadersType) => void;
 }
 
 const createNewSearch = () => {
@@ -118,6 +119,7 @@ export const Grid = (props: Props) => {
     isResizable,
     extendedSearchHeaders,
     onRowClick,
+    onColumnsResize,
   } = props;
   const [scroll, setScroll] = useState({ scrollTop: 0 });
   const [sortData, setSortData] = useState<SortDataType>({});
@@ -240,6 +242,15 @@ export const Grid = (props: Props) => {
 
         arr[i] += x;
         arr[i + 1] -= x;
+
+        if (onColumnsResize) {
+          onColumnsResize(
+            headers.map((header, index) => ({
+              ...header,
+              width: arr[index] * parentWidth,
+            }))
+          );
+        }
 
         return arr;
       });
