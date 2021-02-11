@@ -229,6 +229,12 @@ export const Grid = (props: Props) => {
     });
   }, []);
 
+  const headersRef = useRef(headers);
+
+  useEffect(() => {
+    headersRef.current = headers;
+  }, [headers]);
+
   const handleDragEnd = useCallback(
     (e, i, parentWidth) => {
       setRatio((prev) => {
@@ -245,7 +251,7 @@ export const Grid = (props: Props) => {
 
         if (onColumnsResize) {
           onColumnsResize(
-            headers.map((header, index) => ({
+            headersRef.current.map((header, index) => ({
               ...header,
               width: arr[index] * parentWidth,
             }))
