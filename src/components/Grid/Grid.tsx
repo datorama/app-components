@@ -1,7 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import 'react-virtualized/styles.css';
 import * as JsSearch from 'js-search';
+import { get, orderBy, isBoolean, unset } from 'lodash/fp';
+
 import {
   DataArray,
   HeadersType,
@@ -15,7 +17,8 @@ import {
   ErrorStateRenderer,
   SortParams,
 } from './Grid.types';
-import { get, orderBy, isBoolean, unset } from 'lodash/fp';
+
+import { useElementDimensions } from '../../hooks/next.common.hooks';
 
 // Components
 import Actions from './Actions';
@@ -45,6 +48,7 @@ export interface Props {
   isResizable?: boolean;
   extendedSearchHeaders?: string[];
   onRowClick?: ({ index: number }) => void;
+  onColumnsResize?: (HeadersType) => void;
 }
 
 const createNewSearch = () => {
@@ -59,6 +63,39 @@ const createNewSearch = () => {
 };
 
 let search = createNewSearch();
+
+const getInitialColWidthRatio = (
+  headers: HeadersType,
+  containerWidth: number
+) => {
+  const { numCellsWithPresetWidth, sumOfPresetWidths } = headers.reduce(
+    (
+      acc: { numCellsWithPresetWidth: number; sumOfPresetWidths: number },
+      header
+    ) => {
+      if (header.width) {
+        acc.numCellsWithPresetWidth++;
+        acc.sumOfPresetWidths += header.width;
+      }
+      return acc;
+    },
+    { numCellsWithPresetWidth: 0, sumOfPresetWidths: 0 }
+  );
+
+  const numCellsWithoutPresetWidth = headers.length - numCellsWithPresetWidth;
+
+  return headers.map(({ width }) => {
+    if (width) {
+      return width / containerWidth;
+    } else {
+      return (
+        (containerWidth - sumOfPresetWidths) /
+        numCellsWithoutPresetWidth /
+        containerWidth
+      );
+    }
+  });
+};
 
 export const Grid = (props: Props) => {
   const {
@@ -82,6 +119,7 @@ export const Grid = (props: Props) => {
     isResizable,
     extendedSearchHeaders,
     onRowClick,
+    onColumnsResize,
   } = props;
   const [scroll, setScroll] = useState({ scrollTop: 0 });
   const [sortData, setSortData] = useState<SortDataType>({});
@@ -90,6 +128,10 @@ export const Grid = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [ratio, setRatio] = useState([]);
   const [deltas, setDeltas] = useState([]); // change while dragging. in percent
+
+  const gridContainerRef = useRef<HTMLDivElement>(null);
+
+  const { width: gridContainerWidth } = useElementDimensions(gridContainerRef);
 
   useEffect(() => {
     search = createNewSearch();
@@ -111,8 +153,8 @@ export const Grid = (props: Props) => {
     }
 
     setDeltas(headers.map(() => 0));
-    setRatio(headers.map(() => 1 / headers.length));
-  }, [headers, search, isActionsActive]);
+    setRatio(getInitialColWidthRatio(headers, gridContainerWidth));
+  }, [headers, search, isActionsActive, gridContainerWidth]);
 
   useEffect(() => {
     const extended = data.map((obj, rowIndex) => ({ ...obj, rowIndex }));
@@ -187,6 +229,12 @@ export const Grid = (props: Props) => {
     });
   }, []);
 
+  const headersRef = useRef(headers);
+
+  useEffect(() => {
+    headersRef.current = headers;
+  }, [headers]);
+
   const handleDragEnd = useCallback(
     (e, i, parentWidth) => {
       setRatio((prev) => {
@@ -201,6 +249,15 @@ export const Grid = (props: Props) => {
         arr[i] += x;
         arr[i + 1] -= x;
 
+        if (onColumnsResize) {
+          onColumnsResize(
+            headersRef.current.map((header, index) => ({
+              ...header,
+              width: arr[index] * parentWidth,
+            }))
+          );
+        }
+
         return arr;
       });
 
@@ -210,7 +267,7 @@ export const Grid = (props: Props) => {
   );
 
   return (
-    <Container className={props.className}>
+    <Container className={props.className} ref={gridContainerRef}>
       {isActionsActive ? (
         <>
           {actionsRenderer ? (

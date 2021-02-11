@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { has } from 'lodash/fp';
 
 // Components
 import { AutoSizer, List } from 'react-virtualized';
@@ -52,9 +51,7 @@ function headerRenderer(props: HeaderRendererProps) {
         const isColumnResizeable = isResizable
           ? i !== headers.length - 1
           : false;
-        const width = has('width', header)
-          ? header.width
-          : parentWidth * (ratio[i] + deltas[i]);
+        const width = parentWidth * (ratio[i] + deltas[i]) || 0;
 
         return (
           <HeaderCol
