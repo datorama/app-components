@@ -75,6 +75,7 @@ export {
 export { SnailChart } from './components/SnailChart';
 export { GoalsChart } from './components/GoalsChart/GoalsChart';
 export { Gauge } from './components/Gauge';
+export { FormattedRichTextMessage } from './components/FormattedRichTextMessage/FormattedRichTextMessage';
 export { Grid } from './components/Grid/Grid';
 export { GridLayout } from './components/GridLayout/GridLayout';
 export { GridItem } from './components/GridLayout/GridItem';
