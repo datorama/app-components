@@ -245,3 +245,26 @@ export const extendTheme = (theme, options) => {
 
   return newTheme;
 };
+
+export const loadFonts = (font) => {
+  const head = document.head || document.getElementsByTagName('head')[0],
+    style = document.createElement('style');
+
+  head.appendChild(style);
+
+  const css = `
+          ${font.url ? `@import url('${font.url}');` : ''}
+
+          body, input, select, textarea, button {
+            font-family: ${font.family};
+          }
+        `;
+
+  style.type = 'text/css';
+  if (style.styleSheet) {
+    // This is required for IE8 and below.
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+};
