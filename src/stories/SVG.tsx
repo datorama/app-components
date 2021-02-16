@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { lightTheme } from '../constants/themes.constants';
-import { AppTheme } from '../components/AppTheme.js';
+import { AppTheme } from '../components/AppTheme';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 
