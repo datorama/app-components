@@ -28,9 +28,10 @@ Primary.args = {
   onChange: noop,
   onMenuEnter: noop,
   onMenuLeave: noop,
+  placeholder: 'Select a date',
   dateRange: {
-    startDate: getDate(-2),
-    endDate: getDate(2),
+    startDate: '', //getDate(-2),
+    endDate: '', //getDate(2),
   },
   activeRange: [getDate(-12), getDate(4)],
 };

@@ -22,6 +22,7 @@ export class Datepicker extends Component {
   weekdays = [];
 
   static propTypes = {
+    placeholder: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     onMenuEnter: PropTypes.func,
     onMenuLeave: PropTypes.func,
@@ -527,6 +528,16 @@ export class Datepicker extends Component {
     );
   };
 
+  isValueEmpty = () => {
+    const { selection, selectedPreset } = this.state;
+
+    return (
+      isEmpty(selectedPreset) &&
+      !selection.startDate.isValid() &&
+      !selection.endDate.isValid()
+    );
+  };
+
   render() {
     const { open, selectedPreset } = this.state;
     const {
@@ -537,6 +548,7 @@ export class Datepicker extends Component {
       customPresets,
       bodyRenderer,
       customColor,
+      placeholder,
     } = this.props;
     const monthsElement = [];
     const body = () => <Dates>{monthsElement}</Dates>;
@@ -557,11 +569,21 @@ export class Datepicker extends Component {
               <StyledCalendar />
             </div>
 
-            {this.headerRenderer()}
+            {placeholder && this.isValueEmpty() ? (
+              <Placeholder className="placeholder-container">
+                <InnerPlaceholder className="placeholder-label">
+                  {placeholder}
+                </InnerPlaceholder>
+              </Placeholder>
+            ) : (
+              <React.Fragment>
+                {this.headerRenderer()}
 
-            <div>
-              <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
-            </div>
+                <div>
+                  <StyledArrowDown rotation={open ? '180deg' : '0deg'} />
+                </div>
+              </React.Fragment>
+            )}
           </DatepickerHeaderRow>
 
           <Container
@@ -887,4 +909,19 @@ const StyledArrow = styled(Arrow)`
   path {
     fill: ${({ theme }) => theme.p600};
   }
+`;
+
+const Placeholder = styled.div`
+  width: 202px;
+  height: 19px;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+`;
+
+const InnerPlaceholder = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 190px;
 `;
