@@ -24,7 +24,7 @@ const usePopover = (
   offset: number,
   width: number,
   height: number,
-  triggerRef?: RefObject<HTMLElement | SVGAElement>,
+  triggerRef?: RefObject<HTMLElement | SVGSVGElement>,
   absolutePosition?: [number, number]
 ) => {
   const [popoverPosition, setPopoverPosition] = useState<PopoverPosition>(

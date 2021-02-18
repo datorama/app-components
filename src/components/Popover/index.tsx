@@ -15,7 +15,7 @@ export const DEFAULT_HEIGHT = 100;
 export const DEFAULT_WIDTH = 200;
 export const DEFAULT_OFFSET = 20;
 interface PopoverProps {
-  triggerRef: RefObject<HTMLElement | SVGAElement>;
+  triggerRef: RefObject<HTMLElement | SVGSVGElement>;
   children: ReactNode;
   height?: number;
   width?: number;
