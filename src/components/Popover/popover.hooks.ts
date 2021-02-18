@@ -329,18 +329,11 @@ const usePopover = (
     setPopoverPosition(position);
   }, [position]);
 
-  const handleClickOut = useCallback(() => {
-    if (open) {
-      handleClose();
-    }
-  }, [open, handleClose]);
-
   return {
     open,
     renderPosition,
     renderArrowPosition,
     handleClose,
-    handleClickOut,
     popoverPosition,
   };
 };
