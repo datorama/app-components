@@ -54,7 +54,6 @@ export const Popover = ({
     renderPosition,
     renderArrowPosition,
     handleClose,
-    handleClickOut,
     popoverPosition,
   } = usePopover(
     isOpened,
@@ -67,6 +66,12 @@ export const Popover = ({
     triggerRef,
     absolutePosition
   );
+
+  const handleClickOut = () => {
+    if (open) {
+      handleClose();
+    }
+  };
 
   return (
     <>
