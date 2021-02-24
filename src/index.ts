@@ -32,7 +32,7 @@ export const yellows = libColors.yellows;
 export const oranges = libColors.oranges;
 
 // Components
-export { AppTheme } from './components/AppTheme';
+export { AppThemeProvider } from './components/AppThemeProvider/AppThemeProvider';
 export { Button } from './components/Button';
 export { SegmentedButton } from './components/SegmentedButton/SegmentedButton';
 export { Card } from './components/Card';

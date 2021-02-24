@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { lightTheme } from '../constants/themes.constants';
-import { AppTheme } from '../components/AppTheme';
+import { AppThemeProvider } from '../components/AppThemeProvider/AppThemeProvider';
 import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
 
@@ -10,7 +10,7 @@ export const SVG = () => {
   const [p400, setP400] = useState(lightTheme.p400);
 
   return (
-    <AppTheme
+    <AppThemeProvider
       theme={{ ...lightTheme, a400, s400, p400 }}
       provider={ThemeProvider}
     >
@@ -72,7 +72,7 @@ export const SVG = () => {
           </g>
         </svg>
       </div>
-    </AppTheme>
+    </AppThemeProvider>
   );
 };
 
