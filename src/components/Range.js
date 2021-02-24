@@ -131,6 +131,7 @@ Range.propTypes = {
   showValue: PropTypes.bool,
   className: PropTypes.string,
   onChange: PropTypes.func,
+  innerMax: PropTypes.number,
 };
 
 const Container = styled.div`
