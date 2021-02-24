@@ -16,10 +16,16 @@ export const Range = (props) => {
     showValue,
     className,
     onChange,
+    innerMax,
   } = props;
   const initialPercentage =
     initialValue !== undefined
       ? Math.max(((initialValue - min) / (max - min)) * 100)
+      : 0;
+
+  const innerMaxPercentage =
+    innerMax !== undefined
+      ? Math.max(((innerMax - min) / (max - min)) * 100)
       : 0;
 
   const [percentage, setPercentage] = useState(initialPercentage);
@@ -36,6 +42,10 @@ export const Range = (props) => {
         lastPercentage + (translateX / width) * 100
       );
       const currentPercentage = Math.max(0, calcPercentage);
+
+      if (!!innerMaxPercentage && currentPercentage > innerMaxPercentage) {
+        return;
+      }
 
       setPercentage(currentPercentage);
     },
@@ -62,6 +72,12 @@ export const Range = (props) => {
       const { x, width } = outerEl.current.getBoundingClientRect();
 
       const currentPercentage = Math.round(((clientX - x) / width) * 100);
+
+      if (!!innerMaxPercentage && currentPercentage > innerMaxPercentage) {
+        setPercentage(innerMaxPercentage);
+        setLastPercentage(innerMaxPercentage);
+        return;
+      }
 
       if (currentPercentage !== value) {
         setPercentage(currentPercentage);
