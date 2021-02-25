@@ -67,7 +67,6 @@ export const buildTheme = (
   customTheme: Partial<AppTheme>,
   paletteAdditions: PaletteAdditions
 ): AppTheme => {
-  reversePaletteAdditions(paletteAdditions);
   const isDark = !!customTheme?.isDark;
   const baseTheme = isDark ? darkTheme : lightTheme;
   const overridePaletteArrays = isDark
