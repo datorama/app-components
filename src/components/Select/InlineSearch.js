@@ -104,7 +104,7 @@ class InlineSearch extends Component {
           <SmallInput
             onChange={this.handleInput}
             value={this.props.value}
-            placeholder={this.props.placeholder || 'Search'}
+            placeholder={tags.length ? '' : this.props.placeholder || 'Search'}
             ref={this.handleRef}
             small={this.props.small}
             onFocus={this.props.toggleFocus}
