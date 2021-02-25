@@ -1,0 +1,113 @@
+import { Meta, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { UploadFilePreview, UploadFileConfigPreview } from './UploadFilePreview';
+import { UploadFileProvider } from '../components/UploadFile/UploadFileProvider';
+
+<Meta title="utils/Upload File"/>
+
+# Upload File
+
+<Canvas >
+	<UploadFilePreview/>
+</Canvas>
+
+## Usage
+
+<br/>
+
+#### Wrap a container with UploadFileProvider
+
+```typescript jsx
+const WrappedComponent = () => (
+	<UploadFileProvider
+      modalConfig={{
+        labels: {
+          title: 'Upload a classification file',
+          subtitle:
+            'Download the CSV file template to fill the classification rules for your campaigns into strategies. Upload the file and see how the rules affect your data.',
+          cancel: 'Cancel',
+          save: 'Save',
+          example: 'Download CSV template file',
+          errorMessage:
+            'There was a problem uploading the file, please make sure you selected a CSV file and try again.',
+          dragAndDrop: 'DRAG & DROP',
+          lastUploaded: 'Last uploaded file',
+          browse: 'Browse'
+        }
+      }}
+      onSave={setSavedFile}
+      isUploadOnly={true}
+      savedFile={savedFile}
+      onDownloadExample={() => sdk.app.downloadFile({
+		  base64String: `data:application/csv;base64,${btoa(fileContent)}`,
+		  fileName,
+	  })}
+      uploadedFileParser={parseCsvFileContent}
+      checkIsFileValid={(file: File) => !!file && file.type === 'text/csv'}
+      fileType="csv"
+	>
+		<InnerComponent />
+	</UploadFileProvider>
+)
+```
+
+### UploadFileProvider props
+<Canvas>
+	<ArgsTable of={UploadFileProvider}/>
+</Canvas>
+
+#### Use UploadFileContext to toggle upload modal
+
+```typescript jsx
+import { useUploadFileContext } from '@datorama/app-components';
+
+const InnerComponent = () => {
+	const { onToggle, uploadFileConfig } = useUploadFileContext();
+
+	return (
+		<Button onClick={onToggle}>Upload File</Button>
+	);
+}
+```
+
+### `uploadFileConfig` object type
+<Canvas>
+	<ArgsTable of={UploadFileConfigPreview}/>
+</Canvas>
+
+
+## Examples
+
+### Download CSV example file using Papaparse & @datorama/sdk
+
+```typescript jsx
+import sdk from '@datorama/sdk';
+import Papaparse from 'papaparse';
+
+export const downloadCsvFile = ({
+  content,
+  fileName,
+}: {
+  content: unknown;
+  fileName: string;
+}) => {
+  if (!content) return;
+
+  const unparsedCSV = Papa.unparse(content as Array<string[]>);
+
+  sdk.app.downloadFile({
+    base64String: `data:application/csv;base64,${btoa(unparsedCSV)}`,
+    fileName,
+  });
+};
+```
+
+### Parse uploaded CSV file content using `parseCsvFileContent`
+
+```typescript jsx
+import { parseCsvFileContent } from '@datorama/app-components';
+
+<UploadFileProvider
+	...
+	uploadedFileParser={parseCsvFileContent}
+/>
+```
