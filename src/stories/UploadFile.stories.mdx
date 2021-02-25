@@ -75,9 +75,9 @@ const InnerComponent = () => {
 </Canvas>
 
 
-## How to download example files:
+## Examples
 
-### CSV
+### Download CSV example file using Papaparse & @datorama/sdk
 
 ```typescript jsx
 import sdk from '@datorama/sdk';
@@ -99,4 +99,15 @@ export const downloadCsvFile = ({
     fileName,
   });
 };
+```
+
+### Parse uploaded CSV file content using `parseCsvFileContent`
+
+```typescript jsx
+import { parseCsvFileContent } from '@datorama/app-components';
+
+<UploadFileProvider
+	...
+	uploadedFileParser={parseCsvFileContent}
+/>
 ```
