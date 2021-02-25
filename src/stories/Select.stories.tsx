@@ -8,6 +8,9 @@ export default {
   component: Select,
   argTypes: {
     spinnerColor: { control: 'color' },
+    inlineSearch: {
+      description: 'enables inline search and displays selection as tags',
+    },
   },
 };
 
