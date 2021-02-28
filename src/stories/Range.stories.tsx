@@ -14,5 +14,4 @@ Primary.args = {
   min: 0,
   max: 200,
   initialValue: 20,
-  innerMax: 0,
 };
