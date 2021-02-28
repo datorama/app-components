@@ -98,7 +98,11 @@ export const Range = (props) => {
   );
 
   return (
-    <Container disabled={disabled} className={className} onClick={handleClick}>
+    <Container
+      disabled={disabled}
+      className={className}
+      onMouseDown={handleClick}
+    >
       <Outer ref={outerEl} className="outer" disabled={disabled}>
         <Inner width={percentage} className="inner" />
       </Outer>
