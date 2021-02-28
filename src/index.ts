@@ -82,7 +82,10 @@ export { GridItem } from './components/GridLayout/GridItem';
 export { Popover } from './components/Popover';
 
 // Provider
-export { UploadFileProvider } from './components/UploadFile/UploadFileProvider';
+export {
+  UploadFileProvider,
+  useUploadFile,
+} from './components/UploadFile/UploadFileProvider';
 
 // Hooks
 export { useConfirmationModal } from './hooks/confirmation-modal.hooks';
