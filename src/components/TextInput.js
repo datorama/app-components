@@ -24,6 +24,7 @@ export const TextInput = (props) => {
         valid={props.valid}
         large={props.large}
         onFocus={props.onFocus}
+        onBlur={props.onBlur}
         className="text-input"
         type={props.type || 'text'}
       />
@@ -49,6 +50,7 @@ TextInput.propTypes = {
   errorMessage: PropTypes.string,
   large: PropTypes.bool,
   onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
   className: PropTypes.string,
   type: PropTypes.string,
 };
