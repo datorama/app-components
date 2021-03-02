@@ -9,6 +9,7 @@ export {
   hexToPalette,
 } from './utils/theme.utils';
 export { uuid } from './utils/common.utils';
+export { parseCsvFileContent } from './components/UploadFile/upload-file.utils';
 
 // GRID LAYOUT
 export const Container = layout.Container;
@@ -79,6 +80,12 @@ export { Grid } from './components/Grid/Grid';
 export { GridLayout } from './components/GridLayout/GridLayout';
 export { GridItem } from './components/GridLayout/GridItem';
 export { Popover } from './components/Popover';
+
+// Provider
+export {
+  UploadFileProvider,
+  useUploadFile,
+} from './components/UploadFile/UploadFileProvider';
 
 // Hooks
 export { useConfirmationModal } from './hooks/confirmation-modal.hooks';

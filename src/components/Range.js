@@ -1,7 +1,9 @@
 /* eslint react/prop-types: 0 */
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
+import { isNil } from 'lodash/fp';
 import * as PropTypes from 'prop-types';
+
 import { hexToRgba } from '../utils/theme.utils';
 
 // components
@@ -16,11 +18,19 @@ export const Range = (props) => {
     showValue,
     className,
     onChange,
+    innerMax,
+    valueLabelRenderer,
+    boundaryLabelRenderer,
   } = props;
   const initialPercentage =
     initialValue !== undefined
       ? Math.max(((initialValue - min) / (max - min)) * 100)
       : 0;
+
+  const innerMaxPercentage =
+    innerMax !== undefined
+      ? Math.max(((innerMax - min) / (max - min)) * 100)
+      : undefined;
 
   const [percentage, setPercentage] = useState(initialPercentage);
   const [lastPercentage, setLastPercentage] = useState(initialPercentage);
@@ -37,9 +47,16 @@ export const Range = (props) => {
       );
       const currentPercentage = Math.max(0, calcPercentage);
 
+      if (
+        !isNil(innerMaxPercentage) &&
+        currentPercentage > innerMaxPercentage
+      ) {
+        return;
+      }
+
       setPercentage(currentPercentage);
     },
-    [outerEl, lastPercentage]
+    [outerEl, lastPercentage, innerMaxPercentage]
   );
 
   useEffect(() => {
@@ -63,16 +80,29 @@ export const Range = (props) => {
 
       const currentPercentage = Math.round(((clientX - x) / width) * 100);
 
+      if (
+        !isNil(innerMaxPercentage) &&
+        currentPercentage > innerMaxPercentage
+      ) {
+        setPercentage(innerMaxPercentage);
+        setLastPercentage(innerMaxPercentage);
+        return;
+      }
+
       if (currentPercentage !== value) {
         setPercentage(currentPercentage);
         setLastPercentage(currentPercentage);
       }
     },
-    [outerEl, value]
+    [outerEl, value, innerMaxPercentage]
   );
 
   return (
-    <Container disabled={disabled} className={className} onClick={handleClick}>
+    <Container
+      disabled={disabled}
+      className={className}
+      onMouseDown={handleClick}
+    >
       <Outer ref={outerEl} className="outer" disabled={disabled}>
         <Inner width={percentage} className="inner" />
       </Outer>
@@ -94,14 +124,14 @@ export const Range = (props) => {
         visible={showValue || dragging}
         className="value"
       >
-        {value}
+        {valueLabelRenderer ? valueLabelRenderer(value) : value}
       </Value>
 
       <Label left="-20px" className="label">
-        {min}
+        {boundaryLabelRenderer ? boundaryLabelRenderer(min) : min}
       </Label>
       <Label left="calc(100% - 20px)" className="label">
-        {max}
+        {boundaryLabelRenderer ? boundaryLabelRenderer(max) : max}
       </Label>
     </Container>
   );
@@ -115,6 +145,9 @@ Range.propTypes = {
   showValue: PropTypes.bool,
   className: PropTypes.string,
   onChange: PropTypes.func,
+  innerMax: PropTypes.number,
+  boundaryLabelRenderer: PropTypes.func,
+  valueLabelRenderer: PropTypes.func,
 };
 
 const Container = styled.div`

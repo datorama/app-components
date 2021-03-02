@@ -1,0 +1,61 @@
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="94" height="126" viewBox="0 0 94 126">
+  <defs>
+    <filter id="excel-file-active-filter" x="-10.6%" y="-6.3%" width="121.3%" height="115.9%">
+      <feOffset result="shadowOffsetOuter1" dy="2" in="SourceAlpha"/>
+      <feGaussianBlur result="shadowBlurOuter1" stdDeviation="3" in="shadowOffsetOuter1"/>
+      <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" in="shadowBlurOuter1"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="-248.57" y1="463.13" x2="-248.57" y2="462.15" gradientTransform="matrix(86, 0, 0, -114, 21424, 52803)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </defs>
+  <g id="Excel-Drawing">
+    <g id="Rectangle">
+      <g filter="url(#excel-file-active-filter)">
+        <path id="excel-file-active-path-1" d="M8.69,4H97.31A2.63,2.63,0,0,1,100,6.57V127.43A2.63,2.63,0,0,1,97.31,130H8.69A2.63,2.63,0,0,1,6,127.43V6.57A2.63,2.63,0,0,1,8.69,4Z" transform="translate(-6 -4)" fill-rule="evenodd"/>
+      </g>
+      <path id="excel-file-active-path-1-2" d="M8.69,4H97.31A2.63,2.63,0,0,1,100,6.57V127.43A2.63,2.63,0,0,1,97.31,130H8.69A2.63,2.63,0,0,1,6,127.43V6.57A2.63,2.63,0,0,1,8.69,4Z" transform="translate(-6 -4)" fill="#fff" fill-rule="evenodd"/>
+    </g>
+    <g id="Table">
+      <path id="Rectangle-2"  d="M57.6,11.9H71.07a1.33,1.33,0,0,1,1.35,1.29v5.16a1.32,1.32,0,0,1-1.35,1.29H57.6a1.31,1.31,0,0,1-1.34-1.29V13.19A1.32,1.32,0,0,1,57.6,11.9Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8" d="M14.51,11.9H28a1.32,1.32,0,0,1,1.34,1.29v5.16A1.31,1.31,0,0,1,28,19.64H14.51a1.32,1.32,0,0,1-1.35-1.29V13.19A1.33,1.33,0,0,1,14.51,11.9Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7" d="M79.15,11.9H92.62A1.32,1.32,0,0,1,94,13.19v5.16a1.31,1.31,0,0,1-1.34,1.29H79.15a1.32,1.32,0,0,1-1.35-1.29V13.19A1.33,1.33,0,0,1,79.15,11.9Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9" d="M36.06,11.9H49.52a1.32,1.32,0,0,1,1.35,1.29v5.16a1.31,1.31,0,0,1-1.35,1.29H36.06a1.31,1.31,0,0,1-1.35-1.29V13.19A1.32,1.32,0,0,1,36.06,11.9Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-3"  d="M57.6,24.81H71.07a1.33,1.33,0,0,1,1.35,1.29v5.16a1.33,1.33,0,0,1-1.35,1.3H57.6a1.32,1.32,0,0,1-1.34-1.3V26.1A1.32,1.32,0,0,1,57.6,24.81Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8-2" d="M14.51,24.81H28a1.32,1.32,0,0,1,1.34,1.29v5.16A1.32,1.32,0,0,1,28,32.56H14.51a1.33,1.33,0,0,1-1.35-1.3V26.1A1.33,1.33,0,0,1,14.51,24.81Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7-2" d="M79.15,24.81H92.62A1.32,1.32,0,0,1,94,26.1v5.16a1.32,1.32,0,0,1-1.34,1.3H79.15a1.33,1.33,0,0,1-1.35-1.3V26.1A1.33,1.33,0,0,1,79.15,24.81Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9-2" d="M36.06,24.81H49.52a1.32,1.32,0,0,1,1.35,1.29v5.16a1.32,1.32,0,0,1-1.35,1.3H36.06a1.32,1.32,0,0,1-1.35-1.3V26.1A1.32,1.32,0,0,1,36.06,24.81Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-4"  d="M57.6,37.72H71.07A1.33,1.33,0,0,1,72.42,39v5.17a1.33,1.33,0,0,1-1.35,1.29H57.6a1.32,1.32,0,0,1-1.34-1.29V39A1.32,1.32,0,0,1,57.6,37.72Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8-3" d="M14.51,37.72H28A1.32,1.32,0,0,1,29.32,39v5.17A1.32,1.32,0,0,1,28,45.47H14.51a1.33,1.33,0,0,1-1.35-1.29V39A1.33,1.33,0,0,1,14.51,37.72Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7-3" d="M79.15,37.72H92.62A1.32,1.32,0,0,1,94,39v5.17a1.32,1.32,0,0,1-1.34,1.29H79.15a1.33,1.33,0,0,1-1.35-1.29V39A1.33,1.33,0,0,1,79.15,37.72Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9-3" d="M36.06,37.72H49.52A1.32,1.32,0,0,1,50.87,39v5.17a1.32,1.32,0,0,1-1.35,1.29H36.06a1.32,1.32,0,0,1-1.35-1.29V39A1.32,1.32,0,0,1,36.06,37.72Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-5"  d="M57.6,50.63H71.07a1.33,1.33,0,0,1,1.35,1.29v5.17a1.33,1.33,0,0,1-1.35,1.29H57.6a1.32,1.32,0,0,1-1.34-1.29V51.92A1.32,1.32,0,0,1,57.6,50.63Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8-4" d="M14.51,50.63H28a1.32,1.32,0,0,1,1.34,1.29v5.17A1.32,1.32,0,0,1,28,58.38H14.51a1.33,1.33,0,0,1-1.35-1.29V51.92A1.33,1.33,0,0,1,14.51,50.63Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7-4" d="M79.15,50.63H92.62A1.32,1.32,0,0,1,94,51.92v5.17a1.32,1.32,0,0,1-1.34,1.29H79.15a1.33,1.33,0,0,1-1.35-1.29V51.92A1.33,1.33,0,0,1,79.15,50.63Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9-4" d="M36.06,50.63H49.52a1.32,1.32,0,0,1,1.35,1.29v5.17a1.32,1.32,0,0,1-1.35,1.29H36.06a1.32,1.32,0,0,1-1.35-1.29V51.92A1.32,1.32,0,0,1,36.06,50.63Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-6"  d="M57.6,63.54H71.07a1.33,1.33,0,0,1,1.35,1.29V70a1.33,1.33,0,0,1-1.35,1.29H57.6A1.32,1.32,0,0,1,56.26,70V64.83A1.32,1.32,0,0,1,57.6,63.54Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8-5" d="M14.51,63.54H28a1.32,1.32,0,0,1,1.34,1.29V70A1.32,1.32,0,0,1,28,71.29H14.51A1.33,1.33,0,0,1,13.16,70V64.83A1.33,1.33,0,0,1,14.51,63.54Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7-5" d="M79.15,63.54H92.62A1.32,1.32,0,0,1,94,64.83V70a1.32,1.32,0,0,1-1.34,1.29H79.15A1.33,1.33,0,0,1,77.8,70V64.83A1.33,1.33,0,0,1,79.15,63.54Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9-5" d="M36.06,63.54H49.52a1.32,1.32,0,0,1,1.35,1.29V70a1.32,1.32,0,0,1-1.35,1.29H36.06A1.32,1.32,0,0,1,34.71,70V64.83A1.32,1.32,0,0,1,36.06,63.54Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-7"  d="M57.6,76.45H71.07a1.33,1.33,0,0,1,1.35,1.29v5.17a1.33,1.33,0,0,1-1.35,1.29H57.6a1.32,1.32,0,0,1-1.34-1.29V77.74A1.32,1.32,0,0,1,57.6,76.45Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8-6" d="M14.51,76.45H28a1.32,1.32,0,0,1,1.34,1.29v5.17A1.32,1.32,0,0,1,28,84.2H14.51a1.33,1.33,0,0,1-1.35-1.29V77.74A1.33,1.33,0,0,1,14.51,76.45Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7-6" d="M79.15,76.45H92.62A1.32,1.32,0,0,1,94,77.74v5.17a1.32,1.32,0,0,1-1.34,1.29H79.15a1.33,1.33,0,0,1-1.35-1.29V77.74A1.33,1.33,0,0,1,79.15,76.45Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9-6" d="M36.06,76.45H49.52a1.32,1.32,0,0,1,1.35,1.29v5.17a1.32,1.32,0,0,1-1.35,1.29H36.06a1.32,1.32,0,0,1-1.35-1.29V77.74A1.32,1.32,0,0,1,36.06,76.45Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-8"  d="M57.6,89.36H71.07a1.33,1.33,0,0,1,1.35,1.3v5.16a1.33,1.33,0,0,1-1.35,1.29H57.6a1.32,1.32,0,0,1-1.34-1.29V90.66A1.32,1.32,0,0,1,57.6,89.36Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8-7" d="M14.51,89.36H28a1.32,1.32,0,0,1,1.34,1.3v5.16A1.32,1.32,0,0,1,28,97.11H14.51a1.33,1.33,0,0,1-1.35-1.29V90.66A1.33,1.33,0,0,1,14.51,89.36Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7-7" d="M79.15,89.36H92.62A1.32,1.32,0,0,1,94,90.66v5.16a1.32,1.32,0,0,1-1.34,1.29H79.15a1.33,1.33,0,0,1-1.35-1.29V90.66A1.33,1.33,0,0,1,79.15,89.36Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9-7" d="M36.06,89.36H49.52a1.32,1.32,0,0,1,1.35,1.3v5.16a1.32,1.32,0,0,1-1.35,1.29H36.06a1.32,1.32,0,0,1-1.35-1.29V90.66A1.32,1.32,0,0,1,36.06,89.36Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-9"  d="M57.6,102.28H71.07a1.32,1.32,0,0,1,1.35,1.29v5.16A1.33,1.33,0,0,1,71.07,110H57.6a1.32,1.32,0,0,1-1.34-1.29v-5.16A1.31,1.31,0,0,1,57.6,102.28Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8-8" d="M14.51,102.28H28a1.31,1.31,0,0,1,1.34,1.29v5.16A1.32,1.32,0,0,1,28,110H14.51a1.33,1.33,0,0,1-1.35-1.29v-5.16A1.32,1.32,0,0,1,14.51,102.28Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7-8" d="M79.15,102.28H92.62A1.31,1.31,0,0,1,94,103.57v5.16A1.32,1.32,0,0,1,92.62,110H79.15a1.33,1.33,0,0,1-1.35-1.29v-5.16A1.32,1.32,0,0,1,79.15,102.28Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9-8" d="M36.06,102.28H49.52a1.31,1.31,0,0,1,1.35,1.29v5.16A1.32,1.32,0,0,1,49.52,110H36.06a1.32,1.32,0,0,1-1.35-1.29v-5.16A1.31,1.31,0,0,1,36.06,102.28Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-10"  d="M57.6,115.19H71.07a1.32,1.32,0,0,1,1.35,1.29v5.16a1.33,1.33,0,0,1-1.35,1.29H57.6a1.32,1.32,0,0,1-1.34-1.29v-5.16A1.31,1.31,0,0,1,57.6,115.19Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-8-9" d="M14.51,115.19H28a1.31,1.31,0,0,1,1.34,1.29v5.16A1.32,1.32,0,0,1,28,122.93H14.51a1.33,1.33,0,0,1-1.35-1.29v-5.16A1.32,1.32,0,0,1,14.51,115.19Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-7-9" d="M79.15,115.19H92.62A1.31,1.31,0,0,1,94,116.48v5.16a1.32,1.32,0,0,1-1.34,1.29H79.15a1.33,1.33,0,0,1-1.35-1.29v-5.16A1.32,1.32,0,0,1,79.15,115.19Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <path id="Rectangle-Copy-9-9" d="M36.06,115.19H49.52a1.31,1.31,0,0,1,1.35,1.29v5.16a1.32,1.32,0,0,1-1.35,1.29H36.06a1.32,1.32,0,0,1-1.35-1.29v-5.16A1.31,1.31,0,0,1,36.06,115.19Z" transform="translate(-6 -4)" fill="#7896f3" fill-rule="evenodd"/>
+      <polygon id="Rectangle-11"  points="4 5 90 5 90 119 4 119 4 5" fill-rule="evenodd" fill="url(#linear-gradient)"/>
+    </g>
+    <polygon id="X" points="18.99 114 28.2 102.65 37.41 114 47 114 33.62 98.88 46.05 84 37.01 84 28.64 94.79 20.1 84 10.84 84 23.14 98.53 10 114 18.99 114" fill="#4d75f2"/>
+  </g>
+</svg>
