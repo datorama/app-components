@@ -42,14 +42,14 @@ npm run storybook
 npm run lint
 ``` 
 
-3. Add your release notes with the next version to the notes page.
+3. Add your release notes with the future version number to the notes page (src/stories/0_Notes.stories.mdx).
 
-4. In your pull request bump the package version (`minor`, `major` or `patch`) by running:
+4. In your pull request bump the package version to the updated version you documented in the notes (`minor`, `major` or `patch`) by running:
 
 ```bash
 npm version **** 
 ```
-5. Before merging to master, check that you aren't overriding an existing version. If you are - update your branch version.
+5. Before merging to master, check that you aren't overriding an existing version. If you are - update your branch version and the notes page accordingly.
    
 6. After the pull request is merged to master, checkout to master and run:
 
