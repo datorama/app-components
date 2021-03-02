@@ -47,7 +47,7 @@ npm run lint
 4. In your pull request bump the package version to the updated version you documented in the notes (`minor`, `major` or `patch`) by running:
 
 ```bash
-npm version **** -m "message describing version changes"
+npm version **** [-m "message describing version changes"]
 ```
 5. Before merging to master, check that you aren't overriding an existing version. If you are - update your branch version and the notes page accordingly.
    
