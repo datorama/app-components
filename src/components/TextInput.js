@@ -19,11 +19,13 @@ export const TextInput = (props) => {
         placeholder={props.placeholder}
         onChange={props.onChange}
         value={props.value}
+        defaultValue={props.defaultValue}
         disabled={props.disabled}
         error={props.error}
         valid={props.valid}
         large={props.large}
         onFocus={props.onFocus}
+        onBlur={props.onBlur}
         className="text-input"
         type={props.type || 'text'}
       />
@@ -41,6 +43,7 @@ TextInput.propTypes = {
   placeholder: PropTypes.string,
   disabled: PropTypes.bool,
   value: PropTypes.string,
+  defaultValue: PropTypes.string,
   onChange: PropTypes.func,
   required: PropTypes.bool,
   valid: PropTypes.bool,
@@ -49,6 +52,7 @@ TextInput.propTypes = {
   errorMessage: PropTypes.string,
   large: PropTypes.bool,
   onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
   className: PropTypes.string,
   type: PropTypes.string,
 };
