@@ -65,7 +65,8 @@ const reversePaletteAdditions = (
 
 export const buildTheme = (
   customTheme: Partial<AppTheme>,
-  paletteAdditions: PaletteAdditions
+  paletteAdditions: PaletteAdditions,
+  isOverrideForCustomTheme: boolean
 ): AppTheme => {
   const isDark = !!customTheme?.isDark;
   const baseTheme = isDark ? darkTheme : lightTheme;
@@ -76,9 +77,11 @@ export const buildTheme = (
     return Object.assign(acc, current);
   }, {});
 
-  return !isEmpty(customTheme)
-    ? extendTheme(
-        { ...baseTheme, ...overridePalette },
+  if (!isEmpty(customTheme)) {
+    const extendedCustomTheme = {
+      ...overridePalette,
+      ...extendTheme(
+        { ...baseTheme },
         {
           isDark,
           accent: get('accent', customTheme),
@@ -88,9 +91,14 @@ export const buildTheme = (
           font: get('font', customTheme),
           scale: get('scale', customTheme),
         }
-      )
-    : {
-        ...extendTheme(baseTheme),
-        ...overridePalette,
-      };
+      ),
+    };
+    return isOverrideForCustomTheme
+      ? { ...extendedCustomTheme, ...overridePalette }
+      : extendedCustomTheme;
+  }
+  return {
+    ...baseTheme,
+    ...overridePalette,
+  };
 };

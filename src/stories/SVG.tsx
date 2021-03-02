@@ -11,7 +11,7 @@ export const SVG = () => {
 
   return (
     <AppThemeProvider
-      theme={{ ...lightTheme, a400, s400, p400 }}
+      paletteAdditions={[{ a400 }, { s400 }, { p400 }]}
       provider={ThemeProvider}
     >
       <Title>Example:</Title>

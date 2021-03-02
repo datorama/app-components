@@ -1,4 +1,4 @@
-import React, { useEffect, ReactNode, useState } from 'react';
+import React, { useEffect, ReactNode, useState, useMemo } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { isEmpty } from 'lodash/fp';
 import { GlobalStyles } from '../GlobalStyles/GlobalStyles';
@@ -10,27 +10,32 @@ import { buildTheme } from './AppThemeProvider.utils';
 interface Props {
   children?: ReactNode | ReactNode[];
   customColorPrefixes?: string[];
-  theme: AppTheme;
+  theme?: Partial<AppTheme>;
   provider: typeof ThemeProvider;
   paletteAdditions?: PaletteAdditions;
+  isOverrideForCustomTheme?: boolean;
 }
 
 export const AppThemeProvider = (props: Props) => {
   const {
     provider: Provider,
-    theme,
+    theme = {},
     children,
-    customColorPrefixes,
+    customColorPrefixes = [],
     paletteAdditions = [],
+    isOverrideForCustomTheme = false,
   } = props;
-  const [appTheme, setAppTheme] = useState<AppTheme>(theme);
+
+  const appTheme = useMemo(
+    () => buildTheme(theme, paletteAdditions, isOverrideForCustomTheme),
+    [theme, paletteAdditions, isOverrideForCustomTheme]
+  );
 
   useEffect(() => {
     if (!isEmpty(theme.font)) {
       loadFonts(theme.font);
     }
-    setAppTheme(buildTheme(theme, paletteAdditions));
-  }, [theme, paletteAdditions]);
+  }, [theme]);
 
   return (
     <Provider theme={appTheme}>
