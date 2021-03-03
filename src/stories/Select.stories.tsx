@@ -16,6 +16,8 @@ export default {
 
 const Template = (args) => (
   <Container>
+    <Select {...args} usePortalForMenu />
+    <Select {...args} />
     <Select {...args} />
   </Container>
 );
@@ -36,8 +38,9 @@ Primary.args = {
 };
 
 const Container = styled.div`
-  width: 100%;
-  height: 200px;
+  width: fit-content;
+  height: 100px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 `;
