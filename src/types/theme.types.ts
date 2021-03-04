@@ -101,7 +101,7 @@ type ThemeBase = {
   o800: string;
 };
 
-export type Theme = {
+export type AppTheme = {
   size: Size;
   animation: Animation;
   text: Text;
@@ -109,3 +109,35 @@ export type Theme = {
   darkTheme: ThemeBase;
   font?: string;
 } & Record<string, any>;
+
+export type PaletteAddition = {
+  p0?: string;
+  p50?: string;
+  p100?: string;
+  p200?: string;
+  p300?: string;
+  p400?: string;
+  p500?: string;
+  p600?: string;
+  p700?: string;
+  s100?: string;
+  s200?: string;
+  s300?: string;
+  s350?: string;
+  s400?: string;
+  s500?: string;
+  s600?: string;
+  s700?: string;
+  s800?: string;
+  a100?: string;
+  a200?: string;
+  a300?: string;
+  a350?: string;
+  a400?: string;
+  a500?: string;
+  a600?: string;
+  a700?: string;
+  a800?: string;
+};
+
+export type PaletteAdditions = PaletteAddition[];

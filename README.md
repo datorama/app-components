@@ -35,28 +35,29 @@ npm run storybook
 
 ## Publish a new release
 
-First, Make sure that everything is working, well documented and backward compatible.
-Clean up all the lint issues after running
+1. Make sure that everything is working, well documented and backward compatible.
+2. Clean up all the lint issues after running
 
 ```bash
 npm run lint
 ``` 
 
-In your pull request bump the package version (`minor`, `major` or `patch`) by running:
+3. Add your release notes with the future version number to the notes page (src/stories/0_Notes.stories.mdx).
+
+4. In your pull request bump the package version to the updated version you documented in the notes (`minor`, `major` or `patch`) by running:
 
 ```bash
-npm version **** 
+npm version **** [-m "message describing version changes"]
 ```
-
-Add your release notes with the next version to the notes page.
-
-After the pull request is merged to master, checkout to master and run:
+5. Before merging to master, check that you aren't overriding an existing version. If you are - update your branch version and the notes page accordingly.
+   
+6. After the pull request is merged to master, checkout to master and run:
 
 ```bash
 npm run build:package
 ```
 
-and to publish it to NPM - make sure your'e in the root folder and run:
+7. To publish it to NPM - make sure you're in the root folder and run:
 
 ```bash
 npm publish:package

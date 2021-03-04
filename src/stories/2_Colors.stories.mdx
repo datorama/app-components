@@ -5,11 +5,72 @@ import { Colors } from './Colors';
 
 # Colors
 
-Import `lightTheme` or `darkTheme` and pass it to the `AppTheme` component.
+## Setting the App Theme 
 
-```javascript
-// In your styled component
-background: ${({ theme }) => theme.a400};
+The default palette will be `lightTheme`. To override it pass `AdditionalPalettes` to the AppThemeProvider component:
+
+```typescript jsx
+<AppThemeProvider
+  paletteAdditions={[{ a100, a200, a300, a400, a500, a600, a700, a800 }]}
+  provider={ThemeProvider}
+>
 ``` 
+
+You can also pass partial palettes, and multiple colors (please note these will not be extended):
+```typescript jsx
+<AppThemeProvider
+  paletteAdditions={[{ a400 }, { s400 }, { p400 }]}
+  provider={ThemeProvider}
+>
+``` 
+
+## Passing a Theme from the SDK (App Branding)
+Use the `Marketplace-React` library or get the theme via the SDK directly. Here is an example using `Marketplace-React`:
+
+```typescript jsx
+import { DatoramaProvider, useSession } from '@datorama/marketplace-react';
+...
+
+    const session = useSession();
+    const [theme, setTheme] = useState(session?.params?.theme);
+
+    <DatoramaProvider
+      mocks={mocks}
+      onError={handleError}
+      locales={locales}
+      onThemeChange={setTheme}
+    >
+      <AppTheme theme={theme} provider={ThemeProvider}
+      >
+```
+
+You can continue to use the original app theme, which will be used if no theme or an empty theme is passed:
+
+```typescript jsx
+<AppTheme
+  paletteAdditions={ORIGINAL_APP_THEME}
+  theme={theme} 
+  provider={ThemeProvider}
+>
+```
+
+To have the original app theme override the branding, add the following: 
+
+```typescript jsx
+<AppTheme
+  paletteAdditions={ORIGINAL_APP_THEME}
+  isOverrideForCustomTheme={true}
+  theme={theme}
+  provider={ThemeProvider}
+>
+```
+
+## Using the Theme in the App Code
+
+Use the theme in component CSS in this manner:
+
+```typescript jsx
+background: ${({ theme }) => theme.a400};
+```
 
 <Colors />
