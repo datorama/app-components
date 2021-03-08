@@ -1,6 +1,6 @@
 {
   "name": "@datorama/app-components",
-  "version": "1.17.0",
+  "version": "2.0.0",
   "description": "Datorama React components library",
   "homepage": "https://app-components.herokuapp.com",
   "engines": {
