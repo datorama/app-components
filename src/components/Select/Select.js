@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-import React from 'react';
+import React, { createRef } from 'react';
 import styled, { css } from 'styled-components';
 import * as PropTypes from 'prop-types';
 import { find, orderBy, debounce, map, set, get, unionBy } from 'lodash/fp';
@@ -57,6 +57,7 @@ export class Select extends React.Component {
     keepSelected: PropTypes.bool,
     disableSearch: PropTypes.bool,
     spinnerColor: PropTypes.string,
+    usePortalForMenu: PropTypes.bool,
   };
 
   state = {
@@ -69,6 +70,8 @@ export class Select extends React.Component {
     disableSearch: false,
     isLastValueChangeTriggeredLocally: false,
   };
+
+  containerRef = createRef();
 
   filteredOptions = [];
 
@@ -434,6 +437,7 @@ export class Select extends React.Component {
       onKeyUp,
       spinnerColor,
       noResultsRenderer,
+      usePortalForMenu,
     } = this.props;
     const {
       open,
@@ -446,7 +450,11 @@ export class Select extends React.Component {
 
     return (
       <ClickOut onClick={this.handleClickOut} className={className}>
-        <Container disabled={disabled} className={className}>
+        <Container
+          ref={this.containerRef}
+          disabled={disabled}
+          className={className}
+        >
           {!inlineSearch && (
             <SelectHeader
               open={open}
@@ -518,6 +526,8 @@ export class Select extends React.Component {
                 loading={loading}
                 spinnerColor={spinnerColor}
                 noResultsRenderer={noResultsRenderer}
+                usePortalForMenu={usePortalForMenu}
+                containerRef={this.containerRef}
               />
             </CurrentHoveredIndexContext.Provider>
           </StyledFade>
@@ -539,6 +549,7 @@ Select.defaultProps = {
   debounce: 0,
   maxTags: 999,
   clearOnClose: true,
+  usePortalForMenu: false,
 };
 
 const Container = styled.div`

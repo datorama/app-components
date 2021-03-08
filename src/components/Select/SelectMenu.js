@@ -1,6 +1,6 @@
 /* eslint react/prop-types: 0 */
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as PropTypes from 'prop-types';
 
 // components
@@ -14,6 +14,7 @@ import { Spinner } from '../Spinner';
 
 // utils
 import { hexToRgba } from '../../utils/theme.utils';
+import { createPortal } from 'react-dom';
 
 const SelectionMenu = (props) => {
   const {
@@ -124,7 +125,15 @@ const SelectionMenu = (props) => {
 };
 
 const SelectMenu = (props) => {
-  const { menuRenderer } = props;
+  const {
+    menuRenderer,
+    usePortalForMenu,
+    containerRef,
+    small,
+    large,
+    inlineSearch,
+    open,
+  } = props;
 
   if (menuRenderer) {
     return menuRenderer({
@@ -132,6 +141,24 @@ const SelectMenu = (props) => {
       // eslint-disable-next-line react/display-name
       menuRenderer: () => <SelectionMenu {...props} />,
     });
+  }
+
+  if (usePortalForMenu && containerRef.current !== null) {
+    const { width, x, y } = containerRef.current.getBoundingClientRect();
+    return createPortal(
+      <PortalSelectContainer
+        className="portal-select-menu"
+        small={small}
+        large={large}
+        width={width}
+        xPos={x}
+        yPos={y}
+        inlineSearch={inlineSearch}
+      >
+        <SelectionMenu {...props} />
+      </PortalSelectContainer>,
+      document.body
+    );
   }
 
   return <SelectionMenu {...props} />;
@@ -165,6 +192,8 @@ SelectMenu.propTypes = {
   onKeyUp: PropTypes.func,
   loading: PropTypes.bool,
   spinnerColor: PropTypes.string,
+  usePortalForMenu: PropTypes.bool,
+  containerRef: PropTypes.object,
 };
 
 const Container = styled.div`
@@ -179,6 +208,26 @@ const Container = styled.div`
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   user-select: none;
   overflow: hidden;
+`;
+
+const PortalSelectContainer = styled.div`
+  ${({ theme }) => theme.animation.fade}
+  position: absolute;
+  top: ${({ theme, yPos }) => `calc(${yPos}px + ${theme.size.MEDIUM})`};
+  left: ${({ xPos }) => `${xPos}px`};
+  width: ${({ inlineSearch }) => `${inlineSearch ? 320 : 170}px`};
+
+  ${({ small, yPos, theme }) =>
+    small &&
+    css`
+      top: calc(${yPos}px + ${theme.size.SMALL});
+    `};
+
+  ${({ large, yPos, theme }) =>
+    large &&
+    css`
+      top: calc(${yPos}px + ${theme.size.LARGE});
+    `};
 `;
 
 const SpinnerContainer = styled.div`
