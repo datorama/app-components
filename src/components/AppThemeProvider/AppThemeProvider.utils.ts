@@ -3,7 +3,8 @@ import {
   PaletteAddition,
   PaletteAdditions,
 } from '../../types/theme.types';
-import { darkTheme, extendTheme, lightTheme } from '../../index';
+import { extendTheme } from '../../utils/theme.utils';
+import { darkTheme, lightTheme } from '../../constants/themes.constants';
 import { get, isEmpty } from 'lodash/fp';
 
 const GeneralPaletteReversedKeys = {

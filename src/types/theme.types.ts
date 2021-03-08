@@ -1,4 +1,8 @@
-import { css } from 'styled-components';
+import {
+  FlattenInterpolation,
+  FlattenSimpleInterpolation,
+  ThemeProps,
+} from 'styled-components';
 
 type Size = {
   SMALL: string;
@@ -7,32 +11,32 @@ type Size = {
 };
 
 type Text = {
-  headline: typeof css;
-  subHeadline: typeof css;
-  p: typeof css;
-  pBold: typeof css;
-  pLink: typeof css;
-  pNote: typeof css;
-  pItalic: typeof css;
-  sm: typeof css;
-  smBold: typeof css;
-  smLink: typeof css;
-  smNote: typeof css;
-  smItalic: typeof css;
-  tooltip: typeof css;
+  headline: FlattenInterpolation<ThemeProps<any>>;
+  subHeadline: FlattenInterpolation<ThemeProps<any>>;
+  p: FlattenInterpolation<ThemeProps<any>>;
+  pBold: FlattenInterpolation<ThemeProps<any>>;
+  pLink: FlattenInterpolation<ThemeProps<any>>;
+  pNote: FlattenInterpolation<ThemeProps<any>>;
+  pItalic: FlattenInterpolation<ThemeProps<any>>;
+  sm: FlattenInterpolation<ThemeProps<any>>;
+  smBold: FlattenInterpolation<ThemeProps<any>>;
+  smLink: FlattenInterpolation<ThemeProps<any>>;
+  smNote: FlattenInterpolation<ThemeProps<any>>;
+  smItalic: FlattenInterpolation<ThemeProps<any>>;
+  tooltip: FlattenInterpolation<ThemeProps<any>>;
 };
 
 type Animation = {
-  fade: typeof css;
-  fadeOut: typeof css;
-  fadeDown: typeof css;
-  fadeUpExit: typeof css;
-  fadeUp: typeof css;
-  fadeLeft: typeof css;
-  fadeRight: typeof css;
-  fadeRightExit: typeof css;
-  zoomIn: typeof css;
-  zoomOut: typeof css;
+  fade: FlattenSimpleInterpolation;
+  fadeOut: FlattenSimpleInterpolation;
+  fadeDown: FlattenSimpleInterpolation;
+  fadeUpExit: FlattenSimpleInterpolation;
+  fadeUp: FlattenSimpleInterpolation;
+  fadeLeft: FlattenSimpleInterpolation;
+  fadeRight: FlattenSimpleInterpolation;
+  fadeRightExit: FlattenSimpleInterpolation;
+  zoomIn: FlattenSimpleInterpolation;
+  zoomOut: FlattenSimpleInterpolation;
 };
 
 type ThemeBase = {
