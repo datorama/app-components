@@ -28,6 +28,7 @@ export const TextInput = (props) => {
         onBlur={props.onBlur}
         className="text-input"
         type={props.type || 'text'}
+        maxLength={props.maxLength}
       />
       {withMessage && (
         <Message valid={props.valid}>
@@ -55,6 +56,7 @@ TextInput.propTypes = {
   onBlur: PropTypes.func,
   className: PropTypes.string,
   type: PropTypes.string,
+  maxLength: PropTypes.number,
 };
 
 const Container = styled.div`
