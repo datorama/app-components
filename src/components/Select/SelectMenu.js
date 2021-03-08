@@ -147,7 +147,6 @@ const SelectMenu = (props) => {
     const { width, x, y } = containerRef.current.getBoundingClientRect();
     return createPortal(
       <PortalSelectContainer
-        visible={open}
         className="portal-select-menu"
         small={small}
         large={large}
@@ -212,16 +211,11 @@ const Container = styled.div`
 `;
 
 const PortalSelectContainer = styled.div`
+  ${({ theme }) => theme.animation.fade}
   position: absolute;
   top: ${({ theme, yPos }) => `calc(${yPos}px + ${theme.size.MEDIUM})`};
   left: ${({ xPos }) => `${xPos}px`};
   width: ${({ inlineSearch }) => `${inlineSearch ? 320 : 170}px`};
-
-  ${({ visible }) =>
-    visible &&
-    css`
-      display: none;
-    `};
 
   ${({ small, yPos, theme }) =>
     small &&
