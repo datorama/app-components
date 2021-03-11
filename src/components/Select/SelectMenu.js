@@ -126,6 +126,8 @@ const SelectionMenu = (props) => {
 
 const SelectMenu = (props) => {
   const { menuRenderer, usePortalForMenu, containerRef, small, large } = props;
+  const portalRef = useRef(null);
+  const [portalPosition, setPortalPosition] = useState([0, 0]);
 
   if (menuRenderer) {
     return menuRenderer({
@@ -161,8 +163,8 @@ const SelectMenu = (props) => {
         small={small}
         large={large}
         parentWidth={width}
-        xPos={x}
-        yPos={y}
+        xPos={portalPosition[0]}
+        yPos={portalPosition[1]}
       >
         <SelectionMenu {...props} />
       </PortalSelectContainer>,
@@ -219,17 +221,15 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const PortalSelectContainer = styled.div.attrs(({ xPos, inlineSearch }) => ({
+const PortalSelectContainer = styled.div.attrs(({ xPos, parentWidth }) => ({
   style: {
     position: 'absolute',
     left: `${xPos}px`,
-    width: `${inlineSearch ? 320 : 170}px`,
+    width: `${parentWidth}px`,
   },
 }))`
   ${({ theme }) => theme.animation.fade}
   top: ${({ theme, yPos }) => `calc(${yPos}px + ${theme.size.MEDIUM})`};
-  left: ${({ xPos }) => `${xPos}px`};
-  width: ${({ parentWidth }) => `${parentWidth}px`};
 
   ${({ small, yPos, theme }) =>
     small &&
