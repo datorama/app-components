@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import * as PropTypes from 'prop-types';
 
@@ -135,11 +135,29 @@ const SelectMenu = (props) => {
     });
   }
 
+  const repositionPortal = useCallback(() => {
+    if (containerRef.current && portalRef.current) {
+      const { x, y } = containerRef.current.getBoundingClientRect();
+      setPortalPosition([x, y]);
+    }
+  }, [containerRef.current, portalRef.current, setPortalPosition]);
+
+  useEffect(() => {
+    repositionPortal();
+    window.addEventListener('resize', repositionPortal);
+    window.addEventListener('scroll', repositionPortal);
+    return () => {
+      window.removeEventListener('resize', repositionPortal);
+      window.removeEventListener('scroll', repositionPortal);
+    };
+  }, [repositionPortal]);
+
   if (usePortalForMenu && containerRef.current !== null) {
     const { width, x, y } = containerRef.current.getBoundingClientRect();
     return createPortal(
       <PortalSelectContainer
         className="portal-select-menu"
+        ref={portalRef}
         small={small}
         large={large}
         parentWidth={width}
@@ -201,9 +219,14 @@ const Container = styled.div`
   overflow: hidden;
 `;
 
-const PortalSelectContainer = styled.div`
+const PortalSelectContainer = styled.div.attrs(({ xPos, inlineSearch }) => ({
+  style: {
+    position: 'absolute',
+    left: `${xPos}px`,
+    width: `${inlineSearch ? 320 : 170}px`,
+  },
+}))`
   ${({ theme }) => theme.animation.fade}
-  position: absolute;
   top: ${({ theme, yPos }) => `calc(${yPos}px + ${theme.size.MEDIUM})`};
   left: ${({ xPos }) => `${xPos}px`};
   width: ${({ parentWidth }) => `${parentWidth}px`};
