@@ -125,15 +125,7 @@ const SelectionMenu = (props) => {
 };
 
 const SelectMenu = (props) => {
-  const {
-    menuRenderer,
-    usePortalForMenu,
-    containerRef,
-    small,
-    large,
-    inlineSearch,
-    open,
-  } = props;
+  const { menuRenderer, usePortalForMenu, containerRef, small, large } = props;
 
   if (menuRenderer) {
     return menuRenderer({
@@ -150,10 +142,9 @@ const SelectMenu = (props) => {
         className="portal-select-menu"
         small={small}
         large={large}
-        width={width}
+        parentWidth={width}
         xPos={x}
         yPos={y}
-        inlineSearch={inlineSearch}
       >
         <SelectionMenu {...props} />
       </PortalSelectContainer>,
@@ -215,7 +206,7 @@ const PortalSelectContainer = styled.div`
   position: absolute;
   top: ${({ theme, yPos }) => `calc(${yPos}px + ${theme.size.MEDIUM})`};
   left: ${({ xPos }) => `${xPos}px`};
-  width: ${({ inlineSearch }) => `${inlineSearch ? 320 : 170}px`};
+  width: ${({ parentWidth }) => `${parentWidth}px`};
 
   ${({ small, yPos, theme }) =>
     small &&
