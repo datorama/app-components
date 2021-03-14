@@ -43,6 +43,7 @@ const SelectionMenu = (props) => {
     loading,
     spinnerColor,
     noResultsRenderer,
+    isPortal,
   } = props;
 
   let maxHeight = 400;
@@ -144,6 +145,10 @@ const SelectMenu = (props) => {
     }
   }, [containerRef.current, portalRef.current, setPortalPosition]);
 
+  const handleClickPortal = (e) => {
+    e.stopPropagation();
+  };
+
   useEffect(() => {
     repositionPortal();
     window.addEventListener('resize', repositionPortal);
@@ -165,6 +170,7 @@ const SelectMenu = (props) => {
         parentWidth={width}
         xPos={portalPosition[0]}
         yPos={portalPosition[1]}
+        onClick={handleClickPortal}
       >
         <SelectionMenu {...props} />
       </PortalSelectContainer>,
