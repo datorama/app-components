@@ -43,7 +43,6 @@ const SelectionMenu = (props) => {
     loading,
     spinnerColor,
     noResultsRenderer,
-    isPortal,
   } = props;
 
   let maxHeight = 400;
