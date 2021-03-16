@@ -78,7 +78,7 @@ const SelectHeader = (props) => {
     }
 
     if (values.length > 0 && isSingleOptionRemovable && !inlineSearch) {
-      return <RemoveIcon onClick={onClearSelect} />;
+      return <RemoveIcon onClick={onClearSelect} className="remove-icon" />;
     }
 
     return <Arrow rotation={open ? '180deg' : '0deg'} />;
