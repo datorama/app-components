@@ -58,6 +58,7 @@ export class Select extends React.Component {
     disableSearch: PropTypes.bool,
     spinnerColor: PropTypes.string,
     usePortalForMenu: PropTypes.bool,
+    isSingleOptionRemovable: PropTypes.bool,
   };
 
   state = {
@@ -323,6 +324,19 @@ export class Select extends React.Component {
     }
   };
 
+  onClearSelect = (event) => {
+    event.stopPropagation();
+
+    this.applyChanges(
+      [],
+      {
+        currentHoveredOptionValue: null,
+        currentHoveredOptionIndex: 0,
+      },
+      true
+    );
+  };
+
   onSelect = (option) => {
     this.setState({ isLastValueChangeTriggeredLocally: true });
     const { multi } = this.props;
@@ -391,13 +405,12 @@ export class Select extends React.Component {
     onChange(values, allSelected);
   });
 
-  applyChanges(values, extend) {
+  applyChanges(values, extend, avoidToggle) {
     const { closeOnSelect, multi } = this.props;
 
     this.setState({ localValues: values, ...extend }, () => {
       this.debouncedOnChange(values);
-
-      if (!multi && closeOnSelect) {
+      if (!multi && closeOnSelect && !avoidToggle) {
         this.toggleOpen();
       }
     });
@@ -438,6 +451,7 @@ export class Select extends React.Component {
       spinnerColor,
       noResultsRenderer,
       usePortalForMenu,
+      isSingleOptionRemovable,
     } = this.props;
     const {
       open,
@@ -469,6 +483,9 @@ export class Select extends React.Component {
               small={small}
               large={large}
               searchable={searchable}
+              inlineSearch={inlineSearch}
+              onClearSelect={this.onClearSelect}
+              isSingleOptionRemovable={isSingleOptionRemovable}
             />
           )}
 
@@ -550,6 +567,7 @@ Select.defaultProps = {
   maxTags: 999,
   clearOnClose: true,
   usePortalForMenu: false,
+  isSingleOptionRemovable: false,
 };
 
 const Container = styled.div`
