@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import { isEmpty } from 'lodash/fp';
 import * as PropTypes from 'prop-types';
@@ -11,6 +11,7 @@ import { optionsType } from './Select.types';
 
 // icons
 import ArrowDown from '../../assets/ArrowDown.icon';
+import Close from '../../assets/Close.icon';
 
 const SelectHeader = (props) => {
   const {
@@ -26,6 +27,9 @@ const SelectHeader = (props) => {
     small,
     large,
     searchable,
+    inlineSearch,
+    onClearSelect,
+    isSingleOptionRemovable,
   } = props;
 
   if (headerRenderer) {
@@ -68,6 +72,25 @@ const SelectHeader = (props) => {
 
   const headerLoading = !searchable && loading;
 
+  const icon = useMemo(() => {
+    if (headerLoading) {
+      return <StyledSelectSpinner />;
+    }
+
+    if (values.length > 0 && isSingleOptionRemovable && !inlineSearch) {
+      return <RemoveIcon onClick={onClearSelect} />;
+    }
+
+    return <Arrow rotation={open ? '180deg' : '0deg'} />;
+  }, [
+    values.length,
+    headerLoading,
+    inlineSearch,
+    isSingleOptionRemovable,
+    open,
+    onClearSelect,
+  ]);
+
   return (
     <Container
       onClick={toggleOpen}
@@ -85,8 +108,7 @@ const SelectHeader = (props) => {
         </Label>
       </LabelWrapper>
 
-      {!headerLoading && <Arrow rotation={open ? '180deg' : '0deg'} />}
-      {headerLoading && <StyledSelectSpinner />}
+      {icon}
     </Container>
   );
 };
@@ -104,12 +126,23 @@ SelectHeader.propTypes = {
   small: PropTypes.bool,
   large: PropTypes.bool,
   searchable: PropTypes.bool,
+  inlineSearch: PropTypes.bool,
+  onClearSelect: PropTypes.func,
+  isSingleOptionRemovable: PropTypes.bool,
 };
 
 export default SelectHeader;
 
 const LabelWrapper = styled.div`
   width: calc(100% - 15px);
+`;
+
+const RemoveIcon = styled(Close)`
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 0px;
+  top: 6px;
 `;
 
 const Container = styled.div`
