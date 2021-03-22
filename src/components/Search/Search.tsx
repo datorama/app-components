@@ -25,7 +25,7 @@ export const Search = ({
   filteredOptions,
   selectOption,
   placeholder,
-  withOptionSelection = true,
+  withOptionSelection = false,
 }: SearchProps) => {
   const [isNewRequestQueued, setIsNewRequestQueued] = useState(false);
 

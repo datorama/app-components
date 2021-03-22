@@ -36,7 +36,7 @@ const Combobox = ({
   onChange = noop,
   onSubmit = noop,
   isFilteredExternally = false,
-  withOptionSelection = true,
+  withOptionSelection = false,
 }: ComboboxProps) => {
   const {
     inputRef,

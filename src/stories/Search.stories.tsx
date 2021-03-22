@@ -57,10 +57,10 @@ const Template = ({
 };
 
 export const Primary = Template.bind({});
-Primary.args = { withOptionSelection: false };
+Primary.args = {};
 
 export const WithComboBox = Template.bind({});
-WithComboBox.args = {};
+WithComboBox.args = { withOptionSelection: true };
 
 const Container = styled.div`
   height: 300px;
