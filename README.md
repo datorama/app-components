@@ -12,13 +12,13 @@ npm install --save @datorama/app-components
 ```
 
 ```jsx
-import { AppTheme, lightTheme } from '@datorama/app-components';
+import { AppThemeProvider, lightTheme } from '@datorama/app-components';
 import { ThemeProvider } from 'styled-components';
     
 const App = () => (
-  <AppTheme theme={lightTheme} provider={ThemeProvider}>
+  <AppThemeProvider theme={lightTheme} provider={ThemeProvider}>
     ...
-  </AppTheme>
+  </AppThemeProvider>
 );
 
 // CSS
