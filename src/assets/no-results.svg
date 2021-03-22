@@ -1,0 +1,58 @@
+<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="158.94" height="120.27" viewBox="0 0 158.94 120.27">
+  <defs>
+    <mask id="no-results-mask" x="0" y="0" width="158.94" height="120.27" maskUnits="userSpaceOnUse">
+      <g transform="translate(-0.91 -0.81)">
+        <g>
+          <path id="no-results-path-1" d="M.91,86.34c0-15.81,8.52-35.26,32.85-59.28C55.57,5.54,83.74-9,111.63,8.82c30.42,19.45,60.85,47.07,42.83,70.89-22.79,30.14-75,45.55-114.92,39.77C11.65,115.44.91,97.59.91,86.34Z" fill="#fff" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </mask>
+    <linearGradient id="no-results-linear-gradient" x1="-210.49" y1="436.32" x2="-211.15" y2="435.57" gradientTransform="matrix(16.42, 0, 0, -16.32, 3528.91, 7147.91)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#cbcdd3"/>
+      <stop offset="1" stop-color="#f7f8fa"/>
+    </linearGradient>
+    <linearGradient id="no-results-linear-gradient-2" x1="-210.49" y1="436.32" x2="-211.15" y2="435.57" gradientTransform="matrix(16.42, 0, 0, -16.32, 3550.29, 7147.91)" xlink:href="#no-results-linear-gradient"/>
+  </defs>
+  <g id="no-results-path-19">
+    <path id="no-results-path-1-2" data-name="no-results-path-1" d="M.91,86.34c0-15.81,8.52-35.26,32.85-59.28C55.57,5.54,83.74-9,111.63,8.82c30.42,19.45,60.85,47.07,42.83,70.89-22.79,30.14-75,45.55-114.92,39.77C11.65,115.44.91,97.59.91,86.34Z" transform="translate(-0.91 -0.81)" fill="#f7f8fa" fill-rule="evenodd"/>
+  </g>
+  <g mask="url(#no-results-mask)">
+    <g>
+      <g>
+        <path d="M101.56,56.4c-6.5-2.76-8.18-2.76-11.35-3.14-7.85-.88-1.53-6-4.15-7.77-.78-.52-8.94.81-9.81,1.3-2.08,1.18,3.24,6.47-3.75,6.47-1.73,0-3.27.56-10.22,3.14-3.42,1.27,7.18,14,18.28,14C92.2,70.42,104.39,57.6,101.56,56.4Z" transform="translate(-0.91 -0.81)" fill="#9ea0a5" fill-rule="evenodd"/>
+        <path id="no-results-path-28" d="M53.14,63C51,70.44,44.46,88.48,42.89,90.6s20.53-14,20.53-12.68q0,14.63-1.55,43.16,9.85-1,18.38-2.21V62l-8.72-8.74Q55.08,56.17,53.14,63Z" transform="translate(-0.91 -0.81)" fill="#d8dade" fill-rule="evenodd"/>
+        <path id="no-results-path-28-2" data-name="no-results-path-28" d="M80.25,118.87a80.43,80.43,0,0,0,20-4.26q-3-22.86-2.6-35.12c0-1.52,20.24,14.21,23.15,12.27,1.62-1.09-9.1-22.91-9.6-24.9q-2.91-11.65-20.33-13.6L80.25,62Z" transform="translate(-0.91 -0.81)" fill="#cbcdd3" fill-rule="evenodd"/>
+        <ellipse cx="79.66" cy="69.89" rx="1.45" ry="1.46" fill="#b4b6bc"/>
+        <ellipse data-name="Oval-7" cx="79.66" cy="82.52" rx="1.45" ry="1.46" fill="#b4b6bc"/>
+        <ellipse data-name="Oval-7" cx="79.66" cy="93.21" rx="1.45" ry="1.46" fill="#b4b6bc"/>
+        <ellipse data-name="Oval-7" cx="79.66" cy="106.82" rx="1.45" ry="1.46" fill="#b4b6bc"/>
+      </g>
+    </g>
+  </g>
+  <g>
+    <path d="M80.59,51.36c5.58.19,14.18-6.85,17.38-20.69,1.18-5.11,1-6.73,0-10.35C96.54,15.07,93.24,10,89.78,10c-2.46,0-13,.2-15.21,1.15-8.19,3.45-14.62,9.29-11.7,18.4C66.34,40.29,70,45.94,73.63,48.77A11.47,11.47,0,0,0,80.59,51.36Z" transform="translate(-0.91 -0.81)" fill="#b0b3ba" fill-rule="evenodd"/>
+    <path d="M80.58,45.92A3,3,0,0,0,83,44.46a2.75,2.75,0,0,0-4.85,0A3,3,0,0,0,80.58,45.92Z" transform="translate(-0.91 -0.81)" fill="#858893" fill-rule="evenodd"/>
+    <path id="no-results-path-18" d="M92.89,13.9c0-2-9.93,3.4-13.37,6.07-4.66,3.62-14,4.55-18.6,4.55-4.08,0-2.73-7.87-2.29-7.95C68.91,14.71,62.91,5,73.48,1.81,84.9-1.6,91.11,7.49,95.18,7.49q6.61,0,5.71,12.48,2.51,4.5-4.34,6.77C93.36,27.8,92.89,19.57,92.89,13.9Z" transform="translate(-0.91 -0.81)" fill="#858893" fill-rule="evenodd"/>
+    <path id="no-results-path-15" d="M69.39,22.44c-.86-2.35-8.75-.39-13.41,5.29-1.94,2.37-.91,9.06-.91,13.13C42.59,62.42,41.31,62.42,34.92,78.1c-1.35,3.32.34,13.27,3.14,13.58A15.15,15.15,0,0,0,47.72,88c5.22-4.07,7.66-31.59,12.66-43.87,2.37-.87,5.35-1.12,8.48-3.6C71.42,31.58,69.8,31.69,69.39,22.44Z" transform="translate(-0.91 -0.81)" fill="#b9bcc4" fill-rule="evenodd"/>
+    <path id="no-results-path-15-2" data-name="no-results-path-15" d="M91.29,22.83c.9-2.34,8.74-.28,13.29,5.5,1.32,1.68.75,6.92,1.31,12.51C117.27,64,122.64,69.32,125.33,79c1,3.64-.87,12.75-3.68,13-4.73-.22-8.35-2.49-10.22-5.79C107.36,79,105.17,56.06,100.51,44c-2.35-.91-5.32-1.21-8.41-3.73C89.7,31.31,90.72,32.07,91.29,22.83Z" transform="translate(-0.91 -0.81)" fill="#b9bcc4" fill-rule="evenodd"/>
+    <g>
+      <path id="no-results-path-10" d="M74.92,26.93l3.69-1.67a2.88,2.88,0,0,1,2.32,0l3.66,1.6a1.42,1.42,0,0,1,.74,1.87v0L84,31.56a1.42,1.42,0,0,1-1.78.76l-2.06-.74a1.44,1.44,0,0,0-.87,0l-2.81.8a1.41,1.41,0,0,1-1.76-1s0-.05,0-.08l-.62-2.75A1.43,1.43,0,0,1,74.92,26.93Z" transform="translate(-0.91 -0.81)" fill="#858893" fill-rule="evenodd"/>
+      <ellipse cx="68.36" cy="32.3" rx="9.47" ry="9.42" fill="#858893"/>
+      <ellipse data-name="Oval-2" cx="89.74" cy="32.3" rx="9.47" ry="9.42" fill="#858893"/>
+      <ellipse data-name="Oval-2" cx="68.36" cy="32.3" rx="8.21" ry="8.16" fill="url(#no-results-linear-gradient)"/>
+      <ellipse data-name="Oval-2" cx="89.74" cy="32.3" rx="8.21" ry="8.16" fill="url(#no-results-linear-gradient-2)"/>
+    </g>
+    <g>
+      <g>
+        <polygon points="84.45 34.48 87.51 34.48 87.51 31.4 84.45 31.4 84.45 34.48" fill="#fff" fill-rule="evenodd"/>
+        <polygon points="91.88 34.48 94.94 34.48 94.94 29.86 91.88 29.86 91.88 34.48" fill="#fff" fill-rule="evenodd"/>
+        <polygon points="88.17 34.48 91.22 34.48 91.22 28.32 88.17 28.32 88.17 34.48" fill="#fff" fill-rule="evenodd"/>
+      </g>
+      <g>
+        <polygon data-name="Fill-1" points="62.94 34.48 66 34.48 66 31.4 62.94 31.4 62.94 34.48" fill="#fff" fill-rule="evenodd"/>
+        <polygon data-name="Fill-2" points="70.37 34.48 73.43 34.48 73.43 29.86 70.37 29.86 70.37 34.48" fill="#fff" fill-rule="evenodd"/>
+        <polygon data-name="Fill-3" points="66.66 34.48 69.72 34.48 69.72 28.32 66.66 28.32 66.66 34.48" fill="#fff" fill-rule="evenodd"/>
+      </g>
+    </g>
+  </g>
+</svg>
