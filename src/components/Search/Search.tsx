@@ -15,6 +15,7 @@ export interface SearchProps {
   filteredOptions: Array<Option>;
   selectOption;
   placeholder: string;
+  withOptionSelection?: boolean;
 }
 
 export const Search = ({
@@ -24,6 +25,7 @@ export const Search = ({
   filteredOptions,
   selectOption,
   placeholder,
+  withOptionSelection = true,
 }: SearchProps) => {
   const [isNewRequestQueued, setIsNewRequestQueued] = useState(false);
 
@@ -51,7 +53,7 @@ export const Search = ({
     [selectOption]
   );
 
-  return selectedOption ? (
+  return withOptionSelection && selectedOption ? (
     <SelectedOption>
       <OptionName>{selectedOption}</OptionName>
       <StyledRemoveIcon
@@ -67,6 +69,7 @@ export const Search = ({
       onSubmit={onSubmit}
       isLoading={isNewRequestQueued || isPending}
       isFilteredExternally
+      withOptionSelection={withOptionSelection}
     />
   );
 };

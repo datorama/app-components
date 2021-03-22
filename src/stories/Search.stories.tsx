@@ -11,7 +11,11 @@ export default {
   argTypes: {},
 };
 
-const Template = () => {
+const Template = ({
+  withOptionSelection,
+}: {
+  withOptionSelection: boolean;
+}) => {
   const dummyList: Array<Option> = [
     { value: 1, label: 'item 1' },
     { value: 2, label: 'item 2' },
@@ -46,13 +50,17 @@ const Template = () => {
         selectOption={setSelected}
         selectedOption={selected}
         placeholder={'Search'}
+        withOptionSelection={withOptionSelection}
       />
     </Container>
   );
 };
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = { withOptionSelection: false };
+
+export const WithComboBox = Template.bind({});
+WithComboBox.args = {};
 
 const Container = styled.div`
   height: 300px;

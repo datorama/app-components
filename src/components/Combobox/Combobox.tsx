@@ -26,6 +26,7 @@ export interface ComboboxProps {
   isFilteredExternally?: boolean;
   onChange?: (suggestion: string) => void;
   onSubmit?: (option: Option) => void;
+  withOptionSelection?: boolean;
 }
 
 const Combobox = ({
@@ -35,6 +36,7 @@ const Combobox = ({
   onChange = noop,
   onSubmit = noop,
   isFilteredExternally = false,
+  withOptionSelection = true,
 }: ComboboxProps) => {
   const {
     inputRef,
@@ -121,15 +123,17 @@ const Combobox = ({
                 onInput={onInput}
                 onKeyDown={onKeyDown}
               />
-              <OptionsList
-                isMenuOpen={isMenuOpen}
-                filteredOptions={filteredOptions}
-                onOptionsSelection={onOptionsSelection}
-                suggestionIndex={suggestionIndex}
-                isLoading={isLoading}
-                pureInputValue={pureInputValue}
-                inputWidth={inputRef.current?.getBoundingClientRect()?.width}
-              />
+              {withOptionSelection && (
+                <OptionsList
+                  isMenuOpen={isMenuOpen}
+                  filteredOptions={filteredOptions}
+                  onOptionsSelection={onOptionsSelection}
+                  suggestionIndex={suggestionIndex}
+                  isLoading={isLoading}
+                  pureInputValue={pureInputValue}
+                  inputWidth={inputRef.current?.getBoundingClientRect()?.width}
+                />
+              )}
             </InputContainer>
           )}
         </AnimatePresence>
