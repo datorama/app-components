@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { filter } from 'lodash/fp';
 import styled from 'styled-components';
 
-import { Search } from '../components/Search/Search';
+import { Search } from '../components/Search';
 import { Option } from '../types/common.types';
 
 export default {
