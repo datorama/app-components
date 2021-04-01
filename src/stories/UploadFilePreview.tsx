@@ -71,7 +71,10 @@ const WrappedInnerComponent = () => {
       savedFile={savedFile}
       onDownloadExample={noop}
       uploadedFileParser={parseCsvFileContent}
-      checkIsFileValid={(file: File) => !!file && file.type === 'text/csv'}
+      checkIsFileValid={(file: File) => {
+        console.log(`file`, file);
+        return !!file && file.type === 'text/csv';
+      }}
       fileType="csv"
     >
       <InnerComponent
