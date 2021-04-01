@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { throttle } from 'lodash/fp';
 import styled from 'styled-components';
 
-import { ReactComponent as RemoveIcon } from '../../assets/remove.svg';
+import { ReactComponent as RemoveIcon } from '../assets/remove.svg';
 
 import Combobox from './Combobox/Combobox';
 
