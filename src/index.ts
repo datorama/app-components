@@ -80,6 +80,7 @@ export { Grid } from './components/Grid/Grid';
 export { GridLayout } from './components/GridLayout/GridLayout';
 export { GridItem } from './components/GridLayout/GridItem';
 export { Popover } from './components/Popover';
+export { Search } from './components/Search';
 
 // Provider
 export {
