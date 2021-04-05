@@ -1,0 +1,51 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { TextHighlight } from './TextHighlightPreview';
+
+<Meta title="utils/Text Highlight"/>
+
+# Text Highlight
+
+A util hooks for search term highlighting
+
+Usage:
+
+`const ref = useTextHighlight(text: string, options?: MarkOptions, isHighlightEnabled: boolean)`
+
+- In `useTextHighlight`, Pass `text` (the search term), `options` as the config object (docs can be found in [mark.js](https://markjs.io/))
+and `isHighlightEnabled` in order to toggle the hook on/off (enabled as default).
+- Pass `ref` to the component where you want to search for matches.
+
+- In the example we are showing the most common options used while the `options` object is very rich and can be customized with a lot of abilities (please refer to [mark.js](https://markjs.io/) for more information)
+<Canvas>
+	<TextHighlight/>
+</Canvas>
+
+````javascript
+import { useTextHighlight, TextInput } from '@datorama/app-components';
+
+const Component = () => {
+  const [text, setText] = useState('');
+
+  const ref = useTextHighlight(text);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  };
+
+  return (
+  	<div>
+      <TextInput placeholder="Search text..." value={text} onChange={handleChange} />
+
+			<div ref={ref}>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+				eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+				minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+				aliquip ex ea commodo consequat. Duis aute irure dolor in
+				reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+				pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+				culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+    </div>
+  );
+}
+````
