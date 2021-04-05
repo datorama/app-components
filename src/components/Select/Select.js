@@ -368,24 +368,36 @@ export class Select extends React.Component {
     const { options } = this.props;
     const { localValues } = this.state;
     const optionsSize = getOptionsSize(options);
-    const isFilteringUsed = this.filteredOptions.length < optionsSize;
+    const optionsHasGroups = hasGroups(options);
+    const isFilteringUsed = optionsHasGroups
+      ? getAllOptions(this.filteredOptions).length < optionsSize
+      : this.filteredOptions.length < optionsSize;
 
     let result = [];
 
     if (isDeselect) {
       if (isFilteringUsed) {
-        result = localValues.filter((selection) =>
-          this.filteredOptions.every(
-            (option) => option.value !== selection.value
-          )
-        );
+        if (optionsHasGroups) {
+          const allFiltered = getAllOptions(this.filteredOptions);
+          result = localValues.filter((selection) =>
+            allFiltered.every((option) => option.value !== selection.value)
+          );
+        } else {
+          result = localValues.filter((selection) =>
+            this.filteredOptions.every(
+              (option) => option.value !== selection.value
+            )
+          );
+        }
       } else {
         result = [];
       }
     } else {
-      result = getAllOptions(
-        unionBy((item) => item.value, this.filteredOptions, localValues)
-      );
+      result = optionsHasGroups
+        ? getAllOptions(this.filteredOptions)
+        : getAllOptions(
+            unionBy((item) => item.value, this.filteredOptions, localValues)
+          );
     }
 
     this.applyChanges(result);

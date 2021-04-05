@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import * as PropTypes from 'prop-types';
+import { hasGroups } from './select.utils';
 
 // components
 import { Label, Option } from './Select.common';
@@ -14,14 +15,24 @@ const SelectMultiHeader = (props) => {
     return null;
   }
 
-  const filtereValues = values.filter((selected) =>
-    options.some((option) => option.value === selected.value)
-  );
+  const grouped = hasGroups(options);
+  const filtereValues = grouped
+    ? values.filter((selected) =>
+        options.some((option) => {
+          option.options.some((o) => o.value === selected.value);
+        })
+      )
+    : values.filter((selected) =>
+        options.some((option) => option.value === selected.value)
+      );
   const counts = `(${filtereValues.length}/${options.length})`;
   const allSelected = filtereValues.length === options.length;
   const partialSelected =
     filtereValues.length && filtereValues.length < options.length;
-  const isDeselectMode = !!allSelected || !!partialSelected;
+  const anythingSelected = !!allSelected || !!partialSelected;
+  const isDeselectMode = grouped
+    ? !anythingSelected && values.length > 0
+    : anythingSelected;
   const label = isDeselectMode ? 'Deselect all' : 'Select all';
 
   const handleSelect = () => {
@@ -32,7 +43,7 @@ const SelectMultiHeader = (props) => {
     <Fragment>
       <Option className="option" onClick={handleSelect} margin="5px 0 0 0">
         <StyledCheckbox
-          checked={!!allSelected || !!partialSelected}
+          checked={isDeselectMode}
           partial={!!partialSelected}
           className="menu-option-checkbox"
         />
