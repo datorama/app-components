@@ -90,6 +90,7 @@ export {
 
 // Hooks
 export { useConfirmationModal } from './hooks/confirmation-modal.hooks';
+export { useTextHighlight } from './hooks/text-highlight.hooks';
 
 // Pending Deprecation
 export { IllustratedMessage } from './components/IllustratedMessage/IllustratedMessage';
