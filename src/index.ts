@@ -81,6 +81,7 @@ export { GridLayout } from './components/GridLayout/GridLayout';
 export { GridItem } from './components/GridLayout/GridItem';
 export { Popover } from './components/Popover';
 export { Search } from './components/Search';
+export { SearchInput } from './components/Search/SearchInput';
 
 // Provider
 export {

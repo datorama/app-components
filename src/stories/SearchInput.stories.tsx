@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import SearchInput from '../components/Search/SearchInput';
+import { SearchInput } from '../components/Search/SearchInput';
 
 export default {
   title: 'core/Search Input',

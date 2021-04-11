@@ -29,7 +29,7 @@ export interface SearchInputProps {
   className?: string;
 }
 
-const SearchInput = ({
+export const SearchInput = ({
   placeholder,
   onChange,
   value,
@@ -252,4 +252,3 @@ const StyledRemoveIcon = styled(Close)`
     fill: ${({ theme }) => theme.p400};
   }
 `;
-export default SearchInput;
