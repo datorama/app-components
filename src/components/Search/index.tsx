@@ -2,11 +2,11 @@ import React, { useCallback, useState } from 'react';
 import { throttle } from 'lodash/fp';
 import styled from 'styled-components';
 
-import { ReactComponent as RemoveIcon } from '../assets/remove.svg';
+import { ReactComponent as RemoveIcon } from '../../assets/remove.svg';
 
-import Combobox from './Combobox/Combobox';
+import Combobox from '../Combobox/Combobox';
 
-import { Option } from '../types/common.types';
+import { Option } from '../../types/common.types';
 
 export interface SearchProps {
   selectedOption: any;
@@ -53,15 +53,19 @@ export const Search = ({
     [selectOption]
   );
 
-  return withOptionSelection && selectedOption ? (
-    <SelectedOption>
-      <OptionName>{selectedOption}</OptionName>
-      <StyledRemoveIcon
-        className="remove-campaign-icon"
-        onClick={resetCampaign}
-      />
-    </SelectedOption>
-  ) : (
+  if (withOptionSelection && selectedOption) {
+    return (
+      <SelectedOption>
+        <OptionName>{selectedOption}</OptionName>
+        <StyledRemoveIcon
+          className="remove-campaign-icon"
+          onClick={resetCampaign}
+        />
+      </SelectedOption>
+    );
+  }
+
+  return (
     <Combobox
       callToAction={placeholder}
       options={filteredOptions!}
