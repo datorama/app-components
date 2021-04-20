@@ -11,8 +11,7 @@ import { ReactComponent as ExcelFileIcon } from './assets/excel-file.svg';
 import { ReactComponent as ActiveExcelFileIcon } from './assets/excel-file-active.svg';
 import { ReactComponent as RemoveFile } from './assets/remove-file.svg';
 import { ReactComponent as TrashIcon } from './assets/trash.svg';
-
-import warningIcon from './assets/warning.svg';
+import { ReactComponent as WarningIcon } from './assets/warning.svg';
 
 import { UploadFileConfig, ModalConfig } from './upload-file.types';
 
@@ -72,10 +71,21 @@ const UploadFileModal = ({
         >
           {uploadFileConfig.isErrorVisible && (
             <ErrorBanner>
-              <WarningIcon src={warningIcon} />
+              <WarningIcon
+                style={{
+                  height: 18,
+                  width: 18,
+                  marginRight: 8,
+                  fill: theme.p0,
+                  cursor: 'default',
+                }}
+              />
               <ErrorMessage>{labels.errorMessage}</ErrorMessage>
 
-              <RemoveFile onClick={handleRemoveErrorBanner} />
+              <RemoveFile
+                onClick={handleRemoveErrorBanner}
+                style={{ fill: theme.p0 }}
+              />
             </ErrorBanner>
           )}
 
@@ -89,7 +99,7 @@ const UploadFileModal = ({
                 }
                 <TrashIcon
                   onClick={uploadFileConfig.onRemove}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', fill: theme.p400 }}
                 />
               </FileNameWrapper>
             </UploadedFileDetails>
@@ -158,12 +168,6 @@ const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.p0};
 `;
 
-const WarningIcon = styled.img`
-  height: 18px;
-  width: 18px;
-  margin-right: 8px;
-`;
-
 const StyledEllipsis = styled(Ellipsis)`
   ${({ theme }) => theme.text.sm};
 `;
@@ -201,18 +205,6 @@ const DownloadLink = styled.div`
   color: ${({ theme }) => theme.a400};
   cursor: pointer;
   margin-bottom: 20px;
-
-  #export-arrow {
-    transition: transform 0.2s ease-in-out;
-  }
-
-  &:hover {
-    > svg {
-      #export-arrow {
-        transform: translate(0px, -5px);
-      }
-    }
-  }
 `;
 
 const UploadArea = styled.div<{ isActive?: boolean }>`
