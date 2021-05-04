@@ -75,7 +75,7 @@
   },
   "dependencies": {
     "d3-scale": "^3.2.3",
-    "d3-shape": "2.0.0",
+    "d3-shape": "2.1.0",
     "framer-motion": "3.10.5",
     "js-search": "2.0.0",
     "mark.js": "8.11.1",
