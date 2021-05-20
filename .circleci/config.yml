@@ -21,7 +21,7 @@ commands:
             - ~/.npm
             - ~/.cache
 jobs:
-  test:
+  build-and-test:
     executor:
       name: node/default
     steps:
@@ -50,6 +50,6 @@ workflows:
   version: 2.1
   build-and-test:
     jobs:
-      - test
+      - build-and-test
       - build-package
       - build-storybook
