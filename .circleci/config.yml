@@ -9,7 +9,14 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install && npm run test
+            - run:
+                name: Install packages
+                # build the project into the dist directory
+                command: npm install
+            - run:
+                name: Run tests
+                # build the project into the dist directory
+                command: npm run test
 workflows:
   build-and-test:
     jobs:
