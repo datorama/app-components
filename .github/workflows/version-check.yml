@@ -1,0 +1,15 @@
+name: Version Check
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  version-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run version check script
+        run: .github/scripts/version-check.sh
