@@ -21,7 +21,7 @@ commands:
             - ~/.npm
             - ~/.cache
 jobs:
-  build-and-test:
+  test:
     executor:
       name: node/default
     steps:
@@ -29,9 +29,27 @@ jobs:
       - run:
           name: Run tests
           command: npm run test
+  build-package:
+    executor:
+      name: node/default
+    steps:
+      - install-deps
+      - run:
+          name: Run tests
+          command: npm run build:package
+  build-storybook:
+    executor:
+      name: node/default
+    steps:
+      - install-deps
+      - run:
+          name: Run tests
+          command: npm run build
 
 workflows:
   version: 2.1
   build-and-test:
     jobs:
-      - build-and-test
+      - test
+      - build-package
+      - build-storybook
