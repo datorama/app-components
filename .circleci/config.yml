@@ -11,11 +11,11 @@ jobs:
           steps:
             - run:
                 name: Install packages
-                # build the project into the dist directory
+                # Install packages
                 command: npm install
             - run:
                 name: Run tests
-                # build the project into the dist directory
+                # Run tests
                 command: npm run test
 workflows:
   build-and-test:
