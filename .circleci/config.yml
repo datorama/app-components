@@ -1,23 +1,37 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
+commands:
+  install-deps:
+    description: "Job preparation"
+    steps:
+      - checkout
+      # find compatible cache from previous build,
+      # it should have same dependencies installed from package.json checksum
+      - restore_cache:
+          keys:
+            - cache-{{ arch }}-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install Dependencies
+          command: npm ci
+      # save new cache folder if needed
+      - save_cache:
+          key: cache-{{ arch }}-{{ checksum "package-lock.json" }}
+          paths:
+            - ~/.npm
+            - ~/.cache
 jobs:
   build-and-test:
     executor:
       name: node/default
     steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run:
-                name: Install packages
-                # Install packages
-                command: npm install
-            - run:
-                name: Run tests
-                # Run tests
-                command: npm run test
+      - install-deps
+      - run:
+          name: Run tests
+          command: npm run test
+
 workflows:
+  version: 2.1
   build-and-test:
     jobs:
       - build-and-test
