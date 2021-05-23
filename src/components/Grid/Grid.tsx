@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import 'react-virtualized/styles.css';
 import * as JsSearch from 'js-search';
-import { get, orderBy, isBoolean, unset } from 'lodash/fp';
+import { get, orderBy, isBoolean, unset, toLower } from 'lodash/fp';
 
 import {
   DataArray,
@@ -192,7 +192,11 @@ export const Grid = (props: Props) => {
     }
 
     if (!onSort) {
-      result = orderBy(sortKeys, sortOrder, result);
+      result = orderBy(
+        [(item) => toLower(get(sortKeys, item))],
+        sortOrder,
+        result
+      );
     }
 
     setFilteredData(result);
