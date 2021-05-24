@@ -1,0 +1,16 @@
+name: Tag Check
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  tag-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Run tag check script
+        run: .github/scripts/tag-check.sh
