@@ -59,6 +59,7 @@ export class Select extends React.Component {
     spinnerColor: PropTypes.string,
     usePortalForMenu: PropTypes.bool,
     isSingleOptionRemovable: PropTypes.bool,
+    rowHeight: PropTypes.number,
   };
 
   state = {
@@ -464,6 +465,7 @@ export class Select extends React.Component {
       noResultsRenderer,
       usePortalForMenu,
       isSingleOptionRemovable,
+      rowHeight,
     } = this.props;
     const {
       open,
@@ -557,6 +559,7 @@ export class Select extends React.Component {
                 noResultsRenderer={noResultsRenderer}
                 usePortalForMenu={usePortalForMenu}
                 containerRef={this.containerRef}
+                rowHeight={rowHeight}
               />
             </CurrentHoveredIndexContext.Provider>
           </StyledFade>
