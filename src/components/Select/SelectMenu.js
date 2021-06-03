@@ -43,6 +43,7 @@ const SelectionMenu = (props) => {
     loading,
     spinnerColor,
     noResultsRenderer,
+    rowHeight,
   } = props;
 
   let maxHeight = 400;
@@ -117,6 +118,7 @@ const SelectionMenu = (props) => {
             large={large}
             inlineSearch={inlineSearch}
             currentHoveredOptionValue={currentHoveredOptionValue}
+            rowHeight={rowHeight}
           />
         </Container>
       )}
