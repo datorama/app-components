@@ -6,6 +6,7 @@ export const useRange = (
   min: number,
   max: number,
   onChange: (value: number) => void,
+  onCommit: (value: number) => void,
   innerMax?: number
 ) => {
   const initialPercentage = useMemo(
@@ -66,7 +67,8 @@ export const useRange = (
     setDragging(false);
     setPercentage(percentage);
     setLastPercentage(percentage);
-  }, [percentage]);
+    onCommit(value.current);
+  }, [percentage, onCommit, value.current]);
 
   const handleClick = useCallback(
     (e) => {
@@ -97,8 +99,9 @@ export const useRange = (
       if (innerMax < newValue || max < newValue || min > newValue) return;
       value.current = newValue;
       onChange(newValue);
+      onCommit(newValue);
     },
-    [value.current, max, min, innerMax, onChange]
+    [value.current, max, min, innerMax, onChange, onCommit]
   );
 
   return {

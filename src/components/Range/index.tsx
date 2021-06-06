@@ -9,7 +9,7 @@ import { useRange } from './range.hooks';
 // components
 import { Draggable } from '../Draggable';
 import { TextInput } from '../TextInput';
-import { toString } from 'lodash/fp';
+import { noop, toString } from 'lodash/fp';
 
 interface RangeProps {
   min?: number;
@@ -19,6 +19,7 @@ interface RangeProps {
   showValue?: boolean;
   className?: string;
   onChange: (value: number) => void;
+  onCommit?: (value: number) => void;
   innerMax?: number;
   valueLabelRenderer?: (value: number) => JSX.Element;
   boundaryLabelRenderer?: (value: number) => JSX.Element;
@@ -33,6 +34,7 @@ export const Range = ({
   showValue = false,
   className = 'range',
   onChange,
+  onCommit = noop,
   innerMax,
   valueLabelRenderer,
   boundaryLabelRenderer,
@@ -48,7 +50,7 @@ export const Range = ({
     dragging,
     value,
     setValue,
-  } = useRange(initialValue, min, max, onChange, innerMax);
+  } = useRange(initialValue, min, max, onChange, onCommit, innerMax);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value: currentValue } = event.target;
