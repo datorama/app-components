@@ -29,18 +29,21 @@ const SelectOptions = (props) => {
     inlineSearch,
     currentHoveredOptionValue,
     theme,
+    rowHeight,
   } = props;
 
   const containerRef = useRef(null);
   const itemsRef = useRef({});
 
-  const rowHeight = useMemo(() => getOptionHeight({ small, large, theme }), [
-    large,
-    small,
-    theme,
-  ]);
+  const calculatedRowHeight = useMemo(
+    () => rowHeight || getOptionHeight({ small, large, theme }),
+    [rowHeight, large, small, theme]
+  );
 
-  const maxHeight = useMemo(() => maxItems * rowHeight, [maxItems, rowHeight]);
+  const maxHeight = useMemo(() => maxItems * calculatedRowHeight, [
+    maxItems,
+    calculatedRowHeight,
+  ]);
 
   const currentHoveredIndex = useContext(CurrentHoveredIndexContext);
 
@@ -114,7 +117,7 @@ const SelectOptions = (props) => {
     );
   });
 
-  const innerListHeight = rowHeight * items.length;
+  const innerListHeight = calculatedRowHeight * items.length;
 
   return (
     <Container
@@ -137,7 +140,7 @@ const SelectOptions = (props) => {
                 width={width}
                 scrollToIndex={currentHoveredIndex}
                 rowCount={items.length}
-                rowHeight={rowHeight}
+                rowHeight={calculatedRowHeight}
                 rowRenderer={({ index, style }) =>
                   React.cloneElement(items[index], {
                     style,
