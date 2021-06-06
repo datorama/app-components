@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Range } from '../components/Range';
 
 export default {
@@ -7,7 +7,11 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Range {...args} />;
+const Template = (args) => {
+  const [value, setValue] = useState(100);
+
+  return <Range {...args} onChange={setValue} />;
+};
 
 export const Primary = Template.bind({});
 Primary.args = {
