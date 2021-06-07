@@ -1,5 +1,4 @@
-/* eslint react/prop-types: 0 */
-import React, { ChangeEvent, useCallback, useMemo } from 'react';
+import React, { ChangeEvent, useMemo } from 'react';
 import styled, { css } from 'styled-components';
 
 import { hexToRgba } from '../../utils/theme.utils';
