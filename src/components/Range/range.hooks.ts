@@ -31,7 +31,6 @@ export const useRange = (
   const handleDrag = useCallback(
     ({ translateX }) => {
       const { width } = outerEl.current.getBoundingClientRect();
-      console.log(translateX);
       const calcPercentage = Math.min(
         100,
         lastPercentage + (translateX / width) * 100
