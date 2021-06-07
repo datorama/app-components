@@ -10,7 +10,11 @@ export default {
 const Template = (args) => {
   const [value, setValue] = useState(100);
 
-  return <Range {...args} onChange={setValue} />;
+  return (
+    <div style={{ paddingTop: 20 }}>
+      <Range {...args} onChange={setValue} />
+    </div>
+  );
 };
 
 export const Primary = Template.bind({});

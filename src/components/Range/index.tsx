@@ -1,5 +1,5 @@
 /* eslint react/prop-types: 0 */
-import React, { ChangeEvent, useCallback } from 'react';
+import React, { ChangeEvent, useCallback, useMemo } from 'react';
 import styled, { css } from 'styled-components';
 
 import { hexToRgba } from '../../utils/theme.utils';
@@ -57,16 +57,23 @@ export const Range = ({
     setValue(+currentValue);
   };
 
+  const renderValueContent = useMemo(() => {
+    return valueLabelRenderer ? (
+      valueLabelRenderer(value)
+    ) : renderInput ? (
+      <TextInput
+        className="value-input-wrapper"
+        type="number"
+        value={toString(value)}
+        onChange={handleInputChange}
+      />
+    ) : (
+      value
+    );
+  }, [valueLabelRenderer, value, renderInput, handleInputChange]);
+
   return (
     <Container className={className}>
-      {renderInput && (
-        <TextInput
-          className="value-input-wrapper"
-          type="number"
-          value={toString(value)}
-          onChange={handleInputChange}
-        />
-      )}
       <DragArea
         className="drag-area"
         disabled={disabled}
@@ -93,10 +100,10 @@ export const Range = ({
         </Draggable>
         <Value
           left={percentage}
-          visible={showValue || dragging}
+          visible={renderInput || showValue || dragging}
           className="value"
         >
-          {valueLabelRenderer ? valueLabelRenderer(value) : value}
+          {renderValueContent}
         </Value>
 
         <Label left="-20px" className="label">
@@ -115,12 +122,18 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   .value-input-wrapper {
-    max-width: 60px;
-    margin-right: 10px;
+    max-width: 30px;
     .text-input {
-      height: 26px;
-      border-radius: 6px;
-      padding: 0 5px 0 10px;
+      background: transparent;
+      color: ${({ theme }) => theme.p0};
+      border: none;
+      height: 16px;
+      font-size: 12px;
+      padding: 0;
+      text-align: center;
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
     }
   }
 `;
