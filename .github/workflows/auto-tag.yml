@@ -1,7 +1,7 @@
-name: Tag Check
+name: Auto Tag
 
 on:
-  pull_request:
+  push:
     branches: [ master ]
 
 jobs:
@@ -12,5 +12,5 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Run tag check script
-        run: .github/scripts/tag-check.sh
+      - name: Set latest tag on push to master
+        run: .github/scripts/auto-tag.sh
