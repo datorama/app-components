@@ -15,7 +15,7 @@ echo "Package version:" $VERSION
 if [[ $VERSION == $TAG_VERSION ]]; then
     git push origin $VERSION;
 else
-    git tag -a $VERSION
+    git tag $VERSION
     git push origin $VERSION
 fi
 
