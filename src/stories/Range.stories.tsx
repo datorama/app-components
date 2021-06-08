@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Range } from '../components/Range';
 
 export default {
@@ -7,7 +7,15 @@ export default {
   argTypes: {},
 };
 
-const Template = (args) => <Range {...args} />;
+const Template = (args) => {
+  const [value, setValue] = useState(100);
+
+  return (
+    <div style={{ paddingTop: 20 }}>
+      <Range {...args} onChange={setValue} />
+    </div>
+  );
+};
 
 export const Primary = Template.bind({});
 Primary.args = {

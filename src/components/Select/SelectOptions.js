@@ -40,10 +40,10 @@ const SelectOptions = (props) => {
     [rowHeight, large, small, theme]
   );
 
-  const maxHeight = useMemo(
-    () => maxItems * calculatedRowHeight,
-    [maxItems, calculatedRowHeight]
-  );
+  const maxHeight = useMemo(() => maxItems * calculatedRowHeight, [
+    maxItems,
+    calculatedRowHeight,
+  ]);
 
   const currentHoveredIndex = useContext(CurrentHoveredIndexContext);
 
