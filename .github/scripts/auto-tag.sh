@@ -11,6 +11,11 @@ VERSION="v"$(npx -c 'echo "$npm_package_version"')
 
 echo "Package version:" $VERSION
 
-git tag -a $VERSION
+if [[ $VERSION == $TAG_VERSION ]]; then
+    git push origin $VERSION;
+else
+    git tag -a $VERSION
+    git push origin $VERSION
+fi
 
-git push origin $VERSION
+exit 0
