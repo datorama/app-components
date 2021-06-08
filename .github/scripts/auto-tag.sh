@@ -14,7 +14,7 @@ echo "Package version:" $VERSION
 
 if [[ $VERSION == $TAG_VERSION ]]; then
     echo "Local tag already exists, pushing tag to remote"
-    git push origin $VERSION;
+    git push origin $VERSION
 else
     echo "Local tag doesn't exist, adding a tag & pushing to remote"
     git tag $VERSION
