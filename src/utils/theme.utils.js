@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import * as typography from '../constants/typography.constants';
-import { isEmpty } from 'lodash/fp';
+import { isEmpty, isNumber, get } from 'lodash/fp';
 
 export const hexToRgba = (hex, opacity) => {
   if (typeof hex !== 'string') {
@@ -262,3 +262,22 @@ export const loadFonts = (font) => {
 
   style.appendChild(document.createTextNode(css));
 };
+
+/*
+ * Util method for getting CSS properties based on their type.
+ * If a number is passed - it adds 'px' at the end. If string - leaves as is.
+ * `width={50}` => `width: 50px`
+ * `width="50%"` => `width: 50%`
+ * */
+export const getStyledStringOrNumberValue = (valueKey) => (props) => {
+  const value = get(valueKey, props);
+
+  if (isNumber(value)) return `${value}px`;
+
+  return value;
+};
+
+export const getRgbaThemeColor =
+  (themeColor, opacity) =>
+  ({ theme }) =>
+    hexToRgba(theme[themeColor], opacity);
