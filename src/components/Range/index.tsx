@@ -20,8 +20,8 @@ interface RangeProps {
   onChange: (value: number) => void;
   onCommit?: (value: number) => void;
   innerMax?: number;
-  valueLabelRenderer?: (value: number) => JSX.Element;
-  boundaryLabelRenderer?: (value: number) => JSX.Element;
+  valueLabelRenderer?: (value: number) => JSX.Element | string;
+  boundaryLabelRenderer?: (value: number) => JSX.Element | string;
   renderInput?: boolean;
 }
 
