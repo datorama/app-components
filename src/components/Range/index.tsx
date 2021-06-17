@@ -20,8 +20,8 @@ interface RangeProps {
   onChange: (value: number) => void;
   onCommit?: (value: number) => void;
   innerMax?: number;
-  valueLabelRenderer?: (value: number) => JSX.Element;
-  boundaryLabelRenderer?: (value: number) => JSX.Element;
+  valueLabelRenderer?: (value: number) => JSX.Element | string;
+  boundaryLabelRenderer?: (value: number) => JSX.Element | string;
   renderInput?: boolean;
 }
 
@@ -97,13 +97,6 @@ export const Range = ({
             disabled={disabled}
           />
         </Draggable>
-        <Value
-          left={percentage}
-          visible={renderInput || showValue || dragging}
-          className="value"
-        >
-          {renderValueContent}
-        </Value>
 
         <Label left="-20px" className="label">
           {boundaryLabelRenderer ? boundaryLabelRenderer(min) : min}
@@ -112,6 +105,14 @@ export const Range = ({
           {boundaryLabelRenderer ? boundaryLabelRenderer(max) : max}
         </Label>
       </DragArea>
+      <Value
+        id="value"
+        left={percentage}
+        visible={renderInput || showValue || dragging}
+        className="value"
+      >
+        {renderValueContent}
+      </Value>
     </Container>
   );
 };
@@ -120,6 +121,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  position: relative;
   .value-input-wrapper {
     max-width: 30px;
     .text-input {
@@ -129,6 +131,7 @@ const Container = styled.div`
       height: 16px;
       font-size: 12px;
       padding: 0;
+      min-width: 25px;
       text-align: center;
       &::-webkit-inner-spin-button {
         -webkit-appearance: none;

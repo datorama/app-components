@@ -53,6 +53,9 @@ export const useRange = (
     const newValue = Math.round((percentage / 100) * (max - min)) + min;
     value.current = newValue;
     onChange(newValue);
+    if (!dragging) {
+      onCommit(newValue);
+    }
   }, [max, min, percentage, onChange, value]);
 
   useEffect(() => {
@@ -60,7 +63,9 @@ export const useRange = (
     setPercentage(newPercentage);
   }, [max, min, value.current]);
 
-  const handleDragStart = useCallback(() => setDragging(true), [setDragging]);
+  const handleDragStart = useCallback(() => {
+    setDragging(true);
+  }, [setDragging]);
 
   const handleDragEnd = useCallback(() => {
     setDragging(false);
