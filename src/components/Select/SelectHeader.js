@@ -38,6 +38,7 @@ const SelectHeader = (props) => {
 
   let label = placeholder;
   const optionsSize = getOptionsSize(options);
+  let isLabelPlaceholder = false;
 
   if (values.length <= optionsSize) {
     label = `${values.length} selected`;
@@ -55,6 +56,7 @@ const SelectHeader = (props) => {
 
   if (!values.length) {
     label = placeholder;
+    isLabelPlaceholder = true;
   }
 
   if (placeholderRenderer) {
@@ -67,6 +69,7 @@ const SelectHeader = (props) => {
 
     if (!isEmpty(customLabel)) {
       label = customLabel;
+      isLabelPlaceholder = true;
     }
   }
 
@@ -103,7 +106,11 @@ const SelectHeader = (props) => {
       disabled={headerLoading}
     >
       <LabelWrapper>
-        <Label small={small} large={large}>
+        <Label
+          small={small}
+          large={large}
+          className={isLabelPlaceholder ? 'placeholder' : ''}
+        >
           {label}
         </Label>
       </LabelWrapper>
@@ -135,6 +142,9 @@ export default SelectHeader;
 
 const LabelWrapper = styled.div`
   width: calc(100% - 15px);
+  .placeholder {
+    color: ${({ theme }) => theme.p300};
+  }
 `;
 
 const RemoveIcon = styled(Close)`
