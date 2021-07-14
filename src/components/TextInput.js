@@ -29,6 +29,7 @@ export const TextInput = (props) => {
         className="text-input"
         type={props.type || 'text'}
         maxLength={props.maxLength}
+        autoFocus={props.autofocus}
       />
       {withMessage && (
         <Message valid={props.valid}>

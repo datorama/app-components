@@ -29,5 +29,15 @@ export const Primary = Template.bind({});
 Primary.args = {
   children: 'Modal Content',
   title: 'Demo Modal',
-  buttons: [{ type: 'primary', label: 'Close', onClick: () => null }],
+  buttons: [
+    { type: 'secondary', label: 'Cancel' },
+    {
+      type: 'primary',
+      label: 'Save',
+      onClick: () => {
+        // Your logic here
+      },
+      closeOnClick: false,
+    },
+  ],
 };

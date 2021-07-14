@@ -13,4 +13,5 @@ export const Primary = Template.bind({});
 Primary.args = {
   label: 'User Name',
   placeholder: 'John Do',
+  autofocus: true,
 };
