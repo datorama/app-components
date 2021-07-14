@@ -38,7 +38,7 @@ export const Modal = (props) => {
       if (onClick) {
         onClick();
       }
-      if (closeOnClick) {
+      if (closeOnClick || closeOnClick === undefined) {
         throttledToggle();
       }
     },
@@ -113,15 +113,13 @@ const FooterButtons = ({ buttons, handleClick }) =>
     if (typeof button === 'function') {
       return button({ key: `btn-${i}` });
     }
-    const closeOnClick =
-      button.closeOnClick || button.closeOnClick === undefined;
 
     return (
       <StyledButton
         key={`btn-${i}`}
         secondary={button.type === 'secondary'}
         disabled={button.disabled}
-        onClick={handleClick(button.onClick, closeOnClick)}
+        onClick={handleClick(button.onClick, button.closeOnClick)}
       >
         {button.label}
       </StyledButton>
