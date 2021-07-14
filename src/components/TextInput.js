@@ -58,6 +58,7 @@ TextInput.propTypes = {
   className: PropTypes.string,
   type: PropTypes.string,
   maxLength: PropTypes.number,
+  autofocus: PropTypes.bool,
 };
 
 const Container = styled.div`
