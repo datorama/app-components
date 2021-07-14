@@ -34,12 +34,13 @@ export const Modal = (props) => {
   const throttledToggle = useCallback(throttle(500, toggleOpen), [toggleOpen]);
 
   const handleClick = useCallback(
-    (onClick, buttonId) => (evt) => {
+    (onClick, closeOnClick) => () => {
       if (onClick) {
         onClick();
       }
-
-      throttledToggle(evt, buttonId);
+      if (closeOnClick) {
+        throttledToggle();
+      }
     },
     [throttledToggle]
   );
@@ -112,13 +113,15 @@ const FooterButtons = ({ buttons, handleClick }) =>
     if (typeof button === 'function') {
       return button({ key: `btn-${i}` });
     }
+    const closeOnClick =
+      button.closeOnClick || button.closeOnClick === undefined;
 
     return (
       <StyledButton
         key={`btn-${i}`}
         secondary={button.type === 'secondary'}
         disabled={button.disabled}
-        onClick={handleClick(button.onClick, button.id)}
+        onClick={handleClick(button.onClick, closeOnClick)}
       >
         {button.label}
       </StyledButton>
